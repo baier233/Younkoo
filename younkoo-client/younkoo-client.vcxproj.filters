@@ -36,6 +36,9 @@
     <ClCompile Include="src\base\jvm\JVM.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\jvm\jni\Pro.hpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -47,10 +50,28 @@
     <ClInclude Include="src\utils\Misc.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\jvm\jni\MetaJNI.hpp">
+    <ClInclude Include="src\base\jvm\JVM.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\jvm\JVM.hpp">
+    <ClInclude Include="src\base\jvm\jni\types\JNI.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\jni\types\Klass.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\jni\types\ObjectWrapper.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\jni\types\Misc.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\jni\types\Array.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\jni\types\Field.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\jni\types\Method.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
