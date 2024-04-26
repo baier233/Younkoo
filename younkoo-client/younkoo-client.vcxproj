@@ -149,7 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\base\jvm\jni\Pro.hpp" />
+    <ClCompile Include="src\base\jvm\jni\Wrapper.hpp" />
     <ClCompile Include="src\base\jvm\JVM.cpp" />
     <ClCompile Include="src\Bootstrap.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -161,7 +161,7 @@
   <ItemGroup>
     <ClInclude Include="src\base\jvm\jni\types\Array.hpp" />
     <ClInclude Include="src\base\jvm\jni\types\Field.hpp" />
-    <ClInclude Include="src\base\jvm\jni\types\JNI.hpp" />
+    <ClInclude Include="src\base\jvm\jni\types\Env.hpp" />
     <ClInclude Include="src\base\jvm\jni\types\Klass.hpp" />
     <ClInclude Include="src\base\jvm\jni\types\Method.hpp" />
     <ClInclude Include="src\base\jvm\jni\types\Misc.hpp" />

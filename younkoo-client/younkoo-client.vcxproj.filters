@@ -36,7 +36,7 @@
     <ClCompile Include="src\base\jvm\JVM.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\jvm\jni\Pro.hpp">
+    <ClCompile Include="src\base\jvm\jni\Wrapper.hpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,7 +53,7 @@
     <ClInclude Include="src\base\jvm\JVM.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\jvm\jni\types\JNI.hpp">
+    <ClInclude Include="src\base\jvm\jni\types\Env.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\jvm\jni\types\Klass.hpp">

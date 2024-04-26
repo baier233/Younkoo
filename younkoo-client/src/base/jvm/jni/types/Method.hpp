@@ -161,7 +161,7 @@ namespace JNI {
 	private:
 		jclass owner_Klass;
 		jobject object_instance;
-		jMethodID id;
+		jmethodID id;
 		std::string Method_name;
 		bool is_static;
 	};

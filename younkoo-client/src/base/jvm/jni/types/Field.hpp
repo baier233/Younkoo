@@ -193,7 +193,7 @@ namespace JNI {
 	private:
 		jclass owner_Klass = nullptr;
 		jobject object_instance = nullptr;
-		jFieldID id = nullptr;
+		jfieldID id = nullptr;
 		std::string Field_name;
 		bool is_static = false;
 	};
