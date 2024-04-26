@@ -5,11 +5,11 @@
 namespace JNI {
 
 	template<class array_element_type>
-	class array : public object_wrapper
+	class Array : public ObjectWrapper
 	{
 	public:
-		array(jobject object_instance, bool is_global_ref = false) :
-			object_wrapper(object_instance, is_global_ref)
+		Array(jobject object_instance, bool is_global_ref = false) :
+			ObjectWrapper(object_instance, is_global_ref)
 		{
 		}
 
@@ -76,7 +76,7 @@ namespace JNI {
 
 		jsize get_length()
 		{
-			return get_env()->GetArrayLength((jarray)object_instance);
+			return get_env()->GetArrayLength((jArray)object_instance);
 		}
 
 		static constexpr auto get_signature()
@@ -89,7 +89,7 @@ namespace JNI {
 			return get_signature();
 		}
 
-		static array create(const std::vector<array_element_type>& values)
+		static Array create(const std::vector<array_element_type>& values)
 		{
 			jobject object = nullptr;
 			if constexpr (!is_jni_primitive_type<array_element_type>)
@@ -138,7 +138,7 @@ namespace JNI {
 				object = get_env()->NewDoubleArray((jsize)values.size());
 				get_env()->SetDoubleArrayRegion((jdoubleArray)object, 0, (jsize)values.size(), values.data());
 			}
-			return array(object);
+			return Array(object);
 		}
 	};
 }

@@ -32,12 +32,12 @@ namespace JNI {
 
 
 	template<class members_type>
-	class klass : public members_type
+	class Klass : public members_type
 	{
 	public:
-		klass(std::string class_name,jobject object_instance = nullptr, bool is_global_ref = false) :
+		Klass(std::string class_name,jobject object_instance = nullptr, bool is_global_ref = false) :
 			class_name(class_name),
-			members_type(get_cached_jclass<klass>(), object_instance, is_global_ref) //be careful order of initialization matters
+			members_type(get_cached_jclass<Klass>(), object_instance, is_global_ref) //be careful order of initialization matters
 		{
 		}
 
