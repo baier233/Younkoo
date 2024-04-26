@@ -1,5 +1,5 @@
 #pragma once
-#include "JNI.hpp"
+#include "Env.hpp"
 
 namespace JNI {
 	template<typename method_return_type, class... method_parameters_type>

@@ -3,4 +3,6 @@
 #include "types/Field.hpp"
 #include "types/ObjectWrapper.hpp"
 #include "types/Method.hpp"
-#include "types/Klass.hpp"
+#include "types/Klass.hpp"'
+#include "types/JNI.hpp"
+#include "types/Misc.hpp"'

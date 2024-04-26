@@ -1,5 +1,5 @@
 #pragma once
-#include "JNI.hpp"
+#include "Env.hpp"
 #include "ObjectWrapper.hpp"
 
 namespace JNI {

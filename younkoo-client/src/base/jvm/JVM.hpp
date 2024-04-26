@@ -1,6 +1,6 @@
 #pragma once
 #include "../../utils/Singleton.hpp"
-#include "jni/Pro.hpp"
+#include "jni/Wrapper.hpp"
 class JVM : public Singleton<JVM>
 {
 protected:
