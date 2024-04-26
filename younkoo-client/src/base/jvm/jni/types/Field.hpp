@@ -186,7 +186,7 @@ namespace JNI {
 			return is_static;
 		}
 
-		operator jFieldID() const
+		operator jfieldID() const
 		{
 			return id;
 		}

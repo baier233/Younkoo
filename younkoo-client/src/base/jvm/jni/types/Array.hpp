@@ -76,7 +76,7 @@ namespace JNI {
 
 		jsize get_length()
 		{
-			return get_env()->GetArrayLength((jArray)object_instance);
+			return get_env()->GetArrayLength((jarray)object_instance);
 		}
 
 		static constexpr auto get_signature()

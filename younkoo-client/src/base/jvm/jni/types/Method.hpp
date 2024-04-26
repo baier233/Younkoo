@@ -138,7 +138,7 @@ namespace JNI {
 		}
 
 
-		operator jMethodID() const
+		operator jmethodID() const
 		{
 			return id;
 		}
