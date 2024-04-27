@@ -15,7 +15,7 @@ namespace JNI {
 			if (id) return;
 			this->method_name = method_name;
 			auto method_sign = get_signature();
-			std::cout << "Getting Method : " << method_name + " " + method_sign << std::endl;
+			std::cout << "Getting Method : " << method_name + " " + method_sign << " isStatic :" << is_static << std::endl;
 			if constexpr (is_static)
 				id = get_env()->GetStaticMethodID(owner_klass, method_name.c_str(), method_sign.c_str());
 			if constexpr (!is_static)
@@ -156,7 +156,9 @@ namespace JNI {
 			return std::string("(") + (get_signature_for_type<method_parameters_type>() + ... + ")") + get_signature_for_type<method_return_type>();
 		}
 
-
+		void print() {
+			std::cout << this->get_name() <<" :\n{" << "\n   Name: " << this->get_name() << "\n   Sign:" << this->get_signature() << "\n   ID :" << this->id << "\n}" << std::endl;
+		}
 
 		bool is_method_static()
 		{
@@ -166,7 +168,7 @@ namespace JNI {
 		private:
 			jclass owner_klass;
 			jobject object_instance;
-			jmethodID id = nullptr;
+			static inline jmethodID id = nullptr;
 			std::string method_name;
 		};
 

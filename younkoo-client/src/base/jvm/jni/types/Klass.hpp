@@ -52,6 +52,9 @@ namespace JNI {
 		{
 			return "L" + members_type::get_class_name() + ";" ;
 		}
+		void print() {
+			std::cout << get_name()   + " :\n{	"  << "\n  Name:" << this->get_name() << "\n  Sign:" << this->get_signature() << "\n  owner_klass :" << this->owner_klass << "\n}" << std::endl;
+		}
 	private:
 	};
 }

@@ -2,6 +2,9 @@
 
 #include "Env.hpp"
 #include "ObjectWrapper.hpp"
+
+#include <iostream>
+
 namespace JNI {
 	template<typename field_type, is_static_t is_static = NOT_STATIC>
 	class Field
@@ -13,6 +16,8 @@ namespace JNI {
 			object_instance(m.object_instance)
 		{
 			if (id) return;
+
+			std::cout << "Getting Field : " << get_name() + " " + get_signature() << " isStatic :" << is_static << std::endl;
 			if constexpr (is_static)
 				id = get_env()->GetStaticFieldID(owner_klass, get_name().c_str(), get_signature().c_str());
 			if constexpr (!is_static)
@@ -179,10 +184,15 @@ namespace JNI {
 			return get_signature_for_type<field_type>();
 		}
 
-		 bool is_Field_static()
+		 bool is_field_static()
 		{
 			return is_static;
 		}
+
+		 void print() {
+			 std::cout <<  this->get_name() << " :\n{" << "\n   Name: " << this->get_name() << "\n   Sign:" << this->get_signature() << "\n   Value :" << this->get() << "\n}" << std::endl;
+		 }
+
 
 		operator jfieldID() const
 		{
@@ -191,7 +201,7 @@ namespace JNI {
 	private:
 		jclass owner_klass = nullptr;
 		jobject object_instance = nullptr;
-		jfieldID id = nullptr;
+		inline static jfieldID id = nullptr;
 		std::string field_name;
 	};
 
