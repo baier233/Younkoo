@@ -9,6 +9,8 @@ protected:
 public:
 	JVM();
 	bool setup();
+	JNIEnv* Env;
+	JavaVM* jvm;
 private:
 };
 

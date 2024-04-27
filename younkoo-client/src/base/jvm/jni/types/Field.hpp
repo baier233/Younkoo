@@ -12,6 +12,7 @@ namespace JNI {
 			owner_klass(m.owner_klass),
 			object_instance(m.object_instance)
 		{
+			if (id) return;
 			if constexpr (is_static)
 				id = get_env()->GetStaticFieldID(owner_klass, get_name().c_str(), get_signature().c_str());
 			if constexpr (!is_static)
@@ -173,7 +174,7 @@ namespace JNI {
 			return field_name;
 		}
 
-		auto get_signature()
+		static auto get_signature()
 		{
 			return get_signature_for_type<field_type>();
 		}

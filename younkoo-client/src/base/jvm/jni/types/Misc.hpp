@@ -14,17 +14,10 @@ namespace JNI {
 		NOT_STATIC = false
 	};
 
-	enum object_t : bool
-	{
-		MINECRAFT = true,
-		JAVA = false
-	};
-	template<class T> inline std::string get_signature_for_object(T obj) {
-		if constexpr (!is_jni_primitive_type<T> && !std::is_void_v<T>)
-			return obj.get_signature();
-	}
+
 	template<class T> inline std::string get_signature_for_type()
 	{
+		
 		if constexpr (std::is_void_v<T>)
 			return std::string("V");
 		if constexpr (std::is_same_v<jboolean, T>)
@@ -43,6 +36,8 @@ namespace JNI {
 			return std::string("J");
 		if constexpr (std::is_same_v<jdouble, T>)
 			return std::string("D");
+		if constexpr (!is_jni_primitive_type<T> && !std::is_void_v<T>)
+			return T::get_signature();
 		return std::string("");
 	}
 

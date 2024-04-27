@@ -2,22 +2,25 @@
 #include "Env.hpp"
 #include "Misc.hpp"
 
+#include <iostream>
 
 namespace JNI {
-	template<typename klass_type> struct jclass_cache
+	template<class klass_type> struct jclass_cache
 	{
 		inline static std::shared_mutex mutex{};
 		inline static jclass value = nullptr;
 	};
 
-	template<typename klass_type> inline jclass get_cached_jclass() //findClass
+	template<class klass_type> inline jclass get_cached_jclass() //findClass
 	{
 		jclass& cached = jclass_cache<klass_type>::value;
 		{
 			std::shared_lock shared_lock{ jclass_cache<klass_type>::mutex };
 			if (cached) return cached;
 		}
-		jclass found = (jclass)get_env()->NewGlobalRef(get_env()->FindClass(klass_type::get_name().c_str()));
+		auto klassName = klass_type::get_name();
+		std::cout << "Finding Klass :" <<klassName << std::endl;
+		jclass found = (jclass)get_env()->NewGlobalRef(get_env()->FindClass(klassName.c_str()));
 		{
 			std::unique_lock unique_lock{ jclass_cache<klass_type>::mutex };
 			cached = found;

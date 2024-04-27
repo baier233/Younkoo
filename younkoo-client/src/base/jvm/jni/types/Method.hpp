@@ -1,5 +1,7 @@
 #pragma once
 #include "Env.hpp"
+#include "Misc.hpp"
+#include <iostream>
 
 namespace JNI {
 	template<typename method_return_type, is_static_t is_static = NOT_STATIC, class... method_parameters_type>
@@ -7,15 +9,17 @@ namespace JNI {
 	{
 	public:
 		Method(std::string method_name,const EmptyMembers& m) :
-			method_name(method_name),
 			owner_klass(m.owner_klass),
 			object_instance(m.object_instance)
 		{
 			if (id) return;
+			this->method_name = method_name;
+			auto method_sign = get_signature();
+			std::cout << "Getting Method : " << method_name + " " + method_sign << std::endl;
 			if constexpr (is_static)
-				id = get_env()->GetStaticMethodID(owner_klass, get_name().c_str(), get_signature().c_str());
+				id = get_env()->GetStaticMethodID(owner_klass, method_name.c_str(), method_sign.c_str());
 			if constexpr (!is_static)
-				id = get_env()->GetMethodID(owner_klass, get_name().c_str(), get_signature().c_str());
+				id = get_env()->GetMethodID(owner_klass, method_name.c_str(), method_sign.c_str());
 			assertm(id, (const char*)("failed to find MethodID : " +  get_name() + " " + get_signature() ).c_str());
 		}
 
@@ -162,7 +166,7 @@ namespace JNI {
 		private:
 			jclass owner_klass;
 			jobject object_instance;
-			jmethodID id;
+			jmethodID id = nullptr;
 			std::string method_name;
 		};
 
