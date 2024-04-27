@@ -61,14 +61,14 @@ namespace JNI {
 
 	struct EmptyMembers : public ObjectWrapper
 	{
-		EmptyMembers(jclass owner_Klass, jobject object_instance, bool is_global_ref) :
+		EmptyMembers(jclass owner_klass, jobject object_instance, bool is_global_ref) :
 			ObjectWrapper(object_instance, is_global_ref),
-			owner_Klass(owner_Klass)
+			owner_klass(owner_klass)
 		{
 		}
 
 		virtual std::string get_class_name() = 0;
 
-		jclass owner_Klass;
+		jclass owner_klass;
 	};
 }

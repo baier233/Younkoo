@@ -8,6 +8,12 @@ namespace JNI {
 	template<typename T, typename... U> inline constexpr bool is_any_of_type = (std::is_same_v<T, U> || ...);
 	template<typename T> inline constexpr bool is_jni_primitive_type = is_any_of_type<T, jboolean, jbyte, jchar, jshort, jint, jfloat, jlong, jdouble>;
 
+	enum is_static_t : bool
+	{
+		STATIC = true,
+		NOT_STATIC = false
+	};
+
 	template<class T> inline std::string get_signature_for_type()
 	{
 		if constexpr (std::is_void_v<T>)
@@ -30,6 +36,7 @@ namespace JNI {
 			return std::string("J");
 		if constexpr (std::is_same_v<jdouble, T>)
 			return std::string("D");
+		return std::string("");
 	}
 
 }

@@ -16,7 +16,7 @@
 			JNI::EmptyMembers(owner_klass, object_instance, is_global_ref)									\
 		{																									\
 	}																									\
-		std::string get_class_name() override\
+		std::string get_class_name() override																										\
 		{																										\
 			return obf_klass_name;																										\
 		}																										\

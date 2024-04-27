@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClCompile Include="src\base\jvm\jni\Wrapper.hpp" />
     <ClCompile Include="src\base\jvm\JVM.cpp" />
+    <ClCompile Include="src\base\sdk\mappings.hpp" />
     <ClCompile Include="src\Bootstrap.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\base\Younkoo.cpp" />
