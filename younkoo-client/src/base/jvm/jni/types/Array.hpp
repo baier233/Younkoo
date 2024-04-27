@@ -81,7 +81,7 @@ namespace JNI {
 
 		static constexpr auto get_signature()
 		{
-			return concat<"[", get_signature_for_type<array_element_type>()>();
+			return "[" + get_signature_for_type<array_element_type>();
 		}
 
 		static constexpr auto get_name() //this is used for FindClass

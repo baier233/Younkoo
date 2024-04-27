@@ -12,12 +12,10 @@ namespace JNI {
 			owner_klass(m.owner_klass),
 			object_instance(m.object_instance)
 		{
-			if (id) return;
 			if constexpr (is_static)
-				id = get_env()->GetStaticFieldID(owner_klass, get_name(), get_signature());
+				id = get_env()->GetStaticFieldID(owner_klass, get_name().c_str(), get_signature().c_str());
 			if constexpr (!is_static)
-				id = get_env()->GetFieldID(owner_klass, get_name(), get_signature());
-			assertm(id, (const char*)(concat<"failed to find FieldID: ", get_name(), " ", get_signature()>()));
+				id = get_env()->GetFieldID(owner_klass, get_name().c_str(), get_signature().c_str());
 		}
 
 		Field& operator=(const field_type& new_value)

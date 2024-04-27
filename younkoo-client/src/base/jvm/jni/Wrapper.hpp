@@ -6,6 +6,10 @@
 #include "types/Klass.hpp"'
 #include "types/Env.hpp"
 #include "types/Misc.hpp"'
+#include <map>
+#include <string>
+
+
 
 #define BEGIN_KLASS_DEF(unobf_klass_name, obf_klass_name)													\
 	struct unobf_klass_name##_members;																		\
@@ -16,7 +20,7 @@
 			JNI::EmptyMembers(owner_klass, object_instance, is_global_ref)									\
 		{																									\
 	}																									\
-		std::string get_class_name() override																										\
+		static std::string get_class_name()																										\
 		{																										\
 			return obf_klass_name;																										\
 		}																										\
@@ -32,7 +36,7 @@
 			inherit_from##_members(owner_klass, object_instance, is_global_ref)								\
 		{																									\
 		}																									\
-		std::string get_class_name() override\
+		static std::string get_class_name()\
 		{																										\
 			return obf_klass_name;																										\
 		}		

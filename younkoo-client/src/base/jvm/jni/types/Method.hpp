@@ -13,10 +13,10 @@ namespace JNI {
 		{
 			if (id) return;
 			if constexpr (is_static)
-				id = get_env()->GetStaticMethodID(owner_klass, get_name(), get_signature());
+				id = get_env()->GetStaticMethodID(owner_klass, get_name().c_str(), get_signature().c_str());
 			if constexpr (!is_static)
-				id = get_env()->GetMethodID(owner_klass, get_name(), get_signature());
-			assertm(id, (const char*)(concat<"failed to find MethodID: ", get_name(), " ", get_signature()>()));
+				id = get_env()->GetMethodID(owner_klass, get_name().c_str(), get_signature().c_str());
+			assertm(id, (const char*)("failed to find MethodID : " +  get_name() + " " + get_signature() ).c_str());
 		}
 
 		auto operator()(const method_parameters_type&... method_parameters)
@@ -149,11 +149,12 @@ namespace JNI {
 
 		std::string get_signature()
 		{
-			return "(" + (get_signature_for_type<method_parameters_type>() + ...) + ")" + get_signature_for_type<method_return_type>();
+			return std::string("(") + (get_signature_for_type<method_parameters_type>() + ... + ")") + get_signature_for_type<method_return_type>();
 		}
 
 
-		bool is_Method_static()
+
+		bool is_method_static()
 		{
 			return is_static;
 		}
@@ -163,7 +164,6 @@ namespace JNI {
 			jobject object_instance;
 			jmethodID id;
 			std::string method_name;
-			bool is_static;
 		};
 
 }

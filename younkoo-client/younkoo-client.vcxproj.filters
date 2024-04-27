@@ -39,6 +39,9 @@
     <ClCompile Include="src\base\jvm\jni\Wrapper.hpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\sdk\mappings.hpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">

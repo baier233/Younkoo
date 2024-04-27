@@ -17,7 +17,7 @@ namespace JNI {
 			std::shared_lock shared_lock{ jclass_cache<klass_type>::mutex };
 			if (cached) return cached;
 		}
-		jclass found = (jclass)get_env()->NewGlobalRef(get_env()->FindClass(klass_type::get_name()));
+		jclass found = (jclass)get_env()->NewGlobalRef(get_env()->FindClass(klass_type::get_name().c_str()));
 		{
 			std::unique_lock unique_lock{ jclass_cache<klass_type>::mutex };
 			cached = found;
@@ -40,12 +40,12 @@ namespace JNI {
 			
 		}
 
-		std::string get_name()
+		static inline std::string get_name()
 		{
 			return members_type::get_class_name();
 		}
 
-		std::string get_signature()
+		static inline std::string get_signature()
 		{
 			return "L" + members_type::get_class_name() + ";" ;
 		}
