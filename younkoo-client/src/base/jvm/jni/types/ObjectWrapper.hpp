@@ -67,6 +67,8 @@ namespace JNI {
 		{
 		}
 
+		virtual std::string get_class_name() = 0;
+
 		jclass owner_Klass;
 	};
 }

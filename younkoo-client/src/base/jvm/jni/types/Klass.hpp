@@ -18,7 +18,6 @@ namespace JNI {
 			if (cached) return cached;
 		}
 		jclass found = (jclass)get_env()->NewGlobalRef(get_env()->FindClass(klass_type::get_name()));
-		assertm(found, (const char*)(concat<"failed to find class: ", klass_type::get_name()>()));
 		{
 			std::unique_lock unique_lock{ jclass_cache<klass_type>::mutex };
 			cached = found;
@@ -35,22 +34,21 @@ namespace JNI {
 	class Klass : public members_type
 	{
 	public:
-		Klass(std::string class_name,jobject object_instance = nullptr, bool is_global_ref = false) :
-			class_name(class_name),
+		Klass(jobject object_instance = nullptr, bool is_global_ref = false) :
 			members_type(get_cached_jclass<Klass>(), object_instance, is_global_ref) //be careful order of initialization matters
 		{
+			
 		}
 
 		std::string get_name()
 		{
-			return class_name;
+			return members_type::get_class_name();
 		}
 
 		std::string get_signature()
 		{
-			return "L" + class_name + ";" ;
+			return "L" + members_type::get_class_name() + ";" ;
 		}
 	private:
-		std::string class_name;
 	};
 }
