@@ -17,7 +17,6 @@ namespace maps
 			return String(JNI::get_env()->NewStringUTF(str));
 		}
 
-
 		std::string to_string()
 		{
 			jstring str_obj = (jstring)(jobject)object_instance;

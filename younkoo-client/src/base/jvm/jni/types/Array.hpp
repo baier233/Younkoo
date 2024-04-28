@@ -79,12 +79,12 @@ namespace JNI {
 			return get_env()->GetArrayLength((jarray)object_instance);
 		}
 
-		static constexpr auto get_signature()
+		static inline auto get_signature()
 		{
 			return "[" + get_signature_for_type<array_element_type>();
 		}
 
-		static constexpr auto get_name() //this is used for FindClass
+		static inline auto get_name() //this is used for FindClass
 		{
 			return get_signature();
 		}
