@@ -2,6 +2,7 @@
 #include "Env.hpp"
 #include "Misc.hpp"
 #include <iostream>
+#include "ObjectWrapper.hpp"
 
 namespace JNI {
 	template<typename method_return_type, is_static_t is_static = NOT_STATIC, class... method_parameters_type>
@@ -151,7 +152,7 @@ namespace JNI {
 			return method_name;
 		}
 
-		std::string get_signature()
+		inline static std::string get_signature()
 		{
 			return std::string("(") + (get_signature_for_type<method_parameters_type>() + ... + ")") + get_signature_for_type<method_return_type>();
 		}

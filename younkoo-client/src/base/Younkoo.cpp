@@ -9,6 +9,7 @@ Younkoo::Younkoo()
 }
 
 #include "sdk/mappings.hpp"
+#include <format>
 
 bool Younkoo::setup()
 { 
@@ -38,6 +39,8 @@ bool Younkoo::setup()
 	//setting non-static field
 	instanceSub.field_1 = -1337;
 
+	//Array test
+	Collection.print();
 	std::cout << Collection.toArray.get_name() + Collection.toArray.get_signature() << std::endl;
 
 
