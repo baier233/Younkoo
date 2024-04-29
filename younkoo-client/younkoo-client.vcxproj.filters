@@ -63,6 +63,12 @@
     <ClCompile Include="src\base\jvm\jni\types\Misc.hpp">
       <Filter>头文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\render\hooks\OpenGLHook.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\render\Renderer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -75,6 +81,36 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\jvm\JVM.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\render\hooks\OpenGLHook.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\glad\glad.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\GLFW\glfw3.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\GLFW\glfw3native.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\nanovg\nanovg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\nanovg\nanovg_gl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\nanovg\nanovg_gl_utils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\titan_hook.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\render\Renderer.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\lazy_importer.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
