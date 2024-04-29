@@ -71,12 +71,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)\ext;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\ext\jni;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\ext\nanovg;$(ProjectDir)\ext;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\ext\glad;$(ProjectDir)\ext\GLFW;$(ProjectDir)\ext\nanovg;$(ProjectDir)\ext\jni;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)\ext;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\ext\jni;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\ext\nanovg;$(ProjectDir)\ext;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\ext\glad;$(ProjectDir)\ext\GLFW;$(ProjectDir)\ext\nanovg;$(ProjectDir)\ext\jni;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <VcpkgUseStatic>true</VcpkgUseStatic>
+    <VcpkgUseMD>true</VcpkgUseMD>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -127,7 +131,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>jvm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3-mdd.lib;glad-mdd.lib;nanovg-mdd.lib;OpenGl32.lib;jvm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -149,7 +153,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>jvm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3-md.lib;glad-md.lib;nanovg-md.lib;OpenGl32.lib;jvm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

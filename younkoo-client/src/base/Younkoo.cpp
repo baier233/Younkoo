@@ -11,6 +11,8 @@ Younkoo::Younkoo()
 #include "sdk/mappings.hpp"
 #include <format>
 
+
+
 bool Younkoo::setup()
 { 
 	JVM::get().setup();
