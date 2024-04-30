@@ -160,6 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\render\nano\NanovgHelper.cpp" />
     <ClCompile Include="src\base\render\Renderer.cpp" />
     <ClCompile Include="src\base\render\hooks\OpenGLHook.cpp" />
     <ClCompile Include="src\base\jvm\jni\Wrapper.hpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="ext\nanovg\nanovg_gl.h" />
     <ClInclude Include="ext\nanovg\nanovg_gl_utils.h" />
     <ClInclude Include="ext\titan_hook.h" />
+    <ClInclude Include="src\base\render\nano\NanovgHelper.hpp" />
     <ClInclude Include="src\base\render\Renderer.hpp" />
     <ClInclude Include="src\base\render\hooks\OpenGLHook.hpp" />
     <ClInclude Include="src\base\jvm\JVM.hpp" />

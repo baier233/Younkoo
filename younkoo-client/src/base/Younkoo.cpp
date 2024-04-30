@@ -10,10 +10,13 @@ Younkoo::Younkoo()
 
 #include "sdk/mappings.hpp"
 
+#include "render/Renderer.hpp"
 
 bool Younkoo::setup()
 { 
-	JVM::get().setup();
+	auto flag = JVM::get().setup();
+	flag &= Renderer::get().Init();
+
 	
 
 	maps::Main Main{};
@@ -45,5 +48,11 @@ bool Younkoo::setup()
 
 
 	std::cout << "Setting Up" << std::endl;
-	return true;
+	return flag;
+}
+
+bool Younkoo::shutdown()
+{
+	auto flag = Renderer::get().Shutdown();
+	return flag;
 }

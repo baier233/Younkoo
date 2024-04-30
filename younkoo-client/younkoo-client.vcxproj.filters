@@ -69,6 +69,9 @@
     <ClCompile Include="src\base\render\Renderer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\render\nano\NanovgHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -111,6 +114,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ext\lazy_importer.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\render\nano\NanovgHelper.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

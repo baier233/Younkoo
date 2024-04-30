@@ -8,5 +8,6 @@ protected:
 public:
 	Younkoo();
 	bool setup();
+	bool shutdown();
 };
 
