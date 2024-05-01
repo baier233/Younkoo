@@ -34,9 +34,12 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	
 	if(!renderer.Initialized){
 
-		NanoVGHelper::InitContext(renderer.HandleWindow);
 		renderer.MenuGLContext = wglCreateContext(hdc);
+		wglCopyContext(renderer.OriginalGLContext, renderer.MenuGLContext,GL_ALL_ATTRIB_BITS); 
 		wglMakeCurrent(hdc, renderer.MenuGLContext);
+		NanoVGHelper::InitContext(renderer.HandleWindow);
+		wglMakeCurrent(renderer.HandleDeviceContext, renderer.OriginalGLContext);
+		/*
 
 
 
@@ -49,33 +52,47 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glDisable(GL_DEPTH_TEST);
+		glEnable(GL_TEXTURE_2D);*/
 
 		renderer.Initialized = true;
-		}
+	}
+	else {
 
+		wglCopyContext(renderer.OriginalGLContext, renderer.MenuGLContext, GL_ALL_ATTRIB_BITS);
+	}
 	
 	wglMakeCurrent(renderer.HandleDeviceContext, renderer.MenuGLContext);
 
+	
 
 	GLint viewport[4]{};
 	glGetIntegerv(GL_VIEWPORT, viewport);
 	int winWidth = viewport[2];
 	int winHeight = viewport[3];
 
-	auto& vg = NanoVGHelper::Context; 
+	auto& vg = NanoVGHelper::Context;
 	nvgBeginFrame(vg, winWidth, winHeight, /*devicePixelRatio*/ 1.0f);
+	nvgSave(vg);
 
 
 	nvgBeginPath(vg);
 	nvgRect(vg, winWidth / static_cast<float>(2) - 50, winHeight / static_cast<float>(2) - 50, 100, 100); // 中心矩形
 	nvgFillColor(vg, nvgRGBA(220, 160, 0, 200)); // 颜色填充
 	nvgFill(vg);
+	nvgClosePath(vg);
 
+	nvgBeginPath(vg);
+	nvgFillColor(vg, nvgRGB(255, 255, 255));
+	nvgFontFaceId(vg, NanoVGHelper::fontHarmony);
+	nvgFontSize(vg, 66.f);
+	nvgText(vg, 50, 50, "Younkoo", NULL);
+	nvgClosePath(vg);
+	nvgRestore(vg);
 	nvgEndFrame(vg);
+
 	//glDepthFunc(GL_LEQUAL);
 
 	wglMakeCurrent(renderer.HandleDeviceContext, renderer.OriginalGLContext);
-
 	return wglSwapBuffersHook.GetOrignalFunc()(hdc);
 }
 

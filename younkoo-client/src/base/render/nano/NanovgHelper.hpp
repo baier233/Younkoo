@@ -6,5 +6,6 @@ namespace NanoVGHelper {
 	bool InitContext(HWND window2Attach);
 	bool DeleteContext();
 	inline NVGcontext* Context{};
+	inline int fontHarmony{};
 }
 

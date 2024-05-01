@@ -17,6 +17,7 @@ bool NanoVGHelper::InitContext(HWND window2Attach)
 {
 	if (Context) return true;
 	GLenum err = glewInit();
+	
 	if (GLEW_OK != err)
 	{
 		/* Problem: glewInit failed, something is seriously wrong. */
@@ -24,7 +25,9 @@ bool NanoVGHelper::InitContext(HWND window2Attach)
 	}
 	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
-	Context = nvgCreateGL2(NVG_ANTIALIAS);
+	Context = nvgCreateGL2(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
+
+	fontHarmony = nvgCreateFont(Context, "raleway", "C:\\Users\\Baier\\AppData\\Local\\Microsoft\\Windows\\Fonts\\HarmonyOS_Sans_SC_Light.ttf");
 	return Context != nullptr;
 }
 

@@ -18,17 +18,8 @@
 #ifndef NANOVG_GL_UTILS_H
 #define NANOVG_GL_UTILS_H
 
-#if defined NANOVG_GL2
-#define EXT(name) name##GL2
-#elif defined NANOVG_GL3
-#define EXT(name) name##GL3
-#elif defined NANOVG_GLES2
-#define EXT(name) name##GLES2
-#elif defined NANOVG_GLES3
-#define EXT(name) name##GLES3
-#endif
-
 struct NVGLUframebuffer {
+	NVGcontext* ctx;
 	GLuint fbo;
 	GLuint rbo;
 	GLuint texture;
@@ -37,19 +28,30 @@ struct NVGLUframebuffer {
 typedef struct NVGLUframebuffer NVGLUframebuffer;
 
 // Helper function to create GL frame buffer to render to.
-void EXT(nvgluBindFramebuffer)(NVGcontext* ctx, NVGLUframebuffer* fb);
-NVGLUframebuffer* EXT(nvgluCreateFramebuffer)(NVGcontext* ctx, int w, int h, int imageFlags);
-void EXT(nvgluDeleteFramebuffer)(NVGcontext* ctx, NVGLUframebuffer* fb);
+void nvgluBindFramebuffer(NVGLUframebuffer* fb);
+NVGLUframebuffer* nvgluCreateFramebuffer(NVGcontext* ctx, int w, int h, int imageFlags);
+void nvgluDeleteFramebuffer(NVGLUframebuffer* fb);
 
 #endif // NANOVG_GL_UTILS_H
 
 #ifdef NANOVG_GL_IMPLEMENTATION
 
+#if defined(NANOVG_GL3) || defined(NANOVG_GLES2) || defined(NANOVG_GLES3)
+// FBO is core in OpenGL 3>.
+#	define NANOVG_FBO_VALID 1
+#elif defined(NANOVG_GL2)
+// On OS X including glext defines FBO on GL2 too.
+#	ifdef __APPLE__
+#		include <OpenGL/glext.h>
+#		define NANOVG_FBO_VALID 1
+#	endif
+#endif
+
 static GLint defaultFBO = -1;
 
-NVGLUframebuffer* EXT(nvgluCreateFramebuffer)(NVGcontext* ctx, int w, int h, int imageFlags)
+NVGLUframebuffer* nvgluCreateFramebuffer(NVGcontext* ctx, int w, int h, int imageFlags)
 {
-	GLNVGcontext* gl = (GLNVGcontext*)((NVGparams*)ctx)->userPtr;
+#ifdef NANOVG_FBO_VALID
 	GLint defaultFBO;
 	GLint defaultRBO;
 	NVGLUframebuffer* fb = NULL;
@@ -63,7 +65,17 @@ NVGLUframebuffer* EXT(nvgluCreateFramebuffer)(NVGcontext* ctx, int w, int h, int
 
 	fb->image = nvgCreateImageRGBA(ctx, w, h, imageFlags | NVG_IMAGE_FLIPY | NVG_IMAGE_PREMULTIPLIED, NULL);
 
-	fb->texture = EXT(nvglImageHandle)(ctx, fb->image);
+#if defined NANOVG_GL2
+	fb->texture = nvglImageHandleGL2(ctx, fb->image);
+#elif defined NANOVG_GL3
+	fb->texture = nvglImageHandleGL3(ctx, fb->image);
+#elif defined NANOVG_GLES2
+	fb->texture = nvglImageHandleGLES2(ctx, fb->image);
+#elif defined NANOVG_GLES3
+	fb->texture = nvglImageHandleGLES3(ctx, fb->image);
+#endif
+
+	fb->ctx = ctx;
 
 	// frame buffer object
 	glGenFramebuffers(1, &fb->fbo);
@@ -97,32 +109,46 @@ NVGLUframebuffer* EXT(nvgluCreateFramebuffer)(NVGcontext* ctx, int w, int h, int
 error:
 	glBindFramebuffer(GL_FRAMEBUFFER, defaultFBO);
 	glBindRenderbuffer(GL_RENDERBUFFER, defaultRBO);
-	EXT(nvgluDeleteFramebuffer)(ctx, fb);
+	nvgluDeleteFramebuffer(fb);
 	return NULL;
+#else
+	NVG_NOTUSED(ctx);
+	NVG_NOTUSED(w);
+	NVG_NOTUSED(h);
+	NVG_NOTUSED(imageFlags);
+	return NULL;
+#endif
 }
 
-void EXT(nvgluBindFramebuffer)(NVGcontext* ctx, NVGLUframebuffer* fb)
+void nvgluBindFramebuffer(NVGLUframebuffer* fb)
 {
-	GLNVGcontext* gl = (GLNVGcontext*)((NVGparams*)ctx)->userPtr;
+#ifdef NANOVG_FBO_VALID
 	if (defaultFBO == -1) glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
 	glBindFramebuffer(GL_FRAMEBUFFER, fb != NULL ? fb->fbo : defaultFBO);
+#else
+	NVG_NOTUSED(fb);
+#endif
 }
 
-void EXT(nvgluDeleteFramebuffer)(NVGcontext* ctx, NVGLUframebuffer* fb)
+void nvgluDeleteFramebuffer(NVGLUframebuffer* fb)
 {
-	GLNVGcontext* gl = (GLNVGcontext*)((NVGparams*)ctx)->userPtr;
+#ifdef NANOVG_FBO_VALID
 	if (fb == NULL) return;
 	if (fb->fbo != 0)
 		glDeleteFramebuffers(1, &fb->fbo);
 	if (fb->rbo != 0)
 		glDeleteRenderbuffers(1, &fb->rbo);
 	if (fb->image >= 0)
-		nvgDeleteImage(ctx, fb->image);
+		nvgDeleteImage(fb->ctx, fb->image);
+	fb->ctx = NULL;
 	fb->fbo = 0;
 	fb->rbo = 0;
 	fb->texture = 0;
 	fb->image = -1;
 	free(fb);
+#else
+	NVG_NOTUSED(fb);
+#endif
 }
 
 #endif // NANOVG_GL_IMPLEMENTATION
