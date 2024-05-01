@@ -162,6 +162,35 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ext\nanovg\nanovg.c" />
+    <ClCompile Include="src\base\render\nano\nanogui\button.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\checkbox.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\colorpicker.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\colorwheel.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\combobox.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\common.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\glcanvas.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\glutil.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\graph.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\imagepanel.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\imageview.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\label.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\layout.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\messagedialog.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\popup.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\popupbutton.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\progressbar.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\screen.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\serializer.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\slider.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\stackedwidget.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\tabheader.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\tabwidget.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\textbox.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\theme.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\vscrollpanel.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\widget.cpp" />
+    <ClCompile Include="src\base\render\nano\nanogui\window.cpp" />
+    <ClCompile Include="src\base\render\nano\NanovgHelper.cpp" />
     <ClCompile Include="src\base\render\Renderer.cpp" />
     <ClCompile Include="src\base\render\hooks\OpenGLHook.cpp" />
     <ClCompile Include="src\base\jvm\jni\Wrapper.hpp" />
@@ -226,6 +255,7 @@
     <ClInclude Include="ext\nanovg\stb_image.h" />
     <ClInclude Include="ext\nanovg\stb_truetype.h" />
     <ClInclude Include="ext\titan_hook.h" />
+    <ClInclude Include="src\base\render\nano\NanovgHelper.hpp" />
     <ClInclude Include="src\base\render\Renderer.hpp" />
     <ClInclude Include="src\base\render\hooks\OpenGLHook.hpp" />
     <ClInclude Include="src\base\jvm\JVM.hpp" />
