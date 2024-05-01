@@ -17,7 +17,6 @@ bool Younkoo::setup()
 { 
 	auto flag = JVM::get().setup();
 	flag &= Renderer::get().Init();
-	NanoVGHelper::InitContext();
 
 	return flag;
 

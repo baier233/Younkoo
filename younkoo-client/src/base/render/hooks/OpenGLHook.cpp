@@ -21,6 +21,8 @@ static auto getWindowSize(const HWND& window) {
 
 #include <mutex>
 #include <memory>
+#include <GL/glew.h>
+#include <nanovg.h>
 static auto flagInit = std::make_unique<std::once_flag>();
 
 bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
@@ -31,12 +33,14 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	renderer.HandleWindow = WindowFromDC(hdc);
 	
 	if(!renderer.Initialized){
+
+		NanoVGHelper::InitContext(renderer.HandleWindow);
 		renderer.MenuGLContext = wglCreateContext(hdc);
 		wglMakeCurrent(hdc, renderer.MenuGLContext);
 
 
 
-		/*GLint viewport[4]{};
+		GLint viewport[4]{};
 		glGetIntegerv(GL_VIEWPORT, viewport);
 		glViewport(0, 0, viewport[2], viewport[3]);
 		glMatrixMode(GL_PROJECTION);
@@ -44,7 +48,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 		glOrtho(0, viewport[2], viewport[3], 0, -1, 1);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		glDisable(GL_DEPTH_TEST);*/
+		glDisable(GL_DEPTH_TEST);
 
 		renderer.Initialized = true;
 		}
@@ -52,8 +56,6 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	
 	wglMakeCurrent(renderer.HandleDeviceContext, renderer.MenuGLContext);
 
-	//int width, height, ratio;
-	//std::tie(width, height, ratio) = getWindowSize(renderer.HandleWindow);
 
 	GLint viewport[4]{};
 	glGetIntegerv(GL_VIEWPORT, viewport);
@@ -64,10 +66,10 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	nvgBeginFrame(vg, winWidth, winHeight, /*devicePixelRatio*/ 1.0f);
 
 
-	//nvgBeginPath(vg);
-	//nvgRect(vg, width / static_cast<float>(2) - 50, height / static_cast<float>(2) - 50, 100, 100); // 中心矩形
-	//nvgFillColor(vg, nvgRGBA(220, 160, 0, 200)); // 颜色填充
-	//nvgFill(vg);
+	nvgBeginPath(vg);
+	nvgRect(vg, winWidth / static_cast<float>(2) - 50, winHeight / static_cast<float>(2) - 50, 100, 100); // 中心矩形
+	nvgFillColor(vg, nvgRGBA(220, 160, 0, 200)); // 颜色填充
+	nvgFill(vg);
 
 	nvgEndFrame(vg);
 	//glDepthFunc(GL_LEQUAL);

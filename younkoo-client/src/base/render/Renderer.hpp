@@ -5,10 +5,6 @@
 #include "../../utils/Singleton.hpp"
 #include "../../utils/Structs.hpp"
 
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
-#include "nanovg.h"
-
 
 
 

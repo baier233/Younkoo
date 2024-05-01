@@ -1,21 +1,36 @@
 #include "NanovgHelper.hpp"
 
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
+#include <GL\glew.h>
 
-#define NANOVG_GL3_IMPLEMENTATION
-#include <nanovg_gl.h>
+#include "nanovg.h"
+#define NANOVG_GL2_IMPLEMENTATION
+#include "nanovg_gl.h"
+//#include "nanovg_gl_utils.h"
+#include <iostream>
 
-bool NanoVGHelper::InitContext()
+void error_callback(int error, const char* description)
+{
+	std::cerr << "GLFW Error: " << description << std::endl;
+}
+
+bool NanoVGHelper::InitContext(HWND window2Attach)
 {
 	if (Context) return true;
-	Context = nvgCreateGL3(NVG_ANTIALIAS);
+	GLenum err = glewInit();
+	if (GLEW_OK != err)
+	{
+		/* Problem: glewInit failed, something is seriously wrong. */
+		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+	}
+	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
+
+	Context = nvgCreateGL2(NVG_ANTIALIAS);
 	return Context != nullptr;
 }
 
 bool NanoVGHelper::DeleteContext()
 {
-	nvgDeleteGL3(Context);
+	nvgDeleteGL2(Context);
 	Context = nullptr;
 	return true;
 }
