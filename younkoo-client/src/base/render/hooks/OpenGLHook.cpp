@@ -81,7 +81,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	nvgFillColor(vg, nvgRGB(255, 255, 255));
 	nvgFontFaceId(vg, NanoVGHelper::fontHarmony);
 	nvgFontSize(vg, 66.f);
-	nvgText(vg, 0, 66, "Younkoo", NULL);
+	nvgText(vg, 0, 66, "测试中文", NULL);
 	nvgClosePath(vg);
 	nvgRestore(vg);
 	nvgEndFrame(vg);
