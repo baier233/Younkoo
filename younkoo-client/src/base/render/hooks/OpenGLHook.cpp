@@ -1,4 +1,4 @@
-#include "OpenGLHook.hpp"
+ï»¿#include "OpenGLHook.hpp"
 
 #include "../Renderer.hpp"
 #include "../nano/NanovgHelper.hpp"
@@ -52,7 +52,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
 		renderer.Initialized = true;
 	}
-	else {
+	else if(WndProcHook::RESIZED){
 		// If Initialized,update my mirror context from minecraft's.
 		wglCopyContext(renderer.OriginalGLContext, renderer.MenuGLContext, GL_ALL_ATTRIB_BITS);
 	}
@@ -72,8 +72,8 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
 
 	nvgBeginPath(vg);
-	nvgRect(vg, winWidth / static_cast<float>(2) - 50, winHeight / static_cast<float>(2) - 50, 100, 100); // ÖÐÐÄ¾ØÐÎ
-	nvgFillColor(vg, nvgRGBA(220, 160, 0, 200)); // ÑÕÉ«Ìî³ä
+	nvgRect(vg, winWidth / static_cast<float>(2) - 50, winHeight / static_cast<float>(2) - 50, 100, 100); // ä¸­å¿ƒçŸ©å½¢
+	nvgFillColor(vg, nvgRGBA(220, 160, 0, 200)); // é¢œè‰²å¡«å……
 	nvgFill(vg);
 	nvgClosePath(vg);
 
@@ -81,7 +81,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	nvgFillColor(vg, nvgRGB(255, 255, 255));
 	nvgFontFaceId(vg, NanoVGHelper::fontHarmony);
 	nvgFontSize(vg, 66.f);
-	nvgText(vg, 0, 66, "Younkoo", NULL);
+	nvgText(vg, 0, 66, "æˆ‘çˆ±æƒ…æŸ“", NULL);
 	nvgClosePath(vg);
 	nvgRestore(vg);
 	nvgEndFrame(vg);
