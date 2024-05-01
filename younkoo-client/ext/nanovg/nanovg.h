@@ -149,7 +149,7 @@ enum NVGimageFlags {
 // nvgBeginFrame() defines the size of the window to render to in relation currently
 // set viewport (i.e. glViewport on GL backends). Device pixel ration allows to
 // control the rendering on Hi-DPI devices.
-// For example, GLFW returns two dimension for an opened window: window size and
+// For example, CALLBACK returns two dimension for an opened window: window size and
 // frame buffer size. In that case you would set windowWidth/Height to the window size
 // devicePixelRatio to: frameBufferWidth / windowWidth.
 void nvgBeginFrame(NVGcontext* ctx, float windowWidth, float windowHeight, float devicePixelRatio);

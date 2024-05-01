@@ -10,7 +10,7 @@
 
 void error_callback(int error, const char* description)
 {
-	std::cerr << "GLFW Error: " << description << std::endl;
+	std::cerr << "CALLBACK Error: " << description << std::endl;
 }
 
 bool NanoVGHelper::InitContext(HWND window2Attach)
