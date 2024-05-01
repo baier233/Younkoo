@@ -9,7 +9,6 @@
 #include "base/Younkoo.hpp"
 #include "utils/Misc.h"
 
-
 static DWORD WINAPI BootStrapThread(LPVOID hDll)
 { 
 

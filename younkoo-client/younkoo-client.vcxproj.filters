@@ -72,6 +72,9 @@
     <ClCompile Include="src\base\render\nano\NanovgHelper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ext\nanovg\nanovg.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -117,6 +120,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\render\nano\NanovgHelper.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\nanovg\fontstash.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\nanovg\stb_image.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\nanovg\stb_truetype.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

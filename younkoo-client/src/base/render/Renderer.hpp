@@ -27,6 +27,7 @@ public:
 	HGLRC MenuGLContext = 0;
 	HDC HandleDeviceContext = 0;
 	HWND HandleWindow = 0;
+	bool Initialized = 0;
 
 	bool Init();
 	bool Shutdown();

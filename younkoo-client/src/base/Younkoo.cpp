@@ -11,13 +11,15 @@ Younkoo::Younkoo()
 #include "sdk/mappings.hpp"
 
 #include "render/Renderer.hpp"
+#include "render/nano/NanovgHelper.hpp"
 
 bool Younkoo::setup()
 { 
 	auto flag = JVM::get().setup();
 	flag &= Renderer::get().Init();
+	NanoVGHelper::InitContext();
 
-	
+	return flag;
 
 	maps::Main Main{};
 	maps::SubClass SubClass{};

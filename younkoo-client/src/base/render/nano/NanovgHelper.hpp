@@ -5,6 +5,7 @@
 
 namespace NanoVGHelper {
 	bool InitContext();
+	bool DeleteContext();
 	inline NVGcontext* Context{};
 }
 

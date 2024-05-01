@@ -123,7 +123,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;YOUNKOOCLIENT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;YOUNKOOCLIENT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -134,7 +134,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>glfw3-mdd.lib;glad-mdd.lib;nanovg-mdd.lib;OpenGl32.lib;jvm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3-mdd.lib;glad-mdd.lib;OpenGl32.lib;jvm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -143,7 +143,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;YOUNKOOCLIENT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;YOUNKOOCLIENT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -160,6 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ext\nanovg\nanovg.c" />
     <ClCompile Include="src\base\render\nano\NanovgHelper.cpp" />
     <ClCompile Include="src\base\render\Renderer.cpp" />
     <ClCompile Include="src\base\render\hooks\OpenGLHook.cpp" />
@@ -220,9 +221,12 @@
     <ClInclude Include="ext\GLFW\glfw3.h" />
     <ClInclude Include="ext\GLFW\glfw3native.h" />
     <ClInclude Include="ext\lazy_importer.hpp" />
+    <ClInclude Include="ext\nanovg\fontstash.h" />
     <ClInclude Include="ext\nanovg\nanovg.h" />
     <ClInclude Include="ext\nanovg\nanovg_gl.h" />
     <ClInclude Include="ext\nanovg\nanovg_gl_utils.h" />
+    <ClInclude Include="ext\nanovg\stb_image.h" />
+    <ClInclude Include="ext\nanovg\stb_truetype.h" />
     <ClInclude Include="ext\titan_hook.h" />
     <ClInclude Include="src\base\render\nano\NanovgHelper.hpp" />
     <ClInclude Include="src\base\render\Renderer.hpp" />
