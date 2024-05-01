@@ -69,10 +69,10 @@
     <ClCompile Include="src\base\render\Renderer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\render\nano\NanovgHelper.cpp">
+    <ClCompile Include="ext\nanovg\nanovg.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="ext\nanovg\nanovg.c">
+    <ClCompile Include="src\base\render\hooks\WndProcHook.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -110,9 +110,6 @@
     <ClInclude Include="ext\lazy_importer.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\render\nano\NanovgHelper.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="ext\nanovg\fontstash.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -120,6 +117,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ext\nanovg\stb_truetype.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\render\hooks\WndProcHook.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

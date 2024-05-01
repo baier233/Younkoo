@@ -135,7 +135,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>glew32.lib;OpenGl32.lib;jvm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OpenGl32.lib;jvm.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -162,7 +162,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ext\nanovg\nanovg.c" />
-    <ClCompile Include="src\base\render\nano\NanovgHelper.cpp" />
     <ClCompile Include="src\base\render\Renderer.cpp" />
     <ClCompile Include="src\base\render\hooks\OpenGLHook.cpp" />
     <ClCompile Include="src\base\jvm\jni\Wrapper.hpp" />
@@ -174,6 +173,7 @@
     <ClCompile Include="src\utils\Misc.cpp" />
     <ClCompile Include="src\utils\Singleton.hpp" />
     <ClCompile Include="src\utils\Structs.hpp" />
+    <ClCompile Include="src\base\render\hooks\WndProcHook.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\base\jvm\jni\types\Array.hpp">
@@ -226,13 +226,13 @@
     <ClInclude Include="ext\nanovg\stb_image.h" />
     <ClInclude Include="ext\nanovg\stb_truetype.h" />
     <ClInclude Include="ext\titan_hook.h" />
-    <ClInclude Include="src\base\render\nano\NanovgHelper.hpp" />
     <ClInclude Include="src\base\render\Renderer.hpp" />
     <ClInclude Include="src\base\render\hooks\OpenGLHook.hpp" />
     <ClInclude Include="src\base\jvm\JVM.hpp" />
     <ClInclude Include="src\Main.hpp" />
     <ClInclude Include="src\base\Younkoo.hpp" />
     <ClInclude Include="src\utils\Misc.h" />
+    <ClInclude Include="src\base\render\hooks\WndProcHook.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

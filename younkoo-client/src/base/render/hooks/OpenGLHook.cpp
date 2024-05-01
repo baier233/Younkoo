@@ -23,7 +23,10 @@ static auto getWindowSize(const HWND& window) {
 #include <memory>
 #include <GL/glew.h>
 #include <nanovg.h>
-static auto flagInit = std::make_unique<std::once_flag>();
+#include <iostream>
+
+#include "WndProcHook.hpp"
+
 
 bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
@@ -33,38 +36,31 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	renderer.HandleWindow = WindowFromDC(hdc);
 	
 	if(!renderer.Initialized){
-
+		
+		// Create My Mirror Context(When I rendering my own stuff,i use this context for not to impact the minecraft gl enviorment)
 		renderer.MenuGLContext = wglCreateContext(hdc);
+		// Copy Minecraft's opengl context to mine.
 		wglCopyContext(renderer.OriginalGLContext, renderer.MenuGLContext,GL_ALL_ATTRIB_BITS); 
+		// Change Current Context to my mirror context.
 		wglMakeCurrent(hdc, renderer.MenuGLContext);
+		// Init Nanovg Context in my mirror context
 		NanoVGHelper::InitContext(renderer.HandleWindow);
+		// Change it back to Minecraft's opengl context.
 		wglMakeCurrent(renderer.HandleDeviceContext, renderer.OriginalGLContext);
-		/*
 
-
-
-		GLint viewport[4]{};
-		glGetIntegerv(GL_VIEWPORT, viewport);
-		glViewport(0, 0, viewport[2], viewport[3]);
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(0, viewport[2], viewport[3], 0, -1, 1);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		glDisable(GL_DEPTH_TEST);
-		glEnable(GL_TEXTURE_2D);*/
+		WndProcHook::Init(renderer.HandleWindow);
 
 		renderer.Initialized = true;
 	}
 	else {
-
+		// If Initialized,update my mirror context from minecraft's.
 		wglCopyContext(renderer.OriginalGLContext, renderer.MenuGLContext, GL_ALL_ATTRIB_BITS);
 	}
-	
+	// Change current context back to mine.
 	wglMakeCurrent(renderer.HandleDeviceContext, renderer.MenuGLContext);
 
 	
-
+	// Do draw and render here.
 	GLint viewport[4]{};
 	glGetIntegerv(GL_VIEWPORT, viewport);
 	int winWidth = viewport[2];
@@ -85,13 +81,12 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	nvgFillColor(vg, nvgRGB(255, 255, 255));
 	nvgFontFaceId(vg, NanoVGHelper::fontHarmony);
 	nvgFontSize(vg, 66.f);
-	nvgText(vg, 50, 50, "Younkoo", NULL);
+	nvgText(vg, 0, 66, "Younkoo", NULL);
 	nvgClosePath(vg);
 	nvgRestore(vg);
 	nvgEndFrame(vg);
 
-	//glDepthFunc(GL_LEQUAL);
-
+	//End Drawing and Rendering and Dispatch back to minecraft's opengl context
 	wglMakeCurrent(renderer.HandleDeviceContext, renderer.OriginalGLContext);
 	return wglSwapBuffersHook.GetOrignalFunc()(hdc);
 }
@@ -99,6 +94,8 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
 bool OpenGLHook::Init() 
 {
+
+	// Hook wglswapbuffers here.
 
 	static auto gl = GetModuleHandleW(L"opengl32.dll");
 
@@ -113,6 +110,11 @@ bool OpenGLHook::Init()
 
 bool OpenGLHook::Clean()
 {
+
+	// Ensure current gl context is orignal minecraft context.
+	wglMakeCurrent(Renderer::get().HandleDeviceContext, Renderer::get().OriginalGLContext);
+
 	wglSwapBuffersHook.RemoveHook();
-	return true;
+	
+	return NanoVGHelper::DeleteContext();
 }

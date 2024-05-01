@@ -1,5 +1,8 @@
 #include "Renderer.hpp"
 #include "hooks/OpenGLHook.hpp"
+
+
+
 bool Renderer::Init()
 {
 	return OpenGLHook::Init();
@@ -7,5 +10,6 @@ bool Renderer::Init()
 
 bool Renderer::Shutdown()
 {
-	return OpenGLHook::Clean();
+
+	return OpenGLHook::Clean()  && wglDeleteContext(Renderer::get().MenuGLContext);;
 }
