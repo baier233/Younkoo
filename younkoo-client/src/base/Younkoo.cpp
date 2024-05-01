@@ -13,12 +13,9 @@ Younkoo::Younkoo()
 #include "render/Renderer.hpp"
 #include "render/nano/NanovgHelper.hpp"
 
-bool Younkoo::setup()
-{ 
-	auto flag = JVM::get().setup();
-	flag &= Renderer::get().Init();
+#ifdef TEST
 
-	return flag;
+void Test() {
 
 	maps::Main Main{};
 	maps::SubClass SubClass{};
@@ -27,7 +24,7 @@ bool Younkoo::setup()
 	Main.print();
 	Main.field_0.print();
 	Collection.toArray.print();
-	
+
 
 	//setting static field
 	Main.field_0 = 1337;
@@ -37,15 +34,23 @@ bool Younkoo::setup()
 
 	SubClass.print();
 	SubClass.getInstance.print();
-	std::cout << "SubClass.instance :\n{"  << "\n   Sign:" << SubClass.getInstance.get_signature() << "\n   Value :" << instanceSub.object_instance << "\n}" << std::endl;
+	std::cout << "SubClass.instance :\n{" << "\n   Sign:" << SubClass.getInstance.get_signature() << "\n   Value :" << instanceSub.object_instance << "\n}" << std::endl;
 	instanceSub.field_1.print();
-	
+
 	//setting non-static field
 	instanceSub.field_1 = -1337;
 
 	//Array test
 	Collection.print();
 	std::cout << Collection.toArray.get_name() + Collection.toArray.get_signature() << std::endl;
+}
+
+#endif // Test
+
+bool Younkoo::setup()
+{
+	auto flag = JVM::get().setup();
+	flag &= Renderer::get().Init();
 
 
 	std::cout << "Setting Up" << std::endl;

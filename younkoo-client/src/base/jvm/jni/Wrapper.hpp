@@ -25,7 +25,7 @@
 			return obf_klass_name;																										\
 		}																										\
 
-#define END_KLASS_DEF()	};
+#define END_KLASS_DEF()	}
 
 #define BEGIN_KLASS_DEF_EX(unobf_klass_name, obf_klass_name, inherit_from)									\
 	struct unobf_klass_name##_members;																		\

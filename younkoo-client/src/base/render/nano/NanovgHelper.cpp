@@ -33,6 +33,7 @@ bool NanoVGHelper::InitContext(HWND window2Attach)
 
 bool NanoVGHelper::DeleteContext()
 {
+	//释放nvg 上下文时.font也会被释放。
 	nvgDeleteGL2(Context);
 	Context = nullptr;
 	return true;

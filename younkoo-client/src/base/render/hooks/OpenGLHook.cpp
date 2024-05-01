@@ -30,17 +30,17 @@ static auto getWindowSize(const HWND& window) {
 
 bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
-	auto &renderer = Renderer::get();
+	auto& renderer = Renderer::get();
 	renderer.OriginalGLContext = wglGetCurrentContext();
 	renderer.HandleDeviceContext = hdc;
 	renderer.HandleWindow = WindowFromDC(hdc);
-	
-	if(!renderer.Initialized){
-		
+
+	if (!renderer.Initialized) {
+
 		// Create My Mirror Context(When I rendering my own stuff,i use this context for not to impact the minecraft gl enviorment)
 		renderer.MenuGLContext = wglCreateContext(hdc);
 		// Copy Minecraft's opengl context to mine.
-		wglCopyContext(renderer.OriginalGLContext, renderer.MenuGLContext,GL_ALL_ATTRIB_BITS); 
+		wglCopyContext(renderer.OriginalGLContext, renderer.MenuGLContext, GL_ALL_ATTRIB_BITS);
 		// Change Current Context to my mirror context.
 		wglMakeCurrent(hdc, renderer.MenuGLContext);
 		// Init Nanovg Context in my mirror context
@@ -52,14 +52,14 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
 		renderer.Initialized = true;
 	}
-	else if(WndProcHook::RESIZED){
+	else if (WndProcHook::RESIZED) {
 		// If Initialized,update my mirror context from minecraft's.
 		wglCopyContext(renderer.OriginalGLContext, renderer.MenuGLContext, GL_ALL_ATTRIB_BITS);
 	}
 	// Change current context back to mine.
 	wglMakeCurrent(renderer.HandleDeviceContext, renderer.MenuGLContext);
 
-	
+
 	// Do draw and render here.
 	GLint viewport[4]{};
 	glGetIntegerv(GL_VIEWPORT, viewport);
@@ -81,7 +81,8 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	nvgFillColor(vg, nvgRGB(255, 255, 255));
 	nvgFontFaceId(vg, NanoVGHelper::fontHarmony);
 	nvgFontSize(vg, 66.f);
-	nvgText(vg, 0, 66, "测试中文", NULL);
+	setlocale(LC_ALL, "");
+	nvgText(vg, 0, 66, "Test测试中文", NULL);
 	nvgClosePath(vg);
 	nvgRestore(vg);
 	nvgEndFrame(vg);
@@ -92,7 +93,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 }
 
 
-bool OpenGLHook::Init() 
+bool OpenGLHook::Init()
 {
 
 	// Hook wglswapbuffers here.
@@ -115,6 +116,6 @@ bool OpenGLHook::Clean()
 	wglMakeCurrent(Renderer::get().HandleDeviceContext, Renderer::get().OriginalGLContext);
 
 	wglSwapBuffersHook.RemoveHook();
-	
+
 	return NanoVGHelper::DeleteContext();
 }
