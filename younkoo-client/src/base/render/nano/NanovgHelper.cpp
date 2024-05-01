@@ -1,4 +1,4 @@
-#include "NanovgHelper.hpp"
+﻿#include "NanovgHelper.hpp"
 
 #include <GL\glew.h>
 
@@ -17,7 +17,7 @@ bool NanoVGHelper::InitContext(HWND window2Attach)
 {
 	if (Context) return true;
 	GLenum err = glewInit();
-	
+
 	if (GLEW_OK != err)
 	{
 		/* Problem: glewInit failed, something is seriously wrong. */

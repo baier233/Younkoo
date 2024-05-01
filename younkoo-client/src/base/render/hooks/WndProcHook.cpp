@@ -1,4 +1,4 @@
-#include "WndProcHook.hpp"
+ï»¿#include "WndProcHook.hpp"
 #include <windows.h>
 #include <iostream>
 
@@ -18,7 +18,7 @@ constexpr auto CALLBACK_MOUSE_BUTTON_8 = 7;
 constexpr auto CALLBACK_RELEASE = 0;
 constexpr auto CALLBACK_PRESS = 1;
 
-// ¶¨Òå»Øµ÷Ö¸ÕëÀàĞÍ
+// å®šä¹‰å›è°ƒæŒ‡é’ˆç±»å‹
 typedef void (*CallBackcursorposfun)(HWND, double, double);
 typedef void (*CallBackmousebuttonfun)(HWND, int, int, int);
 typedef void (*CallBackkeyfun)(HWND, int, int, int, int);
@@ -27,7 +27,6 @@ typedef void (*CallBackdropfun)(HWND, int, const char**);
 typedef void (*CallBackscrollfun)(HWND, double, double);
 typedef void (*CallBackwindowsizefun)(HWND, int, int);
 
-// ¶¨Òå»Øµ÷
 CallBackcursorposfun YounkooCursorPosCallback;
 CallBackmousebuttonfun YounkooMouseButtonCallback;
 CallBackkeyfun YounkooKeyCallback;
@@ -36,7 +35,6 @@ CallBackdropfun YounkooDropCallback;
 CallBackscrollfun YounkooScrollCallback;
 CallBackwindowsizefun YounkooWindowSizeCallback;
 
-// ´°¿Ú¹ı³Ì
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -145,32 +143,34 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 static WNDPROC SetCallbacks(HWND hWnd)
 {
     YounkooCursorPosCallback = [](HWND window, double x, double y) {
-        // ¹â±êÎ»ÖÃ»Øµ÷
+        // å…‰æ ‡ä½ç½®å›è°ƒ
         };
 
     YounkooMouseButtonCallback = [](HWND window, int button, int action, int mods) {
-        // Êó±ê°´Å¥»Øµ÷
+        // é¼ æ ‡æŒ‰é’®å›è°ƒ
         };
 
     YounkooKeyCallback = [](HWND window, int key, int scancode, int action, int mods) {
-        // ¼üÅÌ°´¼ü»Øµ÷
+        // é”®ç›˜æŒ‰é”®å›è°ƒ
         };
 
     YounkooCharCallback = [](HWND window, unsigned int codepoint) {
-        // ×Ö·ûÊäÈë»Øµ÷
+        // å­—ç¬¦è¾“å…¥å›è°ƒ
         };
 
     YounkooDropCallback = [](HWND window, int count, const char** filenames) {
-        // ÎÄ¼şÍÏ·Å»Øµ÷
+        // æ–‡ä»¶æ‹–æ”¾å›è°ƒ
         };
 
+
     YounkooScrollCallback = [](HWND window, double xoffset, double yoffset) {
-        // ¹öÂÖ¹ö¶¯»Øµ÷
+        // æ»šåŠ¨é¼ æ ‡å›è°ƒ
         };
 
     YounkooWindowSizeCallback = [](HWND window, int width, int height) {
         std::cout << "Reshape :" << width << "," << height << std::endl;
-        // ´°¿Ú´óĞ¡¸Ä±ä»Øµ÷
+        // çª—å£å¤§å°æ”¹å˜å›è°ƒ
+        WndProcHook::RESIZED = true;
         };
 
     return (WNDPROC_T)SetWindowLongPtrW(hWnd, GWLP_WNDPROC, (LONG_PTR)WndProc);
