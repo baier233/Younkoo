@@ -38,3 +38,11 @@ bool NanoVGHelper::DeleteContext()
 	Context = nullptr;
 	return true;
 }
+
+void NanoVGHelper::nvgTextW(NVGcontext* vg, int x, int y, std::wstring str)
+{
+	int sizeRequired = WideCharToMultiByte(CP_UTF8, 0, str.c_str(), -1, NULL, 0, NULL, NULL);
+	std::string utf8Str(sizeRequired, 0);
+	WideCharToMultiByte(CP_UTF8, 0, str.c_str(), -1, &utf8Str[0], sizeRequired, NULL, NULL);
+	nvgText(vg, 0, 66, utf8Str.c_str(), utf8Str.c_str() + utf8Str.size());
+}

@@ -27,6 +27,8 @@ static auto getWindowSize(const HWND& window) {
 
 #include "WndProcHook.hpp"
 
+#include <locale>
+#include <codecvt>
 
 bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
@@ -70,7 +72,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	nvgBeginFrame(vg, winWidth, winHeight, /*devicePixelRatio*/ 1.0f);
 	nvgSave(vg);
 
-
+	using namespace NanoVGHelper;
 	nvgBeginPath(vg);
 	nvgRect(vg, winWidth / static_cast<float>(2) - 50, winHeight / static_cast<float>(2) - 50, 100, 100); // 中心矩形
 	nvgFillColor(vg, nvgRGBA(220, 160, 0, 200)); // 颜色填充
@@ -80,9 +82,9 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	nvgBeginPath(vg);
 	nvgFillColor(vg, nvgRGB(255, 255, 255));
 	nvgFontFaceId(vg, NanoVGHelper::fontHarmony);
-	nvgFontSize(vg, 66.f);
-	setlocale(LC_ALL, "");
-	nvgText(vg, 0, 66, "Test测试中文", NULL);
+	nvgFontSize(vg, 45.f);
+	nvgTextW(vg, 0, 50, L"我爱Younkoo");
+
 	nvgClosePath(vg);
 	nvgRestore(vg);
 	nvgEndFrame(vg);
