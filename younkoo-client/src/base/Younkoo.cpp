@@ -12,7 +12,6 @@ Younkoo::Younkoo()
 
 #include "render/Renderer.hpp"
 #include "render/nano/NanovgHelper.hpp"
-
 #ifdef TEST
 
 void Test() {

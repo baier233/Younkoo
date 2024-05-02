@@ -161,7 +161,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\render\gui\Context.cpp" />
+    <ClCompile Include="src\base\render\gui\Component.cpp" />
     <ClCompile Include="ext\nanovg\nanovg.c" />
+    <ClCompile Include="src\base\features\modules\AbstractModule.cpp" />
+    <ClCompile Include="src\base\features\modules\ModuleManager.cpp" />
     <ClCompile Include="src\base\render\nano\NanovgHelper.cpp" />
     <ClCompile Include="src\base\render\Renderer.cpp" />
     <ClCompile Include="src\base\render\hooks\OpenGLHook.cpp" />
@@ -219,6 +223,8 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\base\render\gui\Context.hpp" />
+    <ClInclude Include="src\base\render\gui\Component.hpp" />
     <ClInclude Include="ext\lazy_importer.hpp" />
     <ClInclude Include="ext\nanovg\fontstash.h" />
     <ClInclude Include="ext\nanovg\nanovg.h" />
@@ -227,6 +233,9 @@
     <ClInclude Include="ext\nanovg\stb_image.h" />
     <ClInclude Include="ext\nanovg\stb_truetype.h" />
     <ClInclude Include="ext\titan_hook.h" />
+    <ClInclude Include="src\base\features\modules\AbstractModule.h" />
+    <ClInclude Include="src\base\features\modules\ModuleManager.hpp" />
+    <ClInclude Include="src\base\features\values\Value.h" />
     <ClInclude Include="src\base\render\nano\NanovgHelper.hpp" />
     <ClInclude Include="src\base\render\Renderer.hpp" />
     <ClInclude Include="src\base\render\hooks\OpenGLHook.hpp" />
@@ -235,6 +244,7 @@
     <ClInclude Include="src\base\Younkoo.hpp" />
     <ClInclude Include="src\utils\Misc.h" />
     <ClInclude Include="src\base\render\hooks\WndProcHook.hpp" />
+    <ClInclude Include="src\utils\types\Maths.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

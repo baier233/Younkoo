@@ -74,16 +74,10 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
 	using namespace NanoVGHelper;
 	nvgBeginPath(vg);
-	nvgRect(vg, winWidth / static_cast<float>(2) - 50, winHeight / static_cast<float>(2) - 50, 100, 100); // 中心矩形
-	nvgFillColor(vg, nvgRGBA(220, 160, 0, 200)); // 颜色填充
-	nvgFill(vg);
-	nvgClosePath(vg);
-
-	nvgBeginPath(vg);
 	nvgFillColor(vg, nvgRGB(255, 255, 255));
 	nvgFontFaceId(vg, NanoVGHelper::fontHarmony);
 	nvgFontSize(vg, 45.f);
-	nvgTextW(vg, 0, 50, L"我爱Younkoo");
+	nvgTextW(vg, 0, 40, L"我爱Younkoo");
 
 	nvgClosePath(vg);
 	nvgRestore(vg);
