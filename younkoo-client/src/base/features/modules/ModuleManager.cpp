@@ -1,16 +1,9 @@
-//
-// Created by muyuangod_1184612160 on 2023/8/6.
-//
-
 #include <iostream>
 #include <vector>
-#include "ModuleManager.hpp"
-
-
+#include "ModuleManager.h"
 ModuleManager::ModuleManager() {
 
 }
-
 
 void ModuleManager::getModule(Category c, std::vector<HMOD>* out_module) {
 	out_module->clear();
@@ -42,7 +35,6 @@ void ModuleManager::getModule(bool isenable, std::vector<HMOD>* out_module) {
 }
 
 void ModuleManager::ProcessKeyEvent(int key) {
-	//TODO
 	for (auto iter = this->modules.cbegin(); iter < this->modules.cend(); iter++) {
 		ToBaseModule(*iter)->onKeyEvent(key);
 
