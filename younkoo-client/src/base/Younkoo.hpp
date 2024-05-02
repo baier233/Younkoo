@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../utils/Singleton.hpp"
 #include <atomic>
 

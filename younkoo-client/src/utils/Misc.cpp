@@ -1,9 +1,7 @@
-#include "Misc.hpp"
+﻿#include "Misc.hpp"
 
 
 #include <Windows.h>
-#include <io.h>
-#include <fcntl.h>
 #include <iostream>
 void Utils::CreateConsole(void)
 {
@@ -17,9 +15,7 @@ void Utils::CreateConsole(void)
 		return;
 	}
 
-	auto lStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-	auto hConHandle = _open_osfhandle(PtrToUlong(lStdHandle), _O_TEXT);
-	auto fp = _fdopen(hConHandle, "w");
+	FILE* fp = nullptr;
 	freopen_s(&fp, "CONOUT$", "w", stdout);
 
 	*(__acrt_iob_func(1)) = *fp;

@@ -1,6 +1,6 @@
-#pragma once
+ï»¿#pragma once
 #include "Structs.hpp"
-//µ¥ÀıÄ£Ê½Ä£°åÀà
+//å•ä¾‹æ¨¡å¼æ¨¡æ¿ç±»
 template <typename T>
 class Singleton {
 protected:

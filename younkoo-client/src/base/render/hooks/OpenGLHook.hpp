@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../../../utils/Singleton.hpp"
 #include "../../../utils/Structs.hpp"
 
@@ -10,5 +10,4 @@ namespace OpenGLHook {
 	bool Init();
 	inline bool Initialized{ false };
 	bool Clean();
-
 }

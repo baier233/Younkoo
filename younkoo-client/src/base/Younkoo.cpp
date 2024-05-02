@@ -1,4 +1,4 @@
-#include "Younkoo.hpp"
+﻿#include "Younkoo.hpp"
 #include <iostream>
 
 #include "jvm/JVM.hpp"
@@ -66,7 +66,7 @@ bool Younkoo::setup()
 #include "../Main.hpp"
 bool Younkoo::shutdown()
 {
-
+	shouldShutDown = true;
 	auto flag = Renderer::get().Shutdown() && JVM::get().shutdown();
 	if (!flag) return false;
 	FreeLibraryAndExitThread(Main::current_module, 0);

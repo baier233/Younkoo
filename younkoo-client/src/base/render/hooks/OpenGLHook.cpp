@@ -29,9 +29,11 @@ static auto getWindowSize(const HWND& window) {
 
 #include <locale>
 #include <codecvt>
+#include "../../Younkoo.hpp"
 
 bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
-
+	if (Younkoo::get().shouldShutDown)
+		return wglSwapBuffersHook.GetOrignalFunc()(hdc);
 	auto& renderer = Renderer::get();
 	renderer.OriginalGLContext = wglGetCurrentContext();
 	renderer.HandleDeviceContext = hdc;
