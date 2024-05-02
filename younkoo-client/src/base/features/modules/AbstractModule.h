@@ -1,9 +1,15 @@
 #pragma once
-
 #include <string>
 #include <windows.h>
 #include "..\values\Value.h"
 #define IsKeyBeingDown(KEYNONAME) ((GetAsyncKeyState(KEYNONAME)&0x8000)?1:0)
+
+#define ToggleCheck if (!this->getToggle()) return
+#define DefaultConstructor(_Class) _Class() = default
+#define DefaultDeconstructor(_Class) ~_Class() = default
+#define NoMoveConstructor(_Class) _Class(_Class&&) = delete
+#define NoCopyConstructor(_Class) _Class(const _Class&) = delete
+#define NoAssignOperator(_Class) _Class& operator=(const _Class&) = delete
 
 enum class Category : unsigned int {
 	CLICKER = 1,
@@ -57,14 +63,11 @@ public:
 
 	void setToggle(bool _NEW);
 
-	void setToggle(std::string _NEW);
-
 	void enable();
 
 	void disable();
 
 	int& getKey();
-
 
 	void setKeyCode(int keycode);
 
@@ -78,7 +81,6 @@ public:
 
 	virtual void RenderMenu() = 0;
 
-
 	AbstractModule(const char* ModName, Category Modcategory);
 	AbstractModule(const char* ModName, Category Modcategory, std::string desc);
 	AbstractModule(const char* ModName, Category Modcategory, int k);
@@ -91,5 +93,4 @@ public:
 	AbstractModule(const AbstractModule&) = delete;
 
 	AbstractModule& operator=(const AbstractModule&) = delete;
-
 };

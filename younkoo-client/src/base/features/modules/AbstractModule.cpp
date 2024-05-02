@@ -21,8 +21,6 @@ int& AbstractModule::getKey() {
 	return this->key;
 }
 
-
-
 Category AbstractModule::getCategory() {
 	return this->category;
 }
@@ -35,7 +33,6 @@ void AbstractModule::toggle() {
 void AbstractModule::onToggled() {
 	if (this->i_toggle) {
 		this->onEnable();
-
 	}
 	else {
 		this->onDisable();
@@ -52,20 +49,6 @@ void AbstractModule::setToggle(bool _NEW) {
 	this->onToggled();
 }
 
-void AbstractModule::setToggle(std::string _NEW)
-{
-	if (strcmp(_NEW.c_str(), "Enable") == 0) {
-		if (this->i_toggle == true) return;
-		this->i_toggle = true;
-		this->onToggled();
-	}
-	else if (strcmp(_NEW.c_str(), "Disable") == 0) {
-		if (this->i_toggle == false)return;
-		this->i_toggle = false;
-		this->onToggled();
-	}
-}
-
 void AbstractModule::enable() {
 	this->setToggle(true);
 }
@@ -79,7 +62,6 @@ void AbstractModule::setKeyCode(int keycode) {
 }
 
 void AbstractModule::onKeyEvent(int key) {
-	//TODO
 	if (this->getKey() == key)
 		this->toggle();
 }

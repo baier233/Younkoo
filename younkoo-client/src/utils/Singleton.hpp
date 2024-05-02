@@ -1,7 +1,5 @@
 #pragma once
 #include "Structs.hpp"
-
-
 //单例模式模板类
 template <typename T>
 class Singleton {
