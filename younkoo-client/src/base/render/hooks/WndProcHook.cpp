@@ -2,21 +2,6 @@
 #include <windows.h>
 #include <iostream>
 
-constexpr auto CALLBACK_MOUSE_BUTTON_1 = 0;
-constexpr auto CALLBACK_MOUSE_BUTTON_2 = 1;
-constexpr auto CALLBACK_MOUSE_BUTTON_3 = 2;
-constexpr auto CALLBACK_MOUSE_BUTTON_4 = 3;
-constexpr auto CALLBACK_MOUSE_BUTTON_5 = 4;
-constexpr auto CALLBACK_MOUSE_BUTTON_6 = 5;
-constexpr auto CALLBACK_MOUSE_BUTTON_7 = 6;
-constexpr auto CALLBACK_MOUSE_BUTTON_8 = 7;
-#define CALLBACK_MOUSE_BUTTON_LAST      CALLBACK_MOUSE_BUTTON_8
-#define CALLBACK_MOUSE_BUTTON_LEFT      CALLBACK_MOUSE_BUTTON_1
-#define CALLBACK_MOUSE_BUTTON_RIGHT     CALLBACK_MOUSE_BUTTON_2
-#define CALLBACK_MOUSE_BUTTON_MIDDLE    CALLBACK_MOUSE_BUTTON_3
-
-constexpr auto CALLBACK_RELEASE = 0;
-constexpr auto CALLBACK_PRESS = 1;
 
 // 定义回调指针类型
 typedef void (*CallBackcursorposfun)(HWND, double, double);
@@ -39,6 +24,7 @@ static bool IsVkDown(int vk) {
 	return (GetAsyncKeyState(vk) & 0x8000) != 0;
 }
 
+#include "../gui/input/Context.hpp"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -153,7 +139,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return CallWindowProc(WndProcHook::GL_HANDLE, hWnd, message, wParam, lParam);;
 }
 
-#include "../gui/input/Context.hpp"
 
 
 static WNDPROC SetCallbacks(HWND hWnd)
@@ -161,10 +146,12 @@ static WNDPROC SetCallbacks(HWND hWnd)
 	YounkooCursorPosCallback = [](HWND window, double x, double y) {
 		// 光标位置回调
 		context.MousePos = Vector2D(x, y);
+
 		};
 
 	YounkooMouseButtonCallback = [](HWND window, int button, int action, int mods) {
 		// 鼠标按钮回调
+		std::cout << "Button :" << button << std::endl;
 		if (action == CALLBACK_PRESS) context.MouseDown[button] = true;
 		if (action == CALLBACK_RELEASE) context.MouseDown[button] = false;
 		};
@@ -212,6 +199,8 @@ static WNDPROC SetCallbacks(HWND hWnd)
 	YounkooWindowSizeCallback = [](HWND window, int width, int height) {
 		//std::cout << "Reshape :" << width << "," << height << std::endl;
 		// 窗口大小改变回调
+		context.ScreenWidth = width;
+		context.ScreenHeight = height;
 		WndProcHook::RESIZED = true;
 		};
 

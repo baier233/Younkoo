@@ -84,10 +84,13 @@
     <ClCompile Include="src\base\features\modules\AbstractModule.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\render\gui\Component.cpp">
+    <ClCompile Include="src\base\render\gui\Component\Component.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\base\render\gui\input\Context.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\render\gui\GUI.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,7 +152,7 @@
     <ClInclude Include="src\base\features\values\Value.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\render\gui\Component.hpp">
+    <ClInclude Include="src\base\render\gui\Component\Component.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\render\gui\input\Context.hpp">
@@ -159,6 +162,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\render\resources\fonts\harmony_sc_light.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\render\gui\GUI.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

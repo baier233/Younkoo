@@ -31,6 +31,12 @@ static auto getWindowSize(const HWND& window) {
 #include <codecvt>
 #include "../../Younkoo.hpp"
 
+
+
+static bool showMenu = false;
+#include "../gui/input/Context.hpp"
+#include "../gui/GUI.h"
+std::unique_ptr<YounkooGui> gui = std::make_unique<YounkooGui>(600, 400);
 bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	if (Younkoo::get().shouldShutDown)
 		return wglSwapBuffersHook.GetOrignalFunc()(hdc);
@@ -39,6 +45,10 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	renderer.HandleDeviceContext = hdc;
 
 	if (!renderer.Initialized) {
+		GLint viewport[4]{};
+		glGetIntegerv(GL_VIEWPORT, viewport);
+		context.ScreenWidth = viewport[2];
+		context.ScreenHeight = viewport[3];
 
 		renderer.HandleWindow = WindowFromDC(hdc);
 		// Create My Mirror Context(When I rendering my own stuff,i use this context for not to impact the minecraft gl enviorment)
@@ -72,7 +82,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	int winHeight = viewport[3];
 
 	auto& vg = NanoVGHelper::Context;
-	nvgBeginFrame(vg, winWidth, winHeight, /*devicePixelRatio*/ 1.0f);
+	nvgBeginFrame(vg, winWidth, winHeight, /*devicePixelRatio*/ 3.0f);
 	nvgSave(vg);
 
 	using namespace NanoVGHelper;
@@ -80,11 +90,22 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	nvgFillColor(vg, nvgRGB(255, 255, 255));
 	nvgFontFaceId(vg, NanoVGHelper::fontHarmony);
 	nvgFontSize(vg, 45.f);
-	nvgTextW(vg, 5, 30, L"Younkoo");
+	nvgTextW(vg, 9, 25, L"Younkoo");
+
+	if (context.IsKeyPressed(VK_INSERT, false))
+	{
+		showMenu = !showMenu;
+	}
+	if (showMenu)
+	{
+		gui->drawScreen(vg, context.MousePos.x, context.MousePos.y);
+		//drawWindow(vg, "Younkoo", static_cast<float>(winWidth) / static_cast<float>(2) - 200, static_cast<float>(winHeight) / static_cast<float>(2) - 300, 400, 600);
+	}
 
 	nvgClosePath(vg);
 	nvgRestore(vg);
 	nvgEndFrame(vg);
+	context.EndFrame();
 
 	//End Drawing and Rendering and Dispatch back to minecraft's opengl context
 	wglMakeCurrent(renderer.HandleDeviceContext, renderer.OriginalGLContext);

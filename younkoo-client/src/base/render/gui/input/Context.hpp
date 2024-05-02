@@ -1,7 +1,22 @@
-#pragma once
+﻿#pragma once
 #include <atomic>
 #include  "../../../../utils/types/Maths.hpp"
 
+constexpr auto CALLBACK_MOUSE_BUTTON_1 = 0;
+constexpr auto CALLBACK_MOUSE_BUTTON_2 = 1;
+constexpr auto CALLBACK_MOUSE_BUTTON_3 = 2;
+constexpr auto CALLBACK_MOUSE_BUTTON_4 = 3;
+constexpr auto CALLBACK_MOUSE_BUTTON_5 = 4;
+constexpr auto CALLBACK_MOUSE_BUTTON_6 = 5;
+constexpr auto CALLBACK_MOUSE_BUTTON_7 = 6;
+constexpr auto CALLBACK_MOUSE_BUTTON_8 = 7;
+#define CALLBACK_MOUSE_BUTTON_LAST      CALLBACK_MOUSE_BUTTON_8
+#define CALLBACK_MOUSE_BUTTON_LEFT      CALLBACK_MOUSE_BUTTON_1
+#define CALLBACK_MOUSE_BUTTON_RIGHT     CALLBACK_MOUSE_BUTTON_2
+#define CALLBACK_MOUSE_BUTTON_MIDDLE    CALLBACK_MOUSE_BUTTON_3
+
+constexpr auto CALLBACK_RELEASE = 0;
+constexpr auto CALLBACK_PRESS = 1;
 struct YounkooIOContext {
 	Vector2D MousePos{ 0,0 };
 	bool MouseDown[5]{ false };
@@ -10,8 +25,10 @@ struct YounkooIOContext {
 	bool KeysDownAlready[512]{ false };
 	double MouseWheel = 0;
 	double MouseWheelH = 0;
-	std::vector<char>KeyQueue;
-}inline context;
+	bool IsDragging = false;
+	int ScreenWidth{}, ScreenHeight{};
+	std::vector<char>InputQueueCharacters;
+};
 
 class YounkooInput : public YounkooIOContext {
 public:
@@ -61,5 +78,8 @@ public:
 				return true;
 		return false;
 	}
-
-};
+	void EndFrame() {
+		this->MouseWheel = this->MouseWheelH = 0.0f;
+		this->InputQueueCharacters.resize(0);
+	}
+}inline context;
