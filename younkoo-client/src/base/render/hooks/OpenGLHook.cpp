@@ -77,7 +77,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	nvgFillColor(vg, nvgRGB(255, 255, 255));
 	nvgFontFaceId(vg, NanoVGHelper::fontHarmony);
 	nvgFontSize(vg, 45.f);
-	nvgTextW(vg, 0, 40, L"我爱Younkoo");
+	nvgTextW(vg, 0, 40, L"Younkoo");
 
 	nvgClosePath(vg);
 	nvgRestore(vg);

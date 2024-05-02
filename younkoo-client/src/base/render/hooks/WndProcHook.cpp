@@ -168,10 +168,9 @@ static WNDPROC SetCallbacks(HWND hWnd)
 
 	YounkooKeyCallback = [](HWND window, int key, int scancode, int action, int mods) {
 		// 键盘按键回调
-		const bool is_key_down = (action == CALLBACK_PRESS);
+		const bool is_key_down = action == CALLBACK_PRESS || action != CALLBACK_RELEASE;
 
-		if (action == CALLBACK_PRESS) context.KeysDown[key] = true;
-		if (action == CALLBACK_RELEASE) context.KeysDown[key] = false;
+		context.KeysDown[key] = is_key_down;
 
 		if (key == VK_SHIFT)
 		{
@@ -208,7 +207,7 @@ static WNDPROC SetCallbacks(HWND hWnd)
 		};
 
 	YounkooWindowSizeCallback = [](HWND window, int width, int height) {
-		std::cout << "Reshape :" << width << "," << height << std::endl;
+		//std::cout << "Reshape :" << width << "," << height << std::endl;
 		// 窗口大小改变回调
 		WndProcHook::RESIZED = true;
 		};
