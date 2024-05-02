@@ -158,5 +158,8 @@
     <ClInclude Include="src\utils\types\Maths.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\base\render\resources\fonts\harmony_sc_light.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

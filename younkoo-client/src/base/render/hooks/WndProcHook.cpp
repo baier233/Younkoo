@@ -78,7 +78,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_SYSKEYDOWN:
 		if (YounkooKeyCallback)
 		{
-			int key = wParam;
+			int key = static_cast<int>(wParam);
 			int scancode = (lParam >> 16) & 0x1FF;
 			int action = CALLBACK_PRESS;
 			int mods = 0;
@@ -89,7 +89,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_SYSKEYUP:
 		if (YounkooKeyCallback)
 		{
-			int key = wParam;
+			int key = static_cast<int>(wParam);
 			int scancode = (lParam >> 16) & 0x1FF;
 			int action = CALLBACK_RELEASE;
 			int mods = 0;
@@ -99,7 +99,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_CHAR:
 		if (YounkooCharCallback)
 		{
-			unsigned int codepoint = wParam;
+			unsigned int codepoint = static_cast<int>(wParam);
 			YounkooCharCallback(hWnd, codepoint);
 		}
 		break;

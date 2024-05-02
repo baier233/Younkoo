@@ -12,6 +12,7 @@ void error_callback(int error, const char* description)
 {
 	std::cerr << "CALLBACK Error: " << description << std::endl;
 }
+#include "../resources/fonts/harmony_sc_light.h"
 
 bool NanoVGHelper::InitContext(HWND window2Attach)
 {
@@ -27,7 +28,10 @@ bool NanoVGHelper::InitContext(HWND window2Attach)
 
 	Context = nvgCreateGL2(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
 
-	fontHarmony = nvgCreateFont(Context, "raleway", "C:\\Users\\Baier\\AppData\\Local\\Microsoft\\Windows\\Fonts\\HarmonyOS_Sans_SC_Light.ttf");
+
+	//fontHarmony = nvgCreateFont(Context, "raleway", "C:\\Users\\Baier\\AppData\\Local\\Microsoft\\Windows\\Fonts\\HarmonyOS_Sans_SC_Light.ttf");
+
+	fontHarmony = nvgCreateFontMem(Context, "harmony_sans_light", harmony_sc_light, harmony_sc_light_size, 0);
 	return Context != nullptr;
 }
 
