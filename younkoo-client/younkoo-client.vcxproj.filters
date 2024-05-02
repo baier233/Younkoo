@@ -87,7 +87,7 @@
     <ClCompile Include="src\base\render\gui\Component.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\render\gui\Context.cpp">
+    <ClCompile Include="src\base\render\gui\input\Context.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,7 +98,7 @@
     <ClInclude Include="src\base\Younkoo.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\utils\Misc.h">
+    <ClInclude Include="src\utils\Misc.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\jvm\JVM.hpp">
@@ -152,7 +152,7 @@
     <ClInclude Include="src\base\render\gui\Component.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\render\gui\Context.hpp">
+    <ClInclude Include="src\base\render\gui\input\Context.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\utils\types\Maths.hpp">

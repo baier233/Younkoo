@@ -153,6 +153,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return CallWindowProc(WndProcHook::GL_HANDLE, hWnd, message, wParam, lParam);;
 }
 
+#include "../gui/input/Context.hpp"
+
+
 static WNDPROC SetCallbacks(HWND hWnd)
 {
 	YounkooCursorPosCallback = [](HWND window, double x, double y) {
@@ -191,8 +194,8 @@ static WNDPROC SetCallbacks(HWND hWnd)
 		};
 
 	YounkooCharCallback = [](HWND window, unsigned int codepoint) {
-		context.KeyQueue.push_back(codepoint);
 		// 字符输入回调
+		//context.KeyQueue.push_back(codepoint);
 		};
 
 	YounkooDropCallback = [](HWND window, int count, const char** filenames) {
@@ -218,12 +221,13 @@ static WNDPROC SetCallbacks(HWND hWnd)
 
 bool WndProcHook::Init(HWND window2Hook)
 {
+	GL_HWND = window2Hook;
 	GL_HANDLE = SetCallbacks(window2Hook);
 	return GL_HANDLE != nullptr;
 }
 
 bool WndProcHook::Clean()
 {
-	(void)SetWindowLongPtrW(GL_HWND, GWLP_WNDPROC, (LONG)GL_HANDLE);
-	return true;
+	auto handle = SetWindowLongPtrW(GL_HWND, GWLP_WNDPROC, (LONG_PTR)GL_HANDLE);
+	return handle != 0;
 }

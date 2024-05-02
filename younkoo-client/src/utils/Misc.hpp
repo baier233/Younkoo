@@ -6,4 +6,4 @@ namespace Utils {
 	void CreateConsole();
 	//Ïú»Ùµ÷ÊÔ´°¿Ú
 	void CloseConsole();
-}
+};

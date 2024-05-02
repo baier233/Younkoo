@@ -9,6 +9,7 @@ protected:
 public:
 	JVM();
 	bool setup();
+	bool shutdown();
 	JNIEnv* Env;
 	JavaVM* jvm;
 private:

@@ -7,19 +7,15 @@
 #include <thread>
 
 #include "base/Younkoo.hpp"
-#include "utils/Misc.h"
 
 static DWORD WINAPI BootStrapThread(LPVOID hDll)
 {
 	//Setup Client Here
 	auto result = Younkoo::get().setup();
-	if (!result) {
-		FreeLibraryAndExitThread(reinterpret_cast<HMODULE>(hDll), 0);
-	}
-
 	return NULL;
 }
 
+#include "utils/Misc.hpp"
 BOOL Main::ProcessAttach(HMODULE hDll)
 {
 	Thread::s_nTlsIndent = TlsAlloc();
@@ -67,7 +63,7 @@ BOOL Thread::ThreadAttach(HMODULE hDll)
 	return TRUE;
 }
 
-BOOL Thread::ThreadDetach(HMODULE hDll)
+inline BOOL Thread::ThreadDetach(HMODULE hDll)
 {
 	(void)hDll;
 

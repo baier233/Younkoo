@@ -35,10 +35,10 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	auto& renderer = Renderer::get();
 	renderer.OriginalGLContext = wglGetCurrentContext();
 	renderer.HandleDeviceContext = hdc;
-	renderer.HandleWindow = WindowFromDC(hdc);
 
 	if (!renderer.Initialized) {
 
+		renderer.HandleWindow = WindowFromDC(hdc);
 		// Create My Mirror Context(When I rendering my own stuff,i use this context for not to impact the minecraft gl enviorment)
 		renderer.MenuGLContext = wglCreateContext(hdc);
 		// Copy Minecraft's opengl context to mine.
@@ -55,6 +55,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 		renderer.Initialized = true;
 	}
 	else if (WndProcHook::RESIZED) {
+		renderer.HandleWindow = WindowFromDC(hdc);
 		// If Initialized,update my mirror context from minecraft's.
 		wglCopyContext(renderer.OriginalGLContext, renderer.MenuGLContext, GL_ALL_ATTRIB_BITS);
 	}
@@ -77,7 +78,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	nvgFillColor(vg, nvgRGB(255, 255, 255));
 	nvgFontFaceId(vg, NanoVGHelper::fontHarmony);
 	nvgFontSize(vg, 45.f);
-	nvgTextW(vg, 0, 40, L"Younkoo");
+	nvgTextW(vg, 5, 30, L"Younkoo");
 
 	nvgClosePath(vg);
 	nvgRestore(vg);
@@ -113,5 +114,5 @@ bool OpenGLHook::Clean()
 
 	wglSwapBuffersHook.RemoveHook();
 
-	return NanoVGHelper::DeleteContext();
+	return NanoVGHelper::DeleteContext() && WndProcHook::Clean();
 }

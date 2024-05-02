@@ -46,18 +46,29 @@ void Test() {
 
 #endif // Test
 
+#include "render/gui/input/Context.hpp"
 bool Younkoo::setup()
 {
 	auto flag = JVM::get().setup();
 	flag &= Renderer::get().Init();
 
+	if (!flag) return flag;
 
 	std::cout << "Setting Up" << std::endl;
-	return flag;
-}
+	while (!shouldShutDown)
+	{
+		shouldShutDown = context.KeysDown[VK_END];
+		Sleep(1);
+	}
 
+	return Younkoo::shutdown();
+}
+#include "../Main.hpp"
 bool Younkoo::shutdown()
 {
-	auto flag = Renderer::get().Shutdown();
-	return flag;
+
+	auto flag = Renderer::get().Shutdown() && JVM::get().shutdown();
+	if (!flag) return false;
+	FreeLibraryAndExitThread(Main::current_module, 0);
+	return true;
 }

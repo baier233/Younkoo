@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 namespace Main {
-	inline HMODULE current_module;
+	inline HMODULE current_module{};
 	BOOL ProcessAttach(HMODULE hDll);
 	BOOL ProcessDetach(HMODULE hDll);
 }

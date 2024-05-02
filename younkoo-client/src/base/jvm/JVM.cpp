@@ -15,10 +15,17 @@ bool JVM::setup()
 	jint res = jvm->GetEnv((void**)&Env, JNI_VERSION_1_8);
 
 	if (res == JNI_EDETACHED)
-		res = jvm->AttachCurrentThreadAsDaemon((void**)&Env, nullptr); 
+		res = jvm->AttachCurrentThreadAsDaemon((void**)&Env, nullptr);
 
 	if (res != JNI_OK)
 		return false;
 	JNI::set_thread_env(Env);
 	return true;
+}
+
+bool JVM::shutdown()
+{
+	JNI::shutdown();
+	auto err = jvm->DetachCurrentThread();
+	return err == 0;
 }

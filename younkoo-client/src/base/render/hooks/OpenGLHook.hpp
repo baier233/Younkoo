@@ -8,6 +8,7 @@
 namespace OpenGLHook {
 	bool Detour_wglSwapBuffers(_In_ HDC hdc);
 	bool Init();
+	inline bool Initialized{ false };
 	bool Clean();
 
 }

@@ -161,7 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\base\render\gui\Context.cpp" />
+    <ClCompile Include="src\base\render\gui\input\Context.cpp" />
     <ClCompile Include="src\base\render\gui\Component.cpp" />
     <ClCompile Include="ext\nanovg\nanovg.c" />
     <ClCompile Include="src\base\features\modules\AbstractModule.cpp" />
@@ -175,7 +175,9 @@
     <ClCompile Include="src\Bootstrap.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\base\Younkoo.cpp" />
-    <ClCompile Include="src\utils\Misc.cpp" />
+    <ClCompile Include="src\utils\Misc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="src\utils\Singleton.hpp" />
     <ClCompile Include="src\utils\Structs.hpp" />
     <ClCompile Include="src\base\render\hooks\WndProcHook.cpp" />
@@ -223,7 +225,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
-    <ClInclude Include="src\base\render\gui\Context.hpp" />
+    <ClInclude Include="src\base\render\gui\input\Context.hpp" />
     <ClInclude Include="src\base\render\gui\Component.hpp" />
     <ClInclude Include="ext\lazy_importer.hpp" />
     <ClInclude Include="ext\nanovg\fontstash.h" />
@@ -242,7 +244,7 @@
     <ClInclude Include="src\base\jvm\JVM.hpp" />
     <ClInclude Include="src\Main.hpp" />
     <ClInclude Include="src\base\Younkoo.hpp" />
-    <ClInclude Include="src\utils\Misc.h" />
+    <ClInclude Include="src\utils\Misc.hpp" />
     <ClInclude Include="src\base\render\hooks\WndProcHook.hpp" />
     <ClInclude Include="src\utils\types\Maths.hpp" />
   </ItemGroup>

@@ -1,11 +1,11 @@
-#include "Misc.h"
+#include "Misc.hpp"
 
 
 #include <Windows.h>
 #include <io.h>
 #include <fcntl.h>
 #include <iostream>
-void Utils::CreateConsole()
+void Utils::CreateConsole(void)
 {
 	FreeConsole();
 	if (!AllocConsole())
@@ -26,7 +26,7 @@ void Utils::CreateConsole()
 	setvbuf(stdout, NULL, _IONBF, 0);
 }
 
-void Utils::CloseConsole()
+void Utils::CloseConsole(void)
 {
 	FILE* fp = (__acrt_iob_func(1));
 	if (fp != nullptr) {
