@@ -151,7 +151,7 @@ static WNDPROC SetCallbacks(HWND hWnd)
 
 	YounkooMouseButtonCallback = [](HWND window, int button, int action, int mods) {
 		// 鼠标按钮回调
-		std::cout << "Button :" << button << std::endl;
+		//std::cout << "Button :" << button << std::endl;
 		if (action == CALLBACK_PRESS) context.MouseDown[button] = true;
 		if (action == CALLBACK_RELEASE) context.MouseDown[button] = false;
 		};

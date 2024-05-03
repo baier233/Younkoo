@@ -3,7 +3,7 @@
 #include <GL\glew.h>
 
 #include "nanovg.h"
-#define NANOVG_GL2_IMPLEMENTATION
+#define NANOVG_GL3_IMPLEMENTATION
 #include "nanovg_gl.h"
 //#include "nanovg_gl_utils.h"
 #include <iostream>
@@ -26,19 +26,20 @@ bool NanoVGHelper::InitContext(HWND window2Attach)
 	}
 	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
-	Context = nvgCreateGL2(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
+	Context = nvgCreateGL3(NVG_ANTIALIAS | NVG_STENCIL_STROKES);
 
 
-	//fontHarmony = nvgCreateFont(Context, "raleway", "C:\\Users\\Baier\\AppData\\Local\\Microsoft\\Windows\\Fonts\\HarmonyOS_Sans_SC_Light.ttf");
+	fontHarmony = nvgCreateFont(Context, "raleway", "C:\\Users\\Baier\\AppData\\Local\\Microsoft\\Windows\\Fonts\\HarmonyOS_Sans_SC_Thin.ttf");
 
-	fontHarmony = nvgCreateFontMem(Context, "harmony_sans_light", harmony_sc_light, harmony_sc_light_size, 0);
+	//fontHarmony = nvgCreateFontMem(Context, "harmony_sans_light", harmony_sc_light, harmony_sc_light_size, 0);
+	nvgShapeAntiAlias(Context, 1);
 	return Context != nullptr;
 }
 
 bool NanoVGHelper::DeleteContext()
 {
 	//释放nvg 上下文时.font也会被释放。
-	nvgDeleteGL2(Context);
+	nvgDeleteGL3(Context);
 	Context = nullptr;
 	return true;
 }
@@ -48,5 +49,12 @@ void NanoVGHelper::nvgTextW(NVGcontext* vg, int x, int y, std::wstring str)
 	int sizeRequired = WideCharToMultiByte(CP_UTF8, 0, str.c_str(), -1, NULL, 0, NULL, NULL);
 	std::string utf8Str(sizeRequired, 0);
 	WideCharToMultiByte(CP_UTF8, 0, str.c_str(), -1, &utf8Str[0], sizeRequired, NULL, NULL);
-	nvgText(vg, 0, 66, utf8Str.c_str(), utf8Str.c_str() + utf8Str.size());
+	nvgText(vg, x, y, utf8Str.c_str(), utf8Str.c_str() + utf8Str.size());
+}
+void NanoVGHelper::nvgTextBoundsW(NVGcontext* vg, int x, int y, std::wstring str, float bounds[])
+{
+	int sizeRequired = WideCharToMultiByte(CP_UTF8, 0, str.c_str(), -1, NULL, 0, NULL, NULL);
+	std::string utf8Str(sizeRequired, 0);
+	WideCharToMultiByte(CP_UTF8, 0, str.c_str(), -1, &utf8Str[0], sizeRequired, NULL, NULL);
+	nvgTextBounds(vg, x, y, utf8Str.c_str(), utf8Str.c_str() + utf8Str.size(), bounds);
 }

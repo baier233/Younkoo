@@ -1,5 +1,13 @@
-#pragma once
+﻿#pragma once
 #include <Windows.h>
+
+namespace Utils {
+	//创建调试窗口
+	void CreateConsole_();
+	//销毁调试窗口
+	void CloseConsole_();
+};
+
 namespace Main {
 	inline HMODULE current_module{};
 	BOOL ProcessAttach(HMODULE hDll);

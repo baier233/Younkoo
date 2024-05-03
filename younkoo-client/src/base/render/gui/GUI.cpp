@@ -61,21 +61,19 @@ static void drawWindow(NVGcontext* vg, const char* title, float x, float y, floa
 
 void YounkooGui::drawScreen(NVGcontext* vg, int mouseX, int mouseY)
 {
-	static auto posX = context.ScreenWidth / static_cast<float>(2) - 200, posY = context.ScreenHeight / static_cast<float>(2) - 300;
-	static double width = 400., height = 600.;
+	static float width = 1000, height = 600;
+	static float posX = context.ScreenWidth / static_cast<float>(2) - width / 2, posY = context.ScreenHeight / static_cast<float>(2) - height / 2;
 	bool isHovered = context.MouseInZone({ posX,posY }, { width, height / 5 });
 	static bool isDrag = false;
 	if (context.IsMousePressed(0))
 	{
-		if (isHovered) {
+		if (isHovered)
 			isDrag = true;
-		}
-
 	}
 	else {
 		isDrag = false;
 	}
-	static double offsetX = 0, offsetY = 0;
+	static float offsetX = 0, offsetY = 0;
 	if (isDrag)
 	{
 		if (offsetX == 0 && offsetY == 0)

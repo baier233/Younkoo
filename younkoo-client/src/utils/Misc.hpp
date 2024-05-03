@@ -1,9 +1,3 @@
-#pragma once
+ï»¿#pragma once
 
 
-namespace Utils {
-	//´´½¨µ÷ÊÔ´°¿Ú
-	void CreateConsole();
-	//Ïú»Ùµ÷ÊÔ´°¿Ú
-	void CloseConsole();
-};

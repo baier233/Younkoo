@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <Windows.h>
 class NVGcontext;
 
@@ -9,6 +9,7 @@ namespace NanoVGHelper {
 	bool DeleteContext();
 	inline NVGcontext* Context{};
 	void nvgTextW(NVGcontext* vg, int x, int y, std::wstring str);
+	void nvgTextBoundsW(NVGcontext* vg, int x, int y, std::wstring str, float bounds[]);
 	inline int fontHarmony{};
 }
 

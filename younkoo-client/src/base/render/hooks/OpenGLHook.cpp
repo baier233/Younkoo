@@ -87,10 +87,11 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
 	using namespace NanoVGHelper;
 	nvgBeginPath(vg);
+	nvgFontSize(vg, 100);
 	nvgFillColor(vg, nvgRGB(255, 255, 255));
 	nvgFontFaceId(vg, NanoVGHelper::fontHarmony);
-	nvgFontSize(vg, 45.f);
-	nvgTextW(vg, 9, 25, L"Younkoo");
+	nvgTextAlign(vg, NVG_ALIGN_LEFT | NVG_ALIGN_TOP);
+	nvgText(vg, 5, 5, "NanoVG", NULL);
 
 	if (context.IsKeyPressed(VK_INSERT, false))
 	{
@@ -102,7 +103,6 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 		//drawWindow(vg, "Younkoo", static_cast<float>(winWidth) / static_cast<float>(2) - 200, static_cast<float>(winHeight) / static_cast<float>(2) - 300, 400, 600);
 	}
 
-	nvgClosePath(vg);
 	nvgRestore(vg);
 	nvgEndFrame(vg);
 	context.EndFrame();
