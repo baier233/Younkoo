@@ -82,7 +82,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	int winHeight = viewport[3];
 
 	auto& vg = NanoVGHelper::Context;
-	nvgBeginFrame(vg, winWidth, winHeight, /*devicePixelRatio*/ 3.0f);
+	nvgBeginFrame(vg, winWidth, winHeight, /*devicePixelRatio*/ 1.0f);
 	nvgSave(vg);
 
 	using namespace NanoVGHelper;
@@ -91,7 +91,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	nvgFillColor(vg, nvgRGB(255, 255, 255));
 	nvgFontFaceId(vg, NanoVGHelper::fontHarmony);
 	nvgTextAlign(vg, NVG_ALIGN_LEFT | NVG_ALIGN_TOP);
-	nvgText(vg, 5, 5, "NanoVG", NULL);
+	nvgTextW(vg, 5, 5, L"我爱情染");
 
 	if (context.IsKeyPressed(VK_INSERT, false))
 	{
