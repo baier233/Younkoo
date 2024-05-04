@@ -138,26 +138,30 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return CallWindowProc(WndProcHook::GL_HANDLE, hWnd, message, wParam, lParam);;
 }
 
-
+#include "../gui/input/IOEvents.h"
 
 static WNDPROC SetCallbacks(HWND hWnd)
 {
 	YounkooCursorPosCallback = [](HWND window, double x, double y) {
 		// 光标位置回调
-		context.MousePos = Vector2D(x, y);
+		YounkooIO::IOEvents.push(YounkooIO::MousePosEvent(x, y));
+		//context.MousePos = Vector2D(x, y);
 
 		};
 
 	YounkooMouseButtonCallback = [](HWND window, int button, int action, int mods) {
 		// 鼠标按钮回调
 		//std::cout << "Button :" << button << std::endl;
-		if (action == CALLBACK_PRESS) context.MouseDown[button] = true;
-		if (action == CALLBACK_RELEASE) context.MouseDown[button] = false;
+		YounkooIO::IOEvents.push(YounkooIO::MouseEvent(button, action));
+		/*if (action == CALLBACK_PRESS) context.MouseDown[button] = true;
+		if (action == CALLBACK_RELEASE) context.MouseDown[button] = false;*/
 		};
 
 	YounkooKeyCallback = [](HWND window, int key, int scancode, int action, int mods) {
 		// 键盘按键回调
-		const bool is_key_down = action == CALLBACK_PRESS || action != CALLBACK_RELEASE;
+
+		YounkooIO::IOEvents.push(YounkooIO::KeyEvent(key, action));
+		/*const bool is_key_down = action == CALLBACK_PRESS || action != CALLBACK_RELEASE;
 
 		context.KeysDown[key] = is_key_down;
 
@@ -175,11 +179,12 @@ static WNDPROC SetCallbacks(HWND hWnd)
 		{
 			if (IsVkDown(VK_LMENU) == is_key_down) { context.KeysDown[VK_LMENU] = is_key_down; }
 			if (IsVkDown(VK_RMENU) == is_key_down) { context.KeysDown[VK_RMENU] = is_key_down; }
-		}
+		}*/
 
 		};
 
 	YounkooCharCallback = [](HWND window, unsigned int codepoint) {
+		YounkooIO::IOEvents.push(YounkooIO::CharEvent(codepoint));
 		// 字符输入回调
 		//context.KeyQueue.push_back(codepoint);
 		};
@@ -190,9 +195,10 @@ static WNDPROC SetCallbacks(HWND hWnd)
 
 
 	YounkooScrollCallback = [](HWND window, double xoffset, double yoffset) {
+		YounkooIO::IOEvents.push(YounkooIO::WheelEvent(xoffset, yoffset));
 		// 滚动鼠标回调
-		context.MouseWheel += yoffset;
-		context.MouseWheelH += xoffset;
+		//context.MouseWheel += yoffset;
+		//context.MouseWheelH += xoffset;
 		};
 
 	YounkooWindowSizeCallback = [](HWND window, int width, int height) {

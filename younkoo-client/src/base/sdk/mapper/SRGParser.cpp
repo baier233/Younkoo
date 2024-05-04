@@ -9,8 +9,6 @@ void SRGParser::Init(const unsigned char* srgBytes, size_t size, bool Reverse)
 	std::string line;
 	while (std::getline(iss, line)) {
 		// 处理每一行数据
-		std::vector<int> empty;
-
 		std::istringstream lineStream(line);
 		std::string type;
 		lineStream >> type;

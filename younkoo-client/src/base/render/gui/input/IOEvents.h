@@ -7,48 +7,62 @@ namespace YounkooIO {
 	enum EventType
 	{
 		KEY,
+		MOUSEPOS,
 		MOUSE,
 		WHEEL,
 		TYPE,
 	};
 
 	struct IOEvent {
-		EventType Type;
+		EventType type;
 	};
 
-	struct MouseEvent : public IOEvent
+	struct KeyEvent final : IOEvent
 	{
-		MouseEvent() : IOEvent{ MOUSE } {};
-		int Button{};
-		int Action{};
+		constexpr KeyEvent(int keycode = 0, int action = 0) noexcept
+			: IOEvent{ EventType::KEY }, keycode(keycode), action(action) {}
+		int keycode;
+		int action;
 	};
 
-	struct KeyEvent : public IOEvent
+	struct MousePosEvent final : IOEvent
 	{
-		KeyEvent() : IOEvent{ KEY } {};
-		int Keycode{};
-		int Action{};
+		constexpr MousePosEvent(double posX = 0, double posY = 0) noexcept
+			: IOEvent{ EventType::MOUSEPOS }, posX(posX), posY(posY) {}
+		double posX;
+		double posY;
 	};
 
-	struct CharEvent : public IOEvent
+	struct MouseEvent final : IOEvent
 	{
-		CharEvent() : IOEvent{ TYPE } {}
-		int Codepoint{};
+		constexpr MouseEvent(int button = 0, int action = 0) noexcept
+			: IOEvent{ EventType::MOUSE }, button(button), action(action) {}
+		int button;
+		int action;
 	};
 
-	struct WheelEvent : public IOEvent
+	struct WheelEvent final : IOEvent
 	{
-		WheelEvent() : IOEvent{ WHEEL } {};
-		int Width{};
-		int Height{};
+		constexpr WheelEvent(double offsetX = 0, double offsetY = 0) noexcept :
+			IOEvent{ EventType::WHEEL }, offsetX(offsetX), offsetY(offsetY) {}
+		double offsetX;
+		double offsetY;
+	};
+
+	struct CharEvent final :IOEvent
+	{
+		constexpr CharEvent(unsigned int codepoint = 0) noexcept
+			: IOEvent{ EventType::TYPE }, codepoint(codepoint) {}
+		unsigned int codepoint;
 	};
 
 	inline std::queue<IOEvent> IOEvents;
 
-	void Clear() {
+	inline void Clear() noexcept {
 		std::queue<IOEvent> empty;
 		IOEvents.swap(empty);
 	}
+
 }
 
 
