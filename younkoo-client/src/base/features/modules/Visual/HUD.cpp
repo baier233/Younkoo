@@ -41,6 +41,11 @@ void HUD::onDisable()
 	std::cout << "onDisable" << std::endl;
 }
 
+void HUD::onUpdate()
+{
+	//std::cout << "HUD onUpdate" << std::endl;
+}
+
 void HUD::onRender(const EventRender2D& e)
 {
 	std::cout << "call" << std::endl;
@@ -72,7 +77,7 @@ void HUD::onRender(const EventRender2D& e)
 
 HUD::HUD() :AbstractModule("HUD", Category::VISUAL, 'K')
 {
-
+	std::cout << "c" << std::endl;
 	Younkoo::get().EventBus.register_handler<EventRender2D>(this, &HUD::onRender);
 
 	this->setToggle(true);

@@ -10,6 +10,7 @@ public:
 	static HUD* getInstance();
 	void onEnable();
 	void onDisable();
+	void onUpdate();
 	void onRender(const EventRender2D& e);
 private:
 
