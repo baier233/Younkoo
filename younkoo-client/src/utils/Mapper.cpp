@@ -44,7 +44,7 @@ void SRGParser::Init(const unsigned char* srgBytes, size_t size, bool Reverse)
 				std::string originalClass, originalDesc;
 				lineStream >> originalClass >> originalDesc;
 				std::string key = originalClass + "/" + originalDesc;
-				methodMappings[key] = std::make_pair(originalClass, originalDesc);
+				methodMappings[key] = std::make_pair(name, sig);
 			}
 			else {
 				std::string originalClass, originalDesc;
@@ -57,12 +57,14 @@ void SRGParser::Init(const unsigned char* srgBytes, size_t size, bool Reverse)
 }
 #include "../base/render/resources/maps/forge189.h"
 #include "../base/render/resources/maps/vanilla189.h"
+#include "../base/render/resources/maps/forge1181.h"
 //TODO: Lack of Srg
 void SRGParser::SetVersion(Versions ver)
 {
 	this->version = ver;
 	if (ver == Versions::FORGE_1_8_9)this->Init(forge189, forge189_size, false);
 	if (ver == Versions::VANILLA_1_8_9)this->Init(vanilla189, vanilla189_size, false);
+	if (ver == Versions::FORGE_1_18_1) this->Init(forge1181, forge1181_size, true);
 }
 
 Versions SRGParser::GetVersion()
