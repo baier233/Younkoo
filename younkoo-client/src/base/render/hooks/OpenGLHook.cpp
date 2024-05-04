@@ -128,7 +128,6 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	if (showMenu)
 	{
 		gui->drawScreen(vg, context.MousePos.x, context.MousePos.y);
-		//drawWindow(vg, "Younkoo", static_cast<float>(winWidth) / static_cast<float>(2) - 200, static_cast<float>(winHeight) / static_cast<float>(2) - 300, 400, 600);
 	}
 
 	nvgRestore(vg);
