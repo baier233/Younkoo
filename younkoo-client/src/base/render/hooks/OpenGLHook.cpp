@@ -38,8 +38,7 @@ static bool showMenu = false;
 #include "../gui/GUI.h"
 std::unique_ptr<YounkooGui> gui = std::make_unique<YounkooGui>(600, 400);
 bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
-	if (Younkoo::get().shouldShutDown)
-		return wglSwapBuffersHook.GetOrignalFunc()(hdc);
+	if (Younkoo::get().shouldShutDown) return wglSwapBuffersHook.GetOrignalFunc()(hdc);
 	auto& renderer = Renderer::get();
 	renderer.OriginalGLContext = wglGetCurrentContext();
 	renderer.HandleDeviceContext = hdc;

@@ -193,7 +193,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\base\sdk\mapper\resources\maps\forge1181.srg" />
     <ClInclude Include="src\base\render\gui\element\Button.h">
       <Filter>头文件</Filter>
     </ClInclude>

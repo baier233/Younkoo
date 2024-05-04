@@ -261,9 +261,6 @@
     <ClInclude Include="src\utils\types\Maths.hpp" />
     <ClInclude Include="src\base\sdk\mapper\SRGParser.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="src\base\sdk\mapper\resources\maps\forge1181.srg" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
