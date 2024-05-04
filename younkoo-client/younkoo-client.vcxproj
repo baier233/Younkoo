@@ -176,6 +176,7 @@
     <ClCompile Include="src\Bootstrap.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\base\Younkoo.cpp" />
+    <ClCompile Include="src\utils\Mapper.cpp" />
     <ClCompile Include="src\utils\Misc.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -245,8 +246,11 @@
     <ClInclude Include="src\base\render\hooks\OpenGLHook.hpp" />
     <ClInclude Include="src\base\jvm\JVM.hpp" />
     <ClInclude Include="src\base\render\resources\fonts\harmony_sc_light.h" />
+    <ClInclude Include="src\base\render\resources\maps\forge189.h" />
+    <ClInclude Include="src\base\render\resources\maps\vanilla189.h" />
     <ClInclude Include="src\Main.hpp" />
     <ClInclude Include="src\base\Younkoo.hpp" />
+    <ClInclude Include="src\utils\Mapper.h" />
     <ClInclude Include="src\utils\Misc.hpp" />
     <ClInclude Include="src\base\render\hooks\WndProcHook.hpp" />
     <ClInclude Include="src\utils\types\Maths.hpp" />
