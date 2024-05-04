@@ -5,6 +5,8 @@
 
 #include "..\..\..\utils\Singleton.hpp"
 
+#include "Visual/HUD.h"
+
 #define ToBaseModule(__MOD) reinterpret_cast<AbstractModule*>(__MOD)
 #define ToDirectModule(__Impl, __Mod) reinterpret_cast<__Impl*>(__Mod)
 typedef void* HMOD;
@@ -12,12 +14,12 @@ typedef void* HMOD;
 class ModuleManager : public Singleton<ModuleManager> {
 private:
 	std::vector<HMOD> modules;
+
+
+public:
 	ModuleManager();
 
 	~ModuleManager() = default;
-
-public:
-
 	template<class MODCLASS>
 	void addModule(MODCLASS* mod);
 
@@ -39,6 +41,7 @@ public:
 	ModuleManager& operator=(const ModuleManager&) = delete;
 	std::vector<HMOD> getMods();
 	void clean() { modules.clear(); }
+	bool LoadModules();
 };
 
 template<class MODCLASS>

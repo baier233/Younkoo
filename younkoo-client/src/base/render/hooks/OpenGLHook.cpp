@@ -2,7 +2,7 @@
 
 #include "../Renderer.hpp"
 #include "../nano/NanovgHelper.hpp"
-
+#include "../../event/Events.h"
 
 typedef bool(__stdcall* template_wglSwapBuffers) (HDC hdc);
 static TitanHook<template_wglSwapBuffers> wglSwapBuffersHook;
@@ -97,27 +97,11 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	nvgSave(vg);
 
 	using namespace NanoVGHelper;
-	static std::wstring watermark(L"Younkoo Client");
-	static float x = winWidth / static_cast<float>(2), y = 100;
-	float bounds[4] = { 0 };
-	nvgFontSize(vg, 60);
-	nvgTextAlign(vg, NVG_ALIGN_CENTER | NVG_ALIGN_MIDDLE);
-	nvgFontFaceId(vg, NanoVGHelper::fontHarmony);
-	nvgTextBoundsW(vg, x, y, watermark, bounds);
-	float w = bounds[2] - bounds[0];
-	float h = bounds[3] - bounds[1];
-	w *= 1.5;
-	h *= 1.5;
 
-	nvgBeginPath(vg);
-	NVGpaint shadowPaint = nvgBoxGradient(vg, x - w / 2, y - h / 2, w, h, 10, 20, nvgRGBA(0, 0, 0, 128), nvgRGBA(0, 0, 0, 0));
-	nvgFillPaint(vg, shadowPaint);
-	nvgRect(vg, x - w / 2, y - h / 2, w, h);
-	nvgFill(vg);
+	EventRender2D e{ vg, winWidth, winHeight };
+	Younkoo::get().EventBus.fire_event(e);
 
-	nvgBeginPath(vg);
-	nvgFillColor(vg, nvgRGBA(255, 255, 255, 190));
-	nvgTextW(vg, x + 15, y, watermark);
+
 
 	if (context.IsKeyPressed(VK_INSERT, false))
 	{

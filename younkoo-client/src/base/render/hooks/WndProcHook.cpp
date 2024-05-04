@@ -2,7 +2,6 @@
 #include <windows.h>
 #include <iostream>
 
-
 // 定义回调指针类型
 typedef void (*CallBackcursorposfun)(HWND, double, double);
 typedef void (*CallBackmousebuttonfun)(HWND, int, int, int);

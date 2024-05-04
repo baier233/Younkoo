@@ -2,6 +2,7 @@
 #include <string>
 #include <windows.h>
 #include "..\values\Value.h"
+
 #define IsKeyBeingDown(KEYNONAME) ((GetAsyncKeyState(KEYNONAME)&0x8000)?1:0)
 
 #define ToggleCheck if (!this->getToggle()) return
@@ -79,7 +80,7 @@ public:
 
 	virtual void onDisable() = 0;
 
-	virtual void RenderMenu() = 0;
+	//virtual void RenderMenu() = 0;
 
 	AbstractModule(const char* ModName, Category Modcategory);
 	AbstractModule(const char* ModName, Category Modcategory, std::string desc);

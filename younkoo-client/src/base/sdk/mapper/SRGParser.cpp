@@ -52,28 +52,28 @@ void SRGParser::Init(const unsigned char* srgBytes, size_t size, bool Reverse)
 		}
 	}
 }
-#include "resources/maps/forge189.h"
-#include "resources/maps/vanilla189.h"
-#include "resources/maps/forge1181.h"
-#include "resources/maps/forge112.h"
-#include "resources/maps/vanilla112.h"
+//#include "resources/maps/forge189.h"
+//#include "resources/maps/vanilla189.h"
+//#include "resources/maps/forge1181.h"
+//#include "resources/maps/forge112.h"
+//#include "resources/maps/vanilla112.h"
 //TODO: Lack of Srg
 void SRGParser::SetVersion(Versions ver)
 {
 	this->version = ver;
-	switch (ver) {
-	case Versions::FORGE_1_8_9:this->Init(forge189, forge189_size, false);
-	case Versions::VANILLA_1_8_9:this->Init(vanilla189, vanilla189_size, false);
+	//switch (ver) {
+	//case Versions::FORGE_1_8_9:this->Init(forge189, forge189_size, false);
+	//case Versions::VANILLA_1_8_9:this->Init(vanilla189, vanilla189_size, false);
 
-	case Versions::FORGE_1_18_1: this->Init(forge1181, forge1181_size, true);
+	//case Versions::FORGE_1_18_1: this->Init(forge1181, forge1181_size, true);
 
-	case Versions::FORGE_1_12_2: this->Init(forge112, forge112_size, true);
-	case Versions::VANILLA_1_12_2: this->Init(vanilla112, vanilla112_size, true);
+	//case Versions::FORGE_1_12_2: this->Init(forge112, forge112_size, true);
+	//case Versions::VANILLA_1_12_2: this->Init(vanilla112, vanilla112_size, true);
 
-	case Versions::BADLION_1_8_9:this->Init(vanilla189, vanilla189_size, false);
-	default:
-		break;
-	}
+	//case Versions::BADLION_1_8_9:this->Init(vanilla189, vanilla189_size, false);
+	//default:
+	//	break;
+	//}
 }
 
 Versions SRGParser::GetVersion() const

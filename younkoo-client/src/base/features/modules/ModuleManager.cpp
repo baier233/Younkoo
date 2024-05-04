@@ -46,4 +46,10 @@ std::vector<HMOD> ModuleManager::getMods()
 	return this->modules;
 }
 
+bool ModuleManager::LoadModules()
+{
+	this->addModule<HUD>(HUD::getInstance());
+	return true;
+}
+
 
