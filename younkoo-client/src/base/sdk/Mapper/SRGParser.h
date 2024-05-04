@@ -36,7 +36,7 @@ private:
 public:
 
 	void SetVersion(Versions ver);
-	Versions GetVersion();
+	Versions GetVersion() const;
 
 	std::string getObfuscatedFieldName(const std::string& originalClassName, const std::string& originalFieldName);
 	//return obfuscated method name and description

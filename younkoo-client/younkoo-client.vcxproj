@@ -183,7 +183,7 @@
     <ClCompile Include="src\utils\Singleton.hpp" />
     <ClCompile Include="src\utils\Structs.hpp" />
     <ClCompile Include="src\base\render\hooks\WndProcHook.cpp" />
-    <ClCompile Include="src\base\sdk\Mapper\SRGParser.cpp" />
+    <ClCompile Include="src\base\sdk\mapper\SRGParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\base\jvm\jni\types\Array.hpp">
@@ -254,15 +254,18 @@
     <ClInclude Include="src\base\sdk\Mapper\resources\maps\forge189.h" />
     <ClInclude Include="src\base\sdk\Mapper\resources\maps\vanilla112.h" />
     <ClInclude Include="src\base\sdk\Mapper\resources\maps\vanilla189.h" />
+    <ClInclude Include="src\base\sdk\mapper\resources\maps\forge1181.h" />
+    <ClInclude Include="src\base\sdk\mapper\resources\maps\forge189.h" />
+    <ClInclude Include="src\base\sdk\mapper\resources\maps\vanilla189.h" />
     <ClInclude Include="src\Main.hpp" />
     <ClInclude Include="src\base\Younkoo.hpp" />
     <ClInclude Include="src\utils\Misc.hpp" />
     <ClInclude Include="src\base\render\hooks\WndProcHook.hpp" />
     <ClInclude Include="src\utils\types\Maths.hpp" />
-    <ClInclude Include="src\base\sdk\Mapper\SRGParser.h" />
+    <ClInclude Include="src\base\sdk\mapper\SRGParser.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\base\sdk\Mapper\resources\maps\forge1181.srg" />
+    <None Include="src\base\sdk\mapper\resources\maps\forge1181.srg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -74,7 +74,7 @@ void SRGParser::SetVersion(Versions ver)
 	}
 }
 
-Versions SRGParser::GetVersion()
+Versions SRGParser::GetVersion() const
 {
 	return this->version;
 }
