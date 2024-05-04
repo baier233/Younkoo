@@ -161,7 +161,7 @@ static WNDPROC SetCallbacks(HWND hWnd)
 		// 键盘按键回调
 
 		YounkooIO::IOEvents.push(YounkooIO::KeyEvent(key, action));
-		/*const bool is_key_down = action == CALLBACK_PRESS || action != CALLBACK_RELEASE;
+		const bool is_key_down = action == CALLBACK_PRESS || action != CALLBACK_RELEASE;
 
 		context.KeysDown[key] = is_key_down;
 
@@ -179,7 +179,7 @@ static WNDPROC SetCallbacks(HWND hWnd)
 		{
 			if (IsVkDown(VK_LMENU) == is_key_down) { context.KeysDown[VK_LMENU] = is_key_down; }
 			if (IsVkDown(VK_RMENU) == is_key_down) { context.KeysDown[VK_RMENU] = is_key_down; }
-		}*/
+		}
 
 		};
 

@@ -1,8 +1,9 @@
-#pragma once
+﻿#pragma once
 #include "../render/nano/NanovgHelper.hpp"
 
-struct EventRender2D
+class EventRender2D
 {
+public:
 	NVGcontext*& vg;
 	int winWidth, winHeight;
 };

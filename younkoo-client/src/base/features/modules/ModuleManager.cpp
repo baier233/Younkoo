@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <vector>
 #include "ModuleManager.h"
 ModuleManager::ModuleManager() {
@@ -48,7 +48,7 @@ std::vector<HMOD> ModuleManager::getMods()
 
 bool ModuleManager::LoadModules()
 {
-	this->addModule<HUD>(HUD::getInstance());
+	this->addModule<HUD>(&HUD::getInstance());
 	return true;
 }
 

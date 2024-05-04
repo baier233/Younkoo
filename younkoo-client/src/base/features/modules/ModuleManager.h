@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "AbstractModule.h"
 #include <vector>
 #include <string>
@@ -10,6 +10,9 @@
 #define ToBaseModule(__MOD) reinterpret_cast<AbstractModule*>(__MOD)
 #define ToDirectModule(__Impl, __Mod) reinterpret_cast<__Impl*>(__Mod)
 typedef void* HMOD;
+namespace dp {
+	class handler_registration;
+}
 
 class ModuleManager : public Singleton<ModuleManager> {
 private:
@@ -17,6 +20,7 @@ private:
 
 
 public:
+	std::vector<dp::handler_registration> registrations;
 	ModuleManager();
 
 	~ModuleManager() = default;

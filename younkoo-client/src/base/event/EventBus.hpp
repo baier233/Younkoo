@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <any>
 #include <atomic>
@@ -10,10 +10,10 @@
 #include <unordered_map>
 #include <utility>
 
-#include "function_traits.hpp"
+#include "../../utils/function_traits.hpp"
 
 namespace dp {
-	class event_bus;
+	class EventBus;
 
 	/**
 	 * @brief A registration handle for a particular handler of an event type.
@@ -24,7 +24,7 @@ namespace dp {
 	 */
 	class handler_registration {
 		const void* handle_{ nullptr };
-		dp::event_bus* event_bus_{ nullptr };
+		dp::EventBus* EventBus_{ nullptr };
 
 	public:
 		handler_registration(const handler_registration& other) = delete;
@@ -44,16 +44,16 @@ namespace dp {
 		void unregister() noexcept;
 
 	protected:
-		handler_registration(const void* handle, dp::event_bus* bus);
-		friend class event_bus;
+		handler_registration(const void* handle, dp::EventBus* bus);
+		friend class EventBus;
 	};
 
 	/**
 	 * @brief A central event handler class that connects event handlers with the events.
 	 */
-	class event_bus {
+	class EventBus {
 	public:
-		event_bus() = default;
+		EventBus() = default;
 
 		/**
 		 * @brief Register an event handler for a given event type.
@@ -224,23 +224,23 @@ namespace dp {
 	inline const void* handler_registration::handle() const { return handle_; }
 
 	inline void handler_registration::unregister() noexcept {
-		if (event_bus_ && handle_) {
-			event_bus_->remove_handler(*this);
+		if (EventBus_ && handle_) {
+			EventBus_->remove_handler(*this);
 			handle_ = nullptr;
 		}
 	}
 
-	inline handler_registration::handler_registration(const void* handle, dp::event_bus* bus)
-		: handle_(handle), event_bus_(bus) {}
+	inline handler_registration::handler_registration(const void* handle, dp::EventBus* bus)
+		: handle_(handle), EventBus_(bus) {}
 
 	inline handler_registration::handler_registration(handler_registration&& other) noexcept
 		: handle_(std::exchange(other.handle_, nullptr)),
-		event_bus_(std::exchange(other.event_bus_, nullptr)) {}
+		EventBus_(std::exchange(other.EventBus_, nullptr)) {}
 
 	inline handler_registration& handler_registration::operator=(
 		handler_registration&& other) noexcept {
 		handle_ = std::exchange(other.handle_, nullptr);
-		event_bus_ = std::exchange(other.event_bus_, nullptr);
+		EventBus_ = std::exchange(other.EventBus_, nullptr);
 		return *this;
 	}
 

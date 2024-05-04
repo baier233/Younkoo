@@ -99,7 +99,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	using namespace NanoVGHelper;
 
 	EventRender2D e{ vg, winWidth, winHeight };
-	Younkoo::get().EventBus.fire_event(e);
+	Younkoo::get().EventBus->fire_event(e);
 
 
 

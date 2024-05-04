@@ -161,9 +161,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\base\features\modules\Visual\HUD.cpp" />
+    <ClCompile Include="src\base\features\modules\visual\HUD.cpp" />
     <ClCompile Include="src\base\render\gui\input\IOEvents.cpp" />
-    <ClCompile Include="src\base\render\gui\element\Button.cpp" />
     <ClCompile Include="src\base\render\gui\GUI.cpp" />
     <ClCompile Include="src\base\render\gui\input\Context.cpp" />
     <ClCompile Include="ext\nanovg\nanovg.c" />
@@ -230,12 +229,11 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
     <ClInclude Include="src\base\event\Events.h" />
-    <ClInclude Include="src\base\event\event_bus.hpp" />
-    <ClInclude Include="src\base\event\function_traits.hpp" />
+    <ClInclude Include="src\base\event\EventBus.hpp" />
+    <ClInclude Include="src\utils\function_traits.hpp" />
     <ClInclude Include="src\base\features\modules\ModuleManager.h" />
-    <ClInclude Include="src\base\features\modules\Visual\HUD.h" />
+    <ClInclude Include="src\base\features\modules\visual\HUD.h" />
     <ClInclude Include="src\base\render\gui\input\IOEvents.h" />
-    <ClInclude Include="src\base\render\gui\element\Button.h" />
     <ClInclude Include="src\base\render\gui\GUI.h" />
     <ClInclude Include="src\base\render\gui\input\Context.hpp" />
     <ClInclude Include="ext\lazy_importer.hpp" />
