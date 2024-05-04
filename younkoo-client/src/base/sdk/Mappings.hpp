@@ -1,6 +1,7 @@
-#pragma once
+﻿#pragma once
 #include "../jvm/jni/Wrapper.hpp"
 #include <map>
+#define TEST
 #define EMPTY_CONTENT
 
 inline std::map<std::string, std::string> ClassNameMap;

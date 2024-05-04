@@ -51,6 +51,10 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 		context.ScreenHeight = viewport[3];
 
 		renderer.HandleWindow = WindowFromDC(hdc);
+		WCHAR className[256];
+		GetClassNameW(renderer.HandleWindow, className, sizeof(className) / sizeof(WCHAR));
+		wprintf(L"Class Name: %ls\n", className);
+
 		// Create My Mirror Context(When I rendering my own stuff,i use this context for not to impact the minecraft gl enviorment)
 		renderer.MenuGLContext = wglCreateContext(hdc);
 		// Copy Minecraft's opengl context to mine.
@@ -80,23 +84,47 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	glGetIntegerv(GL_VIEWPORT, viewport);
 	int winWidth = viewport[2];
 	int winHeight = viewport[3];
+	/*
+	*
+	GLint dims[4] = { 0 };
+	glGetIntegerv(GL_VIEWPORT, dims);
+	GLint fbWidth = dims[2];
+	GLint fbHeight = dims[3];
+	*/
 
+	static auto devicePixelRatio = 1/*(float)fbWidth / (float)winWidth*/;
 	auto& vg = NanoVGHelper::Context;
-	nvgBeginFrame(vg, winWidth, winHeight, /*devicePixelRatio*/ 1.0f);
+	nvgBeginFrame(vg, winWidth, winHeight, devicePixelRatio);
 	nvgSave(vg);
 
 	using namespace NanoVGHelper;
-	nvgBeginPath(vg);
-	nvgFontSize(vg, 100);
-	nvgFillColor(vg, nvgRGB(255, 255, 255));
+	static std::wstring watermark(L"Younkoo Client");
+	static float x = winWidth / static_cast<float>(2), y = 100;
+	float bounds[4] = { 0 };
+	nvgFontSize(vg, 60);
+	nvgTextAlign(vg, NVG_ALIGN_CENTER | NVG_ALIGN_MIDDLE);
 	nvgFontFaceId(vg, NanoVGHelper::fontHarmony);
-	nvgTextAlign(vg, NVG_ALIGN_LEFT | NVG_ALIGN_TOP);
-	nvgTextW(vg, 5, 5, L"我爱情染");
+	nvgTextBoundsW(vg, x, y, watermark, bounds);
+	float w = bounds[2] - bounds[0];
+	float h = bounds[3] - bounds[1];
+	w *= 1.5;
+	h *= 1.5;
+
+	nvgBeginPath(vg);
+	NVGpaint shadowPaint = nvgBoxGradient(vg, x - w / 2, y - h / 2, w, h, 10, 20, nvgRGBA(0, 0, 0, 128), nvgRGBA(0, 0, 0, 0));
+	nvgFillPaint(vg, shadowPaint);
+	nvgRect(vg, x - w / 2, y - h / 2, w, h);
+	nvgFill(vg);
+
+	nvgBeginPath(vg);
+	nvgFillColor(vg, nvgRGBA(255, 255, 255, 190));
+	nvgTextW(vg, x + 15, y, watermark);
 
 	if (context.IsKeyPressed(VK_INSERT, false))
 	{
 		showMenu = !showMenu;
 	}
+
 	if (showMenu)
 	{
 		gui->drawScreen(vg, context.MousePos.x, context.MousePos.y);
@@ -117,7 +145,6 @@ bool OpenGLHook::Init()
 {
 
 	// Hook wglswapbuffers here.
-
 	static auto gl = GetModuleHandleW(L"opengl32.dll");
 
 	if (gl) wglSwapBuffers = (LPVOID)GetProcAddress(gl, "wglSwapBuffers");
