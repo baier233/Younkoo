@@ -144,6 +144,7 @@ NAMESPACE_BEGIN(nanogui)
  * Template parameters should be integral types, e.g. ``int``, ``long``,
  * ``uint32_t``, etc.
  */
+#undef max
 template <typename Scalar>
 class IntBox : public TextBox {
 public:
@@ -162,7 +163,7 @@ public:
 		iss >> value;
 		return value;
 	}
-
+#undef min
 	void setValue(Scalar value) {
 		Scalar clampedValue = std::min(std::max(value, mMinValue), mMaxValue);
 		TextBox::setValue(std::to_string(clampedValue));

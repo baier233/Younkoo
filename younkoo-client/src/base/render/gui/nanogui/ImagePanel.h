@@ -1,8 +1,4 @@
-﻿#pragma once
-class ImagePanel
-{
-};
-
+﻿
 /*
 	nanogui/imagepanel.h -- Image panel widget which shows a number of
 	square-shaped icons

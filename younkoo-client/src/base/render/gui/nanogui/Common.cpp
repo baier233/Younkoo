@@ -11,9 +11,6 @@
 
 #include "Screen.h"
 
-#if defined(_WIN32)
-#  include <windows.h>
-#endif
 
 #include "OpenGL.h"
 #include <map>
@@ -24,7 +21,7 @@
 
 NAMESPACE_BEGIN(nanogui)
 
-extern std::map<GLFWwindow*, Screen*> __nanogui_screens;
+extern std::map<HWND, Screen*> __nanogui_screens;
 
 void init() {
 
@@ -140,6 +137,7 @@ std::string file_dialog(const std::vector<std::pair<std::string, std::string>>& 
 	auto result = file_dialog(filetypes, save, false);
 	return result.empty() ? "" : result.front();
 }
+#include <windows.h>
 
 #if !defined(__APPLE__)
 std::vector<std::string> file_dialog(const std::vector<std::pair<std::string, std::string>>& filetypes, bool save, bool multiple) {

@@ -1,6 +1,6 @@
 ﻿#pragma once
+//#include <Windows.h>
 #include <atomic>
-#include  "../../../../utils/types/Maths.hpp"
 
 constexpr auto CALLBACK_MOUSE_BUTTON_1 = 0;
 constexpr auto CALLBACK_MOUSE_BUTTON_2 = 1;
@@ -17,8 +17,22 @@ constexpr auto CALLBACK_MOUSE_BUTTON_8 = 7;
 
 constexpr auto CALLBACK_RELEASE = 0;
 constexpr auto CALLBACK_PRESS = 1;
+
+
+constexpr auto CALLBACK_KEY_LEFT = 0x25;
+constexpr auto CALLBACK_KEY_RIGHT = 0x27;
+constexpr auto CALLBACK_KEY_DOWN = 0x28;
+constexpr auto CALLBACK_KEY_UP = 0x26;
+
+#include <stdio.h>
+#include <time.h>
+
+inline double glfwGetTime() {
+	return (double)clock() / CLOCKS_PER_SEC;
+}
+#include "../../../../utils/types/Maths.hpp"
 struct YounkooIOContext {
-	Vector2D MousePos{ 0,0 };
+	Math::Vector2D MousePos{ 0,0 };
 	bool MouseDown[5]{ false };
 	bool MouseDownAready[5]{ false };
 	bool KeysDown[512]{ false };
@@ -69,9 +83,9 @@ public:
 		}
 		return false;
 	}
-	bool MouseInZone(const Vector2D& pos, const Vector2D& size) const
+	bool MouseInZone(const Math::Vector2D& pos, const Math::Vector2D& size) const
 	{
-		const Vector2D& cursor_pos = MousePos;
+		const Math::Vector2D& cursor_pos = MousePos;
 
 		if (cursor_pos.x > pos.x && cursor_pos.y > pos.y)
 			if (cursor_pos.x < pos.x + size.x && cursor_pos.y < pos.y + size.y)

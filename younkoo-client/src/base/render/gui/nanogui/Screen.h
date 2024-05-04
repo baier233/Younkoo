@@ -13,7 +13,7 @@
 /** \file */
 
 #pragma once
-
+#include <windows.h>
 #include "Widget.h"
 
 NAMESPACE_BEGIN(nanogui)
@@ -133,7 +133,7 @@ NAMESPACE_BEGIN(nanogui)
 		Vector2i mousePos() const { return mMousePos; }
 
 		/// Return a pointer to the underlying GLFW window data structure
-		GLFWwindow* glfwWindow() { return mGLFWWindow; }
+		HWND glfwWindow() { return mGLFWWindow; }
 
 		/// Return a pointer to the underlying nanoVG draw context
 		NVGcontext* nvgContext() { return mNVGContext; }
@@ -166,7 +166,7 @@ NAMESPACE_BEGIN(nanogui)
 		Screen();
 
 		/// Initialize the \ref Screen
-		void initialize(GLFWwindow* window, bool shutdownGLFWOnDestruct);
+		void initialize(HWND window, bool shutdownGLFWOnDestruct);
 
 		/* Event handlers */
 		bool cursorPosCallbackEvent(double x, double y);
@@ -185,7 +185,7 @@ NAMESPACE_BEGIN(nanogui)
 		void drawWidgets();
 
 	protected:
-		GLFWwindow* mGLFWWindow;
+		HWND mGLFWWindow;
 		NVGcontext* mNVGContext;
 		GLFWcursor* mCursors[(int)Cursor::CursorCount];
 		Cursor mCursor;
