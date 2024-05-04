@@ -251,12 +251,9 @@
     <ClInclude Include="src\base\render\resources\fonts\harmony_sc_regular.h" />
     <ClInclude Include="src\base\sdk\Mapper\resources\maps\forge112.h" />
     <ClInclude Include="src\base\sdk\Mapper\resources\maps\forge1181.h" />
-    <ClInclude Include="src\base\sdk\Mapper\resources\maps\forge189.h" />
     <ClInclude Include="src\base\sdk\Mapper\resources\maps\vanilla112.h" />
     <ClInclude Include="src\base\sdk\Mapper\resources\maps\vanilla189.h" />
-    <ClInclude Include="src\base\sdk\mapper\resources\maps\forge1181.h" />
     <ClInclude Include="src\base\sdk\mapper\resources\maps\forge189.h" />
-    <ClInclude Include="src\base\sdk\mapper\resources\maps\vanilla189.h" />
     <ClInclude Include="src\Main.hpp" />
     <ClInclude Include="src\base\Younkoo.hpp" />
     <ClInclude Include="src\utils\Misc.hpp" />
