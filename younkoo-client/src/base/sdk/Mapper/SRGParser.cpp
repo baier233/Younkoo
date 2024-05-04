@@ -53,13 +53,25 @@ void SRGParser::Init(const unsigned char* srgBytes, size_t size, bool Reverse)
 #include "resources/maps/forge189.h"
 #include "resources/maps/vanilla189.h"
 #include "resources/maps/forge1181.h"
+#include "resources/maps/forge112.h"
+#include "resources/maps/vanilla112.h"
 //TODO: Lack of Srg
 void SRGParser::SetVersion(Versions ver)
 {
 	this->version = ver;
-	if (ver == Versions::FORGE_1_8_9)this->Init(forge189, forge189_size, false);
-	if (ver == Versions::VANILLA_1_8_9)this->Init(vanilla189, vanilla189_size, false);
-	if (ver == Versions::FORGE_1_18_1) this->Init(forge1181, forge1181_size, true);
+	switch (ver) {
+	case Versions::FORGE_1_8_9:this->Init(forge189, forge189_size, false);
+	case Versions::VANILLA_1_8_9:this->Init(vanilla189, vanilla189_size, false);
+
+	case Versions::FORGE_1_18_1: this->Init(forge1181, forge1181_size, true);
+
+	case Versions::FORGE_1_12_2: this->Init(forge112, forge112_size, true);
+	case Versions::VANILLA_1_12_2: this->Init(vanilla112, vanilla112_size, true);
+
+	case Versions::BADLION_1_8_9:this->Init(vanilla189, vanilla189_size, false);
+	default:
+		break;
+	}
 }
 
 Versions SRGParser::GetVersion()
@@ -69,6 +81,7 @@ Versions SRGParser::GetVersion()
 
 std::string SRGParser::getObfuscatedFieldName(const std::string& originalClassName, const std::string& originalFieldName)
 {
+	if (version == Versions::MCP_1_8_9 or version == Versions::MCP_1_12_2 or version == Versions::MCP_1_18_1 or version == Versions::LUNAR_1_8_9 or version == Versions::LUNAR_1_12_2)return originalFieldName;
 	std::string key = originalClassName + "/" + originalFieldName;
 	if (fieldMappings.find(key) != fieldMappings.end()) {
 		std::string obfuscatedName = fieldMappings[key];
@@ -84,6 +97,7 @@ std::string SRGParser::getObfuscatedFieldName(const std::string& originalClassNa
 
 std::pair<std::string, std::string> SRGParser::getObfuscatedMethodName(const std::string& originalClassName, const std::string& originalMethodName, const std::string& methodDesc)
 {
+	if (version == Versions::MCP_1_8_9 or version == Versions::MCP_1_12_2 or version == Versions::MCP_1_18_1 or version == Versions::LUNAR_1_8_9 or version == Versions::LUNAR_1_12_2)	return std::make_pair(originalMethodName, methodDesc);
 	std::string key = originalClassName + "/" + originalMethodName + "/" + methodDesc;
 	//std::cout << key << std::endl;
 	if (methodMappings.find(key) != methodMappings.end()) {
@@ -101,6 +115,7 @@ std::pair<std::string, std::string> SRGParser::getObfuscatedMethodName(const std
 
 std::string SRGParser::getObfuscatedClassName(const std::string& originalClassName)
 {
+	if (version == Versions::MCP_1_8_9 or version == Versions::MCP_1_12_2 or version == Versions::MCP_1_18_1 or version == Versions::LUNAR_1_8_9 or version == Versions::LUNAR_1_12_2)return originalClassName;
 	if (classMappings.find(originalClassName) != classMappings.end()) {
 		std::cout << "WrapperClass:" << originalClassName << " Obfuscator:" << classMappings[originalClassName] << std::endl;
 		return classMappings[originalClassName];

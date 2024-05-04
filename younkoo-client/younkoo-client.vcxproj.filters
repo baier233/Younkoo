@@ -185,6 +185,12 @@
     <ClInclude Include="src\base\sdk\Mapper\SRGParser.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\base\sdk\Mapper\resources\maps\forge112.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\Mapper\resources\maps\vanilla112.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\base\sdk\Mapper\resources\maps\forge1181.srg" />
