@@ -66,6 +66,7 @@ bool Younkoo::setup()
 	std::cout << "Setting Up" << std::endl;
 	while (!shouldShutDown)
 	{
+		ModuleManager::get().ProcessUpdate();
 		shouldShutDown = context.KeysDown[VK_END];
 		Sleep(1);
 	}

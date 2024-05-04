@@ -41,6 +41,12 @@ void ModuleManager::ProcessKeyEvent(int key) {
 	}
 }
 
+void ModuleManager::ProcessUpdate() {
+	for (auto iter = this->modules.cbegin(); iter < this->modules.cend(); iter++) {
+		ToBaseModule(*iter)->onUpdate();
+	}
+}
+
 std::vector<HMOD> ModuleManager::getMods()
 {
 	return this->modules;

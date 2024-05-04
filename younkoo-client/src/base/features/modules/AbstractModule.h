@@ -80,6 +80,8 @@ public:
 
 	virtual void onDisable() = 0;
 
+	virtual void onUpdate() = 0;
+
 	//virtual void RenderMenu() = 0;
 
 	AbstractModule(const char* ModName, Category Modcategory);

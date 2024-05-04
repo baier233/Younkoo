@@ -41,6 +41,11 @@ void HUD::onDisable()
 	std::cout << "onDisable" << std::endl;
 }
 
+void HUD::onUpdate()
+{
+	//std::cout << "HUD onUpdate" << std::endl;
+}
+
 void HUD::onRender(const EventRender2D& e)
 {
 	ToggleCheck;

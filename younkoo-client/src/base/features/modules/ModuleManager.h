@@ -38,6 +38,8 @@ public:
 
 	void ProcessKeyEvent(int key);
 
+	void ProcessUpdate();
+
 	ModuleManager(ModuleManager&&) = delete;
 
 	ModuleManager(const ModuleManager&) = delete;
