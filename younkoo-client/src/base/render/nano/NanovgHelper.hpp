@@ -8,8 +8,8 @@ namespace NanoVGHelper {
 	bool InitContext(HWND window2Attach);
 	bool DeleteContext();
 	inline NVGcontext* Context{};
-	void nvgTextW(NVGcontext* vg, int x, int y, std::wstring str);
-	void nvgTextBoundsW(NVGcontext* vg, int x, int y, std::wstring str, float bounds[]);
+	void nvgTextW(NVGcontext* vg, int x, int y, const std::wstring& str);
+	void nvgTextBoundsW(NVGcontext* vg, int x, int y, const  std::wstring& str, float bounds[]);
 	inline int fontHarmony{};
 }
 

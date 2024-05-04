@@ -163,7 +163,7 @@
   <ItemGroup>
     <ClCompile Include="src\base\render\gui\GUI.cpp" />
     <ClCompile Include="src\base\render\gui\input\Context.cpp" />
-    <ClCompile Include="src\base\render\gui\Component\Component.cpp" />
+    <ClCompile Include="src\base\render\gui\component\Component.cpp" />
     <ClCompile Include="ext\nanovg\nanovg.c" />
     <ClCompile Include="src\base\features\modules\AbstractModule.cpp" />
     <ClCompile Include="src\base\features\modules\ModuleManager.cpp" />
@@ -228,7 +228,7 @@
     </ClCompile>
     <ClInclude Include="src\base\render\gui\GUI.h" />
     <ClInclude Include="src\base\render\gui\input\Context.hpp" />
-    <ClInclude Include="src\base\render\gui\Component\Component.hpp" />
+    <ClInclude Include="src\base\render\gui\component\Component.hpp" />
     <ClInclude Include="ext\lazy_importer.hpp" />
     <ClInclude Include="ext\nanovg\fontstash.h" />
     <ClInclude Include="ext\nanovg\nanovg.h" />
@@ -245,6 +245,7 @@
     <ClInclude Include="src\base\render\hooks\OpenGLHook.hpp" />
     <ClInclude Include="src\base\jvm\JVM.hpp" />
     <ClInclude Include="src\base\render\resources\fonts\harmony_sc_light.h" />
+    <ClInclude Include="src\base\render\resources\fonts\harmony_sc_regular.h" />
     <ClInclude Include="src\Main.hpp" />
     <ClInclude Include="src\base\Younkoo.hpp" />
     <ClInclude Include="src\utils\Misc.hpp" />

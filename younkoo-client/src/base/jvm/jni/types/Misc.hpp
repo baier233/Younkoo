@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <string>
 #include <type_traits>
 #include <jni/jni.h>
@@ -17,7 +17,7 @@ namespace JNI {
 
 	template<class T> inline std::string get_signature_for_type()
 	{
-		
+
 		if constexpr (std::is_void_v<T>)
 			return std::string("V");
 		if constexpr (std::is_same_v<jboolean, T>)

@@ -1,6 +1,7 @@
-#pragma once
+﻿#pragma once
 #include "Env.hpp"
 #include "Misc.hpp"
+
 
 namespace JNI {
 
@@ -23,7 +24,12 @@ namespace JNI {
 			if (is_global_ref)
 				clear_ref();
 		}
-
+		union MyStruct
+		{
+			char a;
+			int b;
+			uintptr_t c;
+		};
 		ObjectWrapper& operator=(const ObjectWrapper& other) //operator = keeps the current ref type
 		{
 			if (is_global_ref)
@@ -66,7 +72,7 @@ namespace JNI {
 			owner_klass(owner_klass)
 		{
 		}
-		 
+
 
 		jclass owner_klass;
 	};

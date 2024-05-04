@@ -117,7 +117,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	nvgFill(vg);
 
 	nvgBeginPath(vg);
-	nvgFillColor(vg, nvgRGBA(255, 255, 255, 255));
+	nvgFillColor(vg, nvgRGBA(255, 255, 255, 190));
 	nvgTextW(vg, x + 15, y, watermark);
 
 	if (context.IsKeyPressed(VK_INSERT, false))
@@ -145,7 +145,6 @@ bool OpenGLHook::Init()
 {
 
 	// Hook wglswapbuffers here.
-
 	static auto gl = GetModuleHandleW(L"opengl32.dll");
 
 	if (gl) wglSwapBuffers = (LPVOID)GetProcAddress(gl, "wglSwapBuffers");
