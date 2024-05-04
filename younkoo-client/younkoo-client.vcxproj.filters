@@ -84,16 +84,19 @@
     <ClCompile Include="src\base\features\modules\AbstractModule.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\render\gui\component\Component.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\base\render\gui\input\Context.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\base\render\gui\GUI.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\utils\Mapper.cpp">
+    <ClCompile Include="src\base\render\gui\element\Button.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\render\gui\input\IOEvents.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\sdk\Mapper\SRGParser.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -155,9 +158,6 @@
     <ClInclude Include="src\base\features\values\Value.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\render\gui\component\Component.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\base\render\gui\input\Context.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -170,23 +170,29 @@
     <ClInclude Include="src\base\render\gui\GUI.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\utils\Mapper.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\resources\maps\forge189.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\resources\maps\vanilla189.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\base\render\resources\fonts\harmony_sc_regular.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\render\resources\maps\forge1181.h">
+    <ClInclude Include="src\base\sdk\Mapper\resources\maps\forge189.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\Mapper\resources\maps\forge1181.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\Mapper\resources\maps\vanilla189.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\Mapper\SRGParser.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\base\render\resources\maps\forge1181.srg" />
+    <None Include="src\base\sdk\Mapper\resources\maps\forge1181.srg" />
+    <ClInclude Include="src\base\render\gui\element\Button.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\render\gui\input\IOEvents.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

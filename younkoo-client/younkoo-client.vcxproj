@@ -161,9 +161,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\render\gui\input\IOEvents.cpp" />
+    <ClCompile Include="src\base\render\gui\element\Button.cpp" />
     <ClCompile Include="src\base\render\gui\GUI.cpp" />
     <ClCompile Include="src\base\render\gui\input\Context.cpp" />
-    <ClCompile Include="src\base\render\gui\component\Component.cpp" />
     <ClCompile Include="ext\nanovg\nanovg.c" />
     <ClCompile Include="src\base\features\modules\AbstractModule.cpp" />
     <ClCompile Include="src\base\features\modules\ModuleManager.cpp" />
@@ -176,13 +177,13 @@
     <ClCompile Include="src\Bootstrap.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\base\Younkoo.cpp" />
-    <ClCompile Include="src\utils\Mapper.cpp" />
     <ClCompile Include="src\utils\Misc.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="src\utils\Singleton.hpp" />
     <ClCompile Include="src\utils\Structs.hpp" />
     <ClCompile Include="src\base\render\hooks\WndProcHook.cpp" />
+    <ClCompile Include="src\base\sdk\Mapper\SRGParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\base\jvm\jni\types\Array.hpp">
@@ -227,9 +228,10 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\base\render\gui\input\IOEvents.h" />
+    <ClInclude Include="src\base\render\gui\element\Button.h" />
     <ClInclude Include="src\base\render\gui\GUI.h" />
     <ClInclude Include="src\base\render\gui\input\Context.hpp" />
-    <ClInclude Include="src\base\render\gui\component\Component.hpp" />
     <ClInclude Include="ext\lazy_importer.hpp" />
     <ClInclude Include="ext\nanovg\fontstash.h" />
     <ClInclude Include="ext\nanovg\nanovg.h" />
@@ -246,19 +248,19 @@
     <ClInclude Include="src\base\render\hooks\OpenGLHook.hpp" />
     <ClInclude Include="src\base\jvm\JVM.hpp" />
     <ClInclude Include="src\base\render\resources\fonts\harmony_sc_light.h" />
-    <ClInclude Include="src\base\render\resources\maps\forge1181.h" />
-    <ClInclude Include="src\base\render\resources\maps\forge189.h" />
-    <ClInclude Include="src\base\render\resources\maps\vanilla189.h" />
     <ClInclude Include="src\base\render\resources\fonts\harmony_sc_regular.h" />
+    <ClInclude Include="src\base\sdk\Mapper\resources\maps\forge1181.h" />
+    <ClInclude Include="src\base\sdk\Mapper\resources\maps\forge189.h" />
+    <ClInclude Include="src\base\sdk\Mapper\resources\maps\vanilla189.h" />
     <ClInclude Include="src\Main.hpp" />
     <ClInclude Include="src\base\Younkoo.hpp" />
-    <ClInclude Include="src\utils\Mapper.h" />
     <ClInclude Include="src\utils\Misc.hpp" />
     <ClInclude Include="src\base\render\hooks\WndProcHook.hpp" />
     <ClInclude Include="src\utils\types\Maths.hpp" />
+    <ClInclude Include="src\base\sdk\Mapper\SRGParser.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\base\render\resources\maps\forge1181.srg" />
+    <None Include="src\base\sdk\Mapper\resources\maps\forge1181.srg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
