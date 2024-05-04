@@ -161,6 +161,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\render\gui\element\OpenGL.cpp" />
+    <ClCompile Include="src\base\render\gui\element\GLUtils.cpp" />
+    <ClCompile Include="src\base\render\gui\element\ImageView.cpp" />
+    <ClCompile Include="src\base\render\gui\element\ImagePanel.cpp" />
+    <ClCompile Include="src\base\render\gui\element\MessageDialog.cpp" />
+    <ClCompile Include="src\base\render\gui\element\Slider.cpp" />
+    <ClCompile Include="src\base\render\gui\element\ProgressBar.cpp" />
+    <ClCompile Include="src\base\render\gui\element\Screen.cpp" />
+    <ClCompile Include="src\base\render\gui\element\Label.cpp" />
+    <ClCompile Include="src\base\render\gui\element\Layout.cpp" />
+    <ClCompile Include="src\base\render\gui\element\FormHelper.cpp" />
+    <ClCompile Include="src\base\render\gui\element\ComboBox.cpp" />
+    <ClCompile Include="src\base\render\gui\element\ColorWheel.cpp" />
+    <ClCompile Include="src\base\render\gui\element\Entypo.cpp" />
+    <ClCompile Include="src\base\render\gui\element\Popup.cpp" />
+    <ClCompile Include="src\base\render\gui\element\PopupButton.cpp" />
+    <ClCompile Include="src\base\render\gui\element\ColorPicker.cpp" />
+    <ClCompile Include="src\base\render\gui\element\CheckBox.cpp" />
+    <ClCompile Include="src\base\render\gui\element\Common.cpp" />
+    <ClCompile Include="src\base\render\gui\element\Object.cpp" />
     <ClCompile Include="src\base\render\gui\input\IOEvents.cpp" />
     <ClCompile Include="src\base\render\gui\element\Button.cpp" />
     <ClCompile Include="src\base\render\gui\GUI.cpp" />
@@ -184,6 +204,11 @@
     <ClCompile Include="src\utils\Structs.hpp" />
     <ClCompile Include="src\base\render\hooks\WndProcHook.cpp" />
     <ClCompile Include="src\base\sdk\mapper\SRGParser.cpp" />
+    <ClCompile Include="src\base\render\gui\element\Window.cpp" />
+    <ClCompile Include="src\base\render\gui\element\Widget.cpp" />
+    <ClCompile Include="src\base\render\gui\element\Theme.cpp" />
+    <ClCompile Include="src\base\render\gui\element\TextBox.cpp" />
+    <ClCompile Include="src\base\render\gui\element\ToolButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\base\jvm\jni\types\Array.hpp">
@@ -228,6 +253,26 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\base\render\gui\element\OpenGL.h" />
+    <ClInclude Include="src\base\render\gui\element\GLUtils.h" />
+    <ClInclude Include="src\base\render\gui\element\ImageView.h" />
+    <ClInclude Include="src\base\render\gui\element\ImagePanel.h" />
+    <ClInclude Include="src\base\render\gui\element\MessageDialog.h" />
+    <ClInclude Include="src\base\render\gui\element\Slider.h" />
+    <ClInclude Include="src\base\render\gui\element\ProgressBar.h" />
+    <ClInclude Include="src\base\render\gui\element\Screen.h" />
+    <ClInclude Include="src\base\render\gui\element\Label.h" />
+    <ClInclude Include="src\base\render\gui\element\Layout.h" />
+    <ClInclude Include="src\base\render\gui\element\FormHelper.h" />
+    <ClInclude Include="src\base\render\gui\element\ComboBox.h" />
+    <ClInclude Include="src\base\render\gui\element\ColorWheel.h" />
+    <ClInclude Include="src\base\render\gui\element\Entypo.h" />
+    <ClInclude Include="src\base\render\gui\element\Popup.h" />
+    <ClInclude Include="src\base\render\gui\element\PopupButton.h" />
+    <ClInclude Include="src\base\render\gui\element\ColorPicker.h" />
+    <ClInclude Include="src\base\render\gui\element\CheckBox.h" />
+    <ClInclude Include="src\base\render\gui\element\Common.h" />
+    <ClInclude Include="src\base\render\gui\element\Object.h" />
     <ClInclude Include="src\base\render\gui\input\IOEvents.h" />
     <ClInclude Include="src\base\render\gui\element\Button.h" />
     <ClInclude Include="src\base\render\gui\GUI.h" />
@@ -260,6 +305,11 @@
     <ClInclude Include="src\base\render\hooks\WndProcHook.hpp" />
     <ClInclude Include="src\utils\types\Maths.hpp" />
     <ClInclude Include="src\base\sdk\mapper\SRGParser.h" />
+    <ClInclude Include="src\base\render\gui\element\Window.h" />
+    <ClInclude Include="src\base\render\gui\element\Widget.h" />
+    <ClInclude Include="src\base\render\gui\element\Theme.h" />
+    <ClInclude Include="src\base\render\gui\element\TextBox.h" />
+    <ClInclude Include="src\base\render\gui\element\ToolButton.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

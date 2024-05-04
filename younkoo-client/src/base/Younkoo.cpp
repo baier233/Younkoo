@@ -53,11 +53,11 @@ bool Younkoo::setup()
 	auto flag = JVM::get().setup();
 	flag &= Renderer::get().Init();
 
-	SRGParser::get().SetVersion(Versions::VANILLA_1_8_9);
+	/*SRGParser::get().SetVersion(Versions::VANILLA_1_8_9);
 	std::cout << SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft") << std::endl;
 	std::cout << SRGParser::get().getObfuscatedFieldName("net/minecraft/client/Minecraft", "theMinecraft") << std::endl;
 	auto method = SRGParser::get().getObfuscatedMethodName("net/minecraft/client/Minecraft", "getMinecraft", "()Lnet/minecraft/client/Minecraft;");
-	std::cout << method.first << " " << method.second << std::endl;
+	std::cout << method.first << " " << method.second << std::endl;*/
 
 	if (!flag) return flag;
 
