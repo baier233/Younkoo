@@ -204,6 +204,8 @@
     <ClCompile Include="src\base\jvm\jni\Wrapper.hpp" />
     <ClCompile Include="src\base\jvm\JVM.cpp" />
     <ClCompile Include="src\base\sdk\SDK.hpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\HitResult.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\HitResult_Type.cpp" />
     <ClCompile Include="src\Bootstrap.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\base\Younkoo.cpp" />
@@ -299,6 +301,8 @@
     <ClInclude Include="src\base\render\gui\nanogui\Window.h" />
     <ClInclude Include="src\base\render\resources\fonts\entypo.h" />
     <ClInclude Include="src\base\render\resources\fonts\harmony_sc_bold.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\HitResult.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\HitResult_Type.h" />
     <ClInclude Include="src\utils\function_traits.hpp" />
     <ClInclude Include="src\base\features\modules\ModuleManager.h" />
     <ClInclude Include="src\base\features\modules\visual\HUD.h" />
