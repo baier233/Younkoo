@@ -8,7 +8,7 @@ Younkoo::Younkoo()
 	std::cout << "Constructor" << std::endl;
 }
 
-#include "sdk/mappings.hpp"
+#include <SDK.hpp>
 
 #include "render/Renderer.hpp"
 #include "render/nano/NanovgHelper.hpp"
@@ -48,26 +48,43 @@ void Test() {
 
 #include "render/gui/input/Context.hpp"
 #include "sdk/Mapper/SRGParser.h"
-
+#include <wrapper/net/minecraft/client/Minecraft.h>
 bool Younkoo::setup()
 {
 	auto flag = JVM::get().setup();
 	flag &= Renderer::get().Init();
 	flag &= ModuleManager::get().LoadModules();
 
-	/*SRGParser::get().SetVersion(Versions::VANILLA_1_8_9);
+	SRGParser::get().SetVersion(Versions::FORGE_1_18_1);
 	std::cout << SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft") << std::endl;
-	std::cout << SRGParser::get().getObfuscatedFieldName("net/minecraft/client/Minecraft", "theMinecraft") << std::endl;
-	auto method = SRGParser::get().getObfuscatedMethodName("net/minecraft/client/Minecraft", "getMinecraft", "()Lnet/minecraft/client/Minecraft;");
-	std::cout << method.first << " " << method.second << std::endl;*/
+	std::cout << SRGParser::get().getObfuscatedFieldName("net/minecraft/client/Minecraft", "instance") << std::endl;
+	auto method = SRGParser::get().getObfuscatedMethodName("net/minecraft/client/Minecraft", "getInstance", "()Lnet/minecraft/client/Minecraft;");
+	std::cout << method.first << " " << method.second << std::endl;
+	auto result = SDK::SetUpForge1181ClassLoader("Render thread");
+	if (!result) result = SDK::SetUpClassLoader(SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft"));
+	flag &= result;
 
 	if (!flag) return flag;
 
+
+	if (SDK::MinecraftClassLoader)
+	{
+		JNI::set_class_loader(SDK::MinecraftClassLoader);
+	}
+
 	std::cout << "Setting Up" << std::endl;
+	static Minecraft minecraft{};
 	while (!shouldShutDown)
 	{
 		ModuleManager::get().ProcessUpdate();
 		shouldShutDown = context.KeysDown[VK_END];
+
+
+		auto theMinecraft = minecraft.getMinecraft();
+		auto thePlayer = theMinecraft.thePlayer.get();
+		std::cout << theMinecraft.object_instance << std::endl;
+		std::cout << thePlayer.object_instance << std::endl;
+
 		Sleep(1);
 	}
 
@@ -77,6 +94,7 @@ bool Younkoo::setup()
 bool Younkoo::shutdown()
 {
 	shouldShutDown = true;
+
 	auto flag = Renderer::get().Shutdown() && JVM::get().shutdown();
 	if (!flag) return false;
 	FreeLibraryAndExitThread(Main::current_module, 0);

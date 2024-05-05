@@ -1,4 +1,9 @@
 ﻿#include "SRGParser.h"
+#include "resources/maps/forge189.h"
+#include "resources/maps/vanilla189.h"
+#include "resources/maps/forge1181.h"
+#include "resources/maps/forge112.h"
+#include "resources/maps/vanilla112.h"
 
 
 
@@ -59,19 +64,18 @@ void SRGParser::Init(const unsigned char* srgBytes, size_t size, bool Reverse)
 void SRGParser::SetVersion(Versions ver)
 {
 	this->version = ver;
-	//switch (ver) {
-	//case Versions::FORGE_1_8_9:this->Init(forge189, forge189_size, false);
-	//case Versions::VANILLA_1_8_9:this->Init(vanilla189, vanilla189_size, false);
+	switch (ver) {
+	case Versions::FORGE_1_8_9: this->Init(forge189, forge189_size, false); break;
+	case Versions::VANILLA_1_8_9:this->Init(vanilla189, vanilla189_size, false); break;
+	case Versions::FORGE_1_18_1: this->Init(forge1181, forge1181_size, true); break;
 
-	//case Versions::FORGE_1_18_1: this->Init(forge1181, forge1181_size, true);
+	case Versions::FORGE_1_12_2: this->Init(forge112, forge112_size, true); break;
+	case Versions::VANILLA_1_12_2: this->Init(vanilla112, vanilla112_size, true); break;
 
-	//case Versions::FORGE_1_12_2: this->Init(forge112, forge112_size, true);
-	//case Versions::VANILLA_1_12_2: this->Init(vanilla112, vanilla112_size, true);
-
-	//case Versions::BADLION_1_8_9:this->Init(vanilla189, vanilla189_size, false);
-	//default:
-	//	break;
-	//}
+	case Versions::BADLION_1_8_9:this->Init(vanilla189, vanilla189_size, false);
+	default:
+		break;
+	}
 }
 
 Versions SRGParser::GetVersion() const
@@ -102,13 +106,13 @@ std::pair<std::string, std::string> SRGParser::getObfuscatedMethodName(const std
 	//std::cout << key << std::endl;
 	if (methodMappings.find(key) != methodMappings.end()) {
 		std::pair<std::string, std::string> obfuscatedMethod = methodMappings[key];
-		std::string obfuscatedClass = obfuscatedMethod.first;
-		size_t lastSlashIndex = obfuscatedClass.find_last_of("/");
+		std::string obfuscatedMethodName = obfuscatedMethod.first;
+		size_t lastSlashIndex = obfuscatedMethodName.find_last_of("/");
 		if (lastSlashIndex != std::string::npos) {
-			obfuscatedClass = obfuscatedClass.substr(lastSlashIndex + 1);
+			obfuscatedMethodName = obfuscatedMethodName.substr(lastSlashIndex + 1);
 		}
-		std::cout << "WrapperMethod:" << originalClassName << " Desc:" << methodDesc << " Obfuscator:" << obfuscatedClass << " ObfuscatorDesc:" << obfuscatedMethod.second << std::endl;
-		return std::make_pair(obfuscatedClass, obfuscatedMethod.second);
+		std::cout << "WrapperMethod:" << originalClassName << " Desc:" << methodDesc << " Obfuscator:" << obfuscatedMethodName << " ObfuscatorDesc:" << obfuscatedMethod.second << std::endl;
+		return std::make_pair(obfuscatedMethodName, obfuscatedMethod.second);
 	}
 	return std::make_pair(originalMethodName, methodDesc);
 }

@@ -12,6 +12,10 @@ static DWORD WINAPI BootStrapThread(LPVOID hDll)
 {
 	//Setup Client Here
 	auto result = Younkoo::get().setup();
+	if (!result)
+	{
+		Younkoo::get().shutdown();
+	}
 	return NULL;
 }
 

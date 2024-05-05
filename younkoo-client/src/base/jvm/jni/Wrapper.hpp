@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "types/Array.hpp"
 #include "types/Field.hpp"
 #include "types/ObjectWrapper.hpp"
@@ -22,7 +22,7 @@
 	}																									\
 		static std::string get_class_name()																										\
 		{																										\
-			return obf_klass_name;																										\
+			 obf_klass_name;																										\
 		}																										\
 
 #define END_KLASS_DEF()	}

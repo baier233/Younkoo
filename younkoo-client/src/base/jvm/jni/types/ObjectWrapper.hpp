@@ -24,12 +24,6 @@ namespace JNI {
 			if (is_global_ref)
 				clear_ref();
 		}
-		union MyStruct
-		{
-			char a;
-			int b;
-			uintptr_t c;
-		};
 		ObjectWrapper& operator=(const ObjectWrapper& other) //operator = keeps the current ref type
 		{
 			if (is_global_ref)

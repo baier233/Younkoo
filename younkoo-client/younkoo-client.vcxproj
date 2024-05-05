@@ -71,11 +71,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)\ext\nanovg;$(ProjectDir)\ext;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\ext\nanovg;$(ProjectDir)\src\base\sdk;$(ProjectDir)\src\base\jvm;$(ProjectDir)\ext;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)\ext\GL;$(ProjectDir)\ext\SDL2;$(ProjectDir)\ext\detours;$(ProjectDir)\ext\glad;$(ProjectDir)\ext\GLFW;$(ProjectDir)\ext\nanovg;$(ProjectDir)\ext\jni;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)\ext\nanovg;$(ProjectDir)\ext;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\ext\nanovg;$(ProjectDir)\src\base\sdk;$(ProjectDir)\src\base\jvm;$(ProjectDir)\ext;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)\ext\GL;$(ProjectDir)\ext\SDL2;$(ProjectDir)\ext\detours;$(ProjectDir)\ext\glad;$(ProjectDir)\ext\GLFW;$(ProjectDir)\ext\nanovg;$(ProjectDir)\ext\jni;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -161,6 +161,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.cpp" />
     <ClCompile Include="src\base\features\modules\visual\HUD.cpp" />
     <ClCompile Include="src\base\render\gui\input\IOEvents.cpp" />
     <ClCompile Include="src\base\render\gui\GUI.cpp" />
@@ -201,7 +203,7 @@
     <ClCompile Include="src\base\render\hooks\OpenGLHook.cpp" />
     <ClCompile Include="src\base\jvm\jni\Wrapper.hpp" />
     <ClCompile Include="src\base\jvm\JVM.cpp" />
-    <ClCompile Include="src\base\sdk\Mappings.hpp" />
+    <ClCompile Include="src\base\sdk\SDK.hpp" />
     <ClCompile Include="src\Bootstrap.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\base\Younkoo.cpp" />
@@ -256,6 +258,8 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.h" />
     <ClInclude Include="src\base\event\Events.h" />
     <ClInclude Include="src\base\event\EventBus.hpp" />
     <ClInclude Include="src\base\render\gui\nanogui\Button.h" />

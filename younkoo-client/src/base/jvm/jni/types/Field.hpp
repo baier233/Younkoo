@@ -1,8 +1,8 @@
-#pragma once
+﻿#pragma once
 
 #include "Env.hpp"
 #include "ObjectWrapper.hpp"
-
+#include <functional>
 #include <iostream>
 
 namespace JNI {
@@ -10,7 +10,22 @@ namespace JNI {
 	class Field
 	{
 	public:
-		Field(const std::string field_name,const EmptyMembers& m) :
+		Field(std::function<std::string()> lambda_get_name, const EmptyMembers& m) :
+			owner_klass(m.owner_klass),
+			object_instance(m.object_instance)
+		{
+			if (id) return;
+			field_name = lambda_get_name();
+
+			std::cout << "Getting Field : " << get_name() + " " + get_signature() << " isStatic :" << is_static << std::endl;
+			if constexpr (is_static)
+				id = get_env()->GetStaticFieldID(owner_klass, get_name().c_str(), get_signature().c_str());
+			if constexpr (!is_static)
+				id = get_env()->GetFieldID(owner_klass, get_name().c_str(), get_signature().c_str());
+			assertm(id, (const char*)("failed to find FieldID : " + get_name() + " " + get_signature()).c_str());
+		}
+
+		Field(std::string field_name, const EmptyMembers& m) :
 			field_name(field_name),
 			owner_klass(m.owner_klass),
 			object_instance(m.object_instance)
@@ -184,14 +199,14 @@ namespace JNI {
 			return get_signature_for_type<field_type>();
 		}
 
-		 bool is_field_static()
+		bool is_field_static()
 		{
 			return is_static;
 		}
 
-		 void print() {
-			 std::cout <<  this->get_name() << " :\n{" << "\n   Name: " << this->get_name() << "\n   Sign:" << this->get_signature() << "\n   Value :" << this->get() << "\n}" << std::endl;
-		 }
+		void print() {
+			std::cout << this->get_name() << " :\n{" << "\n   Name: " << this->get_name() << "\n   Sign:" << this->get_signature() << "\n   Value :" << this->get() << "\n}" << std::endl;
+		}
 
 
 		operator jfieldID() const
@@ -206,4 +221,4 @@ namespace JNI {
 	};
 
 
- }
+}

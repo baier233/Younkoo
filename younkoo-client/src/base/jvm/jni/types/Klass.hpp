@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Env.hpp"
 #include "Misc.hpp"
 
@@ -19,8 +19,8 @@ namespace JNI {
 			if (cached) return cached;
 		}
 		auto klassName = klass_type::get_name();
-		std::cout << "Finding Klass :" <<klassName << std::endl;
-		jclass found = (jclass)get_env()->NewGlobalRef(get_env()->FindClass(klassName.c_str()));
+		std::cout << "Finding Klass :" << klassName << std::endl;
+		jclass found = (jclass)get_env()->NewGlobalRef(find_class(klassName));
 		{
 			std::unique_lock unique_lock{ jclass_cache<klass_type>::mutex };
 			cached = found;
@@ -40,7 +40,7 @@ namespace JNI {
 		Klass(jobject object_instance = nullptr, bool is_global_ref = false) :
 			members_type(get_cached_jclass<Klass>(), object_instance, is_global_ref) //be careful order of initialization matters
 		{
-			
+
 		}
 
 		static inline std::string get_name()
@@ -50,10 +50,10 @@ namespace JNI {
 
 		static inline std::string get_signature()
 		{
-			return "L" + members_type::get_class_name() + ";" ;
+			return "L" + members_type::get_class_name() + ";";
 		}
 		void print() {
-			std::cout << get_name()   + " :\n{	"  << "\n  Name:" << this->get_name() << "\n  Sign:" << this->get_signature() << "\n  owner_klass :" << this->owner_klass << "\n}" << std::endl;
+			std::cout << get_name() + " :\n{	" << "\n  Name:" << this->get_name() << "\n  Sign:" << this->get_signature() << "\n  owner_klass :" << this->owner_klass << "\n}" << std::endl;
 		}
 	private:
 	};

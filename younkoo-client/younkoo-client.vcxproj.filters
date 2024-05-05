@@ -39,7 +39,7 @@
     <ClCompile Include="src\base\jvm\jni\Wrapper.hpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\sdk\Mappings.hpp">
+    <ClCompile Include="src\base\sdk\SDK.hpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\base\jvm\jni\types\ObjectWrapper.hpp">
@@ -181,6 +181,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\base\render\gui\nanogui\serializer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -399,6 +405,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\render\resources\fonts\entypo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
