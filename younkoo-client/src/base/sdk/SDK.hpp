@@ -72,15 +72,15 @@ namespace SDK {
 		JVM_GetAllThreads getAllThreads = (JVM_GetAllThreads)GetProcAddress(GetModuleHandleW(L"jvm.dll"), "JVM_GetAllThreads");
 		jobjectArray threadsArray = getAllThreads(jniEnv, NULL);
 		int threadsCount = jniEnv->GetArrayLength(threadsArray);
+		jclass thread_class = jniEnv->FindClass("java/lang/Thread");
+		jfieldID ctxClsLoader = jniEnv->GetFieldID(thread_class, "contextClassLoader", "Ljava/lang/ClassLoader;");
+		jmethodID getName = jniEnv->GetMethodID(thread_class, "getName", "()Ljava/lang/String;");
 		for (int i = 0; i < threadsCount; i++) {
 			jobject thread = jniEnv->GetObjectArrayElement(threadsArray, i);
-			jclass thread_class = jniEnv->FindClass("java/lang/Thread");
-			jmethodID getName = jniEnv->GetMethodID(thread_class, "getName", "()Ljava/lang/String;");
 			jstring threadName = (jstring)jniEnv->CallObjectMethod(thread, getName);
 			auto threadNameStr = std::string(jniEnv->GetStringUTFChars(threadName, 0));
 			std::cout << "threadNameStr :" << threadNameStr << std::endl;
 			if (threadNameStr == thread_name) {
-				jfieldID ctxClsLoader = jniEnv->GetFieldID(thread_class, "contextClassLoader", "Ljava/lang/ClassLoader;");
 				jobject classLoader = jniEnv->GetObjectField(thread, ctxClsLoader);
 				MinecraftClassLoader = jniEnv->NewGlobalRef(classLoader);
 				std::lock_guard lock{ JNI::_refs_to_delete_mutex };
