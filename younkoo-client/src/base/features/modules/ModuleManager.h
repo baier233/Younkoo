@@ -6,6 +6,7 @@
 #include "..\..\..\utils\Singleton.hpp"
 
 #include "Visual/HUD.h"
+#include "fight/AutoClicker.h"
 
 #define ToBaseModule(__MOD) reinterpret_cast<AbstractModule*>(__MOD)
 #define ToDirectModule(__Impl, __Mod) reinterpret_cast<__Impl*>(__Mod)

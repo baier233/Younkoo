@@ -83,7 +83,7 @@ bool Younkoo::setup()
 		auto theMinecraft = minecraft.getMinecraft();
 		auto thePlayer = theMinecraft.thePlayer.get();
 		auto mouseOver = theMinecraft.mouseOver.get();
-		std::cout << mouseOver.object_instance << std::endl;
+		//std::cout << mouseOver.object_instance << std::endl;
 		Sleep(1);
 	}
 

@@ -55,6 +55,7 @@ std::vector<HMOD> ModuleManager::getMods()
 bool ModuleManager::LoadModules()
 {
 	this->addModule<HUD>(&HUD::getInstance());
+	this->addModule<AutoClicker>(&AutoClicker::getInstance());
 	return true;
 }
 
