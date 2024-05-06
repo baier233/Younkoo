@@ -13,10 +13,10 @@ else {
 JNI::Field<HitResult_Type, JNI::STATIC> MISS{ []() {
 	return "MISS";
 	} ,*this };
-JNI::Field<HitResult_Type, JNI::STATIC> MISS{ []() {
+JNI::Field<HitResult_Type, JNI::STATIC> BLOCK{ []() {
 	return "BLOCK";
 	} ,*this };
-JNI::Field<HitResult_Type, JNI::STATIC> MISS{ []() {
+JNI::Field<HitResult_Type, JNI::STATIC> ENTITY{ []() {
 	return "ENTITY";
 	} ,*this };
 END_KLASS_DEF();
