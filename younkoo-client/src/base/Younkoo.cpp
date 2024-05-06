@@ -81,9 +81,10 @@ bool Younkoo::setup()
 			
 			auto &event = YounkooIO::IOEvents.front();
 			if (event->type == YounkooIO::EventType::KEY) {
-				YounkooIO::KeyEvent key = static_cast<YounkooIO::KeyEvent&>(*event.get()).keycode;
-				std::cout << "keycode: " << key.keycode << " action: " << key.action << std::endl;
-				ModuleManager::get().ProcessKeyEvent(key.keycode);
+				YounkooIO::KeyEvent key = static_cast<YounkooIO::KeyEvent&>(*event.get());
+				//1 PRESS
+				//0 RELEASE
+				if (key.action == 0) ModuleManager::get().ProcessKeyEvent(key.keycode);
 			}
 			YounkooIO::IOEvents.pop();
 		}
