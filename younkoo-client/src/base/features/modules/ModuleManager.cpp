@@ -43,7 +43,7 @@ void ModuleManager::ProcessKeyEvent(int key) {
 
 void ModuleManager::ProcessUpdate() {
 	for (auto iter = this->modules.cbegin(); iter < this->modules.cend(); iter++) {
-		ToBaseModule(*iter)->onUpdate();
+		if (ToBaseModule(*iter)->getToggle()) ToBaseModule(*iter)->onUpdate();
 	}
 }
 
