@@ -76,6 +76,17 @@ bool Younkoo::setup()
 	static Minecraft minecraft{};
 	while (!shouldShutDown)
 	{
+		while (!YounkooIO::IOEvents.empty())
+		{
+			
+			auto &event = YounkooIO::IOEvents.front();
+			if (event->type == YounkooIO::EventType::KEY) {
+				YounkooIO::KeyEvent key = static_cast<YounkooIO::KeyEvent&>(*event.get()).keycode;
+				std::cout << "keycode: " << key.keycode << " action: " << key.action << std::endl;
+				ModuleManager::get().ProcessKeyEvent(key.keycode);
+			}
+			YounkooIO::IOEvents.pop();
+		}
 		ModuleManager::get().ProcessUpdate();
 		shouldShutDown = context.KeysDown[VK_END];
 

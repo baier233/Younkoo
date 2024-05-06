@@ -2,6 +2,7 @@
 #include "../utils/Singleton.hpp"
 #include <atomic>
 #include "event/EventBus.hpp"
+#include "render/gui/input/IOEvents.h"
 #include <memory>
 
 class Younkoo : public Singleton<Younkoo> {

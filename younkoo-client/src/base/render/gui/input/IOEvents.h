@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <queue>
 #include "Context.hpp"
+#include <memory>
 
 
 namespace YounkooIO {
@@ -19,7 +20,7 @@ namespace YounkooIO {
 
 	struct KeyEvent final : IOEvent
 	{
-		constexpr KeyEvent(int keycode = 0, int action = 0) noexcept
+		KeyEvent(int keycode = 0, int action = 0) noexcept
 			: IOEvent{ EventType::KEY }, keycode(keycode), action(action) {}
 		int keycode;
 		int action;
@@ -56,13 +57,12 @@ namespace YounkooIO {
 		unsigned int codepoint;
 	};
 
-	inline std::queue<IOEvent> IOEvents;
+	inline std::queue<std::shared_ptr<YounkooIO::IOEvent>> IOEvents;
 
 	inline void Clear() noexcept {
-		std::queue<IOEvent> empty;
+		std::queue<std::shared_ptr<YounkooIO::IOEvent>> empty;
 		IOEvents.swap(empty);
 	}
-
 }
 
 

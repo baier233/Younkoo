@@ -144,7 +144,8 @@ static WNDPROC SetCallbacks(HWND hWnd)
 {
 	YounkooCursorPosCallback = [](HWND window, double x, double y) {
 		// 光标位置回调
-		YounkooIO::IOEvents.push(YounkooIO::MousePosEvent(x, y));
+		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::MousePosEvent>(x, y);
+		YounkooIO::IOEvents.push(event);
 		//context.MousePos = Vector2D(x, y);
 
 		};
@@ -152,15 +153,16 @@ static WNDPROC SetCallbacks(HWND hWnd)
 	YounkooMouseButtonCallback = [](HWND window, int button, int action, int mods) {
 		// 鼠标按钮回调
 		//std::cout << "Button :" << button << std::endl;
-		YounkooIO::IOEvents.push(YounkooIO::MouseEvent(button, action));
+		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::MouseEvent>(button, action);
+		YounkooIO::IOEvents.push(event);
 		/*if (action == CALLBACK_PRESS) context.MouseDown[button] = true;
 		if (action == CALLBACK_RELEASE) context.MouseDown[button] = false;*/
 		};
 
 	YounkooKeyCallback = [](HWND window, int key, int scancode, int action, int mods) {
 		// 键盘按键回调
-
-		YounkooIO::IOEvents.push(YounkooIO::KeyEvent(key, action));
+		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::KeyEvent>(key, action);
+		YounkooIO::IOEvents.push(event);
 		const bool is_key_down = action == CALLBACK_PRESS || action != CALLBACK_RELEASE;
 
 		context.KeysDown[key] = is_key_down;
@@ -184,7 +186,8 @@ static WNDPROC SetCallbacks(HWND hWnd)
 		};
 
 	YounkooCharCallback = [](HWND window, unsigned int codepoint) {
-		YounkooIO::IOEvents.push(YounkooIO::CharEvent(codepoint));
+		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::CharEvent>(codepoint);
+		YounkooIO::IOEvents.push(event);
 		// 字符输入回调
 		//context.KeyQueue.push_back(codepoint);
 		};
@@ -195,7 +198,8 @@ static WNDPROC SetCallbacks(HWND hWnd)
 
 
 	YounkooScrollCallback = [](HWND window, double xoffset, double yoffset) {
-		YounkooIO::IOEvents.push(YounkooIO::WheelEvent(xoffset, yoffset));
+		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::WheelEvent>(xoffset, yoffset);
+		YounkooIO::IOEvents.push(event);
 		// 滚动鼠标回调
 		//context.MouseWheel += yoffset;
 		//context.MouseWheelH += xoffset;
