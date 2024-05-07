@@ -2,6 +2,7 @@
 #include "../AbstractModule.h"
 #include "../../../event/Events.h"
 #include "../../../Younkoo.hpp"
+#include "../ModuleManager.h"
 #include <GL/glew.h>
 #include <nanovg.h>
 class HUD : public AbstractModule

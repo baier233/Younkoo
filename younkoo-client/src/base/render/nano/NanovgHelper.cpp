@@ -2,7 +2,6 @@
 
 #include <GL\glew.h>
 
-#include "nanovg.h"
 #define NANOVG_GL3_IMPLEMENTATION
 #include "nanovg_gl.h"
 //#include "nanovg_gl_utils.h"
@@ -49,11 +48,36 @@ static std::string Wide2Utf8(const std::wstring& str) {
 	WideCharToMultiByte(CP_UTF8, 0, str.c_str(), -1, &utf8Str[0], sizeRequired, NULL, NULL);
 	return utf8Str;
 }
-void NanoVGHelper::nvgTextW(NVGcontext* vg, int x, int y, const std::wstring& str)
+void NanoVGHelper::nvgTextW(NVGcontext* vg, const std::wstring& str, int x, int y, int font, int size, NVGcolor col)
 {
+	nvgBeginPath(vg);
+	nvgFontSize(vg, size);
+	nvgFontFaceId(vg, font);
+	nvgTextAlign(vg, NVG_ALIGN_LEFT | NVG_ALIGN_TOP);
 	auto utf8Str = Wide2Utf8(str);
+	nvgFillColor(vg, col);
 	nvgText(vg, x, y, utf8Str.c_str(), utf8Str.c_str() + utf8Str.size());
 }
+
+void NanoVGHelper::nvgRect(NVGcontext* vg, float x, float y, float width, float height, NVGcolor col)
+{
+	nvgBeginPath(vg);
+	nvgRect(vg, x, y, width, height);
+	nvgFillColor(vg, col);
+	nvgFill(vg);
+}
+
+std::pair<float, float> NanoVGHelper::nvgTextBoundsW(NVGcontext* vg, const std::wstring& str, int font, int size)
+{
+	float bounds[4] = { 0 };
+	nvgFontSize(vg, size);
+	nvgFontFaceId(vg, font);
+	nvgTextBoundsW(vg, 0, 0, str, bounds);
+	float w = bounds[2] - bounds[0];
+	float h = bounds[3] - bounds[1];
+	return std::make_pair(w, h);
+}
+
 void NanoVGHelper::nvgTextBoundsW(NVGcontext* vg, int x, int y, const std::wstring& str, float bounds[])
 {
 	auto utf8Str = Wide2Utf8(str);
