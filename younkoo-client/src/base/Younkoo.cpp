@@ -74,6 +74,9 @@ bool Younkoo::setup()
 
 	std::cout << "Setting Up" << std::endl;
 	static Minecraft minecraft{};
+	auto theMinecraft = minecraft.getMinecraft();
+	auto thePlayer = theMinecraft.thePlayer.get();
+	auto a = thePlayer.isUsingItem();
 	while (!shouldShutDown)
 	{
 		while (!YounkooIO::IOEvents.empty())
@@ -115,11 +118,6 @@ bool Younkoo::setup()
 
 		ModuleManager::get().ProcessUpdate();
 		shouldShutDown = context.KeysDown[VK_END];
-
-
-		auto theMinecraft = minecraft.getMinecraft();
-		auto thePlayer = theMinecraft.thePlayer.get();
-		auto mouseOver = theMinecraft.mouseOver.get();
 		//std::cout << mouseOver.object_instance << std::endl;
 		Sleep(1);
 	}

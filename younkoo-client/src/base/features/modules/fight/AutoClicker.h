@@ -3,6 +3,7 @@
 #include "../../../Younkoo.hpp"
 #include <GL/glew.h>
 #include <nanovg.h>
+#include <wrapper/net/minecraft/client/Minecraft.h>
 class AutoClicker : public AbstractModule
 {
 public:

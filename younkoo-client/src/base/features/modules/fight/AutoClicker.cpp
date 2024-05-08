@@ -34,6 +34,7 @@ void AutoClicker::onDisable()
 
 void AutoClicker::onUpdate()
 {
+	static Minecraft minecraft{};
 	long milli = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 	if (lastClickTime == 0) lastClickTime = milli;
 	if ((milli - lastClickTime) < (1000 / nextCps)) return;
@@ -53,7 +54,7 @@ void AutoClicker::onUpdate()
 		nextCps = distrib(gen);
 	}
 
-	if (GetAsyncKeyState(VK_RBUTTON) && 1) {
+	if ((GetAsyncKeyState(VK_RBUTTON) && 1) && !minecraft.getMinecraft().thePlayer.get().isUsingItem()) {
 		POINT pos_cursor;
 		GetCursorPos(&pos_cursor);
 		PostMessageA(Renderer::get().HandleWindow, WM_RBUTTONDOWN, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));

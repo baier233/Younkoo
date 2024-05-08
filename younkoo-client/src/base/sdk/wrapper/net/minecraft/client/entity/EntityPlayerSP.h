@@ -1,14 +1,8 @@
 ﻿#pragma once
 #include <SDK.hpp>
 #include "../src/base/Younkoo.hpp"
-
-BEGIN_KLASS_DEF(EntityPlayerSP, if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
-{
-	return SRGParser::get().getObfuscatedClassName("net/minecraft/client/player/LocalPlayer");
-}
-else {
-	return SRGParser::get().getObfuscatedClassName("net/minecraft/client/entity/EntityPlayerSP");
-})
-
+#include "AbstractClientPlayer.h"
+BEGIN_KLASS_DEF_EX(EntityPlayerSP, SRGParser::get().getObfuscatedClassName("net/minecraft/client/player/LocalPlayer"), AbstractClientPlayer)
+	EMPTY_CONTENT;
 END_KLASS_DEF();
 
