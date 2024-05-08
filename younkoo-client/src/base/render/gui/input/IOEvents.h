@@ -16,6 +16,7 @@ namespace YounkooIO {
 
 	struct IOEvent {
 		EventType type;
+    	virtual ~IOEvent() {}
 	};
 
 	struct KeyEvent final : IOEvent
