@@ -72,6 +72,7 @@ namespace SDK {
 		JVM_GetAllThreads getAllThreads = (JVM_GetAllThreads)GetProcAddress(GetModuleHandleW(L"jvm.dll"), "JVM_GetAllThreads");
 		jobjectArray threadsArray = getAllThreads(jniEnv, NULL);
 		int threadsCount = jniEnv->GetArrayLength(threadsArray);
+		(void)jniEnv->PushLocalFrame(threadsCount * 2 + 15);
 		jclass thread_class = jniEnv->FindClass("java/lang/Thread");
 		jfieldID ctxClsLoader = jniEnv->GetFieldID(thread_class, "contextClassLoader", "Ljava/lang/ClassLoader;");
 		jmethodID getName = jniEnv->GetMethodID(thread_class, "getName", "()Ljava/lang/String;");
@@ -88,7 +89,8 @@ namespace SDK {
 				break;
 			}
 		}
-		//(void)jniEnv->PopLocalFrame(nullptr);
+		(void)jniEnv->PopLocalFrame(nullptr);
+		jniEnv->DeleteLocalRef(threadsArray);
 		return MinecraftClassLoader != nullptr;
 	}
 }
@@ -97,11 +99,11 @@ namespace SDK {
 
 namespace maps
 {
-	BEGIN_KLASS_DEF(Object, "java/lang/Object")
+	BEGIN_KLASS_DEF(Object, return "java/lang/Object")
 		EMPTY_CONTENT;
 	END_KLASS_DEF();
 
-	BEGIN_KLASS_DEF(String, "java/lang/String")
+	BEGIN_KLASS_DEF(String, return  "java/lang/String")
 		String create(const char* str)
 	{
 		return String(JNI::get_env()->NewStringUTF(str));
@@ -119,24 +121,13 @@ namespace maps
 	}
 	END_KLASS_DEF();
 
-	BEGIN_KLASS_DEF(Collection, "java/util/Collection")
+	BEGIN_KLASS_DEF(Collection, return "java/util/Collection")
 		JNI::Method<JNI::Array<Object>> toArray{ "toArray" ,*this };
 	END_KLASS_DEF();
 
-	BEGIN_KLASS_DEF_EX(List, "java/util/List", Collection)
+	BEGIN_KLASS_DEF_EX(List, return "java/util/List", Collection)
 		EMPTY_CONTENT;
 	END_KLASS_DEF();
-#ifdef TEST
-	BEGIN_KLASS_DEF(Main, "Main")
-		JNI::Field<jint, JNI::STATIC> field_0{ "field_0",*this };
-	END_KLASS_DEF();
-
-	BEGIN_KLASS_DEF(SubClass, "SubClass")
-		JNI::Field<jint, JNI::NOT_STATIC> field_1{ "field_1",*this };
-	JNI::Method<SubClass, JNI::STATIC> getInstance{ "getInstance",*this };
-	END_KLASS_DEF();
-#endif // TEST
-
 
 
 }

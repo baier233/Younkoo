@@ -1,4 +1,4 @@
-#include "AbstractModule.h"
+﻿#include "AbstractModule.h"
 
 AbstractModule::AbstractModule(const char* ModName, Category Modcategory) :name(ModName), category(Modcategory), key(0), i_toggle(false) {}
 

@@ -12,39 +12,6 @@ Younkoo::Younkoo()
 
 #include "render/Renderer.hpp"
 #include "render/nano/NanovgHelper.hpp"
-#ifdef TEST
-
-void Test() {
-
-	maps::Main Main{};
-	maps::SubClass SubClass{};
-	maps::Collection Collection{};
-
-	Main.print();
-	Main.field_0.print();
-	Collection.toArray.print();
-
-
-	//setting static field
-	Main.field_0 = 1337;
-
-	//calling method
-	auto instanceSub = SubClass.getInstance();
-
-	SubClass.print();
-	SubClass.getInstance.print();
-	std::cout << "SubClass.instance :\n{" << "\n   Sign:" << SubClass.getInstance.get_signature() << "\n   Value :" << instanceSub.object_instance << "\n}" << std::endl;
-	instanceSub.field_1.print();
-
-	//setting non-static field
-	instanceSub.field_1 = -1337;
-
-	//Array test
-	Collection.print();
-	std::cout << Collection.toArray.get_name() + Collection.toArray.get_signature() << std::endl;
-}
-
-#endif // Test
 
 #include "render/gui/input/Context.hpp"
 #include "sdk/Mapper/SRGParser.h"
@@ -81,39 +48,40 @@ bool Younkoo::setup()
 	{
 		while (!YounkooIO::IOEvents.empty())
 		{
-			auto event = YounkooIO::IOEvents.front();
+			auto& event = YounkooIO::IOEvents.front();
 			switch (event->type) {
-				case YounkooIO::EventType::KEY: {
-					auto keyEvent = std::dynamic_pointer_cast<YounkooIO::KeyEvent>(event);
-					if (keyEvent && keyEvent->action == 0) {
-						ModuleManager::get().ProcessKeyEvent(keyEvent->keycode);
-					}
-					break;
+			case YounkooIO::EventType::KEY: {
+				auto keyEvent = std::dynamic_pointer_cast<YounkooIO::KeyEvent>(event);
+				if (keyEvent && keyEvent->action == 0) {
+					ModuleManager::get().ProcessKeyEvent(keyEvent->keycode);
 				}
-				case YounkooIO::EventType::MOUSE: {
-					auto mouseEvent = std::dynamic_pointer_cast<YounkooIO::MouseEvent>(event);
-					// Handle mouseEvent here
-					break;
-				}
-				case YounkooIO::EventType::MOUSEPOS: {
-					auto mousePosEvent = std::dynamic_pointer_cast<YounkooIO::MousePosEvent>(event);
-					// Handle mousePosEvent here
-					break;
-				}
-				case YounkooIO::EventType::WHEEL: {
-					auto wheelEvent = std::dynamic_pointer_cast<YounkooIO::WheelEvent>(event);
-					// Handle wheelEvent here
-					break;
-				}
-				case YounkooIO::EventType::TYPE: {
-					auto charEvent = std::dynamic_pointer_cast<YounkooIO::CharEvent>(event);
-					// Handle charEvent here
-					break;
-				}
-				default:
-					break;
+				break;
 			}
-    		YounkooIO::IOEvents.pop();
+			case YounkooIO::EventType::MOUSE: {
+				auto mouseEvent = std::dynamic_pointer_cast<YounkooIO::MouseEvent>(event);
+				// Handle mouseEvent here
+				break;
+			}
+			case YounkooIO::EventType::MOUSEPOS: {
+				auto mousePosEvent = std::dynamic_pointer_cast<YounkooIO::MousePosEvent>(event);
+				// Handle mousePosEvent here
+				break;
+			}
+			case YounkooIO::EventType::WHEEL: {
+				auto wheelEvent = std::dynamic_pointer_cast<YounkooIO::WheelEvent>(event);
+
+				// Handle wheelEvent here
+				break;
+			}
+			case YounkooIO::EventType::TYPE: {
+				auto charEvent = std::dynamic_pointer_cast<YounkooIO::CharEvent>(event);
+				// Handle charEvent here
+				break;
+			}
+			default:
+				break;
+			}
+			YounkooIO::IOEvents.pop();
 		}
 
 		ModuleManager::get().ProcessUpdate();

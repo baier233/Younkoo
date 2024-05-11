@@ -38,9 +38,8 @@ namespace JNI {
 	{
 	public:
 		Klass(jobject object_instance = nullptr, bool is_global_ref = false) :
-			members_type(get_cached_jclass<Klass>(), object_instance, is_global_ref) //be careful order of initialization matters
+			members_type([]() {return get_cached_jclass<Klass>(); }, object_instance, is_global_ref) //be careful order of initialization matters
 		{
-
 		}
 
 		static inline std::string get_name()

@@ -22,7 +22,6 @@ namespace JNI {
 				id = get_env()->GetStaticFieldID(owner_klass, get_name().c_str(), get_signature().c_str());
 			if constexpr (!is_static)
 				id = get_env()->GetFieldID(owner_klass, get_name().c_str(), get_signature().c_str());
-			assertm(id, (const char*)("failed to find FieldID : " + get_name() + " " + get_signature()).c_str());
 		}
 
 		Field(std::string field_name, const EmptyMembers& m) :

@@ -1,7 +1,9 @@
 ﻿#pragma once
 #include "Env.hpp"
 #include "Misc.hpp"
-
+#include <functional>
+#include <iostream>
+#include "Klass.hpp"
 
 namespace JNI {
 
@@ -58,16 +60,19 @@ namespace JNI {
 	private:
 		bool is_global_ref; //global refs aren't destroyed on PopLocalFrame, and can be shared between threads
 	};
-
 	struct EmptyMembers : public ObjectWrapper
 	{
-		EmptyMembers(jclass owner_klass, jobject object_instance, bool is_global_ref) :
-			ObjectWrapper(object_instance, is_global_ref),
-			owner_klass(owner_klass)
+		EmptyMembers(std::function<jclass()> lambda_get_klass, jobject object_instance, bool is_global_ref, std::function<std::string()> lambda_get_name) :
+			ObjectWrapper(object_instance, is_global_ref)
 		{
+			this->lambda_get_name = lambda_get_name;
+			this->owner_klass = lambda_get_klass();
+			std::cout << owner_klass << std::endl;
 		}
-
-
+		static inline std::string get_class_name() {
+			return lambda_get_name();
+		}
+		static inline std::function <std::string()> lambda_get_name;
 		jclass owner_klass;
 	};
 }

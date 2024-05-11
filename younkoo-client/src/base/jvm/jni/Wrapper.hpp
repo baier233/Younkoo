@@ -8,6 +8,7 @@
 #include "types/Misc.hpp"'
 #include <map>
 #include <string>
+#include <functional>
 
 
 
@@ -16,14 +17,10 @@
 	using unobf_klass_name = JNI::Klass<unobf_klass_name##_members>;						\
 	struct unobf_klass_name##_members : public JNI::EmptyMembers											\
 	{																										\
-		unobf_klass_name##_members(jclass owner_klass, jobject object_instance, bool is_global_ref) :		\
-			JNI::EmptyMembers(owner_klass, object_instance, is_global_ref)									\
+		unobf_klass_name##_members( std::function<jclass()> lambda_get_klass,jobject object_instance, bool is_global_ref,std::function<std::string()> lambda_get_name =[](){obf_klass_name;} ) :		\
+			JNI::EmptyMembers(lambda_get_klass, object_instance, is_global_ref, lambda_get_name)									\
 		{																									\
-	}																									\
-		static std::string get_class_name()																										\
-		{																										\
-			 obf_klass_name;																										\
-		}																										\
+		}																									\
 
 #define END_KLASS_DEF()	}
 
@@ -32,12 +29,8 @@
 	using unobf_klass_name = JNI::Klass< unobf_klass_name##_members>;						\
 	struct unobf_klass_name##_members : public inherit_from##_members										\
 	{																										\
-		unobf_klass_name##_members(jclass owner_klass, jobject object_instance, bool is_global_ref) :		\
-			inherit_from##_members(owner_klass, object_instance, is_global_ref)								\
+		unobf_klass_name##_members(std::function<jclass()> lambda_get_klass,jobject object_instance, bool is_global_ref, std::function<std::string()> lambda_get_name =[](){obf_klass_name;}) :		\
+			inherit_from##_members(lambda_get_klass,object_instance, is_global_ref, lambda_get_name)								\
 		{																									\
 		}																									\
-		static std::string get_class_name()\
-		{																										\
-			return obf_klass_name;																										\
-		}		
 
