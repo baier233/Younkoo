@@ -162,10 +162,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\base\features\modules\fight\AutoClicker.cpp" />
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\AbstractClientPlayer.cpp" />
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\AbstractClientPlayer.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\LivingEntity.cpp" />
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\Player.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\Player.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.cpp" />
     <ClCompile Include="src\base\features\modules\visual\HUD.cpp" />
     <ClCompile Include="src\base\render\gui\input\IOEvents.cpp" />
@@ -265,10 +265,10 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
     <ClInclude Include="src\base\features\modules\fight\AutoClicker.h" />
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\AbstractClientPlayer.h" />
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\AbstractClientPlayer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\LivingEntity.h" />
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\Player.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\Player.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.h" />
     <ClInclude Include="src\base\event\Events.h" />
     <ClInclude Include="src\base\event\EventBus.hpp" />

@@ -186,7 +186,7 @@
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.cpp">
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\HitResult.cpp">
@@ -201,10 +201,10 @@
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\LivingEntity.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\AbstractClientPlayer.cpp">
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\AbstractClientPlayer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\Player.cpp">
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\Player.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -428,7 +428,7 @@
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.h">
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\HitResult.h">
@@ -443,10 +443,10 @@
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\LivingEntity.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\AbstractClientPlayer.h">
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\AbstractClientPlayer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\Player.h">
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\Player.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

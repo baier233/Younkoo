@@ -1,10 +1,10 @@
 ﻿#pragma once
 
 #include <SDK.hpp>
-#include "entity/EntityPlayerSP.h"
+#include "player/LocalPlayer.h"
 #include "../world/HitResult.h"
 BEGIN_KLASS_DEF(Minecraft, return SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft"))
-JNI::Field<EntityPlayerSP, JNI::NOT_STATIC> thePlayer{ []() {
+JNI::Field<LocalPlayer, JNI::NOT_STATIC> thePlayer{ []() {
 	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft"),"player");
 	} ,*this };
 JNI::Field<HitResult, JNI::NOT_STATIC> mouseOver{ []() {
