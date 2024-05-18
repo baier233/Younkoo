@@ -1,10 +1,11 @@
 ﻿#pragma once
 #include <Windows.h>
 class NVGcontext;
-#include "nanovg.h"
+#include <nanovg.h>
 #include <string>
 
 namespace NanoVGHelper {
+
 	bool InitContext(HWND window2Attach);
 	bool DeleteContext();
 	inline NVGcontext* Context{};

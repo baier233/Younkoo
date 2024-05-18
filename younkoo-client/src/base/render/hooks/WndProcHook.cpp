@@ -41,6 +41,8 @@ CallBackdropfun YounkooDropCallback;
 CallBackscrollfun YounkooScrollCallback;
 CallBackwindowsizefun YounkooWindowSizeCallback;
 CallBackwindowsetfoucs YounkooWindowFocusCallback;
+#define GET_X_LPARAM(lp)                        ((int)(short)LOWORD(lp))
+#define GET_Y_LPARAM(lp)                        ((int)(short)HIWORD(lp))
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -49,8 +51,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_MOUSEMOVE:
 		if (YounkooCursorPosCallback)
 		{
-			int x = LOWORD(lParam);
-			int y = HIWORD(lParam);
+			int x = GET_X_LPARAM(lParam);
+			int y = GET_Y_LPARAM(lParam);
 			YounkooCursorPosCallback(hWnd, x, y);
 		}
 		break;
@@ -97,9 +99,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 	case WM_CHAR:
+	case WM_UNICHAR:
 		if (YounkooCharCallback)
 		{
-			unsigned int codepoint = static_cast<int>(wParam);
+			WCHAR codepoint = static_cast<WCHAR>(wParam);
 			YounkooCharCallback(hWnd, codepoint);
 		}
 		break;
@@ -177,6 +180,12 @@ static WNDPROC SetCallbacks(HWND hWnd)
 		YounkooIO::IOEvents.push(event);
 		if (YounkooIO::IOEvents.IOEventsCursorPosCallback)
 		{
+			if (y < 0)
+				y = 0;
+
+			if (x < 0)
+				x = 0;
+
 			YounkooIO::IOEvents.IOEventsCursorPosCallback(window, x, y);
 		}
 		//context.MousePos = Vector2D(x, y);
@@ -227,7 +236,7 @@ static WNDPROC SetCallbacks(HWND hWnd)
 
 		};
 
-	YounkooCharCallback = [](HWND window, unsigned int codepoint) {
+	YounkooCharCallback = [](HWND window, WCHAR codepoint) {
 		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::CharEvent>(window, codepoint);
 		YounkooIO::IOEvents.push(event);
 		if (YounkooIO::IOEvents.IOEventsCharCallback)

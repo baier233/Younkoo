@@ -458,6 +458,9 @@
     <ClInclude Include="ext\glfw\glfw_constants.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\utils\Wnd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\render\gui\input\IOEvents.h">

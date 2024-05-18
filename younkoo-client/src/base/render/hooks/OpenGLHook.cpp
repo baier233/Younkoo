@@ -37,6 +37,7 @@ static bool showMenu = false;
 #include "../gui/GUI.h"
 
 #include "../gui/nanogui.h"
+#include "../../../utils/Wnd.h"
 std::unique_ptr<YounkooGui> gui = std::make_unique<YounkooGui>(600, 400);
 bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	if (Younkoo::get().shouldShutDown) return wglSwapBuffersHook.GetOrignalFunc()(hdc);
@@ -66,11 +67,11 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 		// Init Nanovg Context in my mirror context
 		NanoVGHelper::InitContext(renderer.HandleWindow);
 
+		WndProcHook::Init(renderer.HandleWindow);
 		NanoGui::Init(renderer.HandleWindow, hdc, NanoVGHelper::Context);
 		// Change it back to Minecraft's opengl context.
 		wglMakeCurrent(renderer.HandleDeviceContext, renderer.OriginalGLContext);
 
-		WndProcHook::Init(renderer.HandleWindow);
 		renderer.Initialized = true;
 	}
 	else if (WndProcHook::RESIZED) {
@@ -83,10 +84,9 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
 
 	// Do draw and render here.
-	GLint viewport[4]{};
-	glGetIntegerv(GL_VIEWPORT, viewport);
-	int winWidth = viewport[2];
-	int winHeight = viewport[3];
+	RECT area;
+	GetClientRect(renderer.HandleWindow, &area);
+
 	/*
 	*
 	GLint dims[4] = { 0 };
@@ -95,14 +95,14 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	GLint fbHeight = dims[3];
 	*/
 
-	static auto devicePixelRatio = 1/*(float)fbWidth / (float)winWidth*/;
+	static auto devicePixelRatio = Wnd::get_pixel_ratio(renderer.HandleWindow)/*(float)fbWidth / (float)winWidth*/;
 	auto& vg = NanoVGHelper::Context;
-	nvgBeginFrame(vg, winWidth, winHeight, devicePixelRatio);
+	nvgBeginFrame(vg, area.right, area.bottom, devicePixelRatio);
 	nvgSave(vg);
 
 	using namespace NanoVGHelper;
 
-	EventRender2D e{ vg, winWidth, winHeight };
+	EventRender2D e{ vg, area.right, area.bottom };
 	Younkoo::get().EventBus->fire_event(e);
 
 
@@ -115,13 +115,15 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	if (showMenu)
 	{
 		gui->drawScreen(vg, context.MousePos.x, context.MousePos.y);
+
+		nvgRestore(vg);
+		nvgEndFrame(vg);
+		context.EndFrame();
+
 		NanoGui::draw();
 		//		gui->screen->drawAll();
 	}
 
-	nvgRestore(vg);
-	nvgEndFrame(vg);
-	context.EndFrame();
 
 	//End Drawing and Rendering and Dispatch back to minecraft's opengl context
 	wglMakeCurrent(renderer.HandleDeviceContext, renderer.OriginalGLContext);

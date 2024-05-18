@@ -44,40 +44,31 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 
 	YounkooIO::IOEvents.SetCursorPosCallback(
 		[](HWND w, double x, double y) {
-			if (!screen->mProcessEvents)
-				return;
+			std::cout << "X :" << x << " Y :" << y << std::endl;
 			screen->cursorPosCallbackEvent(x, y);
 		}
 	);
 
 	YounkooIO::IOEvents.SetMouseButtonCallback(
 		[](HWND w, int button, int action, int modifiers) {
-			if (!screen->mProcessEvents)
-				return;
 			screen->mouseButtonCallbackEvent(button, action, modifiers);
 		}
 	);
 
 	YounkooIO::IOEvents.SetKeyCallback(
 		[](HWND w, int key, int scancode, int action, int mods) {
-			if (!screen->mProcessEvents)
-				return;
 			screen->keyCallbackEvent(key, scancode, action, mods);
 		}
 	);
 
 	YounkooIO::IOEvents.SetCharCallback(
-		[](HWND w, unsigned int codepoint) {
-			if (!screen->mProcessEvents)
-				return;
+		[](HWND w, WCHAR codepoint) {
 			screen->charCallbackEvent(codepoint);
 		}
 	);
 
 	YounkooIO::IOEvents.SetDropCallback(
 		[](HWND w, int count, const char** filenames) {
-			if (!screen->mProcessEvents)
-				return;
 			screen->dropCallbackEvent(count, filenames);
 		}
 	);
@@ -110,7 +101,7 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 
 void NanoGui::draw()
 {
-	window->center();
+
 	screen->drawAll();
 }
 

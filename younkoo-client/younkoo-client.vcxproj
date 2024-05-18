@@ -348,6 +348,7 @@
     <ClInclude Include="src\base\render\hooks\WndProcHook.hpp" />
     <ClInclude Include="src\utils\types\Maths.hpp" />
     <ClInclude Include="src\base\sdk\mapper\SRGParser.h" />
+    <ClInclude Include="src\utils\Wnd.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

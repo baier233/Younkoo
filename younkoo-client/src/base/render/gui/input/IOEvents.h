@@ -7,7 +7,7 @@
 typedef void (*CallBackcursorposfun)(HWND, double, double);
 typedef void (*CallBackmousebuttonfun)(HWND, int, int, int);
 typedef void (*CallBackkeyfun)(HWND, int, int, int, int);
-typedef void (*CallBackcharfun)(HWND, unsigned int);
+typedef void (*CallBackcharfun)(HWND, WCHAR);
 typedef void (*CallBackdropfun)(HWND, int, const char**);
 typedef void (*CallBackscrollfun)(HWND, double, double);
 typedef void (*CallBackwindowsizefun)(HWND, int, int);
