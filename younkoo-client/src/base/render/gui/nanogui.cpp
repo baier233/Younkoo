@@ -44,7 +44,7 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 
 	YounkooIO::IOEvents.SetCursorPosCallback(
 		[](HWND w, double x, double y) {
-			std::cout << "X :" << x << " Y :" << y << std::endl;
+			//std::cout << "X :" << x << " Y :" << y << std::endl;
 			screen->cursorPosCallbackEvent(x, y);
 		}
 	);
@@ -62,7 +62,7 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 	);
 
 	YounkooIO::IOEvents.SetCharCallback(
-		[](HWND w, WCHAR codepoint) {
+		[](HWND w, uint32_t codepoint) {
 			screen->charCallbackEvent(codepoint);
 		}
 	);

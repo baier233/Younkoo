@@ -74,7 +74,7 @@ void Widget::performLayout(NVGcontext* ctx) {
 Widget* Widget::findWidget(const Vector2i& p) {
 	for (auto it = mChildren.rbegin(); it != mChildren.rend(); ++it) {
 		Widget* child = *it;
-		::std::cout << p.x() << " " << p.y() << " ->" << child->mPos.x() << " " << mPos.y() << ::std::endl;
+		//::std::cout << p.x() << " " << p.y() << " ->" << child->mPos.x() << " " << mPos.y() << ::std::endl;
 		if (child->visible() && child->contains(p - mPos))
 			return child->findWidget(p - mPos);
 	}

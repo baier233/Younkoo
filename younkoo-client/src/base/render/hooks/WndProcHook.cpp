@@ -99,13 +99,50 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 	case WM_CHAR:
-	case WM_UNICHAR:
-		if (YounkooCharCallback)
+	case WM_SYSCHAR:
+	{
+		static WCHAR highSurrogate;
+		if (wParam >= 0xd800 && wParam <= 0xdbff)
+			highSurrogate = (WCHAR)wParam;
+		else
 		{
-			WCHAR codepoint = static_cast<WCHAR>(wParam);
-			YounkooCharCallback(hWnd, codepoint);
+			uint32_t codepoint = 0;
+
+			if (wParam >= 0xdc00 && wParam <= 0xdfff)
+			{
+				if (highSurrogate)
+				{
+					codepoint += (highSurrogate - 0xd800) << 10;
+					codepoint += (WCHAR)wParam - 0xdc00;
+					codepoint += 0x10000;
+				}
+			}
+			else
+				codepoint = (WCHAR)wParam;
+
+			highSurrogate = 0;
+			if (message != WM_SYSCHAR)
+			{
+				YounkooCharCallback(hWnd, codepoint);
+			}
+			//_glfwInputChar(window, codepoint, getKeyMods(), uMsg != WM_SYSCHAR);
 		}
+
 		break;
+	}
+	case WM_UNICHAR:
+	{
+		if (wParam == UNICODE_NOCHAR)
+		{
+			// WM_UNICHAR is not sent by Windows, but is sent by some
+			// third-party input method engine
+			// Returning TRUE here announces support for this message
+			break;
+		}
+
+		YounkooCharCallback(hWnd, (uint32_t)wParam);
+		break;
+	}
 	case WM_DROPFILES:
 		if (YounkooDropCallback)
 		{
@@ -236,7 +273,10 @@ static WNDPROC SetCallbacks(HWND hWnd)
 
 		};
 
-	YounkooCharCallback = [](HWND window, WCHAR codepoint) {
+	YounkooCharCallback = [](HWND window, uint32_t codepoint) {
+		if (codepoint < 32 || (codepoint > 126 && codepoint < 160))
+			return;
+
 		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::CharEvent>(window, codepoint);
 		YounkooIO::IOEvents.push(event);
 		if (YounkooIO::IOEvents.IOEventsCharCallback)
