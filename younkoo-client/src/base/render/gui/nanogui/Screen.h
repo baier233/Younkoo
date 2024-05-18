@@ -77,7 +77,7 @@ NAMESPACE_BEGIN(nanogui)
 		 *     invalid profile will result in no context (and therefore no GUI)
 		 *     being created.
 		 */
-		Screen(const Vector2i& size, const std::string& caption,
+		Screen(HWND window, HDC& hdc, NVGcontext* vg, const std::string& caption,
 			bool resizable = true, bool fullscreen = false, int colorBits = 8,
 			int alphaBits = 8, int depthBits = 24, int stencilBits = 8,
 			int nSamples = 0);

@@ -1,9 +1,11 @@
-﻿#include "GUI.h"
+﻿
 
 #include "nanovg.h"
 #include "../nano/NanovgHelper.hpp"
 #include "input/Context.hpp"
 #include <iostream>
+#include "GUI.h"
+
 
 
 static void drawWindow(NVGcontext* vg, const char* title, float x, float y, float w, float h)

@@ -7,5 +7,6 @@ protected:
 public:
 	YounkooGui(int posX, int posY) {};
 	void drawScreen(NVGcontext* ctx, int x, int y);
+
 };
 

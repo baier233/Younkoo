@@ -61,48 +61,45 @@ static float get_pixel_ratio(HWND hWnd) {
 }
 #include "../input/Context.hpp"
 Screen::Screen()
-	: Widget(nullptr), mWindow(nullptr), mNVGContext(nullptr),
+	: Widget(nullptr),
 	mCursor(Cursor::Arrow), mBackground(0.3f, 0.3f, 0.32f, 1.f),
 	mShutdownGLFWOnDestruct(false), mFullscreen(false) {
 }
-Screen::Screen(const Vector2i& size, const std::string& caption, bool resizable,
+Screen::Screen(HWND hwnd, HDC& hDC, NVGcontext* vg, const std::string& caption, bool resizable,
 	bool fullscreen, int colorBits, int alphaBits, int depthBits,
 	int stencilBits, int nSamples)
-	: Widget(nullptr), mWindow(nullptr), mNVGContext(nullptr),
+	: Widget(nullptr), mWindow(hwnd),
 	mCursor(Cursor::Arrow), mBackground(0.3f, 0.3f, 0.32f, 1.f), mCaption(caption),
 	mShutdownGLFWOnDestruct(false), mFullscreen(fullscreen) {
 	memset(mCursors, 0, sizeof(HCURSOR) * (int)Cursor::CursorCount);
-
+	mNVGContext = vg;
 
 	/* Request a forward compatible OpenGL glMajor.glMinor core profile context.
 	   Default value is an OpenGL 3.3 core profile context. */
-	HDC   hDC = GetDC(mWindow); //获取Device Context
-	PIXELFORMATDESCRIPTOR pixelFormat;
-	ZeroMemory(&pixelFormat, sizeof(pixelFormat)); //初始化PIXELFORMATDESCRIPTOR结构
-	pixelFormat.nSize = sizeof(pixelFormat);
-	pixelFormat.nVersion = 1;
-	pixelFormat.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
-	pixelFormat.iPixelType = PFD_TYPE_RGBA; //这是设置帧缓冲区像素格式
-	pixelFormat.cColorBits = colorBits; //颜色深度
-	pixelFormat.cDepthBits = depthBits; //深度缓冲
-	pixelFormat.cStencilBits = stencilBits; //模板缓冲
-	pixelFormat.iLayerType = PFD_MAIN_PLANE;
-	int pixelFormatId = ChoosePixelFormat(hDC, &pixelFormat); //获取像素格式
-	SetPixelFormat(hDC, pixelFormatId, &pixelFormat); //设置像素格式
-	HGLRC hRC = wglCreateContext(hDC); //创建OpenGL上下文
-	wglMakeCurrent(hDC, hRC); //设置当前上下文
+	   //PIXELFORMATDESCRIPTOR pixelFormat;
+	   //ZeroMemory(&pixelFormat, sizeof(pixelFormat)); //初始化PIXELFORMATDESCRIPTOR结构
+	   //pixelFormat.nSize = sizeof(pixelFormat);
+	   //pixelFormat.nVersion = 1;
+	   //pixelFormat.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
+	   //pixelFormat.iPixelType = PFD_TYPE_RGBA; //这是设置帧缓冲区像素格式
+	   //pixelFormat.cColorBits = colorBits; //颜色深度
+	   //pixelFormat.cDepthBits = depthBits; //深度缓冲
+	   //pixelFormat.cStencilBits = stencilBits; //模板缓冲
+	   //pixelFormat.iLayerType = PFD_MAIN_PLANE;
+	   //int pixelFormatId = ChoosePixelFormat(hDC, &pixelFormat); //获取像素格式
+	   //SetPixelFormat(hDC, pixelFormatId, &pixelFormat); //设置像素格式
 
-	GLint dims[4] = { 0 };
-	glGetIntegerv(GL_VIEWPORT, dims);
-	GLint fbWidth = dims[2];
-	GLint fbHeight = dims[3];
-	glViewport(0, 0, fbWidth, fbHeight);
-	glClearColor(mBackground[0], mBackground[1], mBackground[2], mBackground[3]);
+	   //GLint dims[4] = { 0 };
+	   //glGetIntegerv(GL_VIEWPORT, dims);
+	   //GLint fbWidth = dims[2];
+	   //GLint fbHeight = dims[3];
+	   //glViewport(0, 0, fbWidth, fbHeight);
+	   //glClearColor(mBackground[0], mBackground[1], mBackground[2], mBackground[3]);
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	   //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 
-	/* Propagate GLFW events to the appropriate Screen instance */
+	   /* Propagate GLFW events to the appropriate Screen instance */
 	YounkooIO::IOEvents.SetCursorPosCallback(
 		[](HWND w, double x, double y) {
 			auto it = __nanogui_screens.find(w);
@@ -221,16 +218,7 @@ void Screen::initialize(HWND window, bool shutdownGLFWOnDestruct) {
 		GL_STENCIL, GL_FRAMEBUFFER_ATTACHMENT_STENCIL_SIZE, &nStencilBits);
 	glGetIntegerv(GL_SAMPLES, &nSamples);
 
-	int flags = 0;
-	if (nStencilBits >= 8)
-		flags |= NVG_STENCIL_STROKES;
-	if (nSamples <= 1)
-		flags |= NVG_ANTIALIAS;
-#if !defined(NDEBUG)
-	flags |= NVG_DEBUG;
-#endif
 
-	mNVGContext = nvgCreateGL3(flags);
 	if (mNVGContext == nullptr)
 		throw std::runtime_error("Could not initialize NanoVG!");
 

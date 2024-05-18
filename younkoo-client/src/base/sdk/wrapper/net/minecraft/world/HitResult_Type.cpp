@@ -1,0 +1,1 @@
+﻿#include "HitResult_Type.h"
