@@ -80,8 +80,7 @@ NAMESPACE_BEGIN(nanogui)
 		Screen(const Vector2i& size, const std::string& caption,
 			bool resizable = true, bool fullscreen = false, int colorBits = 8,
 			int alphaBits = 8, int depthBits = 24, int stencilBits = 8,
-			int nSamples = 0,
-			unsigned int glMajor = 3, unsigned int glMinor = 3);
+			int nSamples = 0);
 
 		/// Release all resources
 		virtual ~Screen();
@@ -133,7 +132,7 @@ NAMESPACE_BEGIN(nanogui)
 		Vector2i mousePos() const { return mMousePos; }
 
 		/// Return a pointer to the underlying GLFW window data structure
-		HWND glfwWindow() { return mGLFWWindow; }
+		HWND window() { return mWindow; }
 
 		/// Return a pointer to the underlying nanoVG draw context
 		NVGcontext* nvgContext() { return mNVGContext; }
@@ -185,9 +184,9 @@ NAMESPACE_BEGIN(nanogui)
 		void drawWidgets();
 
 	protected:
-		HWND mGLFWWindow;
+		HWND mWindow;
 		NVGcontext* mNVGContext;
-		GLFWcursor* mCursors[(int)Cursor::CursorCount];
+		HCURSOR mCursors[(int)Cursor::CursorCount];
 		Cursor mCursor;
 		std::vector<Widget*> mFocusPath;
 		Vector2i mFBSize;

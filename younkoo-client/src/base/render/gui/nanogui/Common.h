@@ -103,11 +103,9 @@
 #if !defined(DOXYGEN_SHOULD_SKIP_THIS)
 
 struct NVGcontext { /* Opaque handle type, never de-referenced within NanoGUI */ };
-struct GLFWwindow { /* Opaque handle type, never de-referenced within NanoGUI */ };
 
 struct NVGcolor;
 struct NVGglyphPosition;
-struct GLFWcursor;
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 

@@ -1,5 +1,4 @@
 ﻿#pragma once
-//#include <Windows.h>
 #include <atomic>
 
 constexpr auto CALLBACK_MOUSE_BUTTON_1 = 0;
@@ -23,6 +22,8 @@ constexpr auto CALLBACK_KEY_LEFT = 0x25;
 constexpr auto CALLBACK_KEY_RIGHT = 0x27;
 constexpr auto CALLBACK_KEY_DOWN = 0x28;
 constexpr auto CALLBACK_KEY_UP = 0x26;
+
+
 
 #include <stdio.h>
 #include <time.h>

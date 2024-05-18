@@ -26,6 +26,7 @@
 #define NANOVG_GL3_IMPLEMENTATION
 #include <nanovg_gl.h>
 #include "../input/Context.hpp"
+#include "../input/IOEvents.h"
 
 NAMESPACE_BEGIN(nanogui)
 
@@ -37,23 +38,10 @@ static bool gladInitialized = false;
 
 /* Calculate pixel ratio for hi-dpi devices. */
 static float get_pixel_ratio(HWND hWnd) {
-#if defined(_WIN32)
 	HMONITOR monitor = nullptr;
-#if defined(MONITOR_DEFAULTTONEAREST)
+
 	monitor = MonitorFromWindow(hWnd, MONITOR_DEFAULTTONEAREST);
-#else
-	static HMONITOR(WINAPI * MonitorFromWindow_)(HWND, DWORD) = nullptr;
-	static bool MonitorFromWindow_tried = false;
-	if (!MonitorFromWindow_tried) {
-		auto user32 = LoadLibrary(TEXT("user32"));
-		if (user32)
-			MonitorFromWindow_ = (decltype(MonitorFromWindow_))GetProcAddress(user32, "MonitorFromWindow");
-		MonitorFromWindow_tried = true;
-	}
-	if (MonitorFromWindow_)
-		monitor = MonitorFromWindow_(hWnd, 2);
-#endif  // defined(MONITOR_DEFAULTTONEAREST)
-	/* The following function only exists on Windows 8.1+, but we don't want to make that a dependency */
+
 	static HRESULT(WINAPI * GetDpiForMonitor_)(HMONITOR, UINT, UINT*, UINT*) = nullptr;
 	static bool GetDpiForMonitor_tried = false;
 
@@ -70,65 +58,159 @@ static float get_pixel_ratio(HWND hWnd) {
 			return dpiX / 96.0;
 	}
 	return 1.f;
-#elif defined(__linux__)
-	(void)window;
-
-	float ratio = 1.0f;
-	FILE* fp;
-	/* Try to read the pixel ratio from KDEs config */
-	auto currentDesktop = std::getenv("XDG_CURRENT_DESKTOP");
-	if (currentDesktop && currentDesktop == std::string("KDE")) {
-		fp = popen("kreadconfig5 --group KScreen --key ScaleFactor", "r");
-		if (!fp)
-			return 1;
-
-		if (fscanf(fp, "%f", &ratio) != 1)
-			return 1;
-	}
-	else {
-		/* Try to read the pixel ratio from GTK */
-		fp = popen("gsettings get org.gnome.desktop.interface scaling-factor", "r");
-		if (!fp)
-			return 1;
-
-		int ratioInt = 1;
-		if (fscanf(fp, "uint32 %i", &ratioInt) != 1)
-			return 1;
-		ratio = ratioInt;
-	}
-	if (pclose(fp) != 0)
-		return 1;
-	return ratio >= 1 ? ratio : 1;
-
-#else
-	Vector2i fbSize, size;
-	glfwGetFramebufferSize(window, &fbSize[0], &fbSize[1]);
-	glfwGetWindowSize(window, &size[0], &size[1]);
-	return (float)fbSize[0] / (float)size[0];
-#endif
 }
-
+#include "../input/Context.hpp"
 Screen::Screen()
-	: Widget(nullptr), mGLFWWindow(nullptr), mNVGContext(nullptr),
+	: Widget(nullptr), mWindow(nullptr), mNVGContext(nullptr),
 	mCursor(Cursor::Arrow), mBackground(0.3f, 0.3f, 0.32f, 1.f),
 	mShutdownGLFWOnDestruct(false), mFullscreen(false) {
-	//memset(mCursors, 0, sizeof(CALLBACKcursor*) * (int)Cursor::CursorCount);
 }
-
 Screen::Screen(const Vector2i& size, const std::string& caption, bool resizable,
 	bool fullscreen, int colorBits, int alphaBits, int depthBits,
-	int stencilBits, int nSamples,
-	unsigned int glMajor, unsigned int glMinor)
-	: Widget(nullptr), mGLFWWindow(nullptr), mNVGContext(nullptr),
+	int stencilBits, int nSamples)
+	: Widget(nullptr), mWindow(nullptr), mNVGContext(nullptr),
 	mCursor(Cursor::Arrow), mBackground(0.3f, 0.3f, 0.32f, 1.f), mCaption(caption),
 	mShutdownGLFWOnDestruct(false), mFullscreen(fullscreen) {
-	//memset(mCursors, 0, sizeof(GLFWcursor*) * (int)Cursor::CursorCount);
+	memset(mCursors, 0, sizeof(HCURSOR) * (int)Cursor::CursorCount);
 
-	initialize(mGLFWWindow, true);
+
+	/* Request a forward compatible OpenGL glMajor.glMinor core profile context.
+	   Default value is an OpenGL 3.3 core profile context. */
+	HDC   hDC = GetDC(mWindow); //获取Device Context
+	PIXELFORMATDESCRIPTOR pixelFormat;
+	ZeroMemory(&pixelFormat, sizeof(pixelFormat)); //初始化PIXELFORMATDESCRIPTOR结构
+	pixelFormat.nSize = sizeof(pixelFormat);
+	pixelFormat.nVersion = 1;
+	pixelFormat.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
+	pixelFormat.iPixelType = PFD_TYPE_RGBA; //这是设置帧缓冲区像素格式
+	pixelFormat.cColorBits = colorBits; //颜色深度
+	pixelFormat.cDepthBits = depthBits; //深度缓冲
+	pixelFormat.cStencilBits = stencilBits; //模板缓冲
+	pixelFormat.iLayerType = PFD_MAIN_PLANE;
+	int pixelFormatId = ChoosePixelFormat(hDC, &pixelFormat); //获取像素格式
+	SetPixelFormat(hDC, pixelFormatId, &pixelFormat); //设置像素格式
+	HGLRC hRC = wglCreateContext(hDC); //创建OpenGL上下文
+	wglMakeCurrent(hDC, hRC); //设置当前上下文
+
+	GLint dims[4] = { 0 };
+	glGetIntegerv(GL_VIEWPORT, dims);
+	GLint fbWidth = dims[2];
+	GLint fbHeight = dims[3];
+	glViewport(0, 0, fbWidth, fbHeight);
+	glClearColor(mBackground[0], mBackground[1], mBackground[2], mBackground[3]);
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+
+	/* Propagate GLFW events to the appropriate Screen instance */
+	YounkooIO::IOEvents.SetCursorPosCallback(
+		[](HWND w, double x, double y) {
+			auto it = __nanogui_screens.find(w);
+			if (it == __nanogui_screens.end())
+				return;
+			Screen* s = it->second;
+			if (!s->mProcessEvents)
+				return;
+			s->cursorPosCallbackEvent(x, y);
+		}
+	);
+
+	YounkooIO::IOEvents.SetMouseButtonCallback(
+		[](HWND w, int button, int action, int modifiers) {
+			auto it = __nanogui_screens.find(w);
+			if (it == __nanogui_screens.end())
+				return;
+			Screen* s = it->second;
+			if (!s->mProcessEvents)
+				return;
+			s->mouseButtonCallbackEvent(button, action, modifiers);
+		}
+	);
+
+	YounkooIO::IOEvents.SetKeyCallback(
+		[](HWND w, int key, int scancode, int action, int mods) {
+			auto it = __nanogui_screens.find(w);
+			if (it == __nanogui_screens.end())
+				return;
+			Screen* s = it->second;
+			if (!s->mProcessEvents)
+				return;
+			s->keyCallbackEvent(key, scancode, action, mods);
+		}
+	);
+
+	YounkooIO::IOEvents.SetCharCallback(
+		[](HWND w, unsigned int codepoint) {
+			auto it = __nanogui_screens.find(w);
+			if (it == __nanogui_screens.end())
+				return;
+			Screen* s = it->second;
+			if (!s->mProcessEvents)
+				return;
+			s->charCallbackEvent(codepoint);
+		}
+	);
+
+	YounkooIO::IOEvents.SetDropCallback(
+		[](HWND w, int count, const char** filenames) {
+			auto it = __nanogui_screens.find(w);
+			if (it == __nanogui_screens.end())
+				return;
+			Screen* s = it->second;
+			if (!s->mProcessEvents)
+				return;
+			s->dropCallbackEvent(count, filenames);
+		}
+	);
+
+	YounkooIO::IOEvents.SetScrollCallback(
+		[](HWND w, double x, double y) {
+			auto it = __nanogui_screens.find(w);
+			if (it == __nanogui_screens.end())
+				return;
+			Screen* s = it->second;
+			if (!s->mProcessEvents)
+				return;
+			s->scrollCallbackEvent(x, y);
+		}
+	);
+
+	/* React to framebuffer size events -- includes window
+	   size events and also catches things like dragging
+	   a window from a Retina-capable screen to a normal
+	   screen on Mac OS X */
+	YounkooIO::IOEvents.SetWindowSizeCallback(
+		[](HWND w, int width, int height) {
+			auto it = __nanogui_screens.find(w);
+			if (it == __nanogui_screens.end())
+				return;
+			Screen* s = it->second;
+
+			if (!s->mProcessEvents)
+				return;
+
+			s->resizeCallbackEvent(width, height);
+		}
+	);
+
+	// notify when the screen has lost focus (e.g. application switch)
+	YounkooIO::IOEvents.SetWindowFoucsCallback(
+		[](HWND w, bool focused) {
+			auto it = __nanogui_screens.find(w);
+			if (it == __nanogui_screens.end())
+				return;
+
+			Screen* s = it->second;
+			// focused: 0 when false, 1 when true
+			s->focusEvent(focused);
+		}
+	);
+
+	initialize(mWindow, true);
 }
 
 void Screen::initialize(HWND window, bool shutdownGLFWOnDestruct) {
-	mGLFWWindow = window;
+	mWindow = window;
 	mShutdownGLFWOnDestruct = shutdownGLFWOnDestruct;
 
 	mPixelRatio = get_pixel_ratio(window);
@@ -159,14 +241,11 @@ void Screen::initialize(HWND window, bool shutdownGLFWOnDestruct) {
 }
 
 Screen::~Screen() {
-	__nanogui_screens.erase(mGLFWWindow);
-	for (int i = 0; i < (int)Cursor::CursorCount; ++i) {
-		if (mCursors[i]);
-		//glfwDestroyCursor(mCursors[i]);
-	}
+	__nanogui_screens.erase(mWindow);
+
 	if (mNVGContext)
 		nvgDeleteGL3(mNVGContext);
-	if (mGLFWWindow && mShutdownGLFWOnDestruct);
+	if (mWindow && mShutdownGLFWOnDestruct);
 	//glfwDestroyWindow(mGLFWWindow);
 }
 
@@ -183,7 +262,7 @@ void Screen::setVisible(bool visible) {
 
 void Screen::setCaption(const std::string& caption) {
 	if (caption != mCaption) {
-		//glfwSetWindowTitle(mGLFWWindow, caption.c_str());
+		SetWindowTextA(mWindow, caption.c_str());
 		mCaption = caption;
 	}
 }
@@ -191,11 +270,12 @@ void Screen::setCaption(const std::string& caption) {
 void Screen::setSize(const Vector2i& size) {
 	Widget::setSize(size);
 
-#if defined(_WIN32) || defined(__linux__)
-	//glfwSetWindowSize(mGLFWWindow, size.x() * mPixelRatio, size.y() * mPixelRatio);
-#else
-	glfwSetWindowSize(mGLFWWindow, size.x(), size.y());
-#endif
+	RECT rect = { 0, 0, size.x() * mPixelRatio, size.y() * mPixelRatio };
+	AdjustWindowRect(&rect, GetWindowLong(mWindow, GWL_STYLE), false);
+	int width = rect.right - rect.left;
+	int height = rect.bottom - rect.top;
+	SetWindowPos(mWindow, HWND_TOP, rect.left, rect.top, width, height, SWP_NOZORDER);
+
 }
 
 void Screen::drawAll() {
@@ -211,24 +291,6 @@ void Screen::drawAll() {
 void Screen::drawWidgets() {
 	if (!mVisible)
 		return;
-
-	//glfwMakeContextCurrent(mGLFWWindow);
-
-	//glfwGetFramebufferSize(mGLFWWindow, &mFBSize[0], &mFBSize[1]);
-	//glfwGetWindowSize(mGLFWWindow, &mSize[0], &mSize[1]);
-
-#if defined(_WIN32) || defined(__linux__)
-	mSize = (mSize.cast<float>() / mPixelRatio).cast<int>();
-	mFBSize = (mSize.cast<float>() * mPixelRatio).cast<int>();
-#else
-	/* Recompute pixel ratio on OSX */
-	if (mSize[0])
-		mPixelRatio = (float)mFBSize[0] / (float)mSize[0];
-#endif
-
-	glViewport(0, 0, mFBSize[0], mFBSize[1]);
-	glBindSampler(0, 0);
-	nvgBeginFrame(mNVGContext, mSize[0], mSize[1], mPixelRatio);
 
 	draw(mNVGContext);
 
@@ -280,7 +342,6 @@ void Screen::drawWidgets() {
 		}
 	}
 
-	nvgEndFrame(mNVGContext);
 }
 
 bool Screen::keyboardEvent(int key, int scancode, int action, int modifiers) {
@@ -375,7 +436,7 @@ bool Screen::mouseButtonCallbackEvent(int button, int action, int modifiers) {
 
 		if (dropWidget != nullptr && dropWidget->cursor() != mCursor) {
 			mCursor = dropWidget->cursor();
-			//glfwSetCursor(mGLFWWindow, mCursors[(int)mCursor]);
+			SetCursor(mCursors[(int)mCursor]);
 		}
 
 		if (action == CALLBACK_PRESS && (button == CALLBACK_MOUSE_BUTTON_1 || button == CALLBACK_MOUSE_BUTTON_2)) {
@@ -452,8 +513,13 @@ bool Screen::scrollCallbackEvent(double x, double y) {
 
 bool Screen::resizeCallbackEvent(int, int) {
 	Vector2i fbSize, size;
-	//glfwGetFramebufferSize(mGLFWWindow, &fbSize[0], &fbSize[1]);
-	//glfwGetWindowSize(mGLFWWindow, &size[0], &size[1]);
+	RECT rect;
+	GetClientRect(mWindow, &rect);
+	size = { rect.right - rect.left ,rect.bottom - rect.top };
+	HDC hDC = GetDC(mWindow);
+	fbSize = { GetDeviceCaps(hDC, HORZRES),  GetDeviceCaps(hDC, VERTRES) };
+	ReleaseDC(mWindow, hDC);
+
 
 #if defined(_WIN32) || defined(__linux__)
 	size = (size.cast<float>() / mPixelRatio).cast<int>();

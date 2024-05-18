@@ -3,13 +3,14 @@
 #include <iostream>
 
 // 定义回调指针类型
-typedef void (*CallBackcursorposfun)(HWND, double, double);
-typedef void (*CallBackmousebuttonfun)(HWND, int, int, int);
-typedef void (*CallBackkeyfun)(HWND, int, int, int, int);
-typedef void (*CallBackcharfun)(HWND, unsigned int);
-typedef void (*CallBackdropfun)(HWND, int, const char**);
-typedef void (*CallBackscrollfun)(HWND, double, double);
-typedef void (*CallBackwindowsizefun)(HWND, int, int);
+
+static bool IsVkDown(int vk) {
+	return (GetAsyncKeyState(vk) & 0x8000) != 0;
+}
+
+#include "../gui/input/Context.hpp"
+#include "../gui/input/IOEvents.h"
+
 
 CallBackcursorposfun YounkooCursorPosCallback;
 CallBackmousebuttonfun YounkooMouseButtonCallback;
@@ -18,12 +19,7 @@ CallBackcharfun YounkooCharCallback;
 CallBackdropfun YounkooDropCallback;
 CallBackscrollfun YounkooScrollCallback;
 CallBackwindowsizefun YounkooWindowSizeCallback;
-
-static bool IsVkDown(int vk) {
-	return (GetAsyncKeyState(vk) & 0x8000) != 0;
-}
-
-#include "../gui/input/Context.hpp"
+CallBackwindowsetfoucs YounkooWindowFocusCallback;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -133,6 +129,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			YounkooWindowSizeCallback(hWnd, width, height);
 		}
 		break;
+	case WM_SETFOCUS:
+		if (YounkooWindowFocusCallback)
+		{
+			YounkooWindowFocusCallback(hWnd, true);
+		}
+		break;
+	case WM_KILLFOCUS:
+		if (YounkooWindowFocusCallback)
+		{
+			YounkooWindowFocusCallback(hWnd, false);
+		}
+		break;
+	default:
+		break;
 	}
 
 	return CallWindowProc(WndProcHook::GL_HANDLE, hWnd, message, wParam, lParam);;
@@ -144,8 +154,12 @@ static WNDPROC SetCallbacks(HWND hWnd)
 {
 	YounkooCursorPosCallback = [](HWND window, double x, double y) {
 		// 光标位置回调
-		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::MousePosEvent>(x, y);
+		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::MousePosEvent>(window, x, y);
 		YounkooIO::IOEvents.push(event);
+		if (YounkooIO::IOEvents.IOEventsCursorPosCallback)
+		{
+			YounkooIO::IOEvents.IOEventsCursorPosCallback(window, x, y);
+		}
 		//context.MousePos = Vector2D(x, y);
 
 		};
@@ -153,15 +167,20 @@ static WNDPROC SetCallbacks(HWND hWnd)
 	YounkooMouseButtonCallback = [](HWND window, int button, int action, int mods) {
 		// 鼠标按钮回调
 		//std::cout << "Button :" << button << std::endl;
-		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::MouseEvent>(button, action);
+		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::MouseEvent>(window, button, action);
 		YounkooIO::IOEvents.push(event);
+
+		if (YounkooIO::IOEvents.IOEventsMouseButtonCallback)
+		{
+			YounkooIO::IOEvents.IOEventsMouseButtonCallback(window, button, action, mods);
+		}
 		/*if (action == CALLBACK_PRESS) context.MouseDown[button] = true;
 		if (action == CALLBACK_RELEASE) context.MouseDown[button] = false;*/
 		};
 
 	YounkooKeyCallback = [](HWND window, int key, int scancode, int action, int mods) {
 		// 键盘按键回调
-		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::KeyEvent>(key, action);
+		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::KeyEvent>(window, key, action);
 		YounkooIO::IOEvents.push(event);
 		const bool is_key_down = action == CALLBACK_PRESS || action != CALLBACK_RELEASE;
 
@@ -182,24 +201,41 @@ static WNDPROC SetCallbacks(HWND hWnd)
 			if (IsVkDown(VK_LMENU) == is_key_down) { context.KeysDown[VK_LMENU] = is_key_down; }
 			if (IsVkDown(VK_RMENU) == is_key_down) { context.KeysDown[VK_RMENU] = is_key_down; }
 		}
+		if (YounkooIO::IOEvents.IOEventsKeyCallback)
+		{
+			YounkooIO::IOEvents.IOEventsKeyCallback(window, key, scancode, action, mods);
+		}
 
 		};
 
 	YounkooCharCallback = [](HWND window, unsigned int codepoint) {
-		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::CharEvent>(codepoint);
+		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::CharEvent>(window, codepoint);
 		YounkooIO::IOEvents.push(event);
+		if (YounkooIO::IOEvents.IOEventsCharCallback)
+		{
+			YounkooIO::IOEvents.IOEventsCharCallback(window, codepoint);
+		}
 		// 字符输入回调
 		//context.KeyQueue.push_back(codepoint);
 		};
 
 	YounkooDropCallback = [](HWND window, int count, const char** filenames) {
+
+		if (YounkooIO::IOEvents.IOEventsDropCallback)
+		{
+			YounkooIO::IOEvents.IOEventsDropCallback(window, count, filenames);
+		}
 		// 文件拖放回调
 		};
 
 
 	YounkooScrollCallback = [](HWND window, double xoffset, double yoffset) {
-		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::WheelEvent>(xoffset, yoffset);
+		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::WheelEvent>(window, xoffset, yoffset);
 		YounkooIO::IOEvents.push(event);
+		if (YounkooIO::IOEvents.IOEventsScrollCallback)
+		{
+			YounkooIO::IOEvents.IOEventsScrollCallback(window, xoffset, yoffset);
+		}
 		// 滚动鼠标回调
 		//context.MouseWheel += yoffset;
 		//context.MouseWheelH += xoffset;
@@ -211,6 +247,10 @@ static WNDPROC SetCallbacks(HWND hWnd)
 		context.ScreenWidth = width;
 		context.ScreenHeight = height;
 		WndProcHook::RESIZED = true;
+		if (YounkooIO::IOEvents.IOEventsWindowSizeCallback)
+		{
+			YounkooIO::IOEvents.IOEventsWindowSizeCallback(window, width, height);
+		}
 		};
 
 	return (WNDPROC_T)SetWindowLongPtrW(hWnd, GWLP_WNDPROC, (LONG_PTR)WndProc);
