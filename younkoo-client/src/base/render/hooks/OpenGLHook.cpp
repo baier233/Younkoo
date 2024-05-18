@@ -35,7 +35,8 @@ static auto getWindowSize(const HWND& window) {
 static bool showMenu = false;
 #include "../gui/input/Context.hpp"
 #include "../gui/GUI.h"
-#include "../gui/nanogui/FormHelper.h"
+
+#include "../gui/nanogui.h"
 std::unique_ptr<YounkooGui> gui = std::make_unique<YounkooGui>(600, 400);
 bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	if (Younkoo::get().shouldShutDown) return wglSwapBuffersHook.GetOrignalFunc()(hdc);
@@ -65,36 +66,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 		// Init Nanovg Context in my mirror context
 		NanoVGHelper::InitContext(renderer.HandleWindow);
 
-		/*{
-			YounkooGui::screen = new nanogui::Screen(renderer.HandleWindow, hdc, NanoVGHelper::Context, "Screen");
-			/// dvar, bar, strvar, etc. are double/bool/string/.. variables
-			auto& screen = YounkooGui::screen;
-			YounkooGui::form = new nanogui::FormHelper(YounkooGui::screen);
-			auto& gui = YounkooGui::form;
-			nanogui::ref<nanogui::Window> window = gui->addWindow(Eigen::Vector2i(10, 10), "Form helper example");
-			static bool bvar = false;
-			static std::string strvar;
-			static int ivar;
-			static float fvar;
-			static double dvar;
-			gui->addGroup("Basic types");
-			gui->addVariable("bool", bvar);
-			gui->addVariable("string", strvar);
-
-			gui->addGroup("Validating fields");
-			gui->addVariable("int", ivar);
-			gui->addVariable("float", fvar);
-			gui->addVariable("double", dvar);
-
-			gui->addGroup("Complex types");
-
-			gui->addGroup("Other widgets");
-			gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
-
-			screen->setVisible(true);
-			screen->performLayout();
-			window->center();
-		}*/
+		NanoGui::Init(renderer.HandleWindow, hdc, NanoVGHelper::Context);
 		// Change it back to Minecraft's opengl context.
 		wglMakeCurrent(renderer.HandleDeviceContext, renderer.OriginalGLContext);
 
@@ -143,6 +115,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	if (showMenu)
 	{
 		gui->drawScreen(vg, context.MousePos.x, context.MousePos.y);
+		NanoGui::draw();
 		//		gui->screen->drawAll();
 	}
 
@@ -178,6 +151,6 @@ bool OpenGLHook::Clean()
 	wglMakeCurrent(Renderer::get().HandleDeviceContext, Renderer::get().OriginalGLContext);
 
 	wglSwapBuffersHook.RemoveHook();
-
+	NanoGui::clean();
 	return NanoVGHelper::DeleteContext() && WndProcHook::Clean();
 }

@@ -65,7 +65,7 @@ Screen::Screen()
 	mCursor(Cursor::Arrow), mBackground(0.3f, 0.3f, 0.32f, 1.f),
 	mShutdownGLFWOnDestruct(false), mFullscreen(false) {
 }
-Screen::Screen(HWND hwnd, HDC& hDC, NVGcontext* vg, const std::string& caption, bool resizable,
+Screen::Screen(HWND hwnd, HDC hDC, NVGcontext* vg, const std::string& caption, bool resizable,
 	bool fullscreen, int colorBits, int alphaBits, int depthBits,
 	int stencilBits, int nSamples)
 	: Widget(nullptr), mWindow(hwnd),
@@ -211,6 +211,17 @@ void Screen::initialize(HWND window, bool shutdownGLFWOnDestruct) {
 	mShutdownGLFWOnDestruct = shutdownGLFWOnDestruct;
 
 	mPixelRatio = get_pixel_ratio(window);
+	setTheme(new Theme(mNVGContext));
+
+	mMousePos = Vector2i::Zero();
+	mMouseState = mModifiers = 0;
+	mDragActive = false;
+	mLastInteraction = glfwGetTime();
+	mProcessEvents = true;
+	__nanogui_screens[window] = this;
+	for (int i = 0; i < (int)Cursor::CursorCount; ++i) {
+		mCursors[i] = LoadCursor(NULL, IDC_ARROW + i);
+	}
 
 	/* Detect framebuffer properties and set up compatible NanoVG context */
 	GLint nStencilBits = 0, nSamples = 0;
@@ -230,11 +241,10 @@ void Screen::initialize(HWND window, bool shutdownGLFWOnDestruct) {
 
 Screen::~Screen() {
 	__nanogui_screens.erase(mWindow);
-
-	if (mNVGContext)
-		nvgDeleteGL3(mNVGContext);
-	if (mWindow && mShutdownGLFWOnDestruct);
-	//glfwDestroyWindow(mGLFWWindow);
+	for (int i = 0; i < (int)Cursor::CursorCount; ++i) {
+		if (mCursors[i])
+			DestroyCursor(mCursors[i]);
+	}
 }
 
 void Screen::setVisible(bool visible) {
@@ -267,8 +277,6 @@ void Screen::setSize(const Vector2i& size) {
 }
 
 void Screen::drawAll() {
-	glClearColor(mBackground[0], mBackground[1], mBackground[2], mBackground[3]);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 	drawContents();
 	drawWidgets();
@@ -279,6 +287,24 @@ void Screen::drawAll() {
 void Screen::drawWidgets() {
 	if (!mVisible)
 		return;
+	RECT rect1, rect2;
+
+	GetClientRect(mWindow, &rect1); // Use the handle to the window `hWnd` instead of `mGLFWWindow`
+	GetWindowRect(mWindow, &rect2); // Use the handle to the window `hWnd` instead of `mGLFWWindow`
+
+	mSize[0] = rect2.right - rect2.left;
+	mSize[1] = rect2.bottom - rect2.top;
+	mFBSize[0] = rect1.right - rect1.left;
+	mFBSize[1] = rect1.bottom - rect1.top;
+
+	mSize = (mSize.cast<float>() / mPixelRatio).cast<int>();
+	mFBSize = (mSize.cast<float>() * mPixelRatio).cast<int>();
+
+	GLint dims[4] = { 0 };
+	glGetIntegerv(GL_VIEWPORT, dims);
+	if (dims[2] != mFBSize[0] || dims[3] != mFBSize[1])
+		glViewport(0, 0, mFBSize[0], mFBSize[1]);
+
 
 	draw(mNVGContext);
 

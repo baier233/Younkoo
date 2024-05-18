@@ -161,6 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\render\gui\nanogui.cpp" />
     <ClCompile Include="src\base\features\modules\fight\AutoClicker.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\AbstractClientPlayer.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.cpp" />
@@ -264,6 +265,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\base\render\gui\nanogui.h" />
     <ClInclude Include="src\base\features\modules\fight\AutoClicker.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\AbstractClientPlayer.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.h" />

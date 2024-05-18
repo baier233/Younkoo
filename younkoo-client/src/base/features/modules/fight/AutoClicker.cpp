@@ -1,4 +1,4 @@
-#include "AutoClicker.h"
+﻿#include "AutoClicker.h"
 #include <chrono>
 #include <random>
 #include "../../../render/Renderer.hpp"
@@ -11,7 +11,7 @@ static int maxAps = 10;
 
 AutoClicker::AutoClicker() :AbstractModule("AutoClicker", Category::COMBAT, 'U')
 {
-	this->setToggle(true);
+	this->setToggle(false);
 }
 
 

@@ -207,6 +207,9 @@
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\Player.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\render\gui\nanogui.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -447,6 +450,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\Player.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\render\gui\nanogui.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
