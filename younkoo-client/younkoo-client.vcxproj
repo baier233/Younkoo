@@ -161,7 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\base\render\gui\nanogui.cpp" />
+    <ClCompile Include="src\base\render\gui\GUI.cpp" />
     <ClCompile Include="src\base\features\modules\fight\AutoClicker.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\AbstractClientPlayer.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.cpp" />
@@ -170,7 +170,6 @@
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.cpp" />
     <ClCompile Include="src\base\features\modules\visual\HUD.cpp" />
     <ClCompile Include="src\base\render\gui\input\IOEvents.cpp" />
-    <ClCompile Include="src\base\render\gui\GUI.cpp" />
     <ClCompile Include="src\base\render\gui\input\Context.cpp" />
     <ClCompile Include="ext\nanovg\nanovg.c" />
     <ClCompile Include="src\base\features\modules\AbstractModule.cpp" />
@@ -266,7 +265,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
     <ClInclude Include="ext\glfw\glfw_constants.h" />
-    <ClInclude Include="src\base\render\gui\nanogui.h" />
+    <ClInclude Include="src\base\render\gui\GUI.h" />
     <ClInclude Include="src\base\features\modules\fight\AutoClicker.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\AbstractClientPlayer.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.h" />
@@ -318,7 +317,6 @@
     <ClInclude Include="src\base\features\modules\ModuleManager.h" />
     <ClInclude Include="src\base\features\modules\visual\HUD.h" />
     <ClInclude Include="src\base\render\gui\input\IOEvents.h" />
-    <ClInclude Include="src\base\render\gui\GUI.h" />
     <ClInclude Include="src\base\render\gui\input\Context.hpp" />
     <ClInclude Include="ext\lazy_importer.hpp" />
     <ClInclude Include="ext\nanovg\fontstash.h" />

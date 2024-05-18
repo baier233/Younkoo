@@ -87,9 +87,6 @@
     <ClCompile Include="src\base\render\gui\input\Context.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\render\gui\GUI.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\base\render\gui\input\IOEvents.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -207,7 +204,7 @@
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\Player.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui.cpp">
+    <ClCompile Include="src\base\render\gui\GUI.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -276,9 +273,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\render\resources\fonts\harmony_sc_light.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\GUI.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\render\resources\fonts\harmony_sc_regular.h">
@@ -452,7 +446,7 @@
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\Player.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui.h">
+    <ClInclude Include="src\base\render\gui\GUI.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ext\glfw\glfw_constants.h">

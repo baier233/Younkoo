@@ -36,9 +36,7 @@ static bool showMenu = false;
 #include "../gui/input/Context.hpp"
 #include "../gui/GUI.h"
 
-#include "../gui/nanogui.h"
 #include "../../../utils/Wnd.h"
-std::unique_ptr<YounkooGui> gui = std::make_unique<YounkooGui>(600, 400);
 bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	if (Younkoo::get().shouldShutDown) return wglSwapBuffersHook.GetOrignalFunc()(hdc);
 	auto& renderer = Renderer::get();
@@ -114,7 +112,6 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
 	if (showMenu)
 	{
-		gui->drawScreen(vg, context.MousePos.x, context.MousePos.y);
 
 		nvgRestore(vg);
 		nvgEndFrame(vg);

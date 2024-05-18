@@ -1,94 +1,114 @@
-﻿
+﻿#include "GUI.h"
 
-#include "GUI.h"	
-#include "nanovg.h"
-#include "../nano/NanovgHelper.hpp"
-#include "input/Context.hpp"
+#include "nanogui/Screen.h"
+#include "nanogui/FormHelper.h"
+
+#include <memory>
+
 #include <iostream>
-
-
-static void drawWindow(NVGcontext* vg, const char* title, float x, float y, float w, float h)
-{
-	float cornerRadius = 3.0f;
-	NVGpaint shadowPaint;
-	NVGpaint headerPaint;
-
-	nvgSave(vg);
-	//	nvgClearState(vg);
-
-		// Window
-	nvgBeginPath(vg);
-	nvgRoundedRect(vg, x, y, w, h, cornerRadius);
-	nvgFillColor(vg, nvgRGBA(28, 30, 34, 192));
-	//	nvgFillColor(vg, nvgRGBA(0,0,0,128));
-	nvgFill(vg);
-
-	// Drop shadow
-	shadowPaint = nvgBoxGradient(vg, x, y + 2, w, h, cornerRadius * 2, 10, nvgRGBA(0, 0, 0, 128), nvgRGBA(0, 0, 0, 0));
-	nvgBeginPath(vg);
-	nvgRect(vg, x - 10, y - 10, w + 20, h + 30);
-	nvgRoundedRect(vg, x, y, w, h, cornerRadius);
-	nvgPathWinding(vg, NVG_HOLE);
-	nvgFillPaint(vg, shadowPaint);
-	nvgFill(vg);
-
-	// Header
-	headerPaint = nvgLinearGradient(vg, x, y, x, y + 15, nvgRGBA(255, 255, 255, 8), nvgRGBA(0, 0, 0, 16));
-	nvgBeginPath(vg);
-	nvgRoundedRect(vg, x + 1, y + 1, w - 2, 30, cornerRadius - 1);
-	nvgFillPaint(vg, headerPaint);
-	nvgFill(vg);
-	nvgBeginPath(vg);
-	nvgMoveTo(vg, x + 0.5f, y + 0.5f + 30);
-	nvgLineTo(vg, x + 0.5f + w - 1, y + 0.5f + 30);
-	nvgStrokeColor(vg, nvgRGBA(0, 0, 0, 32));
-	nvgStroke(vg);
-
-	nvgFontSize(vg, 15.0f);
-	nvgFontFaceId(vg, NanoVGHelper::fontHarmony);
-	nvgTextAlign(vg, NVG_ALIGN_CENTER | NVG_ALIGN_MIDDLE);
-
-	nvgFontBlur(vg, 2);
-	nvgFillColor(vg, nvgRGBA(0, 0, 0, 128));
-	nvgText(vg, x + w / 2, y + 16 + 1, title, NULL);
-
-	nvgFontBlur(vg, 0);
-	nvgFillColor(vg, nvgRGBA(220, 220, 220, 160));
-	nvgText(vg, x + w / 2, y + 16, title, NULL);
-
-	nvgRestore(vg);
+#include "input/IOEvents.h"
+namespace NanoGui {
+	nanogui::ref<nanogui::Screen> screen = nullptr;
+	nanogui::ref<nanogui::Window> window = nullptr;
+	nanogui::FormHelper* form = nullptr;
 }
 
 
-void YounkooGui::drawScreen(NVGcontext* vg, int mouseX, int mouseY)
+void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 {
-	static float width = 1000, height = 600;
-	static float posX = context.ScreenWidth / static_cast<float>(2) - width / 2, posY = context.ScreenHeight / static_cast<float>(2) - height / 2;
-	bool isHovered = context.MouseInZone({ posX,posY }, { width, height / 5 });
-	static bool isDrag = false;
-	if (context.IsMousePressed(0))
-	{
-		if (isHovered)
-			isDrag = true;
-	}
-	else {
-		isDrag = false;
-	}
-	static float offsetX = 0, offsetY = 0;
-	if (isDrag)
-	{
-		if (offsetX == 0 && offsetY == 0)
-		{
-			offsetX = mouseX - posX;
-			offsetY = mouseY - posY;
-		}
+	screen = new nanogui::Screen((HWND)hwnd, (HDC)hdc, (NVGcontext*)vg, "Screen");
+	//screen->setSize()
+	/// dvar, bar, strvar, etc. are double/bool/string/.. variables
+	form = new nanogui::FormHelper(screen.get());
+	auto& gui = form;
+	window = gui->addWindow(Eigen::Vector2i(10, 10), "Form helper example");
+	window->setLayout(new nanogui::GroupLayout());
+	static bool bvar = false;
+	static std::string strvar = "Hello";
+	static int ivar = 22;
+	static float fvar = 1337.3367;
+	static double dvar = 13337.11333367;
+	gui->addGroup("Basic types");
+	gui->addVariable("bool", bvar);
+	gui->addVariable("string", strvar);
 
-		posX = mouseX - offsetX;
-		posY = mouseY - offsetY;
-	}
-	else {
-		offsetX = 0;
-		offsetY = 0;
-	}
-	drawWindow(vg, "Younkoo", posX, posY, width, height);
+	gui->addGroup("Validating fields");
+	gui->addVariable("int", ivar);
+	gui->addVariable("float", fvar);
+	gui->addVariable("double", dvar);
+
+	gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
+
+	screen->setVisible(true);
+	screen->performLayout();
+
+	YounkooIO::IOEvents.SetCursorPosCallback(
+		[](HWND w, double x, double y) {
+			//std::cout << "X :" << x << " Y :" << y << std::endl;
+			screen->cursorPosCallbackEvent(x, y);
+		}
+	);
+
+	YounkooIO::IOEvents.SetMouseButtonCallback(
+		[](HWND w, int button, int action, int modifiers) {
+			screen->mouseButtonCallbackEvent(button, action, modifiers);
+		}
+	);
+
+	YounkooIO::IOEvents.SetKeyCallback(
+		[](HWND w, int key, int scancode, int action, int mods) {
+			screen->keyCallbackEvent(key, scancode, action, mods);
+		}
+	);
+
+	YounkooIO::IOEvents.SetCharCallback(
+		[](HWND w, uint32_t codepoint) {
+			screen->charCallbackEvent(codepoint);
+		}
+	);
+
+	YounkooIO::IOEvents.SetDropCallback(
+		[](HWND w, int count, const char** filenames) {
+			screen->dropCallbackEvent(count, filenames);
+		}
+	);
+
+	YounkooIO::IOEvents.SetScrollCallback(
+		[](HWND w, double x, double y) {
+			screen->scrollCallbackEvent(x, y);
+		}
+	);
+
+	/* React to framebuffer size events -- includes window
+	   size events and also catches things like dragging
+	   a window from a Retina-capable screen to a normal
+	   screen on Mac OS X */
+	YounkooIO::IOEvents.SetWindowSizeCallback(
+		[](HWND w, int width, int height) {
+			screen->resizeCallbackEvent(width, height);
+		}
+	);
+
+	// notify when the screen has lost focus (e.g. application switch)
+	YounkooIO::IOEvents.SetWindowFoucsCallback(
+		[](HWND w, bool focused) {
+			// focused: 0 when false, 1 when true
+			screen->focusEvent(focused);
+		}
+	);
+
+}
+
+void NanoGui::draw()
+{
+
+	screen->drawAll();
+}
+
+void NanoGui::clean()
+{
+
+	window->decRef();
+	screen->decRef();
+
 }
