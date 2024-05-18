@@ -100,108 +100,108 @@ Screen::Screen(HWND hwnd, HDC hDC, NVGcontext* vg, const std::string& caption, b
 
 
 	   /* Propagate GLFW events to the appropriate Screen instance */
-	YounkooIO::IOEvents.SetCursorPosCallback(
-		[](HWND w, double x, double y) {
-			auto it = __nanogui_screens.find(w);
-			if (it == __nanogui_screens.end())
-				return;
-			Screen* s = it->second;
-			if (!s->mProcessEvents)
-				return;
-			s->cursorPosCallbackEvent(x, y);
-		}
-	);
+	//YounkooIO::IOEvents.SetCursorPosCallback(
+	//	[](HWND w, double x, double y) {
+	//		auto it = __nanogui_screens.find(w);
+	//		if (it == __nanogui_screens.end())
+	//			return;
+	//		Screen* s = it->second;
+	//		if (!s->mProcessEvents)
+	//			return;
+	//		s->cursorPosCallbackEvent(x, y);
+	//	}
+	//);
 
-	YounkooIO::IOEvents.SetMouseButtonCallback(
-		[](HWND w, int button, int action, int modifiers) {
-			auto it = __nanogui_screens.find(w);
-			if (it == __nanogui_screens.end())
-				return;
-			Screen* s = it->second;
-			if (!s->mProcessEvents)
-				return;
-			s->mouseButtonCallbackEvent(button, action, modifiers);
-		}
-	);
+	//YounkooIO::IOEvents.SetMouseButtonCallback(
+	//	[](HWND w, int button, int action, int modifiers) {
+	//		auto it = __nanogui_screens.find(w);
+	//		if (it == __nanogui_screens.end())
+	//			return;
+	//		Screen* s = it->second;
+	//		if (!s->mProcessEvents)
+	//			return;
+	//		s->mouseButtonCallbackEvent(button, action, modifiers);
+	//	}
+	//);
 
-	YounkooIO::IOEvents.SetKeyCallback(
-		[](HWND w, int key, int scancode, int action, int mods) {
-			auto it = __nanogui_screens.find(w);
-			if (it == __nanogui_screens.end())
-				return;
-			Screen* s = it->second;
-			if (!s->mProcessEvents)
-				return;
-			s->keyCallbackEvent(key, scancode, action, mods);
-		}
-	);
+	//YounkooIO::IOEvents.SetKeyCallback(
+	//	[](HWND w, int key, int scancode, int action, int mods) {
+	//		auto it = __nanogui_screens.find(w);
+	//		if (it == __nanogui_screens.end())
+	//			return;
+	//		Screen* s = it->second;
+	//		if (!s->mProcessEvents)
+	//			return;
+	//		s->keyCallbackEvent(key, scancode, action, mods);
+	//	}
+	//);
 
-	YounkooIO::IOEvents.SetCharCallback(
-		[](HWND w, unsigned int codepoint) {
-			auto it = __nanogui_screens.find(w);
-			if (it == __nanogui_screens.end())
-				return;
-			Screen* s = it->second;
-			if (!s->mProcessEvents)
-				return;
-			s->charCallbackEvent(codepoint);
-		}
-	);
+	//YounkooIO::IOEvents.SetCharCallback(
+	//	[](HWND w, unsigned int codepoint) {
+	//		auto it = __nanogui_screens.find(w);
+	//		if (it == __nanogui_screens.end())
+	//			return;
+	//		Screen* s = it->second;
+	//		if (!s->mProcessEvents)
+	//			return;
+	//		s->charCallbackEvent(codepoint);
+	//	}
+	//);
 
-	YounkooIO::IOEvents.SetDropCallback(
-		[](HWND w, int count, const char** filenames) {
-			auto it = __nanogui_screens.find(w);
-			if (it == __nanogui_screens.end())
-				return;
-			Screen* s = it->second;
-			if (!s->mProcessEvents)
-				return;
-			s->dropCallbackEvent(count, filenames);
-		}
-	);
+	//YounkooIO::IOEvents.SetDropCallback(
+	//	[](HWND w, int count, const char** filenames) {
+	//		auto it = __nanogui_screens.find(w);
+	//		if (it == __nanogui_screens.end())
+	//			return;
+	//		Screen* s = it->second;
+	//		if (!s->mProcessEvents)
+	//			return;
+	//		s->dropCallbackEvent(count, filenames);
+	//	}
+	//);
 
-	YounkooIO::IOEvents.SetScrollCallback(
-		[](HWND w, double x, double y) {
-			auto it = __nanogui_screens.find(w);
-			if (it == __nanogui_screens.end())
-				return;
-			Screen* s = it->second;
-			if (!s->mProcessEvents)
-				return;
-			s->scrollCallbackEvent(x, y);
-		}
-	);
+	//YounkooIO::IOEvents.SetScrollCallback(
+	//	[](HWND w, double x, double y) {
+	//		auto it = __nanogui_screens.find(w);
+	//		if (it == __nanogui_screens.end())
+	//			return;
+	//		Screen* s = it->second;
+	//		if (!s->mProcessEvents)
+	//			return;
+	//		s->scrollCallbackEvent(x, y);
+	//	}
+	//);
 
-	/* React to framebuffer size events -- includes window
-	   size events and also catches things like dragging
-	   a window from a Retina-capable screen to a normal
-	   screen on Mac OS X */
-	YounkooIO::IOEvents.SetWindowSizeCallback(
-		[](HWND w, int width, int height) {
-			auto it = __nanogui_screens.find(w);
-			if (it == __nanogui_screens.end())
-				return;
-			Screen* s = it->second;
+	///* React to framebuffer size events -- includes window
+	//   size events and also catches things like dragging
+	//   a window from a Retina-capable screen to a normal
+	//   screen on Mac OS X */
+	//YounkooIO::IOEvents.SetWindowSizeCallback(
+	//	[](HWND w, int width, int height) {
+	//		auto it = __nanogui_screens.find(w);
+	//		if (it == __nanogui_screens.end())
+	//			return;
+	//		Screen* s = it->second;
 
-			if (!s->mProcessEvents)
-				return;
+	//		if (!s->mProcessEvents)
+	//			return;
 
-			s->resizeCallbackEvent(width, height);
-		}
-	);
+	//		s->resizeCallbackEvent(width, height);
+	//	}
+	//);
 
-	// notify when the screen has lost focus (e.g. application switch)
-	YounkooIO::IOEvents.SetWindowFoucsCallback(
-		[](HWND w, bool focused) {
-			auto it = __nanogui_screens.find(w);
-			if (it == __nanogui_screens.end())
-				return;
+	//// notify when the screen has lost focus (e.g. application switch)
+	//YounkooIO::IOEvents.SetWindowFoucsCallback(
+	//	[](HWND w, bool focused) {
+	//		auto it = __nanogui_screens.find(w);
+	//		if (it == __nanogui_screens.end())
+	//			return;
 
-			Screen* s = it->second;
-			// focused: 0 when false, 1 when true
-			s->focusEvent(focused);
-		}
-	);
+	//		Screen* s = it->second;
+	//		// focused: 0 when false, 1 when true
+	//		s->focusEvent(focused);
+	//	}
+	//);
 
 	initialize(mWindow, true);
 }
@@ -421,7 +421,6 @@ bool Screen::cursorPosCallbackEvent(double x, double y) {
 		return false;
 	}
 }
-
 bool Screen::mouseButtonCallbackEvent(int button, int action, int modifiers) {
 	mModifiers = modifiers;
 	mLastInteraction = glfwGetTime();
@@ -449,13 +448,16 @@ bool Screen::mouseButtonCallbackEvent(int button, int action, int modifiers) {
 
 		if (dropWidget != nullptr && dropWidget->cursor() != mCursor) {
 			mCursor = dropWidget->cursor();
-			SetCursor(mCursors[(int)mCursor]);
 		}
 
 		if (action == CALLBACK_PRESS && (button == CALLBACK_MOUSE_BUTTON_1 || button == CALLBACK_MOUSE_BUTTON_2)) {
 			mDragWidget = findWidget(mMousePos);
-			if (mDragWidget == this)
+			if (mDragWidget == this) {
 				mDragWidget = nullptr;
+			}
+			else {
+				std::cout << "HIt" << std::endl;
+			}
 			mDragActive = mDragWidget != nullptr;
 			if (!mDragActive)
 				updateFocus(nullptr);

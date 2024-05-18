@@ -183,6 +183,7 @@ NAMESPACE_BEGIN(nanogui)
 		void moveWindowToFront(Window* window);
 		void drawWidgets();
 
+		bool mProcessEvents;
 	protected:
 		HWND mWindow;
 		NVGcontext* mNVGContext;
@@ -196,7 +197,6 @@ NAMESPACE_BEGIN(nanogui)
 		bool mDragActive;
 		Widget* mDragWidget = nullptr;
 		double mLastInteraction;
-		bool mProcessEvents;
 		Color mBackground;
 		std::string mCaption;
 		bool mShutdownGLFWOnDestruct;

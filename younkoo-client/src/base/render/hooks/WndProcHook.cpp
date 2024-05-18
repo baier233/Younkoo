@@ -10,6 +10,27 @@ static bool IsVkDown(int vk) {
 
 #include "../gui/input/Context.hpp"
 #include "../gui/input/IOEvents.h"
+//#include "../glfw/glfw_constants.h"
+//
+static int getKeyMods(void)
+{
+	int mods = 0;
+
+	if (GetKeyState(VK_SHIFT) & 0x8000)
+		mods |= GLFW_MOD_SHIFT;
+	if (GetKeyState(VK_CONTROL) & 0x8000)
+		mods |= GLFW_MOD_CONTROL;
+	if (GetKeyState(VK_MENU) & 0x8000)
+		mods |= GLFW_MOD_ALT;
+	if ((GetKeyState(VK_LWIN) | GetKeyState(VK_RWIN)) & 0x8000)
+		mods |= GLFW_MOD_SUPER;
+	if (GetKeyState(VK_CAPITAL) & 1)
+		mods |= GLFW_MOD_CAPS_LOCK;
+	if (GetKeyState(VK_NUMLOCK) & 1)
+		mods |= GLFW_MOD_NUM_LOCK;
+
+	return mods;
+}
 
 
 CallBackcursorposfun YounkooCursorPosCallback;
@@ -41,7 +62,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			int button = (message == WM_LBUTTONDOWN) ? CALLBACK_MOUSE_BUTTON_LEFT :
 				(message == WM_RBUTTONDOWN) ? CALLBACK_MOUSE_BUTTON_RIGHT :
 				CALLBACK_MOUSE_BUTTON_MIDDLE;
-			YounkooMouseButtonCallback(hWnd, button, CALLBACK_PRESS, 0);
+			YounkooMouseButtonCallback(hWnd, button, CALLBACK_PRESS, getKeyMods());
 		}
 		break;
 	case WM_LBUTTONUP:
@@ -52,7 +73,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			int button = (message == WM_LBUTTONUP) ? CALLBACK_MOUSE_BUTTON_LEFT :
 				(message == WM_RBUTTONUP) ? CALLBACK_MOUSE_BUTTON_RIGHT :
 				CALLBACK_MOUSE_BUTTON_MIDDLE;
-			YounkooMouseButtonCallback(hWnd, button, CALLBACK_RELEASE, 0);
+			YounkooMouseButtonCallback(hWnd, button, CALLBACK_RELEASE, getKeyMods());
 		}
 		break;
 	case WM_KEYDOWN:
@@ -62,8 +83,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			int key = static_cast<int>(wParam);
 			int scancode = (lParam >> 16) & 0x1FF;
 			int action = CALLBACK_PRESS;
-			int mods = 0;
-			YounkooKeyCallback(hWnd, key, scancode, action, mods);
+			YounkooKeyCallback(hWnd, key, scancode, action, getKeyMods());
 		}
 		break;
 	case WM_KEYUP:
@@ -73,8 +93,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			int key = static_cast<int>(wParam);
 			int scancode = (lParam >> 16) & 0x1FF;
 			int action = CALLBACK_RELEASE;
-			int mods = 0;
-			YounkooKeyCallback(hWnd, key, scancode, action, mods);
+			YounkooKeyCallback(hWnd, key, scancode, action, getKeyMods());
 		}
 		break;
 	case WM_CHAR:

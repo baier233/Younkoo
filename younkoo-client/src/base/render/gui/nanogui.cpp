@@ -6,6 +6,7 @@
 #include <memory>
 
 #include <iostream>
+#include "input/IOEvents.h"
 namespace NanoGui {
 	nanogui::ref<nanogui::Screen> screen = nullptr;
 	nanogui::ref<nanogui::Window> window = nullptr;
@@ -40,6 +41,71 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 
 	screen->setVisible(true);
 	screen->performLayout();
+
+	YounkooIO::IOEvents.SetCursorPosCallback(
+		[](HWND w, double x, double y) {
+			if (!screen->mProcessEvents)
+				return;
+			screen->cursorPosCallbackEvent(x, y);
+		}
+	);
+
+	YounkooIO::IOEvents.SetMouseButtonCallback(
+		[](HWND w, int button, int action, int modifiers) {
+			if (!screen->mProcessEvents)
+				return;
+			screen->mouseButtonCallbackEvent(button, action, modifiers);
+		}
+	);
+
+	YounkooIO::IOEvents.SetKeyCallback(
+		[](HWND w, int key, int scancode, int action, int mods) {
+			if (!screen->mProcessEvents)
+				return;
+			screen->keyCallbackEvent(key, scancode, action, mods);
+		}
+	);
+
+	YounkooIO::IOEvents.SetCharCallback(
+		[](HWND w, unsigned int codepoint) {
+			if (!screen->mProcessEvents)
+				return;
+			screen->charCallbackEvent(codepoint);
+		}
+	);
+
+	YounkooIO::IOEvents.SetDropCallback(
+		[](HWND w, int count, const char** filenames) {
+			if (!screen->mProcessEvents)
+				return;
+			screen->dropCallbackEvent(count, filenames);
+		}
+	);
+
+	YounkooIO::IOEvents.SetScrollCallback(
+		[](HWND w, double x, double y) {
+			screen->scrollCallbackEvent(x, y);
+		}
+	);
+
+	/* React to framebuffer size events -- includes window
+	   size events and also catches things like dragging
+	   a window from a Retina-capable screen to a normal
+	   screen on Mac OS X */
+	YounkooIO::IOEvents.SetWindowSizeCallback(
+		[](HWND w, int width, int height) {
+			screen->resizeCallbackEvent(width, height);
+		}
+	);
+
+	// notify when the screen has lost focus (e.g. application switch)
+	YounkooIO::IOEvents.SetWindowFoucsCallback(
+		[](HWND w, bool focused) {
+			// focused: 0 when false, 1 when true
+			screen->focusEvent(focused);
+		}
+	);
+
 }
 
 void NanoGui::draw()

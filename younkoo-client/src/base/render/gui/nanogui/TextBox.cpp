@@ -413,9 +413,9 @@ bool TextBox::focusEvent(bool focused) {
 
 bool TextBox::keyboardEvent(int key, int /* scancode */, int action, int modifiers) {
 	if (mEditable && focused()) {
-		if (action == CALLBACK_PRESS || action == CALLBACK_RELEASE) {
-			if (key == CALLBACK_KEY_LEFT) {
-				if (modifiers == MOD_SHIFT) {
+		if (action == CALLBACK_PRESS) {
+			if (key == VK_LEFT) {
+				if (modifiers == GLFW_MOD_SHIFT) {
 					if (mSelectionPos == -1)
 						mSelectionPos = mCursorPos;
 				}
@@ -426,8 +426,8 @@ bool TextBox::keyboardEvent(int key, int /* scancode */, int action, int modifie
 				if (mCursorPos > 0)
 					mCursorPos--;
 			}
-			else if (key == CALLBACK_KEY_RIGHT) {
-				if (modifiers == MOD_SHIFT) {
+			else if (key == VK_RIGHT) {
+				if (modifiers == GLFW_MOD_SHIFT) {
 					if (mSelectionPos == -1)
 						mSelectionPos = mCursorPos;
 				}
@@ -439,7 +439,7 @@ bool TextBox::keyboardEvent(int key, int /* scancode */, int action, int modifie
 					mCursorPos++;
 			}
 			else if (key == VK_HOME) {
-				if (modifiers == MOD_SHIFT) {
+				if (modifiers == GLFW_MOD_SHIFT) {
 					if (mSelectionPos == -1)
 						mSelectionPos = mCursorPos;
 				}
@@ -450,7 +450,7 @@ bool TextBox::keyboardEvent(int key, int /* scancode */, int action, int modifie
 				mCursorPos = 0;
 			}
 			else if (key == VK_END) {
-				if (modifiers == MOD_SHIFT) {
+				if (modifiers == GLFW_MOD_SHIFT) {
 					if (mSelectionPos == -1)
 						mSelectionPos = mCursorPos;
 				}

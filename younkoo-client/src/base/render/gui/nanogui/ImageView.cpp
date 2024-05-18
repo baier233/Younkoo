@@ -193,40 +193,39 @@ bool ImageView::scrollEvent(const Vector2i& p, const Vector2f& rel) {
 	zoom(v, (p - position()).cast<float>());
 	return true;
 }
-
 bool ImageView::keyboardEvent(int key, int /*scancode*/, int action, int modifiers) {
 	if (action) {
 		switch (key) {
-		case CALLBACK_KEY_LEFT:
+		case VK_LEFT:
 			if (!mFixedOffset) {
-				if (context.IsKeyPressed(VK_CONTROL) & modifiers)
+				if (GLFW_MOD_CONTROL & modifiers)
 					moveOffset(Vector2f(30, 0));
 				else
 					moveOffset(Vector2f(10, 0));
 				return true;
 			}
 			break;
-		case CALLBACK_KEY_RIGHT:
+		case VK_RIGHT:
 			if (!mFixedOffset) {
-				if (context.IsKeyPressed(VK_CONTROL) & modifiers)
+				if (GLFW_MOD_CONTROL & modifiers)
 					moveOffset(Vector2f(-30, 0));
 				else
 					moveOffset(Vector2f(-10, 0));
 				return true;
 			}
 			break;
-		case CALLBACK_KEY_DOWN:
+		case VK_DOWN:
 			if (!mFixedOffset) {
-				if (context.IsKeyPressed(VK_CONTROL) & modifiers)
+				if (GLFW_MOD_CONTROL & modifiers)
 					moveOffset(Vector2f(0, -30));
 				else
 					moveOffset(Vector2f(0, -10));
 				return true;
 			}
 			break;
-		case CALLBACK_KEY_UP:
+		case VK_UP:
 			if (!mFixedOffset) {
-				if (context.IsKeyPressed(VK_CONTROL) & modifiers)
+				if (GLFW_MOD_CONTROL & modifiers)
 					moveOffset(Vector2f(0, 30));
 				else
 					moveOffset(Vector2f(0, 10));
