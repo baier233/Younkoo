@@ -132,6 +132,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 bool OpenGLHook::Init()
 {
 
+
 	// Hook wglswapbuffers here.
 	static auto gl = GetModuleHandleW(L"opengl32.dll");
 

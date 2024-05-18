@@ -218,7 +218,7 @@ void Screen::initialize(HWND window, bool shutdownGLFWOnDestruct) {
 	mDragActive = false;
 	mLastInteraction = glfwGetTime();
 	mProcessEvents = true;
-	__nanogui_screens[window] = this;
+	__nanogui_screens[mWindow] = this;
 	for (int i = 0; i < (int)Cursor::CursorCount; ++i) {
 		mCursors[i] = LoadCursor(NULL, IDC_ARROW + i);
 	}
@@ -240,7 +240,6 @@ void Screen::initialize(HWND window, bool shutdownGLFWOnDestruct) {
 }
 
 Screen::~Screen() {
-	__nanogui_screens.erase(mWindow);
 	for (int i = 0; i < (int)Cursor::CursorCount; ++i) {
 		if (mCursors[i])
 			DestroyCursor(mCursors[i]);
