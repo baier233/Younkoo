@@ -47,10 +47,10 @@ void createWindow(int xPos, const std::string& title, Category category) {
 			contentPanel->setLayout(new BoxLayout(Orientation::Vertical, Alignment::Fill, 5, 5));
 
 
-			auto button = new Button(contentPanel, "Toggle");
+			auto button = new Button(contentPanel, mod->getToggle() ? "Disable" : "Toggle");
 			button->setCallback([mod, button] {
 				mod->toggle();
-				button->setCaption(mod->getToggle() ? "Toggle" : "Disable");
+				button->setCaption(mod->getToggle() ? "Disable" : "Toggle");
 				});
 
 			for (auto& valuePair : mod->getValues()) {
