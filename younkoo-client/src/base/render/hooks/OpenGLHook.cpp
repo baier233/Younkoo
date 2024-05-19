@@ -85,6 +85,15 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	RECT area;
 	GetClientRect(renderer.HandleWindow, &area);
 
+	auto winWidth = area.right;
+	auto winHeight = area.bottom;
+
+
+	static auto devicePixelRatio = Wnd::get_pixel_ratio(renderer.HandleWindow)/*(float)fbWidth / (float)winWidth*/;
+
+	winWidth = static_cast<int>(static_cast<float>(winWidth) / devicePixelRatio);
+	winHeight = static_cast<int>(static_cast<float>(winHeight) / devicePixelRatio);
+
 	/*
 	*
 	GLint dims[4] = { 0 };
@@ -93,14 +102,13 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	GLint fbHeight = dims[3];
 	*/
 
-	static auto devicePixelRatio = Wnd::get_pixel_ratio(renderer.HandleWindow)/*(float)fbWidth / (float)winWidth*/;
 	auto& vg = NanoVGHelper::Context;
-	nvgBeginFrame(vg, area.right, area.bottom, devicePixelRatio);
+	nvgBeginFrame(vg, winWidth, winHeight, devicePixelRatio);
 	nvgSave(vg);
 
 	using namespace NanoVGHelper;
 
-	EventRender2D e{ vg, area.right, area.bottom };
+	EventRender2D e{ vg, winWidth, winHeight };
 	Younkoo::get().EventBus->fire_event(e);
 
 
@@ -117,10 +125,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
 	if (NanoGui::available)
 	{
-
-
 		NanoGui::draw();
-		//		gui->screen->drawAll();
 	}
 
 

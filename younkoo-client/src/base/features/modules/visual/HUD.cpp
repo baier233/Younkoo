@@ -49,13 +49,14 @@ void HUD::onUpdate()
 void HUD::onRender(const EventRender2D& e)
 {
 	ToggleCheck;
-	static float x2 = e.winWidth / static_cast<float>(2);
+	static int x2 = e.winWidth / static_cast<float>(2);
 	using namespace NanoVGHelper;
 
 	float x = 5;
 	float y = 5;
 	static std::wstring watermark(L"Younkoo Client");
-	nvgTextW(e.vg, watermark, x2, y, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
+	auto bounds = nvgTextBoundsW(e.vg, watermark, NanoVGHelper::fontHarmony, 30);
+	nvgTextW(e.vg, watermark, x2 - bounds.first / static_cast <float>(2), y, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
 	auto mods = ModuleManager::get().getMods();
 	for (auto iter = mods.cbegin(); iter < mods.cend(); iter++) {
 		auto sbmod = reinterpret_cast<AbstractModule*>(*iter);
@@ -69,7 +70,7 @@ void HUD::onRender(const EventRender2D& e)
 		}
 
 	}
-	 
+
 	/*
 	nvgBeginPath(e.vg);
 	NVGpaint shadowPaint = nvgBoxGradient(e.vg, x - w / 2, y - h / 2, w, h, 10, 20, nvgRGBA(0, 0, 0, 128), nvgRGBA(0, 0, 0, 0));
