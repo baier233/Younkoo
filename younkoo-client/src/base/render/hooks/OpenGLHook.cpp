@@ -108,14 +108,16 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	if (context.IsKeyPressed(VK_INSERT, false))
 	{
 		showMenu = !showMenu;
+		NanoGui::available = !NanoGui::available;
 	}
 
-	if (showMenu)
+	nvgRestore(vg);
+	nvgEndFrame(vg);
+	context.EndFrame();
+
+	if (NanoGui::available)
 	{
 
-		nvgRestore(vg);
-		nvgEndFrame(vg);
-		context.EndFrame();
 
 		NanoGui::draw();
 		//		gui->screen->drawAll();

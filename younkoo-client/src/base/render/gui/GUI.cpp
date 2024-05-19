@@ -45,37 +45,43 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 	YounkooIO::IOEvents.SetCursorPosCallback(
 		[](HWND w, double x, double y) {
 			//std::cout << "X :" << x << " Y :" << y << std::endl;
-			screen->cursorPosCallbackEvent(x, y);
+			if (NanoGui::available)
+				screen->cursorPosCallbackEvent(x, y);
 		}
 	);
 
 	YounkooIO::IOEvents.SetMouseButtonCallback(
 		[](HWND w, int button, int action, int modifiers) {
-			screen->mouseButtonCallbackEvent(button, action, modifiers);
+			if (NanoGui::available)
+				screen->mouseButtonCallbackEvent(button, action, modifiers);
 		}
 	);
 
 	YounkooIO::IOEvents.SetKeyCallback(
 		[](HWND w, int key, int scancode, int action, int mods) {
-			screen->keyCallbackEvent(key, scancode, action, mods);
+			if (NanoGui::available)
+				screen->keyCallbackEvent(key, scancode, action, mods);
 		}
 	);
 
 	YounkooIO::IOEvents.SetCharCallback(
 		[](HWND w, uint32_t codepoint) {
-			screen->charCallbackEvent(codepoint);
+			if (NanoGui::available)
+				screen->charCallbackEvent(codepoint);
 		}
 	);
 
 	YounkooIO::IOEvents.SetDropCallback(
 		[](HWND w, int count, const char** filenames) {
-			screen->dropCallbackEvent(count, filenames);
+			if (NanoGui::available)
+				screen->dropCallbackEvent(count, filenames);
 		}
 	);
 
 	YounkooIO::IOEvents.SetScrollCallback(
 		[](HWND w, double x, double y) {
-			screen->scrollCallbackEvent(x, y);
+			if (NanoGui::available)
+				screen->scrollCallbackEvent(x, y);
 		}
 	);
 
@@ -85,15 +91,17 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 	   screen on Mac OS X */
 	YounkooIO::IOEvents.SetWindowSizeCallback(
 		[](HWND w, int width, int height) {
-			screen->resizeCallbackEvent(width, height);
+			if (NanoGui::available)
+				screen->resizeCallbackEvent(width, height);
 		}
 	);
 
 	// notify when the screen has lost focus (e.g. application switch)
 	YounkooIO::IOEvents.SetWindowFoucsCallback(
 		[](HWND w, bool focused) {
+			if (NanoGui::available)
+				screen->focusEvent(focused);
 			// focused: 0 when false, 1 when true
-			screen->focusEvent(focused);
 		}
 	);
 
@@ -101,7 +109,8 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 
 void NanoGui::draw()
 {
-
+	if (!available)
+		return;
 	screen->drawAll();
 }
 
