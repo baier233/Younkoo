@@ -161,6 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\features\modules\fight\RightClicker.cpp" />
     <ClCompile Include="src\base\render\gui\GUI.cpp" />
     <ClCompile Include="src\base\features\modules\fight\AutoClicker.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\AbstractClientPlayer.cpp" />
@@ -264,6 +265,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\base\features\modules\fight\RightClicker.h" />
     <ClInclude Include="src\base\render\gui\GUI.h" />
     <ClInclude Include="src\base\features\modules\fight\AutoClicker.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\AbstractClientPlayer.h" />

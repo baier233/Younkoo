@@ -2,6 +2,7 @@
 #include <chrono>
 #include <random>
 #include "../../../render/Renderer.hpp"
+#include "../render/gui/GUI.h"
 
 long lastClickTime = 0;
 int nextCps = 10;
@@ -12,6 +13,13 @@ static int maxAps = 10;
 AutoClicker::AutoClicker() :AbstractModule("AutoClicker", Category::COMBAT, 'U')
 {
 	this->setToggle(false);
+
+	this->addValue(FloatType, leftMinCpsValue);
+	this->addValue(FloatType, leftMaxCpsValue);
+	this->addValue(FloatType, blockHitChanceValue);
+	this->addValue(BoolType, ignoreBlocksValue);
+	this->addValue(BoolType, blockHitValue);
+	this->addValue(BoolType, inInventoryValue);
 }
 
 
@@ -34,6 +42,8 @@ void AutoClicker::onDisable()
 
 void AutoClicker::onUpdate()
 {
+	ToggleCheck;
+	if (NanoGui::available) return;
 	static Minecraft minecraft{};
 	long milli = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 	if (lastClickTime == 0) lastClickTime = milli;

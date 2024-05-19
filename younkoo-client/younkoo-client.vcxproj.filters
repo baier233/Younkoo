@@ -207,6 +207,9 @@
     <ClCompile Include="src\base\render\gui\GUI.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\features\modules\fight\RightClicker.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -450,6 +453,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\utils\Wnd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\modules\fight\RightClicker.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

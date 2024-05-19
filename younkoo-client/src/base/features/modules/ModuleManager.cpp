@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <vector>
 #include "ModuleManager.h"
+#include "fight/RightClicker.h"
 ModuleManager::ModuleManager() {
 
 }
@@ -56,6 +57,7 @@ bool ModuleManager::LoadModules()
 {
 	this->addModule<HUD>(&HUD::getInstance());
 	this->addModule<AutoClicker>(&AutoClicker::getInstance());
+	this->addModule<RClick>(&RClick::getInstance());
 	return true;
 }
 

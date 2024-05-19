@@ -2,6 +2,7 @@
 
 #include "nanogui/Screen.h"
 #include "nanogui/FormHelper.h"
+#include "nanogui/Slider.h"
 #include <memory>
 
 #include <iostream>
@@ -25,95 +26,133 @@ public:
 		Younkoo::get().EventBus->fire_event(e);
 	}
 };
+using namespace nanogui;
+void createWindow(int xPos, const std::string& title, Category category) {
+	auto win = new Window(NanoGui::screen, title);
+	win->setPosition(Vector2i(xPos, 10));
+	win->setLayout(new GroupLayout());
+
+	for (auto m : ModuleManager::get().getMods()) {
+
+		AbstractModule* mod = ToBaseModule(m);
+		if (mod->getCategory() == category) {
+			auto panel = new Widget(win);
+			panel->setLayout(new GroupLayout());
+
+			auto titlePanel = new Widget(panel);
+			titlePanel->setLayout(new BoxLayout(Orientation::Horizontal, Alignment::Middle, 0, 5));
+			auto label = new Label(titlePanel, mod->getName(), "sans-bold");
+
+			auto contentPanel = new Widget(panel);
+			contentPanel->setLayout(new BoxLayout(Orientation::Vertical, Alignment::Fill, 5, 5));
+
+
+			auto button = new Button(contentPanel, "Toggle");
+			button->setCallback([mod, button] {
+				mod->toggle();
+				button->setCaption(mod->getToggle() ? "Toggle" : "Disable");
+				});
+
+			for (auto& valuePair : mod->getValues()) {
+				ValueType valueType = valuePair.first;
+				Value* value = valuePair.second;
+
+				switch (valueType) {
+				case BoolType:
+					if (auto boolValue = dynamic_cast<BoolValue*>(value)) {
+						new CheckBox(contentPanel, boolValue->getName(), [boolValue](bool enabled) {
+							*boolValue->getValuePtr() = enabled;
+							});
+					}
+					break;
+				case IntType:
+					if (auto intValue = dynamic_cast<NumberValue*>(value)) {
+						auto label = new Label(contentPanel, intValue->getName());
+						auto slider = new Slider(contentPanel);
+						slider->setRange(std::make_pair(intValue->getMin(), intValue->getMax()));
+						slider->setValue(intValue->getValue());
+						slider->setCallback([intValue](float value) {
+							intValue->setValue(static_cast<int>(value));
+							});
+					}
+					break;
+				case FloatType:
+					if (auto floatValue = dynamic_cast<FloatValue*>(value)) {
+						auto label = new Label(contentPanel, floatValue->getName());
+						auto slider = new Slider(contentPanel);
+						slider->setRange(std::make_pair(floatValue->getMin(), floatValue->getMax()));
+						slider->setValue(floatValue->getValue());
+						slider->setCallback([floatValue](float value) {
+							floatValue->setValue(value);
+							});
+					}
+					break;
+				case ListType:
+					if (auto modeValue = dynamic_cast<ModeValue*>(value)) {
+						auto label = new Label(contentPanel, modeValue->getName());
+						std::vector<std::string> items;
+						for (size_t i = 0; i < modeValue->getModes().size(); i++)
+						{
+							items.push_back(modeValue->getDescs()[i]);
+						}
+						auto comboBox = new ComboBox(contentPanel, items);
+						comboBox->setSelectedIndex(modeValue->getValue());
+						comboBox->setCallback([modeValue](int selectedIndex) {
+							modeValue->setValue(selectedIndex);
+							});
+					}
+					break;
+				case ColorType:
+					if (auto colorValue = dynamic_cast<ColorValue*>(value)) {
+						auto label = new Label(contentPanel, colorValue->getName());
+						auto colorPicker = new ColorPicker(contentPanel, Color(colorValue->getValue()));
+						colorPicker->setCallback([colorValue](const Color& color) {
+							float* colorArray = colorValue->getValuePtr();
+							colorArray[0] = color.r();
+							colorArray[1] = color.g();
+							colorArray[2] = color.b();
+							colorArray[3] = color.w();
+							});
+					}
+					break;
+				default:
+					break;
+				}
+			}
+		}
+	}
+}
+
+
 
 void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 {
 	screen = new GUI((HWND)hwnd, (HDC)hdc, (NVGcontext*)vg, "Screen");
-	//return screen->setSize()
-	/// dvar, bar, strvar, etc. are double/bool/string/.. variables
+
 	form = new nanogui::FormHelper(screen);
 
 	auto& gui = form;
-	static bool bvar = false;
-	static std::string strvar = "Hello";
-	static int ivar = 22;
-	static float fvar = 1337.3367;
-	static double dvar = 13337.11333367;
+	int xPos = 10;
+
 	for (Category c : { Category::CLICKER, Category::COMBAT, Category::PLAYER, Category::VISUAL }) {
 		switch (c) {
 		case Category::CLICKER:
-		{
-			auto win = gui->addWindow(Eigen::Vector2i(xPos, 10), "Clicker");
-			//win->setLayout(new nanogui::GroupLayout());
-			win->setSize(nanogui::Vector2i(250, 700));
-			//windows.push_back(win);
-			gui->addVariable("bool", bvar);
-			gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
-			xPos += 100;
+			createWindow(xPos, "Clicker", Category::CLICKER);
 			break;
-		}
 		case Category::COMBAT:
-		{
-			auto win = gui->addWindow(Eigen::Vector2i(xPos, 10), "Combat");
-			//win->setLayout(new nanogui::GroupLayout());
-			win->setSize(nanogui::Vector2i(250, 700));
-			//windows.push_back(win);
-			gui->addVariable("string", strvar);
-			gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
-			xPos += 100;
+			createWindow(xPos, "Combat", Category::COMBAT);
 			break;
-		}
 		case Category::PLAYER:
-		{
-			auto win = gui->addWindow(Eigen::Vector2i(xPos, 10), "Player");
-			//win->setLayout(new nanogui::GroupLayout());
-			win->setSize(nanogui::Vector2i(250, 700));
-			//windows.push_back(win);
-			gui->addVariable("int", ivar);
-			gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
-			xPos += 100;
+			createWindow(xPos, "Player", Category::PLAYER);
 			break;
-		}
 		case Category::VISUAL:
-		{
-			auto win = gui->addWindow(Eigen::Vector2i(xPos, 10), "Visual");
-			win->setLayout(new nanogui::GroupLayout());
-			win->setSize(nanogui::Vector2i(250, 700));
-			for (auto m : ModuleManager::get().getMods()) {
-				AbstractModule* mod = ToBaseModule(m);
-				nanogui::Button* button = new nanogui::Button(win, mod->getName());
-				button->setTextColor(nanogui::Color(1.0f, 1.0f, 1.0f, 1.0f));
-				button->setBackgroundColor(mod->getToggle() ? nanogui::Color(1.0f, 0.0f, 0.0f, 1.0f) : nanogui::Color(0.0f, 0.0f, 1.0f, 1.0f));
-				button->setCallback([button, mod]() {
-					button->setBackgroundColor(mod->getToggle() ? nanogui::Color(1.0f, 0.0f, 0.0f, 1.0f) : nanogui::Color(0.0f, 0.0f, 1.0f, 1.0f));
-					});
-			}
-
-			xPos += 100;
+			createWindow(xPos, "Visual", Category::VISUAL);
 			break;
-		}
 		default:
-		{
 			break;
 		}
-		}
+		xPos += 120;
 	}
-
-	//window = gui->addWindow(Eigen::Vector2i(10, 10), "Form helper example");
-	//window->setLayout(new nanogui::GroupLayout());
-
-	//gui->addGroup("Basic types");
-	//gui->addVariable("bool", bvar);
-	//gui->addVariable("string", strvar);
-
-	//gui->addGroup("Validating fields");
-	//gui->addVariable("int", ivar);
-	//gui->addVariable("float", fvar);
-	//gui->addVariable("double", dvar);
-
-	//gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
-
-
 	screen->setVisible(true);
 	screen->performLayout();
 

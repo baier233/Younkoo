@@ -195,6 +195,7 @@ public:
 	 * The four dimensional float vector being copied.
 	 */
 	Color(const Eigen::Vector4f& color) : Eigen::Vector4f(color) { }
+	Color(float* color) : Eigen::Vector4f(color) { }
 
 	/**
 	 * Copies (x, y, z) from the input vector, and uses the value specified by
