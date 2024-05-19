@@ -416,7 +416,7 @@ bool TextBox::keyboardEvent(int key, int /* scancode */, int action, int modifie
 		if (action == CALLBACK_PRESS) {
 			//std::cout << key << std::endl;
 			if (key == VK_LEFT) {
-				if (modifiers == GLFW_MOD_SHIFT) {
+				if (modifiers == CONTEXT_MOD_SHIFT) {
 					if (mSelectionPos == -1)
 						mSelectionPos = mCursorPos;
 				}
@@ -428,7 +428,7 @@ bool TextBox::keyboardEvent(int key, int /* scancode */, int action, int modifie
 					mCursorPos--;
 			}
 			else if (key == VK_RIGHT) {
-				if (modifiers == GLFW_MOD_SHIFT) {
+				if (modifiers == CONTEXT_MOD_SHIFT) {
 					if (mSelectionPos == -1)
 						mSelectionPos = mCursorPos;
 				}
@@ -440,7 +440,7 @@ bool TextBox::keyboardEvent(int key, int /* scancode */, int action, int modifie
 					mCursorPos++;
 			}
 			else if (key == VK_HOME) {
-				if (modifiers == GLFW_MOD_SHIFT) {
+				if (modifiers == CONTEXT_MOD_SHIFT) {
 					if (mSelectionPos == -1)
 						mSelectionPos = mCursorPos;
 				}
@@ -451,7 +451,7 @@ bool TextBox::keyboardEvent(int key, int /* scancode */, int action, int modifie
 				mCursorPos = 0;
 			}
 			else if (key == VK_END) {
-				if (modifiers == GLFW_MOD_SHIFT) {
+				if (modifiers == CONTEXT_MOD_SHIFT) {
 					if (mSelectionPos == -1)
 						mSelectionPos = mCursorPos;
 				}

@@ -161,6 +161,12 @@ bool Window::mouseDragEvent(const Vector2i&, const Vector2i& rel,
 		mPos += rel;
 		mPos = mPos.cwiseMax(Vector2i::Zero());
 		mPos = mPos.cwiseMin(parent()->size() - mSize);
+		if (mPos[0] < 0)
+			mPos[0] = 0;
+
+		if (mPos[1] < 0)
+			mPos[1] = 0;
+
 		return true;
 	}
 	return false;
