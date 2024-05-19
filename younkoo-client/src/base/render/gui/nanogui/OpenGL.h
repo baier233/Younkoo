@@ -15,7 +15,7 @@
 
 #include "Common.h"
 #include <GL/glew.h>
-//#include <GLFW/glfw3.h>
+
 #include <nanovg.h>
 
 // Special treatment of linux Nvidia opengl headers

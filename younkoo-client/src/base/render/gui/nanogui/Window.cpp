@@ -127,7 +127,8 @@ void Window::draw(NVGcontext* ctx) {
 
 		nvgFontBlur(ctx, 2);
 		nvgFillColor(ctx, mTheme->mDropShadow);
-		nvgText(ctx, mPos.x() + mSize.x() / 2,
+		nvgText(ctx,
+			mPos.x() + mSize.x() / 2,
 			mPos.y() + hh / 2, mTitle.c_str(), nullptr);
 
 		nvgFontBlur(ctx, 0);

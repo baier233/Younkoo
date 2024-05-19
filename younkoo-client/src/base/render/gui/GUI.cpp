@@ -12,8 +12,7 @@
 
 namespace NanoGui {
 	nanogui::ref<nanogui::Screen> screen = nullptr;
-	std::vector<nanogui::ref<nanogui::Window>> windows = {};
-	/// \fixme @BaierOops : Notice : 因为神必原因，这个form释放不掉，因此new了之后没有delete实属迫不得已
+	///screen 不需要主动调用decref,在delete form的时候screen会跟着释放。
 	nanogui::FormHelper* form = nullptr;
 	int xPos = 10;
 }
@@ -32,7 +31,8 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 	screen = new GUI((HWND)hwnd, (HDC)hdc, (NVGcontext*)vg, "Screen");
 	//return screen->setSize()
 	/// dvar, bar, strvar, etc. are double/bool/string/.. variables
-	form = new nanogui::FormHelper(screen.get());
+	form = new nanogui::FormHelper(screen);
+
 	auto& gui = form;
 	static bool bvar = false;
 	static std::string strvar = "Hello";
@@ -46,7 +46,7 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 			auto win = gui->addWindow(Eigen::Vector2i(xPos, 10), "Clicker");
 			//win->setLayout(new nanogui::GroupLayout());
 			win->setSize(nanogui::Vector2i(250, 700));
-			windows.push_back(win);
+			//windows.push_back(win);
 			gui->addVariable("bool", bvar);
 			gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
 			xPos += 100;
@@ -57,7 +57,7 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 			auto win = gui->addWindow(Eigen::Vector2i(xPos, 10), "Combat");
 			//win->setLayout(new nanogui::GroupLayout());
 			win->setSize(nanogui::Vector2i(250, 700));
-			windows.push_back(win);
+			//windows.push_back(win);
 			gui->addVariable("string", strvar);
 			gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
 			xPos += 100;
@@ -68,7 +68,7 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 			auto win = gui->addWindow(Eigen::Vector2i(xPos, 10), "Player");
 			//win->setLayout(new nanogui::GroupLayout());
 			win->setSize(nanogui::Vector2i(250, 700));
-			windows.push_back(win);
+			//windows.push_back(win);
 			gui->addVariable("int", ivar);
 			gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
 			xPos += 100;
@@ -77,8 +77,8 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 		case Category::VISUAL:
 		{
 			auto win = gui->addWindow(Eigen::Vector2i(xPos, 10), "Visual");
+			win->setLayout(new nanogui::GroupLayout());
 			win->setSize(nanogui::Vector2i(250, 700));
-			windows.push_back(win);
 			for (auto m : ModuleManager::get().getMods()) {
 				AbstractModule* mod = ToBaseModule(m);
 				nanogui::Button* button = new nanogui::Button(win, mod->getName());
@@ -205,9 +205,5 @@ void NanoGui::drawContents()
 
 void NanoGui::clean()
 {
-	for (auto win : windows) {
-		win->decRef();
-	}
-	screen->decRef();
-
+	delete form;
 }
