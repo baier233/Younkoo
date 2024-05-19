@@ -11,6 +11,8 @@
 #include "../Younkoo.hpp"
 #include "../features/modules/ModuleManager.h"
 
+#include <iomanip>
+#include <sstream>
 namespace NanoGui {
 	nanogui::ref<nanogui::Screen> screen = nullptr;
 	///screen 不需要主动调用decref,在delete form的时候screen会跟着释放。
@@ -68,22 +70,75 @@ void createWindow(int xPos, const std::string& title, Category category) {
 				case IntType:
 					if (auto intValue = dynamic_cast<NumberValue*>(value)) {
 						auto label = new Label(contentPanel, intValue->getName());
-						auto slider = new Slider(contentPanel);
+
+						auto sliderPanel = new Widget(contentPanel);
+						sliderPanel->setLayout(new BoxLayout(Orientation::Horizontal, Alignment::Middle, 0, 5));
+
+						auto slider = new Slider(sliderPanel);
 						slider->setRange(std::make_pair(intValue->getMin(), intValue->getMax()));
 						slider->setValue(intValue->getValue());
-						slider->setCallback([intValue](float value) {
-							intValue->setValue(static_cast<int>(value));
+
+						auto textBox = new TextBox(sliderPanel);
+						textBox->setFixedSize(Vector2i(50, 20));
+						textBox->setFontSize(15);
+						textBox->setValue(std::to_string(intValue->getValue()));
+
+						slider->setCallback([intValue, textBox](float value) {
+							int v = static_cast<int>(value);
+							intValue->setValue(v);
+							});
+
+						textBox->setCallback([intValue, slider](const std::string& text) {
+							try {
+								int value = std::stoi(text);
+								intValue->setValue(value);
+								slider->setValue(value);
+							}
+							catch (...) {
+								return false;
+								// 处理无效输入
+							}
+							return true;
 							});
 					}
 					break;
 				case FloatType:
 					if (auto floatValue = dynamic_cast<FloatValue*>(value)) {
 						auto label = new Label(contentPanel, floatValue->getName());
-						auto slider = new Slider(contentPanel);
+
+						auto sliderPanel = new Widget(contentPanel);
+						sliderPanel->setLayout(new BoxLayout(Orientation::Horizontal, Alignment::Middle, 0, 5));
+
+						auto slider = new Slider(sliderPanel);
 						slider->setRange(std::make_pair(floatValue->getMin(), floatValue->getMax()));
 						slider->setValue(floatValue->getValue());
-						slider->setCallback([floatValue](float value) {
+
+						auto textBox = new TextBox(sliderPanel);
+						textBox->setFixedSize(Vector2i(50, 20));
+						textBox->setFontSize(15);
+						std::ostringstream oss;
+						oss << std::fixed << std::setprecision(2) << floatValue->getValue();
+						textBox->setValue(oss.str());
+
+						slider->setCallback([floatValue, textBox](float value) {
 							floatValue->setValue(value);
+							std::ostringstream oss;
+							oss << std::fixed << std::setprecision(2) << value;
+							std::cout << oss.str() << std::endl;
+							textBox->setValue(oss.str());
+							});
+
+						textBox->setCallback([floatValue, slider](const std::string& text) {
+							try {
+								float value = std::stof(text);
+								floatValue->setValue(value);
+								slider->setValue(value);
+							}
+							catch (...) {
+								return false;
+								// 处理无效输入
+							}
+							return true;
 							});
 					}
 					break;
