@@ -2,18 +2,20 @@
 
 #include "nanogui/Screen.h"
 #include "nanogui/FormHelper.h"
-
 #include <memory>
 
 #include <iostream>
 #include "input/IOEvents.h"
 #include "../../event/Events.h"
 #include "../Younkoo.hpp"
+#include "../features/modules/ModuleManager.h"
+
 namespace NanoGui {
 	nanogui::ref<nanogui::Screen> screen = nullptr;
-	nanogui::ref<nanogui::Window> window = nullptr;
+	std::vector<nanogui::ref<nanogui::Window>> windows = {};
 	/// \fixme @BaierOops : Notice : 因为神必原因，这个form释放不掉，因此new了之后没有delete实属迫不得已
 	nanogui::FormHelper* form = nullptr;
+	int xPos = 10;
 }
 class GUI : public nanogui::Screen {
 public:
@@ -32,23 +34,85 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 	/// dvar, bar, strvar, etc. are double/bool/string/.. variables
 	form = new nanogui::FormHelper(screen.get());
 	auto& gui = form;
-	window = gui->addWindow(Eigen::Vector2i(10, 10), "Form helper example");
-	window->setLayout(new nanogui::GroupLayout());
 	static bool bvar = false;
 	static std::string strvar = "Hello";
 	static int ivar = 22;
 	static float fvar = 1337.3367;
 	static double dvar = 13337.11333367;
-	gui->addGroup("Basic types");
-	gui->addVariable("bool", bvar);
-	gui->addVariable("string", strvar);
+	for (Category c : { Category::CLICKER, Category::COMBAT, Category::PLAYER, Category::VISUAL }) {
+		switch (c) {
+		case Category::CLICKER:
+		{
+			auto win = gui->addWindow(Eigen::Vector2i(xPos, 10), "Clicker");
+			//win->setLayout(new nanogui::GroupLayout());
+			win->setSize(nanogui::Vector2i(250, 700));
+			windows.push_back(win);
+			gui->addVariable("bool", bvar);
+			gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
+			xPos += 100;
+			break;
+		}
+		case Category::COMBAT:
+		{
+			auto win = gui->addWindow(Eigen::Vector2i(xPos, 10), "Combat");
+			//win->setLayout(new nanogui::GroupLayout());
+			win->setSize(nanogui::Vector2i(250, 700));
+			windows.push_back(win);
+			gui->addVariable("string", strvar);
+			gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
+			xPos += 100;
+			break;
+		}
+		case Category::PLAYER:
+		{
+			auto win = gui->addWindow(Eigen::Vector2i(xPos, 10), "Player");
+			//win->setLayout(new nanogui::GroupLayout());
+			win->setSize(nanogui::Vector2i(250, 700));
+			windows.push_back(win);
+			gui->addVariable("int", ivar);
+			gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
+			xPos += 100;
+			break;
+		}
+		case Category::VISUAL:
+		{
+			auto win = gui->addWindow(Eigen::Vector2i(xPos, 10), "Visual");
+			win->setSize(nanogui::Vector2i(250, 700));
+			windows.push_back(win);
+			for (auto m : ModuleManager::get().getMods()) {
+				AbstractModule* mod = ToBaseModule(m);
+				nanogui::Button* button = new nanogui::Button(win, mod->getName());
+				button->setTextColor(nanogui::Color(1.0f, 1.0f, 1.0f, 1.0f));
+				button->setBackgroundColor(mod->getToggle() ? nanogui::Color(1.0f, 0.0f, 0.0f, 1.0f) : nanogui::Color(0.0f, 0.0f, 1.0f, 1.0f));
+				button->setCallback([button, mod]() {
+					button->setBackgroundColor(mod->getToggle() ? nanogui::Color(1.0f, 0.0f, 0.0f, 1.0f) : nanogui::Color(0.0f, 0.0f, 1.0f, 1.0f));
+					});
+			}
 
-	gui->addGroup("Validating fields");
-	gui->addVariable("int", ivar);
-	gui->addVariable("float", fvar);
-	gui->addVariable("double", dvar);
+			xPos += 100;
+			break;
+		}
+		default:
+		{
+			break;
+		}
+		}
+	}
 
-	gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
+	//window = gui->addWindow(Eigen::Vector2i(10, 10), "Form helper example");
+	//window->setLayout(new nanogui::GroupLayout());
+
+	//gui->addGroup("Basic types");
+	//gui->addVariable("bool", bvar);
+	//gui->addVariable("string", strvar);
+
+	//gui->addGroup("Validating fields");
+	//gui->addVariable("int", ivar);
+	//gui->addVariable("float", fvar);
+	//gui->addVariable("double", dvar);
+
+	//gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
+
 
 	screen->setVisible(true);
 	screen->performLayout();
@@ -141,8 +205,9 @@ void NanoGui::drawContents()
 
 void NanoGui::clean()
 {
-
-	window->decRef();
+	for (auto win : windows) {
+		win->decRef();
+	}
 	screen->decRef();
 
 }
