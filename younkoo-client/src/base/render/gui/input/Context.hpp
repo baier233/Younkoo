@@ -1,33 +1,33 @@
 ﻿#pragma once
 #include <atomic>
-#define GLFW_MOD_SHIFT           0x0001
+#define CONTEXT_MOD_SHIFT           0x0001
 /*! @brief If this bit is set one or more Control keys were held down.
  *
  *  If this bit is set one or more Control keys were held down.
  */
-#define GLFW_MOD_CONTROL         0x0002
+#define CONTEXT_MOD_CONTROL         0x0002
  /*! @brief If this bit is set one or more Alt keys were held down.
   *
   *  If this bit is set one or more Alt keys were held down.
   */
-#define GLFW_MOD_ALT             0x0004
+#define CONTEXT_MOD_ALT             0x0004
   /*! @brief If this bit is set one or more Super keys were held down.
    *
    *  If this bit is set one or more Super keys were held down.
    */
-#define GLFW_MOD_SUPER           0x0008
+#define CONTEXT_MOD_SUPER           0x0008
    /*! @brief If this bit is set the Caps Lock key is enabled.
 	*
 	*  If this bit is set the Caps Lock key is enabled and the @ref
 	*  GLFW_LOCK_KEY_MODS input mode is set.
 	*/
-#define GLFW_MOD_CAPS_LOCK       0x0010
+#define CONTEXT_MOD_CAPS_LOCK       0x0010
 	/*! @brief If this bit is set the Num Lock key is enabled.
 	 *
 	 *  If this bit is set the Num Lock key is enabled and the @ref
 	 *  GLFW_LOCK_KEY_MODS input mode is set.
 	 */
-#define GLFW_MOD_NUM_LOCK        0x0020
+#define CONTEXT_MOD_NUM_LOCK        0x0020
 
 constexpr auto CALLBACK_MOUSE_BUTTON_1 = 0;
 constexpr auto CALLBACK_MOUSE_BUTTON_2 = 1;

@@ -17,17 +17,17 @@ static int getKeyMods(void)
 	int mods = 0;
 
 	if (GetKeyState(VK_SHIFT) & 0x8000)
-		mods |= GLFW_MOD_SHIFT;
+		mods |= CONTEXT_MOD_SHIFT;
 	if (GetKeyState(VK_CONTROL) & 0x8000)
-		mods |= GLFW_MOD_CONTROL;
+		mods |= CONTEXT_MOD_CONTROL;
 	if (GetKeyState(VK_MENU) & 0x8000)
-		mods |= GLFW_MOD_ALT;
+		mods |= CONTEXT_MOD_ALT;
 	if ((GetKeyState(VK_LWIN) | GetKeyState(VK_RWIN)) & 0x8000)
-		mods |= GLFW_MOD_SUPER;
+		mods |= CONTEXT_MOD_SUPER;
 	if (GetKeyState(VK_CAPITAL) & 1)
-		mods |= GLFW_MOD_CAPS_LOCK;
+		mods |= CONTEXT_MOD_CAPS_LOCK;
 	if (GetKeyState(VK_NUMLOCK) & 1)
-		mods |= GLFW_MOD_NUM_LOCK;
+		mods |= CONTEXT_MOD_NUM_LOCK;
 
 	return mods;
 }

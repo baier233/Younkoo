@@ -198,7 +198,7 @@ bool ImageView::keyboardEvent(int key, int /*scancode*/, int action, int modifie
 		switch (key) {
 		case VK_LEFT:
 			if (!mFixedOffset) {
-				if (GLFW_MOD_CONTROL & modifiers)
+				if (CONTEXT_MOD_CONTROL & modifiers)
 					moveOffset(Vector2f(30, 0));
 				else
 					moveOffset(Vector2f(10, 0));
@@ -207,7 +207,7 @@ bool ImageView::keyboardEvent(int key, int /*scancode*/, int action, int modifie
 			break;
 		case VK_RIGHT:
 			if (!mFixedOffset) {
-				if (GLFW_MOD_CONTROL & modifiers)
+				if (CONTEXT_MOD_CONTROL & modifiers)
 					moveOffset(Vector2f(-30, 0));
 				else
 					moveOffset(Vector2f(-10, 0));
@@ -216,7 +216,7 @@ bool ImageView::keyboardEvent(int key, int /*scancode*/, int action, int modifie
 			break;
 		case VK_DOWN:
 			if (!mFixedOffset) {
-				if (GLFW_MOD_CONTROL & modifiers)
+				if (CONTEXT_MOD_CONTROL & modifiers)
 					moveOffset(Vector2f(0, -30));
 				else
 					moveOffset(Vector2f(0, -10));
@@ -225,7 +225,7 @@ bool ImageView::keyboardEvent(int key, int /*scancode*/, int action, int modifie
 			break;
 		case VK_UP:
 			if (!mFixedOffset) {
-				if (GLFW_MOD_CONTROL & modifiers)
+				if (CONTEXT_MOD_CONTROL & modifiers)
 					moveOffset(Vector2f(0, 30));
 				else
 					moveOffset(Vector2f(0, 10));
