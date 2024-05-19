@@ -43,6 +43,11 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	renderer.OriginalGLContext = wglGetCurrentContext();
 	renderer.HandleDeviceContext = hdc;
 
+	static LONG winWidth = {};
+	static LONG winHeight = {};
+
+	static float devicePixelRatio = {};
+
 	if (!renderer.Initialized) {
 		GLint viewport[4]{};
 		glGetIntegerv(GL_VIEWPORT, viewport);
@@ -62,14 +67,31 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 		wglCopyContext(renderer.OriginalGLContext, renderer.MenuGLContext, GL_ALL_ATTRIB_BITS);
 		// Change Current Context to my mirror context.
 		wglMakeCurrent(hdc, renderer.MenuGLContext);
+		devicePixelRatio = Wnd::get_pixel_ratio(renderer.HandleWindow);
+
 		// Init Nanovg Context in my mirror context
 		NanoVGHelper::InitContext(renderer.HandleWindow);
+		RECT area;
+		GetClientRect(renderer.HandleWindow, &area);
+
+		winWidth = area.right;
+		winHeight = area.bottom;
+
+		winWidth = static_cast<int>(static_cast<float>(winWidth) / devicePixelRatio);
+		winHeight = static_cast<int>(static_cast<float>(winHeight) / devicePixelRatio);
 
 		WndProcHook::Init(renderer.HandleWindow);
 		NanoGui::Init(renderer.HandleWindow, hdc, NanoVGHelper::Context);
 		// Change it back to Minecraft's opengl context.
 		wglMakeCurrent(renderer.HandleDeviceContext, renderer.OriginalGLContext);
 
+		GetClientRect(renderer.HandleWindow, &area);
+
+		winWidth = area.right;
+		winHeight = area.bottom;
+
+		winWidth = static_cast<int>(static_cast<float>(winWidth) / devicePixelRatio);
+		winHeight = static_cast<int>(static_cast<float>(winHeight) / devicePixelRatio);
 		renderer.Initialized = true;
 	}
 	else if (WndProcHook::RESIZED) {
@@ -82,17 +104,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
 
 	// Do draw and render here.
-	RECT area;
-	GetClientRect(renderer.HandleWindow, &area);
 
-	auto winWidth = area.right;
-	auto winHeight = area.bottom;
-
-
-	static auto devicePixelRatio = Wnd::get_pixel_ratio(renderer.HandleWindow)/*(float)fbWidth / (float)winWidth*/;
-
-	winWidth = static_cast<int>(static_cast<float>(winWidth) / devicePixelRatio);
-	winHeight = static_cast<int>(static_cast<float>(winHeight) / devicePixelRatio);
 
 	/*
 	*
@@ -103,13 +115,8 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	*/
 
 	auto& vg = NanoVGHelper::Context;
-	nvgBeginFrame(vg, winWidth, winHeight, devicePixelRatio);
-	nvgSave(vg);
-
 	using namespace NanoVGHelper;
 
-	EventRender2D e{ vg, winWidth, winHeight };
-	Younkoo::get().EventBus->fire_event(e);
 
 
 
@@ -119,16 +126,16 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 		NanoGui::available = !NanoGui::available;
 	}
 
-	nvgRestore(vg);
-	nvgEndFrame(vg);
-	context.EndFrame();
-
 	if (NanoGui::available)
 	{
-		NanoGui::draw();
+		NanoGui::drawGui();
+	}
+	else {
+		NanoGui::drawContents();
 	}
 
 
+	context.EndFrame();
 	//End Drawing and Rendering and Dispatch back to minecraft's opengl context
 	wglMakeCurrent(renderer.HandleDeviceContext, renderer.OriginalGLContext);
 	return wglSwapBuffersHook.GetOrignalFunc()(hdc);

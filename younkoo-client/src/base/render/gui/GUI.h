@@ -3,9 +3,9 @@
 #include <atomic>
 namespace NanoGui {
 	void Init(void* hwnd, void* hdc, void* vg);
-	void draw();
+	void drawGui();
+	void drawContents();
 	void clean();
 	inline std::atomic<bool> available = false;
-	inline std::atomic<bool> nanoguiwantinput = false;
 }
 

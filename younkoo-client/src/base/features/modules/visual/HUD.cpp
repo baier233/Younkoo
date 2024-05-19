@@ -1,4 +1,5 @@
 ﻿#include "HUD.h"
+#include "../../../render/hooks/WndProcHook.hpp"
 
 HUD& HUD::getInstance()
 {
@@ -50,6 +51,10 @@ void HUD::onRender(const EventRender2D& e)
 {
 	ToggleCheck;
 	static int x2 = e.winWidth / static_cast<float>(2);
+	if (WndProcHook::RESIZED)
+	{
+		x2 = e.winWidth / static_cast<float>(2);
+	}
 	using namespace NanoVGHelper;
 
 	float x = 5;

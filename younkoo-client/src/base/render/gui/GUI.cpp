@@ -7,16 +7,27 @@
 
 #include <iostream>
 #include "input/IOEvents.h"
+#include "../../event/Events.h"
+#include "../Younkoo.hpp"
 namespace NanoGui {
 	nanogui::ref<nanogui::Screen> screen = nullptr;
 	nanogui::ref<nanogui::Window> window = nullptr;
+	/// \fixme @BaierOops : Notice : 因为神必原因，这个form释放不掉，因此new了之后没有delete实属迫不得已
 	nanogui::FormHelper* form = nullptr;
 }
-
+class GUI : public nanogui::Screen {
+public:
+	GUI(HWND window, HDC hdc, NVGcontext* vg, const std::string& caption) : Screen(window, hdc, vg, caption) {};
+	void drawContents() override {
+		auto vg = this->mNVGContext;
+		EventRender2D e{ vg, mSize[0], mSize[1] };
+		Younkoo::get().EventBus->fire_event(e);
+	}
+};
 
 void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 {
-	screen = new nanogui::Screen((HWND)hwnd, (HDC)hdc, (NVGcontext*)vg, "Screen");
+	screen = new GUI((HWND)hwnd, (HDC)hdc, (NVGcontext*)vg, "Screen");
 	//return screen->setSize()
 	/// dvar, bar, strvar, etc. are double/bool/string/.. variables
 	form = new nanogui::FormHelper(screen.get());
@@ -115,11 +126,17 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 
 }
 
-void NanoGui::draw()
+void NanoGui::drawGui()
 {
 	if (!available)
 		return;
 	screen->drawAll();
+}
+
+void NanoGui::drawContents()
+{
+	screen->updateContext();
+	screen->drawContentWrap();
 }
 
 void NanoGui::clean()

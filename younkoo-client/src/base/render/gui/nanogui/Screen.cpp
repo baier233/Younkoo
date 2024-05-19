@@ -128,16 +128,22 @@ void Screen::setSize(const Vector2i& size) {
 
 void Screen::drawAll() {
 
+	updateContext();
+
+	glViewport(0, 0, mFBSize[0], mFBSize[1]);
+	glBindSampler(0, 0);
+
+	nvgBeginFrame(mNVGContext, mSize[0], mSize[1], mPixelRatio);
+
 	drawContents();
 	drawWidgets();
 
+	nvgEndFrame(mNVGContext);
 	//glfwSwapBuffers(mGLFWWindow);
 }
 
-void Screen::drawWidgets() {
-	if (!mVisible)
-		return;
-
+void Screen::updateContext()
+{
 	RECT area;
 	GetClientRect(mWindow, &area);
 
@@ -151,12 +157,24 @@ void Screen::drawWidgets() {
 
 	mSize = (mSize.cast<float>() / mPixelRatio).cast<int>();
 	mFBSize = (mSize.cast<float>() * mPixelRatio).cast<int>();
+}
 
+void Screen::drawContentWrap()
+{
 
 	glViewport(0, 0, mFBSize[0], mFBSize[1]);
 	glBindSampler(0, 0);
 
 	nvgBeginFrame(mNVGContext, mSize[0], mSize[1], mPixelRatio);
+	this->drawContents();
+	nvgEndFrame(mNVGContext);
+}
+
+void Screen::drawWidgets() {
+	if (!mVisible)
+		return;
+
+
 
 	draw(mNVGContext);
 
@@ -219,7 +237,6 @@ void Screen::drawWidgets() {
 		}
 	}
 
-	nvgEndFrame(mNVGContext);
 }
 
 bool Screen::keyboardEvent(int key, int scancode, int action, int modifiers) {

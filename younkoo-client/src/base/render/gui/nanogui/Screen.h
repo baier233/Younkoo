@@ -106,6 +106,8 @@ NAMESPACE_BEGIN(nanogui)
 		/// Draw the Screen contents
 		virtual void drawAll();
 
+		virtual void updateContext();
+		void drawContentWrap();
 		/// Draw the window contents --- put your OpenGL draw calls here
 		virtual void drawContents() { /* To be overridden */ }
 

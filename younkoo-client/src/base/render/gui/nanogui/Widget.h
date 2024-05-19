@@ -245,6 +245,7 @@ public:
 	/// Restore the state of the widget from the given \ref Serializer instance
 	virtual bool load(Serializer& s);
 
+	Vector2i mPos, mSize, mFixedSize;
 protected:
 	/// Free all resources used by the widget and any children
 	virtual ~Widget();
@@ -266,7 +267,6 @@ protected:
 	ref<Theme> mTheme;
 	ref<Layout> mLayout;
 	std::string mId;
-	Vector2i mPos, mSize, mFixedSize;
 	std::vector<Widget*> mChildren;
 
 	/**
