@@ -4,14 +4,14 @@
 #include <memory>
 #include <Windows.h>
 
-typedef void (*CallBackcursorposfun)(HWND, double, double);
-typedef void (*CallBackmousebuttonfun)(HWND, int, int, int);
-typedef void (*CallBackkeyfun)(HWND, int, int, int, int);
-typedef void (*CallBackcharfun)(HWND, uint32_t);
-typedef void (*CallBackdropfun)(HWND, int, const char**);
-typedef void (*CallBackscrollfun)(HWND, double, double);
-typedef void (*CallBackwindowsizefun)(HWND, int, int);
-typedef void (*CallBackwindowsetfoucs)(HWND, bool);
+typedef bool (*CallBackcursorposfun)(HWND, double, double);
+typedef bool (*CallBackmousebuttonfun)(HWND, int, int, int);
+typedef bool (*CallBackkeyfun)(HWND, int, int, int, int);
+typedef bool (*CallBackcharfun)(HWND, uint32_t);
+typedef bool (*CallBackdropfun)(HWND, int, const char**);
+typedef bool (*CallBackscrollfun)(HWND, double, double);
+typedef bool (*CallBackwindowsizefun)(HWND, int, int);
+typedef bool (*CallBackwindowsetfoucs)(HWND, bool);
 
 namespace YounkooIO {
 	enum EventType

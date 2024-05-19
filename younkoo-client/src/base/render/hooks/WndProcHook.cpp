@@ -53,7 +53,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			int x = GET_X_LPARAM(lParam);
 			int y = GET_Y_LPARAM(lParam);
-			YounkooCursorPosCallback(hWnd, x, y);
+			if (YounkooCursorPosCallback(hWnd, x, y))return 1;
 		}
 		break;
 	case WM_LBUTTONDOWN:
@@ -64,7 +64,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			int button = (message == WM_LBUTTONDOWN) ? CALLBACK_MOUSE_BUTTON_LEFT :
 				(message == WM_RBUTTONDOWN) ? CALLBACK_MOUSE_BUTTON_RIGHT :
 				CALLBACK_MOUSE_BUTTON_MIDDLE;
-			YounkooMouseButtonCallback(hWnd, button, CALLBACK_PRESS, getKeyMods());
+			if (YounkooMouseButtonCallback(hWnd, button, CALLBACK_PRESS, getKeyMods()))return 1;
 		}
 		break;
 	case WM_LBUTTONUP:
@@ -75,7 +75,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			int button = (message == WM_LBUTTONUP) ? CALLBACK_MOUSE_BUTTON_LEFT :
 				(message == WM_RBUTTONUP) ? CALLBACK_MOUSE_BUTTON_RIGHT :
 				CALLBACK_MOUSE_BUTTON_MIDDLE;
-			YounkooMouseButtonCallback(hWnd, button, CALLBACK_RELEASE, getKeyMods());
+			if (YounkooMouseButtonCallback(hWnd, button, CALLBACK_RELEASE, getKeyMods()))return 1;
 		}
 		break;
 	case WM_KEYDOWN:
@@ -85,7 +85,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			int key = static_cast<int>(wParam);
 			int scancode = (lParam >> 16) & 0x1FF;
 			int action = CALLBACK_PRESS;
-			YounkooKeyCallback(hWnd, key, scancode, action, getKeyMods());
+			if (YounkooKeyCallback(hWnd, key, scancode, action, getKeyMods()))return 1;
 		}
 		break;
 	case WM_KEYUP:
@@ -95,7 +95,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			int key = static_cast<int>(wParam);
 			int scancode = (lParam >> 16) & 0x1FF;
 			int action = CALLBACK_RELEASE;
-			YounkooKeyCallback(hWnd, key, scancode, action, getKeyMods());
+			if (YounkooKeyCallback(hWnd, key, scancode, action, getKeyMods()))return 1;
 		}
 		break;
 	case WM_CHAR:
@@ -123,7 +123,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			highSurrogate = 0;
 			if (message != WM_SYSCHAR)
 			{
-				YounkooCharCallback(hWnd, codepoint);
+				if (YounkooCharCallback(hWnd, codepoint))return 1;
 			}
 			//_glfwInputChar(window, codepoint, getKeyMods(), uMsg != WM_SYSCHAR);
 		}
@@ -140,7 +140,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		}
 
-		YounkooCharCallback(hWnd, (uint32_t)wParam);
+		if (YounkooCharCallback(hWnd, (uint32_t)wParam))return 1;
 		break;
 	}
 	case WM_DROPFILES:
@@ -155,7 +155,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				filenames[i] = new WCHAR[length + 1];
 				DragQueryFileW(hDrop, i, filenames[i], length + 1);
 			}
-			YounkooDropCallback(hWnd, count, (const char**)filenames);
+			if (YounkooDropCallback(hWnd, count, (const char**)filenames))return 1;
 			for (int i = 0; i < count; i++)
 			{
 				delete[] filenames[i];
@@ -169,7 +169,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			double xoffset = GET_WHEEL_DELTA_WPARAM(wParam) / WHEEL_DELTA;
 			double yoffset = 0;
-			YounkooScrollCallback(hWnd, xoffset, yoffset);
+			if (YounkooScrollCallback(hWnd, xoffset, yoffset))return 1;
 		}
 		break;
 	case WM_MOUSEWHEEL:
@@ -177,7 +177,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			double xoffset = 0;
 			double yoffset = GET_WHEEL_DELTA_WPARAM(wParam) / WHEEL_DELTA;
-			YounkooScrollCallback(hWnd, xoffset, yoffset);
+			if (YounkooScrollCallback(hWnd, xoffset, yoffset))return 1;
 		}
 		break;
 	case WM_SIZE:
@@ -185,19 +185,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			int width = LOWORD(lParam);
 			int height = HIWORD(lParam);
-			YounkooWindowSizeCallback(hWnd, width, height);
+			if (YounkooWindowSizeCallback(hWnd, width, height))return 1;
 		}
 		break;
 	case WM_SETFOCUS:
 		if (YounkooWindowFocusCallback)
 		{
-			YounkooWindowFocusCallback(hWnd, true);
+			if (YounkooWindowFocusCallback(hWnd, true))return 1;
 		}
 		break;
 	case WM_KILLFOCUS:
 		if (YounkooWindowFocusCallback)
 		{
-			YounkooWindowFocusCallback(hWnd, false);
+			if (YounkooWindowFocusCallback(hWnd, false))return 1;
 		}
 		break;
 	default:
@@ -223,8 +223,9 @@ static WNDPROC SetCallbacks(HWND hWnd)
 			if (x < 0)
 				x = 0;
 
-			YounkooIO::IOEvents.IOEventsCursorPosCallback(window, x, y);
+			return YounkooIO::IOEvents.IOEventsCursorPosCallback(window, x, y);
 		}
+		return false;
 		//context.MousePos = Vector2D(x, y);
 
 		};
@@ -237,8 +238,9 @@ static WNDPROC SetCallbacks(HWND hWnd)
 
 		if (YounkooIO::IOEvents.IOEventsMouseButtonCallback)
 		{
-			YounkooIO::IOEvents.IOEventsMouseButtonCallback(window, button, action, mods);
+			return YounkooIO::IOEvents.IOEventsMouseButtonCallback(window, button, action, mods);
 		}
+		return false;
 		/*if (action == CALLBACK_PRESS) context.MouseDown[button] = true;
 		if (action == CALLBACK_RELEASE) context.MouseDown[button] = false;*/
 		};
@@ -268,21 +270,23 @@ static WNDPROC SetCallbacks(HWND hWnd)
 		}
 		if (YounkooIO::IOEvents.IOEventsKeyCallback)
 		{
-			YounkooIO::IOEvents.IOEventsKeyCallback(window, key, scancode, action, mods);
+			return YounkooIO::IOEvents.IOEventsKeyCallback(window, key, scancode, action, mods);
 		}
+		return false;
 
 		};
 
 	YounkooCharCallback = [](HWND window, uint32_t codepoint) {
 		if (codepoint < 32 || (codepoint > 126 && codepoint < 160))
-			return;
+			return false;
 
 		std::shared_ptr<YounkooIO::IOEvent> event = std::make_shared<YounkooIO::CharEvent>(window, codepoint);
 		YounkooIO::IOEvents.push(event);
 		if (YounkooIO::IOEvents.IOEventsCharCallback)
 		{
-			YounkooIO::IOEvents.IOEventsCharCallback(window, codepoint);
+			return YounkooIO::IOEvents.IOEventsCharCallback(window, codepoint);
 		}
+		return false;
 		// 字符输入回调
 		//context.KeyQueue.push_back(codepoint);
 		};
@@ -291,8 +295,9 @@ static WNDPROC SetCallbacks(HWND hWnd)
 
 		if (YounkooIO::IOEvents.IOEventsDropCallback)
 		{
-			YounkooIO::IOEvents.IOEventsDropCallback(window, count, filenames);
+			return YounkooIO::IOEvents.IOEventsDropCallback(window, count, filenames);
 		}
+		return false;
 		// 文件拖放回调
 		};
 
@@ -302,8 +307,9 @@ static WNDPROC SetCallbacks(HWND hWnd)
 		YounkooIO::IOEvents.push(event);
 		if (YounkooIO::IOEvents.IOEventsScrollCallback)
 		{
-			YounkooIO::IOEvents.IOEventsScrollCallback(window, xoffset, yoffset);
+			return YounkooIO::IOEvents.IOEventsScrollCallback(window, xoffset, yoffset);
 		}
+		return false;
 		// 滚动鼠标回调
 		//context.MouseWheel += yoffset;
 		//context.MouseWheelH += xoffset;
@@ -317,8 +323,9 @@ static WNDPROC SetCallbacks(HWND hWnd)
 		WndProcHook::RESIZED = true;
 		if (YounkooIO::IOEvents.IOEventsWindowSizeCallback)
 		{
-			YounkooIO::IOEvents.IOEventsWindowSizeCallback(window, width, height);
+			return YounkooIO::IOEvents.IOEventsWindowSizeCallback(window, width, height);
 		}
+		return false;
 		};
 
 	return (WNDPROC_T)SetWindowLongPtrW(hWnd, GWLP_WNDPROC, (LONG_PTR)WndProc);

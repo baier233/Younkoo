@@ -17,7 +17,7 @@ namespace NanoGui {
 void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 {
 	screen = new nanogui::Screen((HWND)hwnd, (HDC)hdc, (NVGcontext*)vg, "Screen");
-	//screen->setSize()
+	//return screen->setSize()
 	/// dvar, bar, strvar, etc. are double/bool/string/.. variables
 	form = new nanogui::FormHelper(screen.get());
 	auto& gui = form;
@@ -46,42 +46,48 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 		[](HWND w, double x, double y) {
 			//std::cout << "X :" << x << " Y :" << y << std::endl;
 			if (NanoGui::available)
-				screen->cursorPosCallbackEvent(x, y);
+				return screen->cursorPosCallbackEvent(x, y);
+			return false;
 		}
 	);
 
 	YounkooIO::IOEvents.SetMouseButtonCallback(
 		[](HWND w, int button, int action, int modifiers) {
 			if (NanoGui::available)
-				screen->mouseButtonCallbackEvent(button, action, modifiers);
+				return screen->mouseButtonCallbackEvent(button, action, modifiers);
+			return false;
 		}
 	);
 
 	YounkooIO::IOEvents.SetKeyCallback(
 		[](HWND w, int key, int scancode, int action, int mods) {
 			if (NanoGui::available)
-				screen->keyCallbackEvent(key, scancode, action, mods);
+				return screen->keyCallbackEvent(key, scancode, action, mods);
+			return false;
 		}
 	);
 
 	YounkooIO::IOEvents.SetCharCallback(
 		[](HWND w, uint32_t codepoint) {
 			if (NanoGui::available)
-				screen->charCallbackEvent(codepoint);
+				return screen->charCallbackEvent(codepoint);
+			return false;
 		}
 	);
 
 	YounkooIO::IOEvents.SetDropCallback(
 		[](HWND w, int count, const char** filenames) {
 			if (NanoGui::available)
-				screen->dropCallbackEvent(count, filenames);
+				return screen->dropCallbackEvent(count, filenames);
+			return false;
 		}
 	);
 
 	YounkooIO::IOEvents.SetScrollCallback(
 		[](HWND w, double x, double y) {
 			if (NanoGui::available)
-				screen->scrollCallbackEvent(x, y);
+				return screen->scrollCallbackEvent(x, y);
+			return false;
 		}
 	);
 
@@ -92,7 +98,8 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 	YounkooIO::IOEvents.SetWindowSizeCallback(
 		[](HWND w, int width, int height) {
 			if (NanoGui::available)
-				screen->resizeCallbackEvent(width, height);
+				return screen->resizeCallbackEvent(width, height);
+			return false;
 		}
 	);
 
@@ -100,7 +107,8 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 	YounkooIO::IOEvents.SetWindowFoucsCallback(
 		[](HWND w, bool focused) {
 			if (NanoGui::available)
-				screen->focusEvent(focused);
+				return screen->focusEvent(focused);
+			return false;
 			// focused: 0 when false, 1 when true
 		}
 	);

@@ -6,5 +6,6 @@ namespace NanoGui {
 	void draw();
 	void clean();
 	inline std::atomic<bool> available = false;
+	inline std::atomic<bool> nanoguiwantinput = false;
 }
 
