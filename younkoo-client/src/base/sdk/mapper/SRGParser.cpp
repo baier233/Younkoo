@@ -2,6 +2,7 @@
 #include "resources/maps/forge189.h"
 #include "resources/maps/vanilla189.h"
 #include "resources/maps/forge1181.h"
+#include "resources/maps/forge1204.h"
 #include "resources/maps/forge112.h"
 #include "resources/maps/vanilla112.h"
 
@@ -68,7 +69,7 @@ void SRGParser::SetVersion(Versions ver)
 	case Versions::FORGE_1_8_9: this->Init(forge189, forge189_size, false); break;
 	case Versions::VANILLA_1_8_9:this->Init(vanilla189, vanilla189_size, false); break;
 	case Versions::FORGE_1_18_1: this->Init(forge1181, forge1181_size, true); break;
-
+	case Versions::FORGE_1_20_4: this->Init(forge1181, forge1181_size, true); break;
 	case Versions::FORGE_1_12_2: this->Init(forge112, forge112_size, true); break;
 	case Versions::VANILLA_1_12_2: this->Init(vanilla112, vanilla112_size, true); break;
 

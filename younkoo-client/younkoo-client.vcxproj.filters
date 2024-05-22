@@ -458,10 +458,16 @@
     <ClInclude Include="src\base\features\modules\fight\RightClicker.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\base\sdk\mapper\resources\maps\forge1204.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\render\gui\input\IOEvents.h">
       <Filter>头文件</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\base\sdk\mapper\resources\maps\forge1204.srg" />
   </ItemGroup>
 </Project>

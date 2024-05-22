@@ -268,6 +268,7 @@
     <ClInclude Include="src\base\features\modules\fight\RightClicker.h" />
     <ClInclude Include="src\base\render\gui\GUI.h" />
     <ClInclude Include="src\base\features\modules\fight\AutoClicker.h" />
+    <ClInclude Include="src\base\sdk\mapper\resources\maps\forge1204.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\AbstractClientPlayer.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\LivingEntity.h" />
@@ -348,6 +349,9 @@
     <ClInclude Include="src\utils\types\Maths.hpp" />
     <ClInclude Include="src\base\sdk\mapper\SRGParser.h" />
     <ClInclude Include="src\utils\Wnd.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\base\sdk\mapper\resources\maps\forge1204.srg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
