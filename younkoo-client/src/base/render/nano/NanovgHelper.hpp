@@ -9,6 +9,9 @@ class NVGcontext;
 #include <vector>
 #include <memory>
 #include <list>
+
+#include <GL/glew.h>
+
 enum class GradientDirection {
 	DOWN,
 	UP,
@@ -39,66 +42,102 @@ public:
 		return x >= this->x && x <= this->x + this->width && y >= this->y && y <= this->y + this->height;
 	}
 };
+
+namespace MaskHelper {
+	inline void defineMask() {
+		glDepthMask(GL_TRUE);
+		glClearDepth(1);
+		glClear(GL_DEPTH_BUFFER_BIT);
+		glDepthFunc(GL_ALWAYS);
+		glEnable(GL_DEPTH_TEST);
+		glDepthMask(GL_TRUE);
+		glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+	}
+
+	inline void finishDefineMask() {
+		glDepthMask(GL_FALSE);
+		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+	}
+
+	inline void drawOnMask() {
+		glDepthFunc(GL_EQUAL);
+	}
+
+	inline void drawOffMask() {
+		glDepthFunc(GL_NOTEQUAL);
+	}
+
+	inline void resetMask() {
+		glDepthMask(GL_TRUE);
+		glClearDepth(0);
+		glClear(GL_DEPTH_BUFFER_BIT);
+		glDepthMask(GL_FALSE);
+		glDisable(GL_DEPTH_TEST);
+	}
+}
+
+class ScissorHelperImpl {
+	std::list<std::vector<std::shared_ptr<Scissor>>> previousScissors;
+	std::vector<std::shared_ptr<Scissor>> scissors;
+
+public:
+	std::shared_ptr<Scissor> scissor(NVGcontext* vg, float x, float y, float width, float height) {
+		auto scissor = std::make_shared<Scissor>(x, y, width, height);
+		if (std::find(scissors.begin(), scissors.end(), scissor) != scissors.end()) return scissor;
+		scissors.push_back(scissor);
+		applyScissors(vg);
+		return scissor;
+	}
+
+	void resetScissor(NVGcontext* vg, std::shared_ptr<Scissor> scissor) {
+		auto it = std::find(scissors.begin(), scissors.end(), scissor);
+		if (it != scissors.end()) {
+			scissors.erase(it);
+			applyScissors(vg);
+		}
+	}
+
+	void clearScissors(NVGcontext* vg) {
+		scissors.clear();
+		nvgResetScissor(vg);
+	}
+
+	void save() {
+		previousScissors.push_back(scissors);
+	}
+
+	void restore(NVGcontext* vg) {
+		scissors = previousScissors.front();
+		previousScissors.pop_front();
+		applyScissors(vg);
+	}
+
+private:
+	void applyScissors(NVGcontext* vg) {
+		nvgResetScissor(vg);
+		if (scissors.size() == 0) return;
+		std::shared_ptr<Scissor> finalScissor = getFinalScissor(scissors);
+		nvgScissor(vg, finalScissor->x, finalScissor->y, finalScissor->width, finalScissor->height);
+	}
+
+	std::shared_ptr<Scissor> getFinalScissor(const std::vector<std::shared_ptr<Scissor>>& scissors) {
+		auto finalScissor = Scissor(*scissors.at(0).get());
+		for (int i = 1; i < scissors.size(); i++) {
+			auto scissor = scissors.at(i);
+			float rightX = std::min(scissor->x + scissor->width, finalScissor.x + finalScissor.width);
+			float rightY = std::min(scissor->y + scissor->height, finalScissor.y + finalScissor.height);
+			finalScissor.x = std::max(finalScissor.x, scissor->x);
+			finalScissor.y = std::max(finalScissor.y, scissor->y);
+			finalScissor.width = rightX - finalScissor.x;
+			finalScissor.height = rightY - finalScissor.y;
+		}
+		return std::make_shared<Scissor>(finalScissor);
+	}
+};
+
 namespace NanoVGHelper {
 
-	class ScissorHelperImpl {
-		std::list<std::vector<std::shared_ptr<Scissor>>> previousScissors;
-		std::vector<std::shared_ptr<Scissor>> scissors;
 
-	public:
-		std::shared_ptr<Scissor> scissor(NVGcontext* vg, float x, float y, float width, float height) {
-			auto scissor = std::make_shared<Scissor>(x, y, width, height);
-			if (std::find(scissors.begin(), scissors.end(), scissor) != scissors.end()) return scissor;
-			scissors.push_back(scissor);
-			applyScissors(vg);
-			return scissor;
-		}
-
-		void resetScissor(NVGcontext* vg, std::shared_ptr<Scissor> scissor) {
-			auto it = std::find(scissors.begin(), scissors.end(), scissor);
-			if (it != scissors.end()) {
-				scissors.erase(it);
-				applyScissors(vg);
-			}
-		}
-
-		void clearScissors(NVGcontext* vg) {
-			scissors.clear();
-			nvgResetScissor(vg);
-		}
-
-		void save() {
-			previousScissors.push_back(scissors);
-		}
-
-		void restore(NVGcontext* vg) {
-			scissors = previousScissors.front();
-			previousScissors.pop_front();
-			applyScissors(vg);
-		}
-
-	private:
-		void applyScissors(NVGcontext* vg) {
-			nvgResetScissor(vg);
-			if (scissors.size() == 0) return;
-			std::shared_ptr<Scissor> finalScissor = getFinalScissor(scissors);
-			nvgScissor(vg, finalScissor->x, finalScissor->y, finalScissor->width, finalScissor->height);
-		}
-
-		std::shared_ptr<Scissor> getFinalScissor(const std::vector<std::shared_ptr<Scissor>>& scissors) {
-			auto finalScissor = Scissor(*scissors.at(0).get());
-			for (int i = 1; i < scissors.size(); i++) {
-				auto scissor = scissors.at(i);
-				float rightX = std::min(scissor->x + scissor->width, finalScissor.x + finalScissor.width);
-				float rightY = std::min(scissor->y + scissor->height, finalScissor.y + finalScissor.height);
-				finalScissor.x = std::max(finalScissor.x, scissor->x);
-				finalScissor.y = std::max(finalScissor.y, scissor->y);
-				finalScissor.width = rightX - finalScissor.x;
-				finalScissor.height = rightY - finalScissor.y;
-			}
-			return std::make_shared<Scissor>(finalScissor);
-		}
-	};
 
 
 
