@@ -10,5 +10,5 @@ bool Renderer::Init()
 
 bool Renderer::Shutdown()
 {
-	return OpenGLHook::Clean() && wglDeleteContext(MenuGLContext);
+	return OpenGLHook::Clean() && wglDeleteContext(renderContext.MenuGLContext);
 }

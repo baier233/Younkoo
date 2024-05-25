@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -161,9 +161,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\base\features\modules\fight\RightClicker.cpp" />
+    <ClCompile Include="src\base\features\modules\combat\AimAssist.cpp" />
+    <ClCompile Include="src\base\features\modules\player\AntiBot.cpp" />
+    <ClCompile Include="src\base\features\modules\visual\ESP.cpp" />
+    <ClCompile Include="src\base\features\modules\player\Eagle.cpp" />
+    <ClCompile Include="src\base\features\modules\player\FastPlace.cpp" />
+    <ClCompile Include="src\base\features\modules\combat\KillAura.cpp" />
     <ClCompile Include="src\base\render\gui\GUI.cpp" />
-    <ClCompile Include="src\base\features\modules\fight\AutoClicker.cpp" />
+    <ClCompile Include="src\base\features\modules\combat\AutoClicker.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\AbstractClientPlayer.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\LivingEntity.cpp" />
@@ -221,6 +226,8 @@
     <ClCompile Include="src\utils\Structs.hpp" />
     <ClCompile Include="src\base\render\hooks\WndProcHook.cpp" />
     <ClCompile Include="src\base\sdk\mapper\SRGParser.cpp" />
+    <ClCompile Include="src\base\features\modules\combat\Velocity.cpp" />
+    <ClCompile Include="src\base\features\modules\player\Team.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\base\jvm\jni\types\Array.hpp">
@@ -265,7 +272,12 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
-    <ClInclude Include="src\base\features\modules\fight\RightClicker.h" />
+    <ClInclude Include="src\base\features\modules\combat\AimAssist.h" />
+    <ClInclude Include="src\base\features\modules\player\AntiBot.h" />
+    <ClInclude Include="src\base\features\modules\visual\ESP.h" />
+    <ClInclude Include="src\base\features\modules\player\Eagle.h" />
+    <ClInclude Include="src\base\features\modules\player\FastPlace.h" />
+    <ClInclude Include="src\base\features\modules\combat\KillAura.h" />
     <ClInclude Include="src\base\render\gui\GUI.h" />
     <ClInclude Include="src\base\features\modules\fight\AutoClicker.h" />
     <ClInclude Include="src\base\sdk\mapper\resources\maps\forge1204.h" />
@@ -349,6 +361,8 @@
     <ClInclude Include="src\utils\types\Maths.hpp" />
     <ClInclude Include="src\base\sdk\mapper\SRGParser.h" />
     <ClInclude Include="src\utils\Wnd.h" />
+    <ClInclude Include="src\base\features\modules\combat\Velocity.h" />
+    <ClInclude Include="src\base\features\modules\player\Team.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\base\sdk\mapper\resources\maps\forge1204.srg" />

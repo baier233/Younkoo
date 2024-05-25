@@ -192,7 +192,7 @@
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\HitResult_Type.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\features\modules\fight\AutoClicker.cpp">
+    <ClCompile Include="src\base\features\modules\combat\AutoClicker.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\LivingEntity.cpp">
@@ -207,7 +207,28 @@
     <ClCompile Include="src\base\render\gui\GUI.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\features\modules\fight\RightClicker.cpp">
+    <ClCompile Include="src\base\features\modules\combat\Velocity.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\features\modules\combat\KillAura.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\features\modules\player\FastPlace.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\features\modules\player\Eagle.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\features\modules\player\Team.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\features\modules\player\AntiBot.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\features\modules\visual\ESP.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\features\modules\combat\AimAssist.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -437,7 +458,7 @@
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\HitResult_Type.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\features\modules\fight\AutoClicker.h">
+    <ClInclude Include="src\base\features\modules\combat\AutoClicker.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\LivingEntity.h">
@@ -455,7 +476,28 @@
     <ClInclude Include="src\utils\Wnd.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\features\modules\fight\RightClicker.h">
+    <ClInclude Include="src\base\features\modules\combat\Velocity.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\modules\combat\KillAura.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\modules\player\FastPlace.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\modules\player\Eagle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\modules\player\Team.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\modules\player\AntiBot.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\modules\visual\ESP.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\modules\combat\AimAssist.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\mapper\resources\maps\forge1204.h">

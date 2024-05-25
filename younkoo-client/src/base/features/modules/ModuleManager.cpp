@@ -1,7 +1,13 @@
 ﻿#include <iostream>
 #include <vector>
 #include "ModuleManager.h"
-#include "fight/RightClicker.h"
+
+//Combat
+#include "combat/AutoClicker.h"
+
+//Visual
+#include "visual/HUD.h"
+
 ModuleManager::ModuleManager() {
 
 }
@@ -55,9 +61,14 @@ std::vector<HMOD> ModuleManager::getMods()
 
 bool ModuleManager::LoadModules()
 {
-	this->addModule<HUD>(&HUD::getInstance());
-	this->addModule<AutoClicker>(&AutoClicker::getInstance());
-	this->addModule<RClick>(&RClick::getInstance());
+	{/*Visual*/
+		this->addModule<HUD>(&HUD::getInstance());
+	}
+
+	{/*Combat*/
+
+		this->addModule<AutoClicker>(&AutoClicker::getInstance());
+	}
 	return true;
 }
 

@@ -47,6 +47,40 @@ static std::string Wide2Utf8(const std::wstring& str) {
 	WideCharToMultiByte(CP_UTF8, 0, str.c_str(), -1, &utf8Str[0], sizeRequired, NULL, NULL);
 	return utf8Str;
 }
+void NanoVGHelper::drawRect(NVGcontext* vg, float x, float y, float width, float height, int color)
+{
+	nvgBeginPath(vg);
+	nvgRect(vg, x, y, width, height);
+	NVGcolor nvgColor = nvgFillColorEx(vg, color);
+	nvgFill(vg);
+}
+void NanoVGHelper::drawHollowRoundRect(NVGcontext* vg, float x, float y, float width, float height, int color, float radius, float thickness)
+{
+	nvgBeginPath(vg);
+	nvgRoundedRect(vg, x + thickness, y + thickness, width - thickness, height - thickness, radius);
+	nvgStrokeWidth(vg, thickness + 0.5f);
+	nvgPathWinding(vg, NVG_HOLE);
+	NVGcolor nvgColor = nvgFillColorEx(vg, color);
+	nvgStrokeColor(vg, nvgColor);
+	nvgStroke(vg);
+}
+void NanoVGHelper::drawRoundedRectVaried(NVGcontext* vg, float x, float y, float width, float height, int color, float radiusTL, float radiusTR, float radiusBR, float radiusBL)
+{
+	nvgBeginPath(vg);
+	nvgRoundedRectVarying(vg, x, y, width, height, radiusTL, radiusTR, radiusBR, radiusBL);
+	NVGcolor nvgColor = nvgFillColorEx(vg, color);
+	nvgFill(vg);
+}
+void NanoVGHelper::drawGradientRoundedRect(NVGcontext* vg, float x, float y, float width, float height, int color, int color2, float radius, GradientDirection direction)
+{
+	nvgBeginPath(vg);
+	nvgRoundedRect(vg, x, y, width, height, radius);
+	NVGcolor nvgColor = nvgFillColorEx(vg, color);
+	NVGcolor nvgColor2 = nvgFillColorEx(vg, color2);
+	auto pts = getValues(x, y, width, height, direction);
+	nvgFillPaint(vg, nvgLinearGradient(vg, pts[0], pts[1], pts[2], pts[3], nvgColor, nvgColor2));
+	nvgFill(vg);
+}
 void NanoVGHelper::nvgTextW(NVGcontext* vg, const std::wstring& str, int x, int y, int font, int size, NVGcolor col)
 {
 	nvgBeginPath(vg);
@@ -81,4 +115,94 @@ void NanoVGHelper::nvgTextBoundsW(NVGcontext* vg, int x, int y, const std::wstri
 {
 	auto utf8Str = Wide2Utf8(str);
 	nvgTextBounds(vg, x, y, utf8Str.c_str(), utf8Str.c_str() + utf8Str.size(), bounds);
+}
+
+void NanoVGHelper::drawRoundedRect(NVGcontext* vg, float x, float y, float width, float height, int color, float radius)
+{
+	nvgBeginPath(vg);
+	nvgRoundedRect(vg, x, y, width, height, radius);
+	nvgFillColorEx(vg, color);
+	nvgFill(vg);
+}
+
+void NanoVGHelper::drawLine(NVGcontext* vg, float x, float y, float endX, float endY, float width, int color)
+{
+	nvgBeginPath(vg);
+	nvgMoveTo(vg, x, y);
+	nvgLineTo(vg, endX, endY);
+	auto nvgColor = nvgFillColorEx(vg, color);
+	nvgStrokeColor(vg, nvgColor);
+	nvgStrokeWidth(vg, width);
+	nvgStroke(vg);
+}
+
+void NanoVGHelper::drawDropShadow(NVGcontext* vg, float x, float y, float w, float h, float blur, float spread, float cornerRadius)
+{
+	NVGcolor firstColor{};
+	NVGcolor secondColor{};
+	NVGpaint shadowPaint{};
+	fillNVGColorWithRGBA(0, 0, 0, 0.5f, firstColor); // filling allocated memory
+	fillNVGColorWithRGBA(0, 0, 0, 0, secondColor); // filling allocated memory
+
+	// creating gradient and put it to shadowPaint
+	shadowPaint = nvgBoxGradient(vg, x - spread, y - spread, w + 2 * spread, h + 2 * spread, cornerRadius + spread, blur, firstColor, secondColor);
+	nvgBeginPath(vg);
+	nvgRoundedRect(vg, x - spread - blur, y - spread - blur, w + 2 * spread + 2 * blur, h + 2 * spread + 2 * blur, cornerRadius + spread);
+	nvgRoundedRect(vg, x, y, w, h, cornerRadius);
+	nvgPathWinding(vg, NVG_HOLE);
+	nvgFillPaint(vg, shadowPaint);
+	nvgFill(vg);
+}
+
+NVGcolor NanoVGHelper::nvgFillColorEx(NVGcontext* vg, int color) {
+	auto nvgColor = nvgRGBA((byte)(color >> 16 & 0xFF), (byte)(color >> 8 & 0xFF), (byte)(color & 0xFF), (byte)(color >> 24 & 0xFF));
+	nvgFillColor(vg, nvgColor);
+	return nvgColor;
+}
+
+void NanoVGHelper::drawHollowEllipse(NVGcontext* vg, float x, float y, float radiusX, float radiusY, int color, float thickness)
+{
+	nvgBeginPath(vg);
+	nvgEllipse(vg, x, y, radiusX, radiusY);
+	nvgStrokeWidth(vg, thickness + 0.5f);
+	nvgPathWinding(vg, NVG_HOLE);
+	NVGcolor nvgColor = nvgFillColorEx(vg, color);
+	nvgStrokeColor(vg, nvgColor);
+	nvgStroke(vg);
+}
+
+void NanoVGHelper::drawEllipse(NVGcontext* vg, float x, float y, float radiusX, float radiusY, int color)
+{
+	nvgBeginPath(vg);
+	nvgEllipse(vg, x, y, radiusX, radiusY);
+	NVGcolor nvgColor = nvgFillColorEx(vg, color);
+	nvgFill(vg);
+}
+
+void NanoVGHelper::drawCircle(NVGcontext* vg, float x, float y, float radius, int color)
+{
+	nvgBeginPath(vg);
+	nvgCircle(vg, x, y, radius);
+	NVGcolor nvgColor = nvgFillColorEx(vg, color);
+	nvgFill(vg);
+}
+
+void NanoVGHelper::drawHSBBox(NVGcontext* vg, float x, float y, float width, float height, int colorTarget)
+{
+	drawRoundedRect(vg, x, y, width, height, colorTarget, 8.f);
+
+	NVGpaint bg{};
+	nvgBeginPath(vg);
+	nvgRoundedRect(vg, x, y, width, height, 8.f);
+	NVGcolor nvgColor = nvgFillColorEx(vg, -1);
+	NVGcolor nvgColor2 = nvgFillColorEx(vg, 0);
+	nvgFillPaint(vg, nvgLinearGradient(vg, x, y, x + width, y, nvgColor, nvgColor2));
+	nvgFill(vg);
+
+	nvgBeginPath(vg);
+	nvgRoundedRect(vg, x, y, width, height, 8.f);
+	NVGcolor nvgColor3 = nvgFillColorEx(vg, 0);
+	NVGcolor nvgColor4 = nvgFillColorEx(vg, 255);
+	nvgFillPaint(vg, nvgLinearGradient(vg, x, y, x, y + height, nvgColor3, nvgColor4));
+	nvgFill(vg);
 }

@@ -344,9 +344,6 @@ bool Screen::mouseButtonCallbackEvent(int button, int action, int modifiers) {
 			if (mDragWidget == this) {
 				mDragWidget = nullptr;
 			}
-			else {
-				std::cout << "HIt" << std::endl;
-			}
 			mDragActive = mDragWidget != nullptr;
 			if (!mDragActive)
 				updateFocus(nullptr);

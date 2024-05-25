@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <string>
 #include <windows.h>
 #include "..\values\Value.h"
@@ -13,9 +13,10 @@
 #define NoAssignOperator(_Class) _Class& operator=(const _Class&) = delete
 
 enum class Category : unsigned int {
-	CLICKER = 1,
-	COMBAT,
+	COMBAT = 1,
+	MOVEMENT,
 	PLAYER,
+	MISC,
 	VISUAL
 	//safeDestruct
 };

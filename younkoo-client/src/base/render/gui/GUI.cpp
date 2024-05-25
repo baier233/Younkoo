@@ -124,7 +124,6 @@ void createWindow(int xPos, const std::string& title, Category category) {
 							floatValue->setValue(value);
 							std::ostringstream oss;
 							oss << std::fixed << std::setprecision(2) << value;
-							std::cout << oss.str() << std::endl;
 							textBox->setValue(oss.str());
 							});
 
@@ -189,24 +188,27 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 	auto& gui = form;
 	int xPos = 10;
 
-	for (Category c : { Category::CLICKER, Category::COMBAT, Category::PLAYER, Category::VISUAL }) {
+	for (Category c : { Category::COMBAT, Category::MOVEMENT, Category::PLAYER, Category::MISC, Category::VISUAL }) {
 		switch (c) {
-		case Category::CLICKER:
-			createWindow(xPos, "Clicker", Category::CLICKER);
-			break;
 		case Category::COMBAT:
-			createWindow(xPos, "Combat", Category::COMBAT);
+			createWindow(xPos, "Combat", c);
+			break;
+		case Category::MOVEMENT:
+			createWindow(xPos, "Movement", c);
 			break;
 		case Category::PLAYER:
-			createWindow(xPos, "Player", Category::PLAYER);
+			createWindow(xPos, "Player", c);
+			break;
+		case Category::MISC:
+			createWindow(xPos, "Misc", c);
 			break;
 		case Category::VISUAL:
-			createWindow(xPos, "Visual", Category::VISUAL);
+			createWindow(xPos, "Visual", c);
 			break;
 		default:
 			break;
 		}
-		xPos += 120;
+		xPos += 200;
 	}
 	screen->setVisible(true);
 	screen->performLayout();

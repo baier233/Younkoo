@@ -64,7 +64,6 @@ struct YounkooIOContext {
 	double MouseWheel = 0;
 	double MouseWheelH = 0;
 	bool IsDragging = false;
-	int ScreenWidth{}, ScreenHeight{};
 	std::vector<char>InputQueueCharacters;
 };
 

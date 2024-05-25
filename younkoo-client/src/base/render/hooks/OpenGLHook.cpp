@@ -40,80 +40,66 @@ static bool showMenu = false;
 bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	if (Younkoo::get().shouldShutDown) return wglSwapBuffersHook.GetOrignalFunc()(hdc);
 	auto& renderer = Renderer::get();
-	renderer.OriginalGLContext = wglGetCurrentContext();
-	renderer.HandleDeviceContext = hdc;
+	renderer.renderContext.OriginalGLContext = wglGetCurrentContext();
+	renderer.renderContext.HandleDeviceContext = hdc;
 
 	static LONG winWidth = {};
 	static LONG winHeight = {};
 
-	static float devicePixelRatio = {};
 
 	if (!renderer.Initialized) {
 		GLint viewport[4]{};
 		glGetIntegerv(GL_VIEWPORT, viewport);
-		context.ScreenWidth = viewport[2];
-		context.ScreenHeight = viewport[3];
 
-		renderer.HandleWindow = WindowFromDC(hdc);
+		renderer.renderContext.HandleWindow = WindowFromDC(hdc);
 		WCHAR className[256];
-		GetClassNameW(renderer.HandleWindow, className, sizeof(className) / sizeof(WCHAR));
+		GetClassNameW(renderer.renderContext.HandleWindow, className, sizeof(className) / sizeof(WCHAR));
 		wprintf(L"Class Name: %ls\n", className);
 
 		// Create My Mirror Context(When I rendering my own stuff,i use this context for not to impact the minecraft gl enviorment)
 
 
-		renderer.MenuGLContext = wglCreateContext(hdc);
+		renderer.renderContext.MenuGLContext = wglCreateContext(hdc);
 		// Copy Minecraft's opengl context to mine.
-		wglCopyContext(renderer.OriginalGLContext, renderer.MenuGLContext, GL_ALL_ATTRIB_BITS);
+		wglCopyContext(renderer.renderContext.OriginalGLContext, renderer.renderContext.MenuGLContext, GL_ALL_ATTRIB_BITS);
 		// Change Current Context to my mirror context.
-		wglMakeCurrent(hdc, renderer.MenuGLContext);
-		devicePixelRatio = Wnd::get_pixel_ratio(renderer.HandleWindow);
+		wglMakeCurrent(hdc, renderer.renderContext.MenuGLContext);
+		renderer.renderContext.devicePixelRatio = Wnd::get_pixel_ratio(renderer.renderContext.HandleWindow);
 
 		// Init Nanovg Context in my mirror context
-		NanoVGHelper::InitContext(renderer.HandleWindow);
+		NanoVGHelper::InitContext(renderer.renderContext.HandleWindow);
 		RECT area;
-		GetClientRect(renderer.HandleWindow, &area);
+		GetClientRect(renderer.renderContext.HandleWindow, &area);
 
 		winWidth = area.right;
 		winHeight = area.bottom;
 
-		winWidth = static_cast<int>(static_cast<float>(winWidth) / devicePixelRatio);
-		winHeight = static_cast<int>(static_cast<float>(winHeight) / devicePixelRatio);
+		winWidth = static_cast<int>(static_cast<float>(winWidth) / renderer.renderContext.devicePixelRatio);
+		winHeight = static_cast<int>(static_cast<float>(winHeight) / renderer.renderContext.devicePixelRatio);
 
-		WndProcHook::Init(renderer.HandleWindow);
-		NanoGui::Init(renderer.HandleWindow, hdc, NanoVGHelper::Context);
+		renderer.renderContext.winSize = std::make_pair(winWidth, winHeight);
+
+		WndProcHook::Init(renderer.renderContext.HandleWindow);
+		NanoGui::Init(renderer.renderContext.HandleWindow, hdc, NanoVGHelper::Context);
 		// Change it back to Minecraft's opengl context.
-		wglMakeCurrent(renderer.HandleDeviceContext, renderer.OriginalGLContext);
-
-		GetClientRect(renderer.HandleWindow, &area);
-
-		winWidth = area.right;
-		winHeight = area.bottom;
-
-		winWidth = static_cast<int>(static_cast<float>(winWidth) / devicePixelRatio);
-		winHeight = static_cast<int>(static_cast<float>(winHeight) / devicePixelRatio);
+		wglMakeCurrent(renderer.renderContext.HandleDeviceContext, renderer.renderContext.OriginalGLContext);
 		renderer.Initialized = true;
 	}
 	else if (WndProcHook::RESIZED) {
-		renderer.HandleWindow = WindowFromDC(hdc);
+		renderer.renderContext.HandleWindow = WindowFromDC(hdc);
 		// If Initialized,update my mirror context from minecraft's.
-		wglCopyContext(renderer.OriginalGLContext, renderer.MenuGLContext, GL_ALL_ATTRIB_BITS);
+
+		winWidth = static_cast<int>(static_cast<float>(winWidth) / renderer.renderContext.devicePixelRatio);
+		winHeight = static_cast<int>(static_cast<float>(winHeight) / renderer.renderContext.devicePixelRatio);
+
+		renderer.renderContext.winSize = std::make_pair(winWidth, winHeight);
+		wglCopyContext(renderer.renderContext.OriginalGLContext, renderer.renderContext.MenuGLContext, GL_ALL_ATTRIB_BITS);
 	}
 	// Change current context back to mine.
-	wglMakeCurrent(renderer.HandleDeviceContext, renderer.MenuGLContext);
+	wglMakeCurrent(renderer.renderContext.HandleDeviceContext, renderer.renderContext.MenuGLContext);
 
 
 	// Do draw and render here.
-
-
-	/*
-	*
-	GLint dims[4] = { 0 };
-	glGetIntegerv(GL_VIEWPORT, dims);
-	GLint fbWidth = dims[2];
-	GLint fbHeight = dims[3];
-	*/
-
 	auto& vg = NanoVGHelper::Context;
 	using namespace NanoVGHelper;
 
@@ -136,8 +122,9 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
 
 	context.EndFrame();
+
 	//End Drawing and Rendering and Dispatch back to minecraft's opengl context
-	wglMakeCurrent(renderer.HandleDeviceContext, renderer.OriginalGLContext);
+	wglMakeCurrent(renderer.renderContext.HandleDeviceContext, renderer.renderContext.OriginalGLContext);
 	return wglSwapBuffersHook.GetOrignalFunc()(hdc);
 }
 
@@ -162,7 +149,7 @@ bool OpenGLHook::Clean()
 {
 
 	// Ensure current gl context is orignal minecraft context.
-	wglMakeCurrent(Renderer::get().HandleDeviceContext, Renderer::get().OriginalGLContext);
+	wglMakeCurrent(Renderer::get().renderContext.HandleDeviceContext, Renderer::get().renderContext.OriginalGLContext);
 
 	wglSwapBuffersHook.RemoveHook();
 	NanoGui::clean();
