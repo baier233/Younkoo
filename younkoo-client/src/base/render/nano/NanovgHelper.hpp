@@ -144,6 +144,12 @@ namespace NanoVGHelper {
 	bool InitContext(HWND window2Attach);
 	bool DeleteContext();
 	inline NVGcontext* Context{};
+	inline int rgbaToColor(int r, int g, int b, int a) {
+		return ((a & 0xFF) << 24) |
+			((r & 0xFF) << 16) |
+			((g & 0xFF) << 8) |
+			((b & 0xFF) << 0);
+	}
 	void drawRect(NVGcontext* vg, float x, float y, float width, float height, int color);
 	void drawHollowRoundRect(NVGcontext* vg, float x, float y, float width, float height, int color, float radius, float thickness);
 	void drawRoundedRectVaried(NVGcontext* vg, float x, float y, float width, float height, int color, float radiusTL, float radiusTR, float radiusBR, float radiusBL);

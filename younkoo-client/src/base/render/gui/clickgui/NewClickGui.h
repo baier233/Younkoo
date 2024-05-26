@@ -1,10 +1,12 @@
 ﻿#pragma once
+
 #include "../src/utils/Animation.hpp"
 #include "../../nano/NanovgHelper.hpp"
 
 #include "component/impl/PanelComponent.h"
 #include "../../../features/modules/AbstractModule.h"
-class NewClickGui
+#include "../../../../utils/Math.h"
+class NewClickGui : public Component
 {
 public:
 	NewClickGui() : openAnim(Easing::EASE_OUT_BACK, 300) {
@@ -19,9 +21,16 @@ public:
 		);
 	}
 	void drawScreen(NVGcontext* vg, std::pair<int, int> winSize) {
+		if (openAnim.isEnded()) return;
+
+
 		using namespace NanoVGHelper;
 		float output = static_cast<float>(openAnim.getOutput());
 		startScale(vg, static_cast<float>(winSize.first / 2), static_cast<float>(winSize.second / 2), output);
+		blur_render_queue.push_back([vg, winSize, output] {
+			startScale(vg, static_cast<float>(winSize.first / 2), static_cast<float>(winSize.second / 2), output);
+			alpha(vg, MathHelper::clamp_float(output, 0.0f, 1.0f));
+			});
 		float offsetX = 0.f;
 		for (auto& component : components)
 		{
@@ -33,6 +42,9 @@ public:
 
 			offsetX += component.width + spacing;
 		}
+		blur_render_queue.push_back([] {
+			stopScale();
+			});
 		stopScale();
 
 	}
