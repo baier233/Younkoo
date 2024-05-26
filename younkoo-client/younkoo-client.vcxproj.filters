@@ -231,6 +231,24 @@
     <ClCompile Include="src\base\features\modules\combat\AimAssist.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\render\gui\clickgui\component\Component.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\render\gui\clickgui\component\impl\PanelComponent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\render\gui\clickgui\NewClickGui.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\render\gui\clickgui\component\impl\ModuleComponent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\render\gui\clickgui\component\impl\settings\ValueComponent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\render\gui\clickgui\component\impl\settings\impl\BooleanValueComponent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -458,9 +476,6 @@
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\HitResult_Type.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\features\modules\combat\AutoClicker.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\LivingEntity.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -501,6 +516,36 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\mapper\resources\maps\forge1204.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\render\gui\clickgui\component\Component.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\render\gui\clickgui\component\impl\PanelComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\render\gui\clickgui\NewClickGui.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\modules\fight\AutoClicker.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\Animation.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\Easing.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\TimerUtil.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\render\gui\clickgui\component\impl\ModuleComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\render\gui\clickgui\component\impl\settings\ValueComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\render\gui\clickgui\component\impl\settings\impl\BooleanValueComponent.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

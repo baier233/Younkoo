@@ -157,6 +157,29 @@ namespace NanoVGHelper {
 	inline void scale(NVGcontext* vg, float x, float y) {
 		nvgScale(vg, x, y);
 	}
+	inline void push(NVGcontext* vg = Context) {
+		nvgSave(vg);
+	}
+
+	inline void pop(NVGcontext* vg = Context) {
+		nvgRestore(vg);
+	}
+
+	inline void alpha(NVGcontext* vg, float alpha) {
+		nvgGlobalAlpha(vg, alpha);
+	}
+
+	inline void startScale(NVGcontext* vg, float x, float y, float scale) {
+		push();
+		nvgTranslate(vg, x, y);
+		nvgScale(vg, scale, scale);
+		nvgTranslate(vg, -x, -y);
+	}
+
+	inline void stopScale(NVGcontext* vg = Context) {
+		pop(vg);
+	}
+
 	inline void fillNVGColorWithRGBA(float r, float g, float b, float a, NVGcolor& color) {
 		color = nvgRGBAf(r, g, b, a);
 	}
