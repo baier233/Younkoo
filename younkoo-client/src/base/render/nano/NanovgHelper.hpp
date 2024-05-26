@@ -150,6 +150,18 @@ namespace NanoVGHelper {
 			((g & 0xFF) << 8) |
 			((b & 0xFF) << 0);
 	}
+
+	void renderGlow(NVGcontext* vg, float x, float y, float width, float height, float radius, float offset, int color);
+
+	inline void renderShadow(NVGcontext* vg, float x, float y, float width, float height, float radius, int shadowRadius) {
+		int alpha = 1;
+
+		for (float i = shadowRadius; i > 0.0F; --i) {
+			renderGlow(vg, x - i / 2.0F, y - i / 2.0F, width + i, height + i, radius + 2.0F, i, rgbaToColor(0, 0, 0, alpha));
+			alpha += 2;
+		}
+	}
+
 	void drawRect(NVGcontext* vg, float x, float y, float width, float height, int color);
 	void drawHollowRoundRect(NVGcontext* vg, float x, float y, float width, float height, int color, float radius, float thickness);
 	void drawRoundedRectVaried(NVGcontext* vg, float x, float y, float width, float height, int color, float radiusTL, float radiusTR, float radiusBR, float radiusBL);

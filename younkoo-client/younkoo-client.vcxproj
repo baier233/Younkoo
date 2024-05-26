@@ -161,6 +161,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\utils\animation\simple\SimpleAnimation.cpp" />
+    <ClCompile Include="src\base\render\gui\api\ScrollComponent.cpp" />
     <ClCompile Include="src\base\render\gui\clickgui\component\impl\settings\impl\BooleanValueComponent.cpp" />
     <ClCompile Include="src\base\render\gui\clickgui\component\impl\ModuleComponent.cpp" />
     <ClCompile Include="src\base\render\gui\clickgui\component\Component.cpp" />
@@ -278,6 +280,8 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\utils\animation\simple\SimpleAnimation.h" />
+    <ClInclude Include="src\base\render\gui\api\ScrollComponent.h" />
     <ClInclude Include="src\base\render\gui\clickgui\component\impl\settings\impl\BooleanValueComponent.h" />
     <ClInclude Include="src\base\render\gui\clickgui\component\impl\ModuleComponent.h" />
     <ClInclude Include="src\base\render\gui\clickgui\component\Component.hpp" />
@@ -338,8 +342,8 @@
     <ClInclude Include="src\base\render\resources\fonts\harmony_sc_bold.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\HitResult.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\HitResult_Type.h" />
-    <ClInclude Include="src\utils\Animation.hpp" />
-    <ClInclude Include="src\utils\Easing.hpp" />
+    <ClInclude Include="src\utils\animation\Animation.hpp" />
+    <ClInclude Include="src\utils\animation\Easing.hpp" />
     <ClInclude Include="src\utils\function_traits.hpp" />
     <ClInclude Include="src\base\features\modules\ModuleManager.h" />
     <ClInclude Include="src\base\features\modules\visual\HUD.h" />
@@ -369,6 +373,7 @@
     <ClInclude Include="src\base\sdk\mapper\resources\maps\forge189.h" />
     <ClInclude Include="src\Main.hpp" />
     <ClInclude Include="src\base\Younkoo.hpp" />
+    <ClInclude Include="src\utils\Math.h" />
     <ClInclude Include="src\utils\Misc.hpp" />
     <ClInclude Include="src\base\render\hooks\WndProcHook.hpp" />
     <ClInclude Include="src\utils\TimerUtil.hpp" />

@@ -4,4 +4,7 @@ namespace MathHelper {
 	{
 		return num < min ? min : (num > max ? max : num);
 	}
+	inline double roundToHalf(double d) {
+		return std::round(d * 2) / 2.0;
+	}
 }

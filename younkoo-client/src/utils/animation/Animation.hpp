@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <chrono>
 #include <algorithm>
-#include "TimerUtil.hpp"
+#include "../TimerUtil.hpp"
 #include "Easing.hpp"
 
 class Animation {

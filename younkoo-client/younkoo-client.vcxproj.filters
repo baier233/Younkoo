@@ -249,6 +249,12 @@
     <ClCompile Include="src\base\render\gui\clickgui\component\impl\settings\impl\BooleanValueComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\render\gui\api\ScrollComponent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\animation\simple\SimpleAnimation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -530,10 +536,10 @@
     <ClInclude Include="src\base\features\modules\fight\AutoClicker.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\utils\Animation.hpp">
+    <ClInclude Include="src\utils\animation\Animation.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\utils\Easing.hpp">
+    <ClInclude Include="src\utils\animation\Easing.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\utils\TimerUtil.hpp">
@@ -546,6 +552,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\render\gui\clickgui\component\impl\settings\impl\BooleanValueComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\Math.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\render\gui\api\ScrollComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\animation\simple\SimpleAnimation.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

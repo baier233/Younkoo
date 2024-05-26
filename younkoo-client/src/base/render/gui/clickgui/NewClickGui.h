@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "../src/utils/Animation.hpp"
+#include "../src/utils/animation/Animation.hpp"
 #include "../../nano/NanovgHelper.hpp"
 
 #include "component/impl/PanelComponent.h"

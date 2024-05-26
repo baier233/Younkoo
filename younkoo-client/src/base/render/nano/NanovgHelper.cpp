@@ -41,6 +41,15 @@ bool NanoVGHelper::DeleteContext()
 	Context = nullptr;
 	return true;
 }
+void NanoVGHelper::renderGlow(NVGcontext* vg, float x, float y, float width, float height, float radius, float offset, int color)
+{
+	auto nvgColor = nvgFillColorEx(vg, color);
+	nvgBeginPath(vg);
+	nvgRoundedRect(vg, x, y, width, height, radius);
+	nvgStrokeWidth(vg, offset);
+	nvgStrokeColor(vg, nvgColor);
+	nvgStroke(vg);
+}
 static std::string Wide2Utf8(const std::wstring& str) {
 	int sizeRequired = WideCharToMultiByte(CP_UTF8, 0, str.c_str(), -1, NULL, 0, NULL, NULL);
 	std::string utf8Str(sizeRequired, 0);

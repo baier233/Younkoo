@@ -3,6 +3,7 @@
 
 #include "../Component.hpp"
 #include "ModuleComponent.h"
+#include "../../../api/ScrollComponent.h"
 
 
 class PanelComponent : public Component
@@ -17,5 +18,6 @@ public:
 private:
 	Category category;
 	std::list<ModuleComponent> components;
+	ScrollComponent scrollComponent = ScrollComponent();
 };
 
