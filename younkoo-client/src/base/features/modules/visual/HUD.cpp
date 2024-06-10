@@ -4,7 +4,8 @@
 #include "../ModuleManager.h"
 HUD::HUD() :AbstractModule(xorstr_("HUD"), Category::VISUAL, 'K')
 {
-	ModuleManager::get().registrations.push_back(Younkoo::get().EventBus->register_handler<EventRender2D>(this, &HUD::onRender));
+	REGISTER_EVENT(EventRender2D, HUD::onRender);
+	//ModuleManager::get().registrations.push_back(Younkoo::get().EventBus->register_handler<EventRender2D>(this, &HUD::onRender));
 
 	this->setToggle(true);
 }

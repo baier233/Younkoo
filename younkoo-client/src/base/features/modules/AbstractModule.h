@@ -6,6 +6,8 @@
 
 #define IsKeyBeingDown(KEYNONAME) ((GetAsyncKeyState(KEYNONAME)&0x8000)?1:0)
 
+#define REGISTER_EVENT(eventType, callbackFunction) \
+    ModuleManager::get().registrations.push_back(Younkoo::get().EventBus->register_handler<eventType>(this, &callbackFunction))
 #define ToggleCheck if (!this->getToggle()) return
 #define DefaultConstructor(_Class) _Class() = default
 #define DefaultDeconstructor(_Class) ~_Class() = default
