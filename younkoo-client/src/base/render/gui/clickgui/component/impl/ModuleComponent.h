@@ -25,7 +25,7 @@ public:
 	float x = 0, y = 0;
 	float width = 145;
 	float height, expandHeight = 0;
-	bool clicking, expand;
+	bool clicking = false, expand = false;
 private:
 	AbstractModule* mod;
 };

@@ -135,11 +135,14 @@ private:
 	}
 };
 
+
+
+
+
+
+
+
 namespace NanoVGHelper {
-
-
-
-
 
 	bool InitContext(HWND window2Attach);
 	bool DeleteContext();

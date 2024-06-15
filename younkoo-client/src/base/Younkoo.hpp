@@ -1,8 +1,9 @@
 ﻿#pragma once
 #include "../utils/Singleton.hpp"
-#include <atomic>
 #include "event/EventBus.hpp"
 #include "render/gui/input/IOEvents.h"
+
+#include <atomic>
 #include <memory>
 
 class Younkoo : public Singleton<Younkoo> {

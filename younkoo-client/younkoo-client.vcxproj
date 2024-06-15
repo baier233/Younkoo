@@ -161,6 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\render\nano\font\NanoVGFontRenderer.cpp" />
     <ClCompile Include="src\utils\animation\simple\SimpleAnimation.cpp" />
     <ClCompile Include="src\base\render\gui\api\ScrollComponent.cpp" />
     <ClCompile Include="src\base\render\gui\clickgui\component\impl\settings\impl\BooleanValueComponent.cpp" />
@@ -280,6 +281,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\base\render\nano\font\NanoVGFontRenderer.h" />
     <ClInclude Include="src\utils\animation\simple\SimpleAnimation.h" />
     <ClInclude Include="src\base\render\gui\api\ScrollComponent.h" />
     <ClInclude Include="src\base\render\gui\clickgui\component\impl\settings\impl\BooleanValueComponent.h" />

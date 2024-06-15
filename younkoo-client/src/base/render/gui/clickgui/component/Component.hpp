@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <deque>
 #include <functional>
+
 #include "../../../nano/NanovgHelper.hpp"
 class Component
 {

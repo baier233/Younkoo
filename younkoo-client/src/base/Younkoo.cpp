@@ -10,12 +10,14 @@ Younkoo::Younkoo()
 
 #include <SDK.hpp>
 
+
+#include <wrapper/net/minecraft/client/Minecraft.h>
+
 #include "render/Renderer.hpp"
 #include "render/nano/NanovgHelper.hpp"
-
 #include "render/gui/input/Context.hpp"
+
 #include "sdk/Mapper/SRGParser.h"
-#include <wrapper/net/minecraft/client/Minecraft.h>
 bool Younkoo::setup()
 {
 	auto flag = JVM::get().setup();
