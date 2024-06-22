@@ -1,8 +1,8 @@
 ﻿#include "NanovgHelper.hpp"
 
 #include <GL\glew.h>
-#define NANOVG_GL3_IMPLEMENTATION
-#include "nanovg_gl.h"
+#include "wrapper\gl3.h"
+#include "wrapper\gl2.h"
 //#include "nanovg_gl_utils.h"
 #include <iostream>
 
@@ -12,6 +12,8 @@ void error_callback(int error, const char* description)
 }
 #include "../resources/fonts/harmony_sc_light.h"
 #include "../resources/fonts/harmony_sc_regular.h"
+
+#include "../Renderer.hpp"
 
 bool NanoVGHelper::InitContext(HWND window2Attach)
 {
@@ -23,9 +25,14 @@ bool NanoVGHelper::InitContext(HWND window2Attach)
 		/* Problem: glewInit failed, something is seriously wrong. */
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 	}
-	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
-	fprintf(stdout, "Using GL %s\n", glGetString(GL_VERSION));
-	Context = nvgCreateGL3(NVG_ANTIALIAS | NVG_STENCIL_STROKES);
+	if (Renderer::get().renderContext.ClassName == "LWJGL") {
+		std::cout << "OpenGL Major Vesrion : 2" << std::endl;
+		Context = gl2::init();
+	}
+	else {
+		std::cout << "OpenGL Major Vesrion : 3" << std::endl;
+		Context = gl3::init();
+	}
 
 	//fontHarmony = nvgCreateFont(Context, "raleway", "C:\\Users\\Baier\\AppData\\Local\\Microsoft\\Windows\\Fonts\\HarmonyOS_Sans_SC_Regular.ttf");
 	fontHarmony = nvgCreateFontMem(Context, "harmony_sans_regular", harmony_sc_regular, harmony_sc_regular_size, 0);
@@ -37,7 +44,12 @@ bool NanoVGHelper::InitContext(HWND window2Attach)
 bool NanoVGHelper::DeleteContext()
 {
 	//释放nvg 上下文时.font也会被释放。
-	nvgDeleteGL3(Context);
+	if (Renderer::get().renderContext.ClassName == "LWJGL") {
+		gl2::clean(Context);
+	}
+	else {
+		gl3::clean(Context);
+	}
 	Context = nullptr;
 	return true;
 }

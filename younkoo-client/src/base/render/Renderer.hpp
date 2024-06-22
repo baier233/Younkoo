@@ -2,6 +2,7 @@
 #include <Windows.h>
 
 #include <vector>
+#include <string>
 
 #include "../../utils/Singleton.hpp"
 #include "../../utils/Structs.hpp"
@@ -12,6 +13,7 @@ struct RenderContext
 	HGLRC MenuGLContext = 0;
 	HDC HandleDeviceContext = 0;
 	HWND HandleWindow = 0;
+	std::string ClassName;
 	float devicePixelRatio = 1;
 	std::pair<int, int>winSize;
 };
@@ -20,8 +22,6 @@ struct RenderContext
 class Renderer : public Singleton<Renderer>
 {
 protected:
-	DEFAULT_DTOR(Renderer);
-	NON_COPYABLE(Renderer);
 public:
 
 	Renderer() {

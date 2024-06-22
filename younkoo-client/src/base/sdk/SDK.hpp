@@ -80,7 +80,6 @@ namespace SDK {
 			jobject thread = jniEnv->GetObjectArrayElement(threadsArray, i);
 			jstring threadName = (jstring)jniEnv->CallObjectMethod(thread, getName);
 			auto threadNameStr = std::string(jniEnv->GetStringUTFChars(threadName, 0));
-			std::cout << "threadNameStr :" << threadNameStr << std::endl;
 			if (threadNameStr == thread_name) {
 				jobject classLoader = jniEnv->GetObjectField(thread, ctxClsLoader);
 				MinecraftClassLoader = jniEnv->NewGlobalRef(classLoader);

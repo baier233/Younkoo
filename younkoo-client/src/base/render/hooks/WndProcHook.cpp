@@ -318,7 +318,7 @@ static WNDPROC SetCallbacks(HWND hWnd)
 	YounkooWindowSizeCallback = [](HWND window, int width, int height) {
 		//std::cout << "Reshape :" << width << "," << height << std::endl;
 		// 窗口大小改变回调
-		WndProcHook::RESIZED = true;
+		WndProcHook::RESIZED.store(true);
 		if (YounkooIO::IOEvents.IOEventsWindowSizeCallback)
 		{
 			return YounkooIO::IOEvents.IOEventsWindowSizeCallback(window, width, height);

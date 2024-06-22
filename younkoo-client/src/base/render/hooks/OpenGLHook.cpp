@@ -37,6 +37,7 @@ static bool showMenu = false;
 #include "../gui/GUI.h"
 
 #include "../../../utils/Wnd.h"
+#include "../../../utils/Wstr.h"
 bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	if (Younkoo::get().shouldShutDown) return wglSwapBuffersHook.GetOrignalFunc()(hdc);
 	auto& renderer = Renderer::get();
@@ -55,7 +56,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 		WCHAR className[256];
 		GetClassNameW(renderer.renderContext.HandleWindow, className, sizeof(className) / sizeof(WCHAR));
 		wprintf(L"Class Name: %ls\n", className);
-
+		renderer.renderContext.ClassName = wstr::toString(className);
 		// Create My Mirror Context(When I rendering my own stuff,i use this context for not to impact the minecraft gl enviorment)
 
 
@@ -85,7 +86,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 		wglMakeCurrent(renderer.renderContext.HandleDeviceContext, renderer.renderContext.OriginalGLContext);
 		renderer.Initialized = true;
 	}
-	else if (WndProcHook::RESIZED) {
+	else if (WndProcHook::RESIZED.load()) {
 		renderer.renderContext.HandleWindow = WindowFromDC(hdc);
 		// If Initialized,update my mirror context from minecraft's.
 
@@ -94,6 +95,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
 		renderer.renderContext.winSize = std::make_pair(winWidth, winHeight);
 		wglCopyContext(renderer.renderContext.OriginalGLContext, renderer.renderContext.MenuGLContext, GL_ALL_ATTRIB_BITS);
+		WndProcHook::RESIZED.store(false);
 	}
 	// Change current context back to mine.
 	wglMakeCurrent(renderer.renderContext.HandleDeviceContext, renderer.renderContext.MenuGLContext);
@@ -112,7 +114,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 		NanoGui::available = !NanoGui::available;
 	}
 
-	if (NanoGui::available)
+	if (NanoGui::available.load())
 	{
 		NanoGui::drawGui();
 	}
