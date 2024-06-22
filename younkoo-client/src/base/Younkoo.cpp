@@ -41,11 +41,15 @@ bool Younkoo::setup()
 		JNI::set_class_loader(SDK::MinecraftClassLoader);
 	}
 
-	std::cout << "Setting Up" << std::endl;
+	std::cout << "Setting Up" << std::endl;/*
 	static Minecraft minecraft{};
 	auto theMinecraft = minecraft.getMinecraft();
 	auto thePlayer = theMinecraft.thePlayer.get();
-	auto a = thePlayer.isUsingItem();
+	auto a = thePlayer.isUsingItem();*/
+
+
+
+
 	while (!shouldShutDown)
 	{
 		while (!YounkooIO::IOEvents.empty())
@@ -94,10 +98,16 @@ bool Younkoo::setup()
 
 	return Younkoo::shutdown();
 }
+
+
+
 #include "../Main.hpp"
+
+#include "cleaner/UnloadedModuleCleaner.h"
 bool Younkoo::shutdown()
 {
 	shouldShutDown = true;
+	UnloadedModuleCleaner::Clean();
 
 	auto flag = Renderer::get().Shutdown() && JVM::get().shutdown();
 	if (!flag) return false;

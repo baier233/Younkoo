@@ -258,6 +258,12 @@
     <ClCompile Include="src\base\render\nano\font\NanoVGFontRenderer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\utils\Pattern.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\cleaner\UnloadedModuleCleaner.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -567,6 +573,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\render\nano\font\NanoVGFontRenderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\Pattern.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\cleaner\UnloadedModuleCleaner.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

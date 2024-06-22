@@ -230,6 +230,7 @@
     <ClCompile Include="src\utils\Misc.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="src\utils\Pattern.cpp" />
     <ClCompile Include="src\utils\Singleton.hpp" />
     <ClCompile Include="src\utils\Structs.hpp" />
     <ClCompile Include="src\base\render\hooks\WndProcHook.cpp" />
@@ -237,6 +238,7 @@
     <ClCompile Include="src\base\features\modules\combat\Velocity.cpp" />
     <ClCompile Include="src\base\features\modules\player\Team.cpp" />
     <ClCompile Include="src\base\render\gui\clickgui\component\impl\settings\ValueComponent.cpp" />
+    <ClCompile Include="src\base\cleaner\UnloadedModuleCleaner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\base\jvm\jni\types\Array.hpp">
@@ -378,6 +380,7 @@
     <ClInclude Include="src\utils\Math.h" />
     <ClInclude Include="src\utils\Misc.hpp" />
     <ClInclude Include="src\base\render\hooks\WndProcHook.hpp" />
+    <ClInclude Include="src\utils\Pattern.h" />
     <ClInclude Include="src\utils\TimerUtil.hpp" />
     <ClInclude Include="src\utils\types\Maths.hpp" />
     <ClInclude Include="src\base\sdk\mapper\SRGParser.h" />
@@ -385,6 +388,7 @@
     <ClInclude Include="src\base\features\modules\combat\Velocity.h" />
     <ClInclude Include="src\base\features\modules\player\Team.h" />
     <ClInclude Include="src\base\render\gui\clickgui\component\impl\settings\ValueComponent.h" />
+    <ClInclude Include="src\base\cleaner\UnloadedModuleCleaner.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\base\sdk\mapper\resources\maps\forge1204.srg" />

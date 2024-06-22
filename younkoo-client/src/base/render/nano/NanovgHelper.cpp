@@ -24,7 +24,7 @@ bool NanoVGHelper::InitContext(HWND window2Attach)
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 	}
 	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
-
+	fprintf(stdout, "Using GL %s\n", glGetString(GL_VERSION));
 	Context = nvgCreateGL3(NVG_ANTIALIAS | NVG_STENCIL_STROKES);
 
 	//fontHarmony = nvgCreateFont(Context, "raleway", "C:\\Users\\Baier\\AppData\\Local\\Microsoft\\Windows\\Fonts\\HarmonyOS_Sans_SC_Regular.ttf");
