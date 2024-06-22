@@ -32,9 +32,27 @@ static auto getWindowSize(const HWND& window) {
 #include "../../Younkoo.hpp"
 
 
+
+
 static bool showMenu = false;
 #include "../gui/input/Context.hpp"
 #include "../gui/GUI.h"
+
+
+static void opengl_ctx_init() {
+
+	GLint viewport[4]{};
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	glViewport(0, 0, viewport[2], viewport[3]);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0, viewport[2], viewport[3], 0, -1, 1);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glDisable(GL_DEPTH_TEST);
+
+}
+
 
 #include "../../../utils/Wnd.h"
 #include "../../../utils/Wstr.h"
@@ -49,8 +67,6 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
 
 	if (!renderer.Initialized) {
-		GLint viewport[4]{};
-		glGetIntegerv(GL_VIEWPORT, viewport);
 
 		renderer.renderContext.HandleWindow = WindowFromDC(hdc);
 		WCHAR className[256];
@@ -61,8 +77,9 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
 
 		renderer.renderContext.MenuGLContext = wglCreateContext(hdc);
-		// Copy Minecraft's opengl context to mine.
-		wglCopyContext(renderer.renderContext.OriginalGLContext, renderer.renderContext.MenuGLContext, GL_ALL_ATTRIB_BITS);
+
+		opengl_ctx_init();
+
 		// Change Current Context to my mirror context.
 		wglMakeCurrent(hdc, renderer.renderContext.MenuGLContext);
 		renderer.renderContext.devicePixelRatio = Wnd::get_pixel_ratio(renderer.renderContext.HandleWindow);
@@ -94,7 +111,9 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 		winHeight = static_cast<int>(static_cast<float>(winHeight) / renderer.renderContext.devicePixelRatio);
 
 		renderer.renderContext.winSize = std::make_pair(winWidth, winHeight);
-		wglCopyContext(renderer.renderContext.OriginalGLContext, renderer.renderContext.MenuGLContext, GL_ALL_ATTRIB_BITS);
+
+		opengl_ctx_init();
+
 		WndProcHook::RESIZED.store(false);
 	}
 	// Change current context back to mine.
