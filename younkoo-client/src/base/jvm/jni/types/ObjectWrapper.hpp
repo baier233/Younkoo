@@ -7,6 +7,7 @@
 
 namespace JNI {
 
+	
 	class ObjectWrapper
 	{
 	public:
@@ -62,12 +63,11 @@ namespace JNI {
 	};
 	struct EmptyMembers : public ObjectWrapper
 	{
-		EmptyMembers(std::function<jclass()> lambda_get_klass, jobject object_instance, bool is_global_ref, std::function<std::string()> lambda_get_name) :
+		EmptyMembers(std::function<jclass(const std::string&)> lambda_get_klass, jobject object_instance, bool is_global_ref, std::function<std::string()> lambda_get_name) :
 			ObjectWrapper(object_instance, is_global_ref)
 		{
 			this->lambda_get_name = lambda_get_name;
-			this->owner_klass = lambda_get_klass();
-			std::cout << owner_klass << std::endl;
+			this->owner_klass = lambda_get_klass(get_class_name());
 		}
 		static inline std::string get_class_name() {
 			return lambda_get_name();

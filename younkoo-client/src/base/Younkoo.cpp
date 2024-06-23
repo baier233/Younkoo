@@ -41,11 +41,10 @@ bool Younkoo::setup()
 		JNI::set_class_loader(SDK::MinecraftClassLoader);
 	}
 
-	std::cout << "Setting Up" << std::endl;/*
-	static Minecraft minecraft{};
-	auto theMinecraft = minecraft.getMinecraft();
-	auto thePlayer = theMinecraft.thePlayer.get();
-	auto a = thePlayer.isUsingItem();*/
+	auto hit = V1_18_1::HitResult$Type::static_obj();
+	auto vec3 = V1_18_1::Vec3::static_obj();
+
+	std::cout << "Setting Up" << std::endl;
 
 
 

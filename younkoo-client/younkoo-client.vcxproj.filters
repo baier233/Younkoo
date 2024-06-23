@@ -180,28 +180,7 @@
     <ClCompile Include="src\base\render\gui\nanogui\serializer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\HitResult.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\HitResult_Type.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\base\features\modules\combat\AutoClicker.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\LivingEntity.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\AbstractClientPlayer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\Player.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\base\render\gui\GUI.cpp">
@@ -271,6 +250,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\base\render\nano\wrapper\gl3.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\MovingObjectPosition.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\sdk\wrapper\Object.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -491,24 +479,6 @@
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\HitResult.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\HitResult_Type.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\LivingEntity.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\AbstractClientPlayer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\Player.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\base\render\gui\GUI.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -600,6 +570,30 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\render\nano\wrapper\gl3.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\MInecraft.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\gui\screens\Screen.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include_header.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\Vec3.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult$Type.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\MovingObjectPosition.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\Object.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

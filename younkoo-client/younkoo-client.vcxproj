@@ -71,11 +71,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)\ext\nanovg;$(ProjectDir)\src\base\sdk;$(ProjectDir)\src\base\jvm;$(ProjectDir)\ext;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\ext\nanovg;$(ProjectDir)\src\base\sdk;$(ProjectDir)\src;$(ProjectDir)\src\base\jvm;$(ProjectDir)\ext;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)\ext\GL;$(ProjectDir)\ext\SDL2;$(ProjectDir)\ext\detours;$(ProjectDir)\ext\glad;$(ProjectDir)\ext\GLFW;$(ProjectDir)\ext\nanovg;$(ProjectDir)\ext\jni;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)\ext\nanovg;$(ProjectDir)\src\base\sdk;$(ProjectDir)\src\base\jvm;$(ProjectDir)\ext;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\ext\nanovg;$(ProjectDir)\src\base\sdk;$(ProjectDir)\src;$(ProjectDir)\src\base\jvm;$(ProjectDir)\ext;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)\ext\GL;$(ProjectDir)\ext\SDL2;$(ProjectDir)\ext\detours;$(ProjectDir)\ext\glad;$(ProjectDir)\ext\GLFW;$(ProjectDir)\ext\nanovg;$(ProjectDir)\ext\jni;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -161,6 +161,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\MovingObjectPosition.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\Object.cpp" />
     <ClCompile Include="src\base\render\nano\wrapper\gl2.cpp" />
     <ClCompile Include="src\base\render\nano\wrapper\gl3.cpp" />
     <ClCompile Include="src\base\render\nano\font\NanoVGFontRenderer.cpp" />
@@ -179,11 +182,6 @@
     <ClCompile Include="src\base\features\modules\combat\KillAura.cpp" />
     <ClCompile Include="src\base\render\gui\GUI.cpp" />
     <ClCompile Include="src\base\features\modules\combat\AutoClicker.cpp" />
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\AbstractClientPlayer.cpp" />
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.cpp" />
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\LivingEntity.cpp" />
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\Player.cpp" />
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.cpp" />
     <ClCompile Include="src\base\features\modules\visual\HUD.cpp" />
     <ClCompile Include="src\base\render\gui\input\IOEvents.cpp" />
     <ClCompile Include="src\base\render\gui\input\Context.cpp" />
@@ -224,8 +222,6 @@
     <ClCompile Include="src\base\jvm\jni\Wrapper.hpp" />
     <ClCompile Include="src\base\jvm\JVM.cpp" />
     <ClCompile Include="src\base\sdk\SDK.hpp" />
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\HitResult.cpp" />
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\HitResult_Type.cpp" />
     <ClCompile Include="src\Bootstrap.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\base\Younkoo.cpp" />
@@ -286,10 +282,18 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\MovingObjectPosition.h" />
+    <ClInclude Include="src\base\sdk\wrapper\Object.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\gui\screens\Screen.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\MInecraft.h" />
     <ClInclude Include="src\base\render\nano\wrapper\gl2.h" />
     <ClInclude Include="src\base\render\nano\wrapper\gl3.h" />
     <ClInclude Include="src\base\features\modules\combat\AutoClicker.h" />
     <ClInclude Include="src\base\render\nano\font\NanoVGFontRenderer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult$Type.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\Vec3.h" />
+    <ClInclude Include="src\include_header.h" />
     <ClInclude Include="src\utils\animation\simple\SimpleAnimation.h" />
     <ClInclude Include="src\base\render\gui\api\ScrollComponent.h" />
     <ClInclude Include="src\base\render\gui\clickgui\component\impl\settings\impl\BooleanValueComponent.h" />
@@ -306,10 +310,6 @@
     <ClInclude Include="src\base\render\gui\GUI.h" />
     <ClInclude Include="src\base\features\modules\fight\AutoClicker.h" />
     <ClInclude Include="src\base\sdk\mapper\resources\maps\forge1204.h" />
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\AbstractClientPlayer.h" />
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.h" />
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\LivingEntity.h" />
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\player\Player.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.h" />
     <ClInclude Include="src\base\event\Events.h" />
     <ClInclude Include="src\base\event\EventBus.hpp" />
@@ -350,8 +350,6 @@
     <ClInclude Include="src\base\render\gui\nanogui\Window.h" />
     <ClInclude Include="src\base\render\resources\fonts\entypo.h" />
     <ClInclude Include="src\base\render\resources\fonts\harmony_sc_bold.h" />
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\HitResult.h" />
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\HitResult_Type.h" />
     <ClInclude Include="src\utils\animation\Animation.hpp" />
     <ClInclude Include="src\utils\animation\Easing.hpp" />
     <ClInclude Include="src\utils\function_traits.hpp" />

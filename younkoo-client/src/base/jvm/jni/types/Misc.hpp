@@ -2,6 +2,8 @@
 #include <string>
 #include <type_traits>
 #include <jni/jni.h>
+#include <shared_mutex>
+#include <iostream>
 
 namespace JNI {
 
@@ -13,7 +15,40 @@ namespace JNI {
 		STATIC = true,
 		NOT_STATIC = false
 	};
+	template<class klass_type>
+	struct class_name_cache {
+		static std::string value;
+		static std::shared_mutex mutex;
+	};
 
+	template<class klass_type>
+	std::string class_name_cache<klass_type>::value;
+
+	template<class klass_type>
+	std::shared_mutex class_name_cache<klass_type>::mutex;
+
+	template<class klass_type> inline void set_cached_name(const std::string name) {
+		{
+			std::shared_lock shared_lock{ class_name_cache<klass_type>::mutex };
+			class_name_cache<klass_type>::value = name;
+			std::cout << "set_cached_name Class type: " << typeid(klass_type).name() << " name: " << name << std::endl;
+		}
+	}
+	template<class klass_type> inline std::string get_cached_name() //findClass
+	{
+		auto& cached = class_name_cache<klass_type>::value;
+		{
+			std::shared_lock shared_lock{ class_name_cache<klass_type>::mutex }; 
+			
+			std::cout << "get_cached_name Class type: " << typeid(klass_type).name() << " name: " << cached << std::endl;
+			if (cached != "e") return cached;
+		}
+		auto klassName = klass_type::get_name_from_lambda();
+
+		set_cached_name<klass_type>(klassName);
+
+		return klassName;
+	}
 
 	template<class T> inline std::string get_signature_for_type()
 	{

@@ -1,26 +1,21 @@
 ﻿#pragma once
 
 #include <SDK.hpp>
-#include "player/LocalPlayer.h"
-#include "../world/HitResult.h"
-BEGIN_KLASS_DEF(Minecraft, return SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft"))
-JNI::Field<LocalPlayer, JNI::NOT_STATIC> thePlayer{ []() {
-	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft"),"player");
-	} ,*this };
-JNI::Field<HitResult, JNI::NOT_STATIC> mouseOver{ []() {
+#include "wrapper/versions/1_18_1/net/minecraft/client/MInecraft.h"
+#include "wrapper/net/minecraft/util/MovingObjectPosition.h"
+#include "wrapper/Object.h"
 
-	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1) {
-		return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft"), "hitResult");
-	}
-	else {
-		return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft"),"objectMouseOver");
-}
-} ,*this };
-JNI::Method<Minecraft, JNI::STATIC> getMinecraft{ []() {
-	return SRGParser::get().GetVersion() == Versions::FORGE_1_18_1 ?
-		SRGParser::get().getObfuscatedMethodName("net/minecraft/client/Minecraft", "getInstance", "()Lnet/minecraft/client/Minecraft;").first :
-		SRGParser::get().getObfuscatedMethodName("net/minecraft/client/Minecraft", "getMinecraft", "()Lnet/minecraft/client/Minecraft;").first;
-	} ,*this };
-END_KLASS_DEF();
+BEGIN_WRAP
 
+class Minecraft :public Object {
+public:
+	using Object::Object;
+	static Minecraft getMinecraft();
+	bool isInGuiState();
+	MovingObjectPosition getMouseOver();
 
+private:
+	Minecraft() = default;
+};
+
+END_WRAP

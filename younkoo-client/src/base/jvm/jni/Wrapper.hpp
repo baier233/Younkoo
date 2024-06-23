@@ -17,10 +17,15 @@
 	using unobf_klass_name = JNI::Klass<unobf_klass_name##_members>;						\
 	struct unobf_klass_name##_members : public JNI::EmptyMembers											\
 	{																										\
-		unobf_klass_name##_members( std::function<jclass()> lambda_get_klass,jobject object_instance, bool is_global_ref,std::function<std::string()> lambda_get_name =[](){obf_klass_name;} ) :		\
+		unobf_klass_name##_members( std::function<jclass(const std::string&)> lambda_get_klass , jobject object_instance, bool is_global_ref,std::function<std::string()> lambda_get_name =[](){obf_klass_name;} ) :		\
 			JNI::EmptyMembers(lambda_get_klass, object_instance, is_global_ref, lambda_get_name)									\
 		{																									\
 		}																									\
+\
+		inline static auto& static_obj() {												\
+			static unobf_klass_name empty;														\
+			return empty;																			\
+		}																								\
 
 #define END_KLASS_DEF()	}
 
@@ -33,4 +38,8 @@
 			inherit_from##_members(lambda_get_klass,object_instance, is_global_ref, lambda_get_name)								\
 		{																									\
 		}																									\
+		inline static auto& static_obj() {												\
+			static unobf_klass_name##_members empty;															\
+			return empty;																			\
+		}																								\
 

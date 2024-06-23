@@ -92,41 +92,21 @@ namespace SDK {
 		jniEnv->DeleteLocalRef(threadsArray);
 		return MinecraftClassLoader != nullptr;
 	}
-}
 
+}
 
 
 namespace maps
 {
-	BEGIN_KLASS_DEF(Object, return "java/lang/Object")
-		EMPTY_CONTENT;
-	END_KLASS_DEF();
-
-	BEGIN_KLASS_DEF(String, return  "java/lang/String")
-		String create(const char* str)
-	{
-		return String(JNI::get_env()->NewStringUTF(str));
-	}
-
-	std::string to_string()
-	{
-		jstring str_obj = (jstring)(jobject)object_instance;
-		jsize utf8_size = JNI::get_env()->GetStringUTFLength(str_obj);
-		jsize size = JNI::get_env()->GetStringLength(str_obj);
-
-		std::string str(utf8_size, '\0');
-		JNI::get_env()->GetStringUTFRegion(str_obj, 0, size, str.data());
-		return str;
-	}
-	END_KLASS_DEF();
-
-	BEGIN_KLASS_DEF(Collection, return "java/util/Collection")
-		JNI::Method<JNI::Array<Object>> toArray{ "toArray" ,*this };
-	END_KLASS_DEF();
-
-	BEGIN_KLASS_DEF_EX(List, return "java/util/List", Collection)
-		EMPTY_CONTENT;
-	END_KLASS_DEF();
+	
 
 
 }
+
+#define BEGIN_WRAP namespace Wrapper{
+
+#define END_WRAP }
+
+#define BEGIN_1_18_1 namespace V1_18_1{
+
+#define END_1_18_1 }
