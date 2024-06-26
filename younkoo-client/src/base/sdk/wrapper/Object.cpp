@@ -7,11 +7,6 @@ Object::Object(const Object& other_Object) {
     this->instance->object_instance = other_Object.instance->object_instance;
 }
 
-Object::Object(JNI::EmptyMembers& obj_wrap)
-{
-    this->instance = std::make_shared<JNI::EmptyMembers>(obj_wrap);
-}
-
 Object::Object(JNI::EmptyMembers obj_wrap)
 {
     this->instance = std::make_shared<JNI::EmptyMembers>(obj_wrap);

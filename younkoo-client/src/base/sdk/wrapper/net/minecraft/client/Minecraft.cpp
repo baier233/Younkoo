@@ -12,12 +12,17 @@ Wrapper::Minecraft Wrapper::Minecraft::getMinecraft()
 	return Minecraft();
 }
 
+Wrapper::Minecraft Wrapper::Minecraft::get()
+{
+	return Minecraft(V1_18_1::Minecraft::static_obj());
+}
+
 bool Wrapper::Minecraft::isInGuiState()
 {
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
 	{
-		V1_18_1::Minecraft mc;
-		mc.object_instance = this->instance->object_instance;
+		
+		V1_18_1::Minecraft mc = this->instance->object_instance;
 		return !JNI::get_env()->IsSameObject(mc.screen.get().object_instance, NULL);
 	}
 

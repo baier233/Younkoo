@@ -11,6 +11,7 @@ class Minecraft :public Object {
 public:
 	using Object::Object;
 	static Minecraft getMinecraft();
+	static Minecraft get();
 	bool isInGuiState();
 	MovingObjectPosition getMouseOver();
 
