@@ -11,7 +11,7 @@ namespace JNI {
 		inline static jclass value = nullptr;
 	};
 
-	template<class klass_type> inline jclass get_cached_jclass(const std::string& cached_klass_name) //findClass
+	template<class klass_type> inline jclass get_cached_jclass() //findClass
 	{
 		jclass& cached = jclass_cache<klass_type>::value;
 		{
@@ -19,9 +19,9 @@ namespace JNI {
 			if (cached) return cached;
 		}
 
-		std::cout << "Finding Klass :" << cached_klass_name << std::endl;
-		set_cached_name<klass_type>(cached_klass_name);
-		jclass found = (jclass)get_env()->NewGlobalRef(find_class(cached_klass_name));
+		auto klass_name = klass_type::get_name();
+		std::cout << "Finding Klass :" << klass_name << std::endl;
+		jclass found = (jclass)get_env()->NewGlobalRef(find_class(klass_name));
 		{
 			std::unique_lock unique_lock{ jclass_cache<klass_type>::mutex };
 			cached = found;
@@ -34,24 +34,19 @@ namespace JNI {
 	}
 
 
-	template<class members_type>
+	template<class members_type, typename get_class_name_lambda>
 	class Klass : public members_type
 	{
 	public:
 		Klass(jobject object_instance = nullptr, bool is_global_ref = false) :
-			members_type([](const std::string& cached_klass_name ) {return get_cached_jclass<Klass>(cached_klass_name); }, object_instance, is_global_ref) //be careful order of initialization matters
+			members_type([]() {return get_cached_jclass<Klass>(); }, object_instance, is_global_ref)
 		{
-			std::cout << "Klass constructor" << std::endl;
 		}
 
-		static inline std::string get_name_from_lambda()
-		{
-			return members_type::get_class_name();
-		}	
 		
 		static inline std::string get_name()
 		{
-			return get_cached_name<Klass>();
+			return get_class_name_lambda()();
 		}
 
 		static inline std::string get_signature()
