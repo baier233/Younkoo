@@ -80,11 +80,13 @@ void AutoClicker::onUpdate()
 	auto [left, right] = getClickMode(static_cast<ClickMode>(clickModeValue->getValue())).value_or(std::make_pair(false, false));
 	auto handleWindow = Renderer::get().renderContext.HandleWindow;
 
-	if (left)
+	while (left)
 	{
 		long milli = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 		if (Left::lastClickTime == 0) Left::lastClickTime = milli;
-		if ((milli - Left::lastClickTime) < (1000 / Left::nextCps)) return;
+		if ((milli - Left::lastClickTime) < (1000 / Left::nextCps)) break;
+
+		if (!GetAsyncKeyState(VK_LBUTTON) && 1) break;
 
 		auto mc = Wrapper::Minecraft::getMinecraft();
 		auto mouseOver = mc.getMouseOver();
@@ -92,7 +94,7 @@ void AutoClicker::onUpdate()
 			POINT pos_cursor;
 			GetCursorPos(&pos_cursor);
 			PostMessageA(handleWindow, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
-			return;
+			break;
 		}
 
 		POINT pos_cursor;
@@ -118,6 +120,7 @@ void AutoClicker::onUpdate()
 		std::mt19937 gen(rd());
 		std::uniform_int_distribution<> distrib((*leftMinCpsValue->getValuePtr()), (*leftMaxCpsValue->getValuePtr()));
 		Left::nextCps = distrib(gen);
+		break;
 
 	}
 

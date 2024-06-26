@@ -32,6 +32,16 @@ bool Object::isNULL()
     return false;
 }
 
+jclass Object::getClass()
+{
+    return this->instance->owner_klass;
+}
+
+jobject Object::getObject()
+{
+    return this->instance->object_instance;
+}
+
 
 Object::~Object()
 { 
