@@ -43,3 +43,6 @@
 			return empty;																			\
 		}																								\
 
+
+
+#define DECLARE_NAME(lambda_function_body) decltype([] {lambda_function_body; })

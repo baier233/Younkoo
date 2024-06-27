@@ -6,16 +6,16 @@
 #include <functional>
 
 namespace JNI {
-	template<typename method_return_type, is_static_t is_static = NOT_STATIC, class... method_parameters_type>
+	template<typename method_return_type, is_static_t is_static = NOT_STATIC, typename method_name_lambda = decltype([] {return ""; }), class... method_parameters_type >
 	class Method
 	{
 	public:
-		Method(std::function<std::string()> lambda_get_name, const EmptyMembers& m) :
+		Method(const EmptyMembers& m) :
 			owner_klass(m.owner_klass),
 			object_instance(m.object_instance)
 		{
 			if (id) return;
-			this->method_name = lambda_get_name();
+			this->method_name = method_name_lambda()();
 			auto method_sign = get_signature();
 			std::cout << "Getting Method : " << method_name + " " + method_sign << " isStatic :" << is_static << std::endl;
 			if constexpr (is_static)
@@ -186,7 +186,7 @@ namespace JNI {
 		jclass owner_klass;
 		jobject object_instance;
 		static inline jmethodID id = nullptr;
-		std::string method_name;
+		static inline std::string method_name;
 	};
 
 }

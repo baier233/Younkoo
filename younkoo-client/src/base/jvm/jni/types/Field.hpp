@@ -6,16 +6,16 @@
 #include <iostream>
 
 namespace JNI {
-	template<typename field_type, is_static_t is_static = NOT_STATIC>
+	template<typename field_type, is_static_t is_static = NOT_STATIC, typename field_name_lambda = decltype([] {return ""; }) >
 	class Field
 	{
 	public:
-		Field(std::function<std::string()> lambda_get_name, const EmptyMembers& m) :
+		Field(const EmptyMembers& m) :
 			owner_klass(m.owner_klass),
 			object_instance(m.object_instance)
 		{
 			if (id) return;
-			field_name = lambda_get_name();
+			field_name = field_name_lambda()();
 
 			std::cout << "Getting Field : " << get_name() + " " + get_signature() << " isStatic :" << is_static << std::endl;
 			if constexpr (is_static)
@@ -216,7 +216,7 @@ namespace JNI {
 		jclass owner_klass = nullptr;
 		jobject object_instance = nullptr;
 		inline static jfieldID id = nullptr;
-		std::string field_name;
+		inline static std::string field_name;
 	};
 
 
