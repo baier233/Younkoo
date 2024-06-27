@@ -11,7 +11,6 @@ public:
 	std::string getType();
 	bool isTypeOfBlock();
 
-
 protected:
 
 };
