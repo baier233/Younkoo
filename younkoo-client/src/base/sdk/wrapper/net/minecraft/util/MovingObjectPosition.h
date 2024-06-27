@@ -12,7 +12,6 @@ public:
 	bool isTypeOfBlock();
 	bool isTypeOfEntity();
 
-
 protected:
 
 };

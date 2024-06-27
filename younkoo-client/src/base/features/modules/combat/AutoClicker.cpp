@@ -91,7 +91,7 @@ void AutoClicker::onUpdate()
 		auto mc = Wrapper::Minecraft::getMinecraft();
 		auto mouseOver = mc.getMouseOver();
 		if (miningValue->getValue() && mouseOver.isTypeOfBlock()) {
-			std::cout << "Break" << std::endl;
+			//std::cout << "Break" << std::endl;
 			POINT pos_cursor;
 			GetCursorPos(&pos_cursor);
 			PostMessageA(handleWindow, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));

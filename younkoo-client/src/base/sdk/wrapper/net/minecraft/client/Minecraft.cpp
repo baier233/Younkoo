@@ -12,9 +12,14 @@ Wrapper::Minecraft Wrapper::Minecraft::getMinecraft()
 	return Minecraft();
 }
 
-Wrapper::Minecraft Wrapper::Minecraft::get()
+Wrapper::Minecraft Wrapper::Minecraft::static_obj()
 {
-	return Minecraft(V1_18_1::Minecraft::static_obj());
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		return Minecraft(V1_18_1::Minecraft::static_obj());
+	}
+	assert("unimplemented version");
+	return Minecraft();
 }
 
 bool Wrapper::Minecraft::isInGuiState()
