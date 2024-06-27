@@ -4,6 +4,7 @@
 
 //Combat
 #include "combat/AutoClicker.h"
+#include "combat/TriggerBot.h"
 
 //Visual
 #include "visual/HUD.h"
@@ -68,6 +69,7 @@ bool ModuleManager::LoadModules()
 	{/*Combat*/
 
 		this->addModule<AutoClicker>(&AutoClicker::getInstance());
+		this->addModule<TriggerBot>(&TriggerBot::getInstance());
 	}
 	return true;
 }

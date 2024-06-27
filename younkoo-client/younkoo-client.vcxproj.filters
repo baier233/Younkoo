@@ -261,6 +261,9 @@
     <ClCompile Include="src\base\sdk\wrapper\Object.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\features\modules\combat\TriggerBot.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -594,6 +597,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\Object.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\modules\combat\TriggerBot.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

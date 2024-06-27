@@ -161,6 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\features\modules\combat\TriggerBot.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\MovingObjectPosition.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\Object.cpp" />
@@ -282,6 +283,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\base\features\modules\combat\TriggerBot.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\MovingObjectPosition.h" />
     <ClInclude Include="src\base\sdk\wrapper\Object.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\gui\screens\Screen.h" />

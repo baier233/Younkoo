@@ -10,6 +10,7 @@ public:
 	using Object::Object;
 	std::string getType();
 	bool isTypeOfBlock();
+	bool isTypeOfEntity();
 
 
 protected:
