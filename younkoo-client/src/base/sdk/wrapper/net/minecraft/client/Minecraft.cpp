@@ -34,8 +34,7 @@ Wrapper::MovingObjectPosition Wrapper::Minecraft::getMouseOver()
 {
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
 	{
-		V1_18_1::Minecraft mc;
-		mc.object_instance = this->instance->object_instance;
+		 V1_18_1::Minecraft mc = this->instance->object_instance;
 		return mc.hitResult.get();
 	}
 	assert("unimplemented version");

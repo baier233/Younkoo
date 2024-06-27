@@ -8,6 +8,7 @@ class MovingObjectPosition :public Object
 {
 public:
 	using Object::Object;
+	std::string getType();
 	bool isTypeOfBlock();
 
 

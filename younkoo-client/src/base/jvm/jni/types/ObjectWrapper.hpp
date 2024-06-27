@@ -27,6 +27,18 @@ namespace JNI {
 			if (is_global_ref)
 				clear_ref();
 		}
+
+		bool is_same_object(const ObjectWrapper& other) const
+		{
+			return get_env()->IsSameObject(object_instance, other.object_instance) == JNI_TRUE;
+		}
+
+		template<typename klass_type>
+		bool is_instance_of() const
+		{
+			return get_env()->IsInstanceOf(object_instance, get_cached_jclass<klass_type>()) == JNI_TRUE;
+		}
+
 		ObjectWrapper& operator=(const ObjectWrapper& other) //operator = keeps the current ref type
 		{
 			if (is_global_ref)
