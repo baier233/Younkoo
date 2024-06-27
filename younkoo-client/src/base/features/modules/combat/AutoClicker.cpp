@@ -30,16 +30,16 @@ AutoClicker::AutoClicker() :AbstractModule(xorstr_("AutoClicker"), Category::COM
 {
 	this->setToggle(false);
 
-	this->addValue(FloatType, leftMinCpsValue.get());
-	this->addValue(FloatType, leftMaxCpsValue.get());
+	this->addValue(FloatType, leftMinCpsValue);
+	this->addValue(FloatType, leftMaxCpsValue);
 
-	this->addValue(BoolType, blockHitValue.get());
-	this->addValue(FloatType, blockHitChanceValue.get());
+	this->addValue(BoolType, blockHitValue);
+	this->addValue(FloatType, blockHitChanceValue);
 
-	this->addValue(BoolType, miningValue.get());
-	this->addValue(BoolType, inInventoryValue.get());
+	this->addValue(BoolType, miningValue);
+	this->addValue(BoolType, inInventoryValue);
 
-	this->addValue(ListType, clickModeValue.get());
+	this->addValue(ListType, clickModeValue);
 }
 
 

@@ -15,8 +15,8 @@ TriggerBot::TriggerBot() :AbstractModule(xorstr_("TriggerBot"), Category::COMBAT
 {
 	this->setToggle(false);
 
-	this->addValue(FloatType, minCpsValue.get());
-	this->addValue(FloatType, maxCpsValue.get());
+	this->addValue(FloatType, minCpsValue);
+	this->addValue(FloatType, maxCpsValue);
 }
 
 TriggerBot& TriggerBot::getInstance()
@@ -56,7 +56,7 @@ void TriggerBot::onUpdate()
 
 		std::random_device rd;
 		std::mt19937 gen(rd());
-		std::uniform_int_distribution<> distrib((*minCpsValue->getValuePtr()), (*maxCpsValue->getValuePtr()));
+		std::uniform_int_distribution<> distrib((minCpsValue->getValue()), (maxCpsValue->getValue()));
 		nextCps = distrib(gen);
 	}
 }

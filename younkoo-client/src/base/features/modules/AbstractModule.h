@@ -4,6 +4,8 @@
 #include "..\values\Value.h"
 #include "../../event/EventBus.hpp"
 
+#include <memory>
+
 #define IsKeyBeingDown(KEYNONAME) ((GetAsyncKeyState(KEYNONAME)&0x8000)?1:0)
 
 #define REGISTER_EVENT(eventType, callbackFunction) \
@@ -26,7 +28,7 @@ enum class Category : unsigned int {
 
 class AbstractModule {
 protected:
-	std::vector<std::pair<ValueType, Value*>> values;
+	std::vector<std::pair<ValueType, std::shared_ptr<Value>>> values;
 private:
 
 	std::string name;
@@ -36,19 +38,19 @@ private:
 	bool i_toggle;
 public:
 
-	void addValue(ValueType type, Value* value)
+	void addValue(ValueType type, const std::shared_ptr<Value>& value)
 	{
-		values.push_back(std::pair<ValueType, Value*>(type, value));
+		values.push_back(std::pair<ValueType, std::shared_ptr<Value>>(type, value));
 	}
 
-	std::vector<std::pair<ValueType, Value*>> getValues() {
+	std::vector<std::pair<ValueType, std::shared_ptr<Value>>> getValues() {
 		return values;
 	}
 
-	Value* getValueObjByName(const std::string& name) {
+	std::shared_ptr<Value> getValueObjByName(const std::string& name) {
 		for (int i = 0; i < values.size(); i++)
 		{
-			Value* crtObj = values[i].second;
+			auto crtObj = values[i].second;
 			if (name.compare(crtObj->getName()) == 0)
 			{
 				return crtObj;

@@ -184,6 +184,6 @@ private:
 };
 
 
-#define DEFINE_FLOAT_VALUE(VAR_NAME,NAME,DESC,DEFAULT,MIN,MAX) std::unique_ptr<FloatValue> VAR_NAME = std::make_unique<FloatValue>(xorstr_(NAME), xorstr_(DESC), DEFAULT, MIN, MAX)
+#define DEFINE_FLOAT_VALUE(VAR_NAME,NAME,DESC,DEFAULT,MIN,MAX) std::shared_ptr<FloatValue> VAR_NAME = std::make_unique<FloatValue>(xorstr_(NAME), xorstr_(DESC), DEFAULT, MIN, MAX)
 
-#define DEFINE_BOOL_VALUE(VAR_NAME,NAME,DESC,DEFAULT) std::unique_ptr<BoolValue> VAR_NAME = std::make_unique<BoolValue>(xorstr_(NAME), xorstr_(DESC), DEFAULT)
+#define DEFINE_BOOL_VALUE(VAR_NAME,NAME,DESC,DEFAULT) std::shared_ptr<BoolValue> VAR_NAME = std::make_unique<BoolValue>(xorstr_(NAME), xorstr_(DESC), DEFAULT)

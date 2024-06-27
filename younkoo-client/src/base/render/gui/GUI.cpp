@@ -57,18 +57,18 @@ void createWindow(int xPos, const std::string& title, Category category) {
 
 			for (auto& valuePair : mod->getValues()) {
 				ValueType valueType = valuePair.first;
-				Value* value = valuePair.second;
+				auto value = valuePair.second;
 
 				switch (valueType) {
 				case BoolType:
-					if (auto boolValue = dynamic_cast<BoolValue*>(value)) {
+					if (auto boolValue = dynamic_cast<BoolValue*>(value.get())) {
 						new CheckBox(contentPanel, boolValue->getName(), [boolValue](bool enabled) {
 							*boolValue->getValuePtr() = enabled;
 							});
 					}
 					break;
 				case IntType:
-					if (auto intValue = dynamic_cast<NumberValue*>(value)) {
+					if (auto intValue = dynamic_cast<NumberValue*>(value.get())) {
 						auto label = new Label(contentPanel, intValue->getName());
 
 						auto sliderPanel = new Widget(contentPanel);
@@ -103,7 +103,7 @@ void createWindow(int xPos, const std::string& title, Category category) {
 					}
 					break;
 				case FloatType:
-					if (auto floatValue = dynamic_cast<FloatValue*>(value)) {
+					if (auto floatValue = dynamic_cast<FloatValue*>(value.get())) {
 						auto label = new Label(contentPanel, floatValue->getName());
 
 						auto sliderPanel = new Widget(contentPanel);
@@ -142,7 +142,7 @@ void createWindow(int xPos, const std::string& title, Category category) {
 					}
 					break;
 				case ListType:
-					if (auto modeValue = dynamic_cast<ModeValue*>(value)) {
+					if (auto modeValue = dynamic_cast<ModeValue*>(value.get())) {
 						auto label = new Label(contentPanel, modeValue->getName());
 						std::vector<std::string> items;
 						for (size_t i = 0; i < modeValue->getModes().size(); i++)
@@ -157,7 +157,7 @@ void createWindow(int xPos, const std::string& title, Category category) {
 					}
 					break;
 				case ColorType:
-					if (auto colorValue = dynamic_cast<ColorValue*>(value)) {
+					if (auto colorValue = dynamic_cast<ColorValue*>(value.get())) {
 						auto label = new Label(contentPanel, colorValue->getName());
 						auto colorPicker = new ColorPicker(contentPanel, Color(colorValue->getValue()));
 						colorPicker->setCallback([colorValue](const Color& color) {
