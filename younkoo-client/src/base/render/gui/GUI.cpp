@@ -57,14 +57,15 @@ void createWindow(int xPos, const std::string& title, Category category) {
 
 			for (auto& valuePair : mod->getValues()) {
 				ValueType valueType = valuePair.first;
-				auto value = valuePair.second;
+				auto& value = valuePair.second;
 
 				switch (valueType) {
 				case BoolType:
 					if (auto boolValue = dynamic_cast<BoolValue*>(value.get())) {
-						new CheckBox(contentPanel, boolValue->getName(), [boolValue](bool enabled) {
-							*boolValue->getValuePtr() = enabled;
+						auto checkBox = new CheckBox(contentPanel, boolValue->getName(), [value](bool enabled) {
+							*(bool*)value->getPtr() = enabled;
 							});
+						checkBox->setChecked(boolValue->getValue());
 					}
 					break;
 				case IntType:
@@ -83,16 +84,16 @@ void createWindow(int xPos, const std::string& title, Category category) {
 						textBox->setFontSize(15);
 						textBox->setValue(std::to_string(intValue->getValue()));
 
-						slider->setCallback([intValue, textBox](float value) {
-							int v = static_cast<int>(value);
-							intValue->setValue(v);
+						slider->setCallback([value, textBox](float value_) {
+							int v = static_cast<int>(value_);
+							*(float*)value->getPtr() = v;
 							});
 
-						textBox->setCallback([intValue, slider](const std::string& text) {
+						textBox->setCallback([value, slider](const std::string& text) {
 							try {
-								int value = std::stoi(text);
-								intValue->setValue(value);
-								slider->setValue(value);
+								int v = std::stoi(text);
+								*(int*)value->getPtr() = v;
+								slider->setValue(v);
 							}
 							catch (...) {
 								return false;
@@ -120,18 +121,19 @@ void createWindow(int xPos, const std::string& title, Category category) {
 						oss << std::fixed << std::setprecision(2) << floatValue->getValue();
 						textBox->setValue(oss.str());
 
-						slider->setCallback([floatValue, textBox](float value) {
-							floatValue->setValue(value);
+						slider->setCallback([value, textBox](float value_) {
+							*(float*)value->getPtr() = value_;
 							std::ostringstream oss;
-							oss << std::fixed << std::setprecision(2) << value;
+							oss << std::fixed << std::setprecision(2) << value_;
 							textBox->setValue(oss.str());
 							});
 
-						textBox->setCallback([floatValue, slider](const std::string& text) {
+						textBox->setCallback([value, slider](const std::string& text) {
 							try {
-								float value = std::stof(text);
-								floatValue->setValue(value);
-								slider->setValue(value);
+								float value_ = std::stof(text);
+								*(float*)value->getPtr() = value_;
+								//floatValue->setValue(value);
+								slider->setValue(value_);
 							}
 							catch (...) {
 								return false;
@@ -151,8 +153,8 @@ void createWindow(int xPos, const std::string& title, Category category) {
 						}
 						auto comboBox = new ComboBox(contentPanel, items);
 						comboBox->setSelectedIndex(modeValue->getValue());
-						comboBox->setCallback([modeValue](int selectedIndex) {
-							modeValue->setValue(selectedIndex);
+						comboBox->setCallback([value](int selectedIndex) {
+							*(int*)value->getPtr() = selectedIndex;
 							});
 					}
 					break;
@@ -160,13 +162,14 @@ void createWindow(int xPos, const std::string& title, Category category) {
 					if (auto colorValue = dynamic_cast<ColorValue*>(value.get())) {
 						auto label = new Label(contentPanel, colorValue->getName());
 						auto colorPicker = new ColorPicker(contentPanel, Color(colorValue->getValue()));
-						colorPicker->setCallback([colorValue](const Color& color) {
-							float* colorArray = colorValue->getValuePtr();
+						colorPicker->setCallback([value](const Color& color) {
+							auto colorArray = (float*)value->getPtr();
 							colorArray[0] = color.r();
 							colorArray[1] = color.g();
 							colorArray[2] = color.b();
 							colorArray[3] = color.w();
 							});
+						
 					}
 					break;
 				default:

@@ -21,8 +21,9 @@ Younkoo::Younkoo()
 bool Younkoo::setup()
 {
 	auto flag = JVM::get().setup();
-	flag &= Renderer::get().Init();
+
 	flag &= ModuleManager::get().LoadModules();
+	flag &= Renderer::get().Init();
 
 	SRGParser::get().SetVersion(Versions::FORGE_1_18_1);
 	std::cout << SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft") << std::endl;

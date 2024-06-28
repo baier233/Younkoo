@@ -90,16 +90,26 @@ void AutoClicker::onUpdate()
 
 		auto mc = Wrapper::Minecraft::getMinecraft();
 		auto mouseOver = mc.getMouseOver();
-		if (miningValue->getValue() && mouseOver.isTypeOfBlock()) {
-			//std::cout << "Break" << std::endl;
-			POINT pos_cursor;
-			GetCursorPos(&pos_cursor);
-			PostMessageA(handleWindow, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
-			break;
-		}
 
 		POINT pos_cursor;
 		GetCursorPos(&pos_cursor);
+		static auto updateCps = [&] {
+
+			Left::lastClickTime = milli;
+
+			std::random_device rd;
+			std::mt19937 gen(rd());
+			std::uniform_int_distribution<> distrib(((int)leftMinCpsValue->getValue()), ((int)leftMaxCpsValue->getValue()));
+			Left::nextCps = distrib(gen);
+			};
+
+		if (miningValue->getValue() && mouseOver.isTypeOfBlock()) {
+			//std::cout << "Break" << std::endl;
+			PostMessageA(handleWindow, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+			updateCps();
+			break;
+		}
+
 		//CommonData::getInstance()->isCombat = true;
 		PostMessageA(handleWindow, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
 		PostMessageA(handleWindow, WM_LBUTTONUP, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
@@ -111,16 +121,9 @@ void AutoClicker::onUpdate()
 		}
 
 		else if (blockHitValue->getValue() == true) {
-
 			Left::count++;
 		}
-
-		Left::lastClickTime = milli;
-
-		std::random_device rd;
-		std::mt19937 gen(rd());
-		std::uniform_int_distribution<> distrib((*leftMinCpsValue->getValuePtr()), (*leftMaxCpsValue->getValuePtr()));
-		Left::nextCps = distrib(gen);
+		updateCps();
 		break;
 
 	}
