@@ -284,6 +284,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
     <ClInclude Include="src\base\features\modules\combat\TriggerBot.h" />
+    <ClInclude Include="src\base\sdk\mapper\resources\maps\forge1201.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\MovingObjectPosition.h" />
     <ClInclude Include="src\base\sdk\wrapper\Object.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\gui\screens\Screen.h" />
@@ -311,7 +312,6 @@
     <ClInclude Include="src\base\features\modules\combat\KillAura.h" />
     <ClInclude Include="src\base\render\gui\GUI.h" />
     <ClInclude Include="src\base\features\modules\fight\AutoClicker.h" />
-    <ClInclude Include="src\base\sdk\mapper\resources\maps\forge1204.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.h" />
     <ClInclude Include="src\base\event\Events.h" />
     <ClInclude Include="src\base\event\EventBus.hpp" />
@@ -398,7 +398,7 @@
     <ClInclude Include="src\utils\Wstr.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\base\sdk\mapper\resources\maps\forge1204.srg" />
+    <None Include="src\base\sdk\mapper\resources\maps\forge1201.srg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

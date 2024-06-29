@@ -512,9 +512,6 @@
     <ClInclude Include="src\base\features\modules\combat\AimAssist.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\sdk\mapper\resources\maps\forge1204.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\base\render\gui\clickgui\component\Component.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -602,6 +599,9 @@
     <ClInclude Include="src\base\features\modules\combat\TriggerBot.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\base\sdk\mapper\resources\maps\forge1201.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\render\gui\input\IOEvents.h">
@@ -609,6 +609,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\base\sdk\mapper\resources\maps\forge1204.srg" />
+    <None Include="src\base\sdk\mapper\resources\maps\forge1201.srg" />
   </ItemGroup>
 </Project>

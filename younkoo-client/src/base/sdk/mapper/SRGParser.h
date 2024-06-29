@@ -12,7 +12,7 @@ enum class Versions {
 	FORGE_1_8_9,
 	FORGE_1_12_2,
 	FORGE_1_18_1,
-	FORGE_1_20_4,
+	FORGE_1_20_1,
 	VANILLA_1_8_9,
 	VANILLA_1_12_2,
 	LUNAR_1_8_9,
