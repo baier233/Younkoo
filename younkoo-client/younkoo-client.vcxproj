@@ -162,6 +162,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\base\features\modules\combat\TriggerBot.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\MovingObjectPosition.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\Object.cpp" />
@@ -285,6 +286,8 @@
     </ClCompile>
     <ClInclude Include="src\base\features\modules\combat\TriggerBot.h" />
     <ClInclude Include="src\base\sdk\mapper\resources\maps\forge1201.h" />
+    <ClInclude Include="src\base\sdk\wrapper\java\lang\String.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\MovingObjectPosition.h" />
     <ClInclude Include="src\base\sdk\wrapper\Object.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\gui\screens\Screen.h" />
@@ -293,6 +296,9 @@
     <ClInclude Include="src\base\render\nano\wrapper\gl3.h" />
     <ClInclude Include="src\base\features\modules\combat\AutoClicker.h" />
     <ClInclude Include="src\base\render\nano\font\NanoVGFontRenderer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\LocalPlayer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\BlockPos.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\InteractionHand.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult$Type.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\Vec3.h" />

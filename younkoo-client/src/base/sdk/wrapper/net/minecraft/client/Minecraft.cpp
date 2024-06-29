@@ -45,3 +45,14 @@ Wrapper::MovingObjectPosition Wrapper::Minecraft::getMouseOver()
 	assert("unimplemented version");
 	return MovingObjectPosition();
 }
+
+Wrapper::LocalPlayer Wrapper::Minecraft::getPlayer()
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		V1_18_1::Minecraft mc = this->instance->object_instance;
+		return mc.player.get();
+	}
+	assert("unimplemented version");
+	return LocalPlayer();
+}
