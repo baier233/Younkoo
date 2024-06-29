@@ -279,6 +279,51 @@
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\jvm\hotspot\classes\array.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\jvm\hotspot\classes\bytecode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\jvm\hotspot\classes\const_pool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\jvm\hotspot\classes\field_info.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\jvm\hotspot\classes\java_thread.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\jvm\hotspot\classes\klass.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\jvm\hotspot\classes\method.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\jvm\hotspot\classes\symbol.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\jvm\hotspot\utility\jvm_internal.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\jvm\hotspot\utility\jvm_static.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\jvm\hotspot\utility\vm_helper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\jvm\hotspot\wrapper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\jvm\hotspot\break\break_point_info.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\jvm\hotspot\break\byte_code_info.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\jvm\hotspot\break\jvm_break_points.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -662,6 +707,69 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\BlockPos.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\classes\array.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\classes\bytecode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\classes\const_pool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\classes\field_info.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\classes\java_thread.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\classes\klass.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\classes\method.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\classes\symbol.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\utility\jvm_internal.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\utility\jvm_static.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\utility\memory_utility.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\utility\vm_helper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\include_header.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\magic_enum.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\wrapper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\break\break_point_info.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\break\byte_code_info.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\break\jvm_break_points.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\hook\hooks\RenderSystemHook.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\ClientRenderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\render\gui\input\IOEvents.h">
@@ -670,5 +778,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\base\sdk\mapper\resources\maps\forge1201.srg" />
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="src\base\jvm\hotspot\utility\getter.asm">
+      <Filter>源文件</Filter>
+    </MASM>
   </ItemGroup>
 </Project>

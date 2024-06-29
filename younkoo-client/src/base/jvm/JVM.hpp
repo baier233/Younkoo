@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "../../utils/Singleton.hpp"
 #include "jni/Wrapper.hpp"
+#include <jni/jvmti.h>
 class JVM : public Singleton<JVM>
 {
 protected:
@@ -11,6 +12,7 @@ public:
 	bool setup();
 	bool shutdown();
 	JNIEnv* Env;
+	jvmtiEnv* jvmti;
 	JavaVM* jvm;
 private:
 };

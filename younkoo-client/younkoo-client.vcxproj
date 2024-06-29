@@ -54,6 +54,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -161,6 +162,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\jvm\hotspot\break\break_point_info.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\break\byte_code_info.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\break\jvm_break_points.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\array.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\bytecode.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\const_pool.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\field_info.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\java_thread.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\klass.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\method.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\symbol.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\utility\jvm_internal.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\utility\jvm_static.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\utility\vm_helper.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\wrapper.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\EntityLivingBase.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\player\EntityPlayer.cpp" />
@@ -288,6 +304,27 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\ClientRenderer.h" />
+    <ClInclude Include="src\base\jvm\hotspot\break\break_point_info.h" />
+    <ClInclude Include="src\base\jvm\hotspot\break\byte_code_info.h" />
+    <ClInclude Include="src\base\jvm\hotspot\break\jvm_break_points.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\array.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\bytecode.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\const_pool.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\field_info.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\java_thread.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\klass.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\method.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\symbol.h" />
+    <ClInclude Include="src\base\jvm\hotspot\include_header.h" />
+    <ClInclude Include="src\base\jvm\hotspot\magic_enum.hpp" />
+    <ClInclude Include="src\base\jvm\hotspot\utility\jvm_internal.h" />
+    <ClInclude Include="src\base\jvm\hotspot\utility\jvm_static.h" />
+    <ClInclude Include="src\base\jvm\hotspot\utility\memory_utility.h" />
+    <ClInclude Include="src\base\jvm\hotspot\utility\vm_helper.h" />
+    <ClInclude Include="src\base\jvm\hotspot\wrapper.h" />
+    <ClInclude Include="src\base\sdk\hook\hooks\RenderSystemHook.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\EntityLivingBase.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\player\EntityPlayer.h" />
@@ -418,9 +455,13 @@
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\World.h" />
   </ItemGroup>
   <ItemGroup>
+    <MASM Include="src\base\jvm\hotspot\utility\getter.asm">
+      <FileType>Document</FileType>
+    </MASM>
     <None Include="src\base\sdk\mapper\resources\maps\forge1201.srg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
   </ImportGroup>
 </Project>

@@ -42,6 +42,5 @@ void ESP::onUpdate()
 
 void ESP::onRender(const EventRender2D& e)
 {
-
 	ToggleCheck;
 }

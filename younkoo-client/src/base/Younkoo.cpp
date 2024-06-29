@@ -19,6 +19,7 @@ Younkoo::Younkoo()
 #include "render/gui/input/Context.hpp"
 
 #include "sdk/Mapper/SRGParser.h"
+#include <hook/hooks/RenderSystemHook.h>
 bool Younkoo::setup()
 {
 	auto flag = JVM::get().setup();
@@ -43,6 +44,9 @@ bool Younkoo::setup()
 		JNI::set_class_loader(SDK::MinecraftClassLoader);
 	}
 
+	{
+		RenderSystemHook::applyHook();
+	}
 
 	std::cout << "Setting Up" << std::endl;
 

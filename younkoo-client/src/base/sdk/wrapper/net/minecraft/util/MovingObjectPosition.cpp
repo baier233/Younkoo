@@ -1,4 +1,4 @@
-#include "MovingObjectPosition.h"
+﻿#include "MovingObjectPosition.h"
 
 std::string Wrapper::MovingObjectPosition::getType()
 {
@@ -6,11 +6,11 @@ std::string Wrapper::MovingObjectPosition::getType()
 	{
 		V1_18_1::HitResult mouseOver = this->instance->object_instance;
 		auto type = mouseOver.getType();
-		if (type.is_same_object( V1_18_1::HitResult$Type::static_obj().BLOCK.get()))
+		if (type.is_same_object(V1_18_1::HitResult$Type::static_obj().BLOCK.get()))
 		{
 			return "BLOCK";
 		}
-		else if(type.is_same_object( V1_18_1::HitResult$Type::static_obj().MISS.get())){
+		else if (type.is_same_object(V1_18_1::HitResult$Type::static_obj().MISS.get())) {
 			return "MISS";
 		}
 		else if (type.is_same_object(V1_18_1::HitResult$Type::static_obj().ENTITY.get())) {
@@ -27,7 +27,7 @@ bool Wrapper::MovingObjectPosition::isTypeOfBlock()
 	{
 
 		V1_18_1::HitResult mouseOver = this->instance->object_instance;
-		return mouseOver.getType().is_same_object( V1_18_1::HitResult$Type::static_obj().BLOCK.get());
+		return mouseOver.getType().is_same_object(V1_18_1::HitResult$Type::static_obj().BLOCK.get());
 	}
 	return false;
 }

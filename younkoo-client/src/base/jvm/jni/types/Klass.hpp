@@ -10,7 +10,13 @@ namespace JNI {
 		inline static std::shared_mutex mutex{};
 		inline static jclass value = nullptr;
 	};
-
+	template<class klass_type> inline void clear_cached_jclass() {
+		jclass& cached = jclass_cache<klass_type>::value;
+		{
+			std::unique_lock unique_lock{ jclass_cache<klass_type>::mutex };
+			cached = nullptr;
+		}
+	}
 	template<class klass_type> inline jclass get_cached_jclass() //findClass
 	{
 		jclass& cached = jclass_cache<klass_type>::value;
@@ -43,6 +49,10 @@ namespace JNI {
 		{
 		}
 
+		void init() {
+			clear_cached_jclass<Klass>();
+			get_cached_jclass<Klass>();
+		}
 
 		static inline std::string get_name()
 		{

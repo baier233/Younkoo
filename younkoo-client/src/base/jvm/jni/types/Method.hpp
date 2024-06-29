@@ -15,6 +15,9 @@ namespace JNI {
 			object_instance(m.object_instance)
 		{
 			if (id) return;
+			init();
+		}
+		void init() {
 			this->method_name = method_name_lambda()();
 			auto method_sign = get_signature();
 			std::cout << "Getting Method : " << method_name + " " + method_sign << " isStatic :" << is_static << std::endl;
@@ -24,7 +27,6 @@ namespace JNI {
 				id = get_env()->GetMethodID(owner_klass, method_name.c_str(), method_sign.c_str());
 			assertm(id, "failed to find MethodID ");
 		}
-
 		Method(std::string method_name, const EmptyMembers& m) :
 			owner_klass(m.owner_klass),
 			object_instance(m.object_instance)
@@ -47,6 +49,7 @@ namespace JNI {
 
 		auto call(const method_parameters_type&... method_parameters)
 		{
+			if (!id) init();
 			if constexpr (std::is_void_v<method_return_type>)
 			{
 				if (!id || !owner_klass || (!is_static && !object_instance)) return;

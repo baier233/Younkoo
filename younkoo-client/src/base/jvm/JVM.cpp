@@ -19,6 +19,10 @@ bool JVM::setup()
 
 	if (res != JNI_OK)
 		return false;
+
+	res = jvm->GetEnv((void**)&jvmti, JVMTI_VERSION_1_2);
+	if (res != JNI_OK)
+		return false;
 	JNI::set_thread_env(Env);
 	return true;
 }
