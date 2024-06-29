@@ -38,9 +38,9 @@ void TriggerBot::onDisable()
 void TriggerBot::onUpdate()
 {
 	ToggleCheck;
-	if (NanoGui::available) return;
-	const auto handleWindow = Renderer::get().renderContext.HandleWindow;
 	auto mc = Wrapper::Minecraft::getMinecraft();
+	if (NanoGui::available || mc.isInGuiState()) return;
+	const auto handleWindow = Renderer::get().renderContext.HandleWindow;
 	auto mouseOver = mc.getMouseOver();
 	if (mouseOver.isTypeOfEntity()) {
 		long milli = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
