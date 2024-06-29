@@ -43,7 +43,7 @@ namespace JNI {
 		{
 		}
 
-		
+
 		static inline std::string get_name()
 		{
 			return get_class_name_lambda()();

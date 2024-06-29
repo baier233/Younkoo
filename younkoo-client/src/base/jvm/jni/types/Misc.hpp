@@ -1,11 +1,39 @@
 ﻿#pragma once
 #include <string>
+#include <functional>
 #include <type_traits>
 #include <jni/jni.h>
-#include <shared_mutex>
+#include <shared_mutex> 
 #include <iostream>
 
 namespace JNI {
+
+	template<size_t N>
+	struct string_litteral
+	{
+		constexpr string_litteral(const char(&str)[N])
+		{
+			std::copy_n(str, N, value);
+		}
+		constexpr operator const char* () const
+		{
+			return value;
+		}
+		constexpr operator std::string_view() const
+		{
+			return value;
+		}
+		char value[N];
+	};
+
+	template<string_litteral strs>
+	struct lambda_container
+	{
+	private:
+		std::function<std::string()> m_lambda;
+	public:
+		std::string name() { return m_lambda(); }
+	};
 
 	template<typename T, typename... U> inline constexpr bool is_any_of_type = (std::is_same_v<T, U> || ...);
 	template<typename T> inline constexpr bool is_jni_primitive_type = is_any_of_type<T, jboolean, jbyte, jchar, jshort, jint, jfloat, jlong, jdouble>;
@@ -15,6 +43,7 @@ namespace JNI {
 		STATIC = true,
 		NOT_STATIC = false
 	};
+
 	template<class klass_type>
 	struct class_name_cache {
 		static std::string value;
@@ -38,8 +67,8 @@ namespace JNI {
 	{
 		auto& cached = class_name_cache<klass_type>::value;
 		{
-			std::shared_lock shared_lock{ class_name_cache<klass_type>::mutex }; 
-			
+			std::shared_lock shared_lock{ class_name_cache<klass_type>::mutex };
+
 			std::cout << "get_cached_name Class type: " << typeid(klass_type).name() << " name: " << cached << std::endl;
 			if (cached != "e") return cached;
 		}

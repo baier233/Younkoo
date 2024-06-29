@@ -22,7 +22,7 @@ namespace JNI {
 				id = get_env()->GetStaticMethodID(owner_klass, method_name.c_str(), method_sign.c_str());
 			if constexpr (!is_static)
 				id = get_env()->GetMethodID(owner_klass, method_name.c_str(), method_sign.c_str());
-			assertm(id, (const char*)("failed to find MethodID : " + get_name() + " " + get_signature()).c_str());
+			assertm(id, "failed to find MethodID ");
 		}
 
 		Method(std::string method_name, const EmptyMembers& m) :
@@ -37,7 +37,7 @@ namespace JNI {
 				id = get_env()->GetStaticMethodID(owner_klass, method_name.c_str(), method_sign.c_str());
 			if constexpr (!is_static)
 				id = get_env()->GetMethodID(owner_klass, method_name.c_str(), method_sign.c_str());
-			assertm(id, (const char*)("failed to find MethodID : " + get_name() + " " + get_signature()).c_str());
+			assertm(id, "failed to find MethodID");
 		}
 
 		auto operator()(const method_parameters_type&... method_parameters)

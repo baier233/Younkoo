@@ -12,6 +12,7 @@ Younkoo::Younkoo()
 
 
 #include <wrapper/net/minecraft/client/Minecraft.h>
+#include <wrapper/versions/1_18_1/net/minecraft/client/Minecraft.h>
 
 #include "render/Renderer.hpp"
 #include "render/nano/NanovgHelper.hpp"
@@ -21,7 +22,7 @@ Younkoo::Younkoo()
 bool Younkoo::setup()
 {
 	auto flag = JVM::get().setup();
-
+		
 	flag &= ModuleManager::get().LoadModules();
 	flag &= Renderer::get().Init();
 
@@ -42,8 +43,6 @@ bool Younkoo::setup()
 		JNI::set_class_loader(SDK::MinecraftClassLoader);
 	}
 
-	auto hit = V1_18_1::HitResult$Type::static_obj();
-	auto vec3 = V1_18_1::Vec3::static_obj();
 
 	std::cout << "Setting Up" << std::endl;
 

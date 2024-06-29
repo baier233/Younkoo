@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "wrapper/versions/1_18_1/net/minecraft/world/phys/HitResult.h"
 #include "wrapper/Object.h"
 

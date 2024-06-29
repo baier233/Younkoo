@@ -1,5 +1,6 @@
-#include "Minecraft.h"
+﻿#include "Minecraft.h"
 
+#include "wrapper/versions/1_18_1/net/minecraft/client/MInecraft.h"
 #include <memory>
 
 Wrapper::Minecraft Wrapper::Minecraft::getMinecraft()
@@ -26,7 +27,7 @@ bool Wrapper::Minecraft::isInGuiState()
 {
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
 	{
-		
+
 		V1_18_1::Minecraft mc = this->instance->object_instance;
 		return !JNI::get_env()->IsSameObject(mc.screen.get().object_instance, NULL);
 	}
@@ -35,11 +36,33 @@ bool Wrapper::Minecraft::isInGuiState()
 	return false;
 }
 
+Wrapper::World Wrapper::Minecraft::getWorld()
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+
+		V1_18_1::Minecraft mc = this->instance->object_instance;
+		return World(mc.level.get());
+	}
+	return World();
+}
+
+Wrapper::EntityPlayerSP Wrapper::Minecraft::getPlayer()
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+
+		V1_18_1::Minecraft mc = this->instance->object_instance;
+		return EntityPlayerSP(mc.player.get());
+	}
+	return EntityPlayerSP();
+}
+
 Wrapper::MovingObjectPosition Wrapper::Minecraft::getMouseOver()
 {
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
 	{
-		 V1_18_1::Minecraft mc = this->instance->object_instance;
+		V1_18_1::Minecraft mc = this->instance->object_instance;
 		return mc.hitResult.get();
 	}
 	assert("unimplemented version");

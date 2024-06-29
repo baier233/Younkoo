@@ -7,7 +7,7 @@
 
 namespace JNI {
 
-	
+
 	class ObjectWrapper
 	{
 	public:
@@ -48,6 +48,18 @@ namespace JNI {
 			}
 			else
 				object_instance = other.object_instance;
+			return *this;
+		}
+
+		ObjectWrapper& operator=(jobject other) //operator = keeps the current ref type
+		{
+			if (is_global_ref)
+			{
+				clear_ref();
+				object_instance = get_env()->NewGlobalRef(other);
+			}
+			else
+				object_instance = other;
 			return *this;
 		}
 

@@ -17,11 +17,12 @@ namespace JNI {
 			if (id) return;
 			field_name = field_name_lambda()();
 
-			std::cout << "Getting Field : " << get_name() + " " + get_signature() << " isStatic :" << is_static << std::endl;
+			std::cout << "Getting Field : " << get_name() + " " + get_signature() << " isStatic :" << is_static << " type:" << typeid(*this).name() << std::endl;
 			if constexpr (is_static)
 				id = get_env()->GetStaticFieldID(owner_klass, get_name().c_str(), get_signature().c_str());
 			if constexpr (!is_static)
 				id = get_env()->GetFieldID(owner_klass, get_name().c_str(), get_signature().c_str());
+			assertm(id, "failed to find FieldID ");
 		}
 
 		Field(std::string field_name, const EmptyMembers& m) :
@@ -30,12 +31,7 @@ namespace JNI {
 			object_instance(m.object_instance)
 		{
 			if (id) return;
-
-			std::cout << "Getting Field : " << get_name() + " " + get_signature() << " isStatic :" << is_static << std::endl;
-			if constexpr (is_static)
-				id = get_env()->GetStaticFieldID(owner_klass, get_name().c_str(), get_signature().c_str());
-			if constexpr (!is_static)
-				id = get_env()->GetFieldID(owner_klass, get_name().c_str(), get_signature().c_str());
+			init();
 		}
 
 		Field& operator=(const field_type& new_value)
@@ -43,7 +39,15 @@ namespace JNI {
 			set(new_value);
 			return *this;
 		}
-
+		void init() {
+			field_name = field_name_lambda()();
+			std::cout << "Getting Field : " << get_name() + " " + get_signature() << " isStatic :" << is_static << " type:" << typeid(*this).name() << std::endl;
+			if constexpr (is_static)
+				id = get_env()->GetStaticFieldID(owner_klass, get_name().c_str(), get_signature().c_str());
+			if constexpr (!is_static)
+				id = get_env()->GetFieldID(owner_klass, get_name().c_str(), get_signature().c_str());
+			assertm(id, "failed to find FieldID ");
+		}
 		void set(const field_type& new_value)
 		{
 			if (!id || !owner_klass || (!is_static && !object_instance)) return;
@@ -114,6 +118,10 @@ namespace JNI {
 
 		auto get() //usable only if Field is not static (requires an instance of the owner class
 		{
+			if (!id)
+			{
+				init();
+			}
 			if constexpr (!is_jni_primitive_type<field_type>)
 			{
 				if (!id || !owner_klass || (!is_static && !object_instance)) return field_type(nullptr);
@@ -188,12 +196,12 @@ namespace JNI {
 			}
 		}
 
-		auto get_name()
+		static inline auto get_name()
 		{
 			return field_name;
 		}
 
-		static auto get_signature()
+		static inline auto get_signature()
 		{
 			return get_signature_for_type<field_type>();
 		}

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <SDK.hpp>
 
@@ -8,8 +8,8 @@ class Object {
 public:
 	Object() {};
 	~Object();
+	Object(const JNI::EmptyMembers& obj_wrap);
 	Object(const Object& other_Object);
-	Object(JNI::EmptyMembers obj_wrap);
 	bool operator==(const Object& other_Object);
 	bool isEqualTo(const Object& other_Object);
 	bool isNULL();

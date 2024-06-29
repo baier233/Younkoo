@@ -8,6 +8,7 @@
 
 //Visual
 #include "visual/HUD.h"
+#include "visual/ESP.h"
 
 ModuleManager::ModuleManager() {
 
@@ -70,6 +71,7 @@ bool ModuleManager::LoadModules()
 
 		this->addModule<AutoClicker>(&AutoClicker::getInstance());
 		this->addModule<TriggerBot>(&TriggerBot::getInstance());
+		this->addModule<ESP>(&ESP::getInstance());
 	}
 	return true;
 }

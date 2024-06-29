@@ -1,8 +1,9 @@
 ﻿#pragma once
 
 #include <SDK.hpp>
-#include "wrapper/versions/1_18_1/net/minecraft/client/MInecraft.h"
 #include "wrapper/net/minecraft/util/MovingObjectPosition.h"
+#include "wrapper/net/minecraft/world/World.h"
+#include "wrapper/net/minecraft/client/entity/EntityPlayerSP.h"
 #include "wrapper/Object.h"
 
 BEGIN_WRAP
@@ -13,6 +14,8 @@ public:
 	static Minecraft getMinecraft();
 	static Minecraft static_obj();
 	bool isInGuiState();
+	World getWorld();
+	EntityPlayerSP getPlayer();
 	MovingObjectPosition getMouseOver();
 
 private:
