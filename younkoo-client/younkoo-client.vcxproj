@@ -166,7 +166,6 @@
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\player\EntityPlayer.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\Entity.cpp" />
     <ClCompile Include="src\base\features\modules\combat\TriggerBot.cpp" />
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\MovingObjectPosition.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\Object.cpp" />
@@ -297,7 +296,6 @@
     <ClInclude Include="src\base\sdk\jdk\Classes.h" />
     <ClInclude Include="src\base\sdk\mapper\resources\maps\forge1201.h" />
     <ClInclude Include="src\base\sdk\wrapper\java\lang\String.h" />
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\MovingObjectPosition.h" />
     <ClInclude Include="src\base\sdk\wrapper\Object.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\gui\screens\Screen.h" />
@@ -312,7 +310,6 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\player\Player.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\Entity.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\LivingEntity.h" />
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\LocalPlayer.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\BlockPos.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\InteractionHand.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult$Type.h" />

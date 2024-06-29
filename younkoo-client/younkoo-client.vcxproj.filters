@@ -277,7 +277,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.cpp">
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -652,7 +651,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.h">
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\LocalPlayer.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\InteractionHand.h">
@@ -662,9 +660,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\BlockPos.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\player\LocalPlayer.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

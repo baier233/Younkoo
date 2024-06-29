@@ -24,10 +24,6 @@ JNI::Field<Minecraft, JNI::STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft"), "instance")
 )> instance{ *this };
 
-JNI::Field<LocalPlayer, JNI::STATIC, DECLARE_NAME(
-	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft"), "player")
-)> player{ *this };
-
 JNI::Method<Minecraft, JNI::STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedMethodName("net/minecraft/client/Minecraft", "getInstance", "()Lnet/minecraft/client/Minecraft;").first
 )>getInstance{ *this };

@@ -22,7 +22,7 @@ Younkoo::Younkoo()
 bool Younkoo::setup()
 {
 	auto flag = JVM::get().setup();
-		
+
 	flag &= ModuleManager::get().LoadModules();
 	flag &= Renderer::get().Init();
 
