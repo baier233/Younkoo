@@ -111,6 +111,7 @@ bool Younkoo::shutdown()
 {
 	shouldShutDown = true;
 	UnloadedModuleCleaner::Clean();
+	RenderSystemHook::cleanHook();
 
 	auto flag = Renderer::get().Shutdown() && JVM::get().shutdown();
 	if (!flag) return false;

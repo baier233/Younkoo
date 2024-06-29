@@ -28,6 +28,7 @@ auto jvm_break_points::breakpoint_handler(
 	uintptr_t bytecode_address,
 	uintptr_t parameters
 ) -> void {
+
 	const auto callback = breakpoint_callbacks[bytecode_address];
 	if (!callback) {
 		breakpoint_hook.GetOrignalFunc()(java_thread, method, bytecode_address);
@@ -37,7 +38,8 @@ auto jvm_break_points::breakpoint_handler(
 		method, bytecode_address, java_thread, parameters
 	);
 	callback(breakpoint_info.get());
-	set_breakpoint(method, bytecode_address - (uintptr_t)method->get_const_method()->get_bytecode_start(), callback);
+	//set_breakpoint(method, bytecode_address - (uintptr_t)method->get_const_method()->get_bytecode_start(), callback);
+
 }
 
 
@@ -88,8 +90,9 @@ auto jvm_break_points::remove_breakpoint(java_hotspot::method* method, const uin
 
 auto jvm_break_points::remove_all_breakpoints(java_hotspot::method* method) -> void {
 	uint8_t* bytecode_start = method->get_const_method()->get_bytecode_start();
+	uint8_t* bytecode_end = bytecode_start + method->get_const_method()->get_bytecode_size();
 	for (uint8_t* bytecode_address = bytecode_start;; bytecode_address++) {
-		if (*bytecode_address == 0xFF) {
+		if (bytecode_end == bytecode_address) {
 			break;
 		}
 		if (original_bytecodes.contains(reinterpret_cast<uintptr_t>(bytecode_address))) {

@@ -312,13 +312,10 @@
     <ClCompile Include="src\base\jvm\hotspot\utility\vm_helper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\wrapper.cpp">
+    <ClCompile Include="src\base\jvm\hotspot\java_hook.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\base\jvm\hotspot\break\break_point_info.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\break\byte_code_info.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\base\jvm\hotspot\break\jvm_break_points.cpp">
@@ -749,7 +746,7 @@
     <ClInclude Include="src\base\jvm\hotspot\magic_enum.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\wrapper.h">
+    <ClInclude Include="src\base\jvm\hotspot\java_hook.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\jvm\hotspot\break\break_point_info.h">

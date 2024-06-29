@@ -12,6 +12,7 @@
 namespace JavaHook {
 	namespace JVM {
 		bool Init(JNIEnv* env);
+		bool clean();
 	}
 	class hook_callback_info
 	{
@@ -53,7 +54,7 @@ namespace JavaHook {
 		MethodHook(const jmethodID method, hook_callback_t detour);
 		~MethodHook();
 		static auto breakpoint_callback_handler(break_point_info* info) -> void {
-			auto hook_info = std::make_unique<hook_callback_info>(info);
+			auto hook_info = std::make_shared<hook_callback_info>(info);
 			hook_map[info->method]->detour(hook_info.get());
 		}
 		void RemoveHook();

@@ -163,7 +163,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\base\jvm\hotspot\break\break_point_info.cpp" />
-    <ClCompile Include="src\base\jvm\hotspot\break\byte_code_info.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\break\jvm_break_points.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\classes\array.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\classes\bytecode.cpp" />
@@ -176,7 +175,7 @@
     <ClCompile Include="src\base\jvm\hotspot\utility\jvm_internal.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\utility\jvm_static.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\utility\vm_helper.cpp" />
-    <ClCompile Include="src\base\jvm\hotspot\wrapper.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\java_hook.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\EntityLivingBase.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\player\EntityPlayer.cpp" />
@@ -323,7 +322,7 @@
     <ClInclude Include="src\base\jvm\hotspot\utility\jvm_static.h" />
     <ClInclude Include="src\base\jvm\hotspot\utility\memory_utility.h" />
     <ClInclude Include="src\base\jvm\hotspot\utility\vm_helper.h" />
-    <ClInclude Include="src\base\jvm\hotspot\wrapper.h" />
+    <ClInclude Include="src\base\jvm\hotspot\java_hook.h" />
     <ClInclude Include="src\base\sdk\hook\hooks\RenderSystemHook.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\EntityLivingBase.h" />

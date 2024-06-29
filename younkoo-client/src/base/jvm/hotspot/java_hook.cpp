@@ -1,4 +1,4 @@
-﻿#include "wrapper.h"
+﻿#include "java_hook.h"
 
 
 
@@ -94,6 +94,13 @@ bool JavaHook::JVM::Init(JNIEnv* env)
 	InitGlobalOffsets();
 	ScanByteCodeOffset(env);
 	return false;
+}
+
+bool JavaHook::JVM::clean()
+{
+	jvm_break_points::breakpoint_hook.RemoveHook();
+	jvm_break_points::original_bytecode_hook.RemoveHook();
+	return true;
 }
 
 JavaHook::MethodHook::MethodHook()
