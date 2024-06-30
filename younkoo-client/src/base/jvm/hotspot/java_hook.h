@@ -22,17 +22,18 @@ namespace JavaHook {
 		hook_callback_info(break_point_info* info);
 		~hook_callback_info();
 
-		jobject get_locals_jobject_at(const size_t local_index) const {
+		inline jobject get_locals_jobject_at(const size_t local_index) const {
 			return reinterpret_cast<jobject>(reinterpret_cast<uint8_t*>(this->locals) + local_index * sizeof(uint8_t*));
 		}
+
 		template<typename T>
-		T get_locals_object_at(const size_t local_index) {
+		inline T get_locals_object_at(const size_t local_index) {
 			const auto address = reinterpret_cast<uint8_t*>(this->locals);
 			return *reinterpret_cast<T*>(address - local_index * sizeof(uint8_t*));
 		}
 
 		template<typename T>
-		T* get_locals_pobject_at(const size_t local_index) {
+		inline T* get_locals_pobject_at(const size_t local_index) {
 			const auto address = reinterpret_cast<uint8_t*>(this->locals);
 			return reinterpret_cast<T*>(address - local_index * sizeof(uint8_t*));
 		}
@@ -53,7 +54,7 @@ namespace JavaHook {
 		MethodHook();
 		MethodHook(const jmethodID method, hook_callback_t detour);
 		~MethodHook();
-		static auto breakpoint_callback_handler(break_point_info* info) -> void {
+		inline static auto breakpoint_callback_handler(break_point_info* info) -> void {
 			auto hook_info = std::make_shared<hook_callback_info>(info);
 			hook_map[info->method]->detour(hook_info.get());
 		}

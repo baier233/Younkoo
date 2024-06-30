@@ -19,13 +19,13 @@ namespace java_runtime {
 		return static_cast<bytecodes>(*this->opcode);
 	}
 
-	inline uint32_t get_java_u4(const uint8_t* p) {
+	static uint32_t get_java_u4(const uint8_t* p) {
 		return (static_cast<uint32_t>(p[0]) << 24) |
 			(static_cast<uint32_t>(p[1]) << 16) |
 			(static_cast<uint32_t>(p[2]) << 8) |
 			static_cast<uint32_t>(p[3]);
 	}
-	inline intptr_t mask_bits(const intptr_t x, const intptr_t m) { return x & m; }
+	static intptr_t mask_bits(const intptr_t x, const intptr_t m) { return x & m; }
 
 	inline intptr_t round_to(const intptr_t x, const uintptr_t s) {
 		const uintptr_t m = s - 1;

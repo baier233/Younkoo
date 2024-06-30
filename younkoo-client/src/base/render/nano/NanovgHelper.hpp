@@ -38,7 +38,7 @@ public:
 		x(scissor.x), y(scissor.y), width(scissor.width), height(scissor.height) { }
 
 	// Function to check if a point is in the Scissor
-	bool isInScissor(float x, float y) {
+	inline bool isInScissor(float x, float y) {
 		return x >= this->x && x <= this->x + this->width && y >= this->y && y <= this->y + this->height;
 	}
 };

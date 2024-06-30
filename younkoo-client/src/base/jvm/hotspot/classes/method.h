@@ -13,7 +13,7 @@
 namespace java_hotspot {
 	class interpreter_entry {
 	public:
-		uintptr_t get_interception_address() {
+		inline uintptr_t get_interception_address() {
 			/* Our pattern which identifies the *real* entrypoint to the method */
 			/* ASM: jmp qword ptr ds:[r10+rbx*8]                                */
 			/* This will never change, unless there is a custom jvm that changes the register order??? */

@@ -15,7 +15,7 @@ namespace java_hotspot {
 	class frame
 	{
 	public:
-		static frame* create_frame(uintptr_t frame_address)
+		inline static frame* create_frame(uintptr_t frame_address)
 		{
 			constexpr std::size_t size = offsetof(frame, link);
 			return (frame*)(frame_address - size);
@@ -32,7 +32,7 @@ namespace java_hotspot {
 		uintptr_t link; // 0
 		void* return_address; // 1
 
-		void debug_print()
+		inline void debug_print()
 		{
 			printf("Frame: %llx\n", this);
 			printf("\tInitial SP: %llx\n", initial_sp);

@@ -11,7 +11,6 @@
 namespace java_hotspot {
     class symbol {
     public:
-        auto base() -> void *;
 
         auto to_string() -> std::string;
     };
