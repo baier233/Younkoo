@@ -321,6 +321,9 @@
     <ClCompile Include="src\base\jvm\hotspot\break\jvm_break_points.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\jvm\hotspot\classes\compile_task.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -635,9 +638,6 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\gui\screens\Screen.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\include_header.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -765,6 +765,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\classes\compile_task.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -162,6 +162,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\jvm\hotspot\classes\compile_task.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\break\break_point_info.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\break\jvm_break_points.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\classes\array.cpp" />
@@ -303,6 +304,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\base\jvm\hotspot\classes\compile_task.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\ClientRenderer.h" />
     <ClInclude Include="src\base\jvm\hotspot\break\break_point_info.h" />
@@ -351,7 +353,6 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult$Type.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\Vec3.h" />
-    <ClInclude Include="src\include_header.h" />
     <ClInclude Include="src\utils\animation\simple\SimpleAnimation.h" />
     <ClInclude Include="src\base\render\gui\api\ScrollComponent.h" />
     <ClInclude Include="src\base\render\gui\clickgui\component\impl\settings\impl\BooleanValueComponent.h" />

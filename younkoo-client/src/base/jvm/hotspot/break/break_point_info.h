@@ -56,6 +56,10 @@ public:
 	);
 
 	~break_point_info();
+	inline int get_operand_count() const
+	{
+		return this->bytecode->get_stack_consumption();
+	}
 
 	[[nodiscard]] auto get_bytecode_address() const->uintptr_t;
 
@@ -63,9 +67,9 @@ public:
 
 	[[nodiscard]] auto get_parameters() const->uintptr_t;
 
-	[[nodiscard]] inline uintptr_t* get_parameter(std::size_t index) const
+	[[nodiscard]] inline uintptr_t** get_parameter(std::size_t index) const
 	{
-		return (uintptr_t*)(this->parameters - index * 8);
+		return (uintptr_t**)(this->parameters - index * 8);
 	}
 	[[nodiscard]] inline long* lload(std::size_t index) const
 	{

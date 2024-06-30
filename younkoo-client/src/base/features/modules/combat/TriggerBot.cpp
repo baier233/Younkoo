@@ -1,8 +1,7 @@
-#include "TriggerBot.h"
+﻿#include "TriggerBot.h"
 #include "../../../render/Renderer.hpp"
 #include "../render/gui/GUI.h"
 
-#include <include_header.h>
 #include <random>
 
 long lastClickTime = 0;

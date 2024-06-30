@@ -11,7 +11,7 @@ JVMWrappers::type_entries_t JVMWrappers::type_entries;
 JVMWrappers::int_entries_t JVMWrappers::int_entries;
 JVMWrappers::long_entries_t JVMWrappers::long_entries;
 
-#define DEBUGGER
+//#define DEBUGGER
 
 void JVMWrappers::init(VMStructEntry* vmstructs, VMTypeEntry* vmtypes, VMIntConstantEntry* vmints,
 	VMLongConstantEntry* vmlongs) {
@@ -35,6 +35,7 @@ void JVMWrappers::init(VMStructEntry* vmstructs, VMTypeEntry* vmtypes, VMIntCons
 #ifdef DEBUGGER
 		std::cout << "VMType :" << t->typeName << "\nSize :" << t->size << "\n\n";
 #endif // DEBUGGER
+
 		type_entries[t->typeName] = t;
 	}
 
