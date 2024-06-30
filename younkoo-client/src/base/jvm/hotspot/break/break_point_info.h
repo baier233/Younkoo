@@ -63,6 +63,15 @@ public:
 
 	[[nodiscard]] auto get_parameters() const->uintptr_t;
 
+	[[nodiscard]] inline uintptr_t* get_parameter(std::size_t index) const
+	{
+		return (uintptr_t*)(this->parameters - index * 8);
+	}
+	[[nodiscard]] inline long* lload(std::size_t index) const
+	{
+		return (long*)(this->parameters + (-1 - index) * 8);
+	}
+
 	inline uintptr_t* get_operand(int i)
 	{
 		if (!this->java_thread)

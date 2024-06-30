@@ -16,7 +16,7 @@ namespace RenderSystemHook {
 	}
 	struct BytecodeInfo
 	{
-		BytecodeInfo() {};
+		BytecodeInfo() {  };
 		java_runtime::bytecodes opcode;
 		std::vector<int> operands;
 		int index = 0;
@@ -94,10 +94,13 @@ namespace RenderSystemHook {
 					{
 						//auto stack = bp->java_thread->get_operand_stack();
 						auto parma = (uintptr_t*)bp->get_parameters();
-						auto gameRender = *(uintptr_t**)parma;
-						float p_109090_ = *(float*)(parma - 8);
-						long p_109091_ = *(long*)(parma - 16);
-						auto p_109092_ = parma - 32; // PoseStack
+						auto gameRender = bp->get_parameter(0);
+						auto p_109090_ = *(float*)bp->get_parameter(1);
+						long p_109091_ = *bp->lload(2);
+						auto p_109092_ = bp->get_parameter(3);
+						auto matrix4f = bp->get_parameter(25);
+
+						std::cout << "matrix4f :" << matrix4f << "\ngameRender :" << gameRender << "\np_109090_ :" << p_109090_ << "\np_109091_ :" << p_109091_ << "\np_109092_ :" << p_109092_ << "\nmatrix4f :" << matrix4f << "\n" << std::endl;
 
 						return;
 					});
