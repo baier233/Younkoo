@@ -70,7 +70,8 @@ namespace RenderSystemHook {
 		hook_invoke_compiler_on_method();
 
 		JVM::get().jvmti->RetransformClasses(1, &klass);
-		const auto method = *reinterpret_cast<java_hotspot::method**>((jmethodID)V1_18_1::GameRenderer::static_obj().renderLevel);
+		auto mid = (jmethodID)V1_18_1::GameRenderer::static_obj().renderLevel;
+		const auto method = *reinterpret_cast<java_hotspot::method**>(mid);
 		methods_being_hooked.emplace_back(method);
 		method->set_dont_inline(true);
 		const auto access_flags = method->get_access_flags();
@@ -131,7 +132,7 @@ namespace RenderSystemHook {
 				info->set_orig_bytecode(bytecode_info.opcode);
 				info->set_next(holder_klass->get_breakpoints());
 				holder_klass->set_breakpoints(info);
-				jvm_break_points::set_breakpoint_with_original_code(method, bytecode_info.index, static_cast<std::uint8_t>(bytecode_info.opcode), [](break_point_info* bp) -> void
+				jvm_break_points::set_breakpoint_with_original_code(method, bytecode_info.index, static_cast<std::uint8_t>(bytecode_info.opcode), [mid](break_point_info* bp) -> void
 					{
 						//auto stack = bp->java_thread->get_operand_stack();
 						const auto orginal_state = bp->java_thread->get_thread_state();
@@ -145,9 +146,59 @@ namespace RenderSystemHook {
 						auto p_109092_ = (jobject)bp->get_parameter(3);
 
 						//this is not working
-						auto matrix4f = (jobject)bp->get_parameter(15);
+						auto matrix4f = (jobject)bp->get_parameter(13);
+
+#ifdef DEBUG
 
 
+						{
+							jthread thread;
+							JVM::get().jvmti->GetCurrentThread(&thread);
+							char out[1024];
+							jint param_size = 0;
+
+							JVM::get().jvmti->GetArgumentsSize(mid, &param_size);
+							printf("method_entry: %s%s%, param_size:%d\n", bp->method->get_signature().c_str(), bp->method->get_name().c_str(), param_size);
+
+							jint entry_count = 0;
+							jvmtiLocalVariableEntry* table_ptr = NULL;
+							jlocation cur_loc{};
+							jmethodID methoid;
+							auto err = JVM::get().jvmti->GetLocalVariableTable(mid, &entry_count, &table_ptr);
+							err = JVM::get().jvmti->GetFrameLocation(thread, 0, &methoid, &cur_loc);
+							for (int j = 0; j < entry_count; j++) {
+								if (table_ptr[j].start_location > cur_loc) break;
+
+
+								if (table_ptr[j].signature[0] == 'L') { //   fully-qualified-class
+									jobject param_obj{};
+									jlong param_obj_tag = 0;
+
+									JVM::get().jvmti->GetLocalObject(thread, 0, table_ptr[j].slot, &param_obj); // frame at depth zero is the current frame                  
+									if (param_obj) JVM::get().jvmti->GetTag(param_obj, &param_obj_tag);
+									if (param_obj_tag == 0) {
+
+									}
+									printf(", param_obj_tag: %ld", param_obj_tag);
+									printf(", slot:%d, start:%ld, cur:%ld, param:%s%s\n", table_ptr[j].slot, table_ptr[j].start_location, cur_loc, table_ptr[j].signature, table_ptr[j].name);
+									if (param_obj)
+									{
+										JNI::get_env()->DeleteLocalRef(param_obj);
+									}
+									JVM::get().jvmti->Deallocate(reinterpret_cast<unsigned char*>(table_ptr[j].signature));
+									JVM::get().jvmti->Deallocate(reinterpret_cast<unsigned char*>(table_ptr[j].name));
+									JVM::get().jvmti->Deallocate(reinterpret_cast<unsigned char*>(table_ptr[j].generic_signature));
+								}
+
+							}
+						}
+#endif // DEBUG
+						jclass klass = JNI::get_env()->GetObjectClass(matrix4f);
+						if (klass)
+						{
+							auto instacne = java_hotspot::instance_klass::get_instance_class(klass);
+							std::cout << "matrix 4f klass:" << instacne->get_name()->to_string() << std::endl;
+						}
 						std::cout << "gameRender :" << gameRender << "\np_109090_ :" << p_109090_ << "\np_109091_ :" << p_109091_ << "\np_109092_ :" << p_109092_ << "\nmatrix4f :" << matrix4f << "\n" << std::endl;
 
 						bp->java_thread->set_thread_state(orginal_state);

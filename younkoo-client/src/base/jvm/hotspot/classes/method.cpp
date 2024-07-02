@@ -114,6 +114,73 @@ auto java_hotspot::const_method::get_bytecode() -> std::vector<uint8_t> {
 	return bytecode;
 }
 
+auto java_hotspot::const_method::get_const_flags() -> unsigned int*
+{
+
+	if (!this) return nullptr;
+	static VMStructEntry* vm_entry = JVMWrappers::find_type_fields("ConstMethod").value().get()["_flags"];
+	if (!vm_entry)
+		return nullptr;
+	return (unsigned int*)((uint8_t*)this + vm_entry->offset);
+}
+
+auto java_hotspot::const_method::get_localvariable_table_length_addr() -> void*
+{
+	assert(has_localvariable_table(), "called only if table is present");
+	if (has_exception_table()) {
+		// If exception_table present, locate immediately before them.
+		return (unsigned short*)exception_table_start() - 1;
+	}
+	else {
+		if (has_checked_exceptions()) {
+			// If checked_exception present, locate immediately before them.
+			return (unsigned*)checked_exceptions_start() - 1;
+		}
+		else {
+			if (has_method_parameters()) {
+				// If method parameters present, locate immediately before them.
+				return (unsigned short*)method_parameters_start() - 1;
+			}
+			else {
+				// Else, the exception table is at the end of the constMethod.
+				return has_generic_signature() ? (get_last_u2_element() - 1) :
+					get_last_u2_element();
+			}
+		}
+	}
+	return nullptr;
+}
+
+auto java_hotspot::const_method::get_exception_table_length_addr() -> void*
+{
+	assert(has_exception_table(), "called only if table is present");
+	if (has_checked_exceptions()) {
+		// If checked_exception present, locate immediately before them.
+		return (unsigned short*)checked_exceptions_start() - 1;
+	}
+	else {
+		if (has_method_parameters()) {
+			// If method parameters present, locate immediately before them.
+			return (unsigned short*)method_parameters_start() - 1;
+		}
+		else {
+			// Else, the exception table is at the end of the constMethod.
+			return has_generic_signature() ? (get_last_u2_element() - 1) :
+				get_last_u2_element();
+		}
+	}
+}
+
+auto java_hotspot::const_method::get_last_u2_element() -> uintptr_t*
+{
+	int offset = 0;
+	if (has_method_annotations()) offset++;
+	if (has_parameter_annotations()) offset++;
+	if (has_type_annotations()) offset++;
+	if (has_default_annotations()) offset++;
+	return (uintptr_t*)((uint8_t**)this + get_const_method_length() - offset) - 1;
+}
+
 auto java_hotspot::const_method::get_const_method_length() -> size_t {
 	static VMTypeEntry* _constMethod_entry = JVMWrappers::find_type("ConstMethod").value();
 	if (!_constMethod_entry)return 0;

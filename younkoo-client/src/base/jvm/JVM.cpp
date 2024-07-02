@@ -20,13 +20,20 @@ bool JVM::setup()
 	if (res != JNI_OK)
 		return false;
 
-	res = jvm->GetEnv((void**)&jvmti, JVMTI_VERSION_1_2);
-	if (res != JNI_OK)
-		return false;
+	if (!jvmti)
+	{
+		res = jvm->GetEnv((void**)&jvmti, JVMTI_VERSION_1_2);
+		if (res != JNI_OK)
+			return false;
+
+		jvmtiCapabilities capabilities{ .can_retransform_classes = JVMTI_ENABLE };
+#ifdef DEBUG
+		capabilities.can_access_local_variables = JVMTI_ENABLE;
+#endif // DEBUG
+		auto err = jvmti->AddCapabilities(&capabilities);
+	}
 
 
-	jvmtiCapabilities capabilities{ .can_retransform_classes = JVMTI_ENABLE };
-	jvmti->AddCapabilities(&capabilities);
 
 	JNI::set_thread_env(Env);
 	return true;

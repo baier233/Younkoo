@@ -1,5 +1,6 @@
 ﻿#include "HUD.h"
-#include "../../../render/hooks/WndProcHook.hpp"
+#include "base/render/hooks/WndProcHook.hpp"
+#include "base/GitInfo.h"
 
 #include "../ModuleManager.h"
 HUD::HUD() :AbstractModule(xorstr_("HUD"), Category::VISUAL, 'K')

@@ -34,6 +34,9 @@ namespace java_hotspot {
 
 	class const_method {
 	public:
+
+
+
 		auto get_constants() -> const_pool*;
 
 		auto get_code_size() -> unsigned short;
@@ -63,6 +66,74 @@ namespace java_hotspot {
 		auto set_bytecode(const std::vector<uint8_t>& bytecode) -> void;
 
 		auto get_bytecode() -> std::vector<uint8_t>;
+
+
+		auto get_const_flags() -> unsigned int*;
+
+#define CM_FLAGS_GET_SET(name, ignore)          \
+  bool name() { return (*get_const_flags() & _misc_##name) != 0; } \
+  void set_##name() {         \
+    *get_const_flags() |= _misc_##name;  \
+  }
+		CM_FLAGS_DO(CM_FLAGS_GET_SET)
+#undef CM_FLAGS_GET_SET
+
+			
+		auto get_last_u2_element() -> uintptr_t*;
+
+		auto get_localvariable_table_length_addr() -> void*;
+
+		auto get_exception_table_length_addr() -> void*;
+
+
+
+		inline unsigned short* method_parameters_length_addr() {
+			assert(has_method_parameters(), "called only if table is present");
+			return (unsigned short*)(has_generic_signature() ? (get_last_u2_element() - 1) :
+				get_last_u2_element());
+		}
+		inline uintptr_t* method_parameters_start() {
+			unsigned short* addr = method_parameters_length_addr();
+			unsigned short length = *addr;
+			static size_t method_parameters_element_size = JVMWrappers::find_type("MethodParametersElement").value()->size;
+			addr -= length * method_parameters_element_size / sizeof(unsigned short);
+			return (uintptr_t*)addr;
+		}
+
+		inline unsigned short* checked_exceptions_length_addr() {
+			// Located immediately before the generic signature index.
+			assert(has_checked_exceptions(), "called only if table is present");
+			if (has_method_parameters()) {
+				// If method parameters present, locate immediately before them.
+				return (unsigned short*)method_parameters_start() - 1;
+			}
+			else {
+				// Else, the exception table is at the end of the constMethod.
+				return (unsigned short*)(has_generic_signature() ? (get_last_u2_element() - 1) :
+					get_last_u2_element());
+			}
+		}
+
+		inline uintptr_t* checked_exceptions_start() {
+			unsigned short* addr = checked_exceptions_length_addr();
+			unsigned short length = *addr;
+			assert(length > 0, "should only be called if table is present");
+			static size_t check_exception_element_size = JVMWrappers::find_type("CheckedExceptionElement").value()->size;
+			addr -= length * check_exception_element_size / sizeof(unsigned short);
+			return (uintptr_t*)addr;
+		}
+
+
+
+		inline uintptr_t* exception_table_start() {
+			unsigned short* addr = (unsigned short*)get_exception_table_length_addr();
+			unsigned short length = *addr;
+			assert(length > 0, "should only be called if table is present");
+			static size_t exception_table_size = JVMWrappers::find_type("ExceptionTableElement").value()->size;
+			addr -= length * exception_table_size / sizeof(unsigned short);
+			return (uintptr_t*)addr;
+		}
+
 
 		static auto get_const_method_length() -> size_t;
 	};

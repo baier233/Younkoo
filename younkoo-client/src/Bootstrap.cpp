@@ -67,7 +67,7 @@ BOOL Thread::ThreadAttach(HMODULE hDll)
 	return TRUE;
 }
 
-inline BOOL Thread::ThreadDetach(HMODULE hDll)
+BOOL Thread::ThreadDetach(HMODULE hDll)
 {
 	(void)hDll;
 

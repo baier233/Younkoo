@@ -18,6 +18,38 @@ typedef unsigned int narrowKlass;
 
 typedef java_hotspot::oop_desc* oop;
 
+#define CM_FLAGS_DO(flag)  \
+   flag(has_linenumber_table      , 1 << 0) \
+   flag(has_checked_exceptions    , 1 << 1) \
+   flag(has_localvariable_table   , 1 << 2) \
+   flag(has_exception_table       , 1 << 3) \
+   flag(has_generic_signature     , 1 << 4) \
+   flag(has_method_parameters     , 1 << 5) \
+   flag(is_overpass               , 1 << 6) \
+   flag(has_method_annotations    , 1 << 7) \
+   flag(has_parameter_annotations , 1 << 8) \
+   flag(has_type_annotations      , 1 << 9) \
+   flag(has_default_annotations   , 1 << 10) \
+   flag(caller_sensitive          , 1 << 11) \
+   flag(is_hidden                 , 1 << 12) \
+   flag(has_injected_profile      , 1 << 13) \
+   flag(intrinsic_candidate       , 1 << 14) \
+   flag(reserved_stack_access     , 1 << 15) \
+   flag(is_scoped                 , 1 << 16) \
+   flag(changes_current_thread    , 1 << 17) \
+   flag(jvmti_mount_transition    , 1 << 18) \
+   flag(deprecated                , 1 << 19) \
+   flag(deprecated_for_removal    , 1 << 20) \
+   /* end of list */
+
+#define CM_FLAGS_ENUM_NAME(name, value)    _misc_##name = value,
+enum {
+	CM_FLAGS_DO(CM_FLAGS_ENUM_NAME)
+};
+#undef CM_FLAGS_ENUM_NAME
+
+#undef CM_FLAGS_GET_SET
+
 
 
 enum Flags
@@ -167,39 +199,39 @@ namespace jvm_internal {
 	public:
 		auto get_flags() -> jint;
 
-		auto set_flags(jint flags) -> void;
+	    auto set_flags(jint flags) -> void;
 
-		auto atomic_set_flags(const jint bits) -> void {
+		inline auto atomic_set_flags(const jint bits) -> void {
 			const jint old_flags = get_flags();
 			const jint new_flags = old_flags | bits;
 			set_flags(new_flags);
 		}
 
-		auto atomic_clear_flags(const jint bits) -> void {
+		inline auto atomic_clear_flags(const jint bits) -> void {
 			const jint old_flags = get_flags();
 			const jint new_flags = old_flags & ~bits;
 			set_flags(new_flags);
 		}
 
-		auto set_not_c1_compilable() -> void {
+		inline auto set_not_c1_compilable() -> void {
 			atomic_set_flags(JVM_ACC_NOT_C1_COMPILABLE);
 		}
 
-		auto set_not_c2_compilable() -> void {
+		inline auto set_not_c2_compilable() -> void {
 			atomic_set_flags(JVM_ACC_NOT_C2_COMPILABLE);
 		}
 
-		auto set_not_c2_osr_compilable() -> void {
+		inline auto set_not_c2_osr_compilable() -> void {
 			atomic_set_flags(JVM_ACC_NOT_C2_OSR_COMPILABLE);
 		}
 
-		auto set_queued_for_compilation() -> void {
+		inline auto set_queued_for_compilation() -> void {
 			atomic_set_flags(JVM_ACC_QUEUED);
 		}
 	};
 
 	template<typename T>
-	T get_locals_object(const uintptr_t parameters, const size_t local_index) {
+	inline T get_locals_object(const uintptr_t parameters, const size_t local_index) {
 		const auto address = reinterpret_cast<uint8_t*>(parameters);
 		return *reinterpret_cast<T*>(address - local_index * 8);
 	}
@@ -286,7 +318,7 @@ public:
 	static std::optional<JVMWrapper> from_instance(const char* typeName, void* instance);
 
 	template<typename T>
-	std::optional<T*> get_field(const char* fieldName) {
+	inline std::optional<T*> get_field(const char* fieldName) {
 		auto fieldAddress = find_field_address(fieldName);
 		if (!fieldAddress.has_value())
 			return std::nullopt;
@@ -307,7 +339,7 @@ private:
 	std::optional<std::reference_wrapper<JVMWrappers::struct_entry_t> > fields;
 	void* instance = nullptr; // pointer to instantiated VM type
 
-	std::optional<void*> find_field_address(const char* fieldName) {
+	inline std::optional<void*> find_field_address(const char* fieldName) {
 		auto tbl = fields.value().get();
 		const auto entry = tbl.find(fieldName);
 		if (entry == tbl.end())

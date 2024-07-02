@@ -118,3 +118,57 @@ bool Younkoo::shutdown()
 	FreeLibraryAndExitThread(Main::current_module, 0);
 	return true;
 }
+#ifdef DEBUG
+
+
+static DWORD ThreadEntry(HANDLE _) {
+	Utils::CreateConsole_();
+	MessageBox(0, 0, 0, 0);
+	JVM::get().setup();
+	auto result = SDK::SetUpForge1181ClassLoader("Render thread");
+	JNI::set_class_loader(SDK::MinecraftClassLoader);
+	RenderSystemHook::applyHook();
+	return NULL;
+}
+static void JNICALL VMInitHook(jvmtiEnv* jvmti_env, JNIEnv* jni_env, jthread thread) {
+	JNI::init();
+	JNI::set_thread_env(jni_env);
+	JVM::get().jvmti = jvmti_env;
+	SRGParser::get().SetVersion(Versions::FORGE_1_18_1);
+	CreateThread(0, 0, ThreadEntry, 0, 0, 0);
+}
+JNIEXPORT jint JNICALL
+Agent_OnLoad(JavaVM* vm, char* options, void* reserved) {
+	jvmtiEnv* jvmti_env;
+	jvmtiError error;
+	jint ret = vm->GetEnv((void**)&jvmti_env, JVMTI_VERSION);
+	if (ret != JNI_OK) {
+		return ret;
+	}
+	jvmtiCapabilities capabilities;
+	memset(&capabilities, 0, sizeof(capabilities));
+	jvmti_env->GetCapabilities(&capabilities);
+	capabilities.can_generate_native_method_bind_events = 1;
+	capabilities.can_access_local_variables = 1;
+	capabilities.can_retransform_any_class = 1;
+	capabilities.can_retransform_classes = 1;
+	capabilities.can_force_early_return = 1;
+	jvmti_env->AddCapabilities(&capabilities);
+	error = jvmti_env->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_VM_INIT, NULL);
+	if (error != JVMTI_ERROR_NONE) return error;
+
+
+	error = jvmti_env->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_NATIVE_METHOD_BIND, NULL);
+	if (error != JVMTI_ERROR_NONE) return error;
+
+	jvmtiEventCallbacks callbacks;
+	memset(&callbacks, 0, sizeof(callbacks));
+
+	//callbacks.NativeMethodBind = &NativeMethodBindHook;
+	callbacks.VMInit = &VMInitHook;
+	error = jvmti_env->SetEventCallbacks(&callbacks, sizeof(callbacks));
+	if (error != JVMTI_ERROR_NONE) return error;
+
+	return JNI_OK;
+}
+#endif // DEBUG

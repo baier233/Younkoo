@@ -60,12 +60,14 @@ static auto ScanByteCodeOffset(JNIEnv* env) -> void {
 
 	/* Get breakpoint method */
 	const uintptr_t breakpoint_method = *reinterpret_cast<uintptr_t*>(dispatch_table + static_cast<uint8_t>(java_runtime::bytecodes::_breakpoint) * 8);
+	const uintptr_t aload_method = *reinterpret_cast<uintptr_t*>(dispatch_table + static_cast<uint8_t>(java_runtime::bytecodes::_aload) * 8);
 	if (!breakpoint_method) {
 		std::cout << "Failed to find breakpoint method" << std::endl;
 	}
 	std::cout << "Breakpoint method: " << reinterpret_cast<void*>(breakpoint_method) << std::endl;
-
+	std::cout << "Aload method: " << reinterpret_cast<void*>(aload_method) << std::endl;
 	/* Get VM calls */
+
 	const std::vector<void*> vm_calls = vm_helper::find_vm_calls(reinterpret_cast<PVOID>(breakpoint_method));
 	if (vm_calls.size() < 2) {
 		std::cout << "Failed to find VM calls" << std::endl;

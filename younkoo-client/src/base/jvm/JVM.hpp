@@ -11,9 +11,9 @@ public:
 	JVM();
 	bool setup();
 	bool shutdown();
-	JNIEnv* Env;
-	jvmtiEnv* jvmti;
-	JavaVM* jvm;
+	JNIEnv* Env = nullptr;
+	jvmtiEnv* jvmti = nullptr;
+	JavaVM* jvm = nullptr;
 private:
 };
 
