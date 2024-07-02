@@ -165,6 +165,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\jvm\hotspot\classes\local_variable_table.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\classes\compile_task.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\break\break_point_info.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\break\jvm_break_points.cpp" />
@@ -307,6 +308,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\base\jvm\hotspot\classes\local_variable_table.h" />
     <ClInclude Include="src\base\GitInfo.h" />
     <ClInclude Include="src\base\jvm\hotspot\classes\compile_task.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack.h" />

@@ -187,6 +187,21 @@ auto java_hotspot::const_method::get_const_method_length() -> size_t {
 	return _constMethod_entry->size;
 }
 
+std::vector<java_hotspot::local_variable_entry> java_hotspot::const_method::get_local_variable_entries()
+{
+	auto ret_value = std::vector<local_variable_entry>();
+
+	auto local_table_start = this->localvariable_table_start();
+	auto num_entries = *(int*)this->get_localvariable_table_length_addr();
+
+	for (size_t i = 0; i < num_entries; i++)
+	{
+		ret_value.push_back(local_table_start[i].wrap_to_jvm_variable_entry(this->get_constants()));
+	}
+
+	return ret_value;
+}
+
 auto java_hotspot::method::get_const_method() -> const_method* {
 	static VMStructEntry* _constMethod_entry = JVMWrappers::find_type_fields("Method").value().get()["_constMethod"];
 	if (!_constMethod_entry) return nullptr;

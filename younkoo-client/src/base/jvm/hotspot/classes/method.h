@@ -9,8 +9,13 @@
 #include "../break/break_point_info.h"
 #include "../utility/jvm_internal.h"
 
+#include "local_variable_table.h"
+
+typedef unsigned short u2;
 
 namespace java_hotspot {
+
+
 	class interpreter_entry {
 	public:
 		inline uintptr_t get_interception_address() {
@@ -70,6 +75,10 @@ namespace java_hotspot {
 
 		auto get_const_flags() -> unsigned int*;
 
+		static auto get_const_method_length() -> size_t;
+
+		std::vector<local_variable_entry> get_local_variable_entries();
+
 #define CM_FLAGS_GET_SET(name, ignore)          \
   bool name() { return (*get_const_flags() & _misc_##name) != 0; } \
   void set_##name() {         \
@@ -85,6 +94,14 @@ namespace java_hotspot {
 
 		auto get_exception_table_length_addr() -> void*;
 
+		inline local_variable_table_element* localvariable_table_start() {
+			u2* addr = (u2*)get_localvariable_table_length_addr();
+			u2 length = *addr;
+			assert(length > 0, "should only be called if table is present");
+			static size_t method_parameters_element_size = JVMWrappers::find_type("LocalVariableTableElement").value()->size;
+			addr -= length * method_parameters_element_size / sizeof(u2);
+			return (local_variable_table_element*)addr;
+		}
 
 
 		inline unsigned short* method_parameters_length_addr() {
@@ -135,7 +152,6 @@ namespace java_hotspot {
 		}
 
 
-		static auto get_const_method_length() -> size_t;
 	};
 
 	class method {

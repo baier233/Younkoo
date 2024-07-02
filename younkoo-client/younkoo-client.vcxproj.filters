@@ -324,6 +324,9 @@
     <ClCompile Include="src\base\jvm\hotspot\classes\compile_task.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\jvm\hotspot\classes\local_variable_table.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -768,6 +771,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\jvm\hotspot\classes\compile_task.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\GitInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\hotspot\classes\local_variable_table.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
