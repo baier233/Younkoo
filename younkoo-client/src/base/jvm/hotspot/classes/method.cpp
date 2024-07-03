@@ -113,15 +113,24 @@ auto java_hotspot::const_method::get_bytecode() -> std::vector<uint8_t> {
 	memcpy(bytecode.data(), get_bytecode_start(), bytecode_size);
 	return bytecode;
 }
-
-auto java_hotspot::const_method::get_const_flags() -> unsigned int*
+#ifdef JDK22FEATURE
+auto java_hotspot::const_method::get_const_flags_jdk22() -> ConstMethodFlags*
 {
 
 	if (!this) return nullptr;
 	static VMStructEntry* vm_entry = JVMWrappers::find_type_fields("ConstMethod").value().get()["_flags"];
 	if (!vm_entry)
 		return nullptr;
-	return (unsigned int*)((uint8_t*)this + vm_entry->offset);
+	return (ConstMethodFlags*)((uint8_t*)this + vm_entry->offset);
+}
+#endif // JDK22FEATURE
+auto java_hotspot::const_method::get_const_flags() -> u2
+{
+	if (!this) return 0;
+	static VMStructEntry* vm_entry = JVMWrappers::find_type_fields("ConstMethod").value().get()["_flags"];
+	if (!vm_entry)
+		return 0;
+	return *(u2*)((uint8_t*)this + vm_entry->offset);
 }
 
 auto java_hotspot::const_method::get_localvariable_table_length_addr() -> void*
@@ -134,7 +143,7 @@ auto java_hotspot::const_method::get_localvariable_table_length_addr() -> void*
 	else {
 		if (has_checked_exceptions()) {
 			// If checked_exception present, locate immediately before them.
-			return (unsigned*)checked_exceptions_start() - 1;
+			return (unsigned short*)checked_exceptions_start() - 1;
 		}
 		else {
 			if (has_method_parameters()) {
@@ -178,7 +187,7 @@ auto java_hotspot::const_method::get_last_u2_element() -> uintptr_t*
 	if (has_parameter_annotations()) offset++;
 	if (has_type_annotations()) offset++;
 	if (has_default_annotations()) offset++;
-	return (uintptr_t*)((uint8_t**)this + get_const_method_length() - offset) - 1;
+	return (uintptr_t*)((uint8_t**)this + get_size() - offset) - 1;
 }
 
 auto java_hotspot::const_method::get_const_method_length() -> size_t {
@@ -187,12 +196,20 @@ auto java_hotspot::const_method::get_const_method_length() -> size_t {
 	return _constMethod_entry->size;
 }
 
+auto java_hotspot::const_method::get_size() -> int
+{
+	//_constMethod_size
+	static VMStructEntry* _constMethod_size_entry = JVMWrappers::find_type_fields("ConstMethod").value().get()["_constMethod_size"];
+	return *(int*)(this+ _constMethod_size_entry->offset);
+}
+
 std::vector<java_hotspot::local_variable_entry> java_hotspot::const_method::get_local_variable_entries()
 {
+	//this->get_const_flags()->print_it();
 	auto ret_value = std::vector<local_variable_entry>();
 
 	auto local_table_start = this->localvariable_table_start();
-	auto num_entries = *(int*)this->get_localvariable_table_length_addr();
+	auto num_entries = *(unsigned short*)this->get_localvariable_table_length_addr();
 
 	for (size_t i = 0; i < num_entries; i++)
 	{

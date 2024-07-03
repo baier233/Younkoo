@@ -14,18 +14,19 @@ local_variable_entry local_variable_table_element::wrap_to_jvm_variable_entry(co
     static VMStructEntry* slot = JVMWrappers::find_type_fields("LocalVariableTableElement").value().get()["slot"];
 
 
-    auto name = constant->get_symbol_at(*(int*)(this + name_cp_index->offset))->to_string();
+    auto name = constant->get_symbol_at(*(unsigned short*)(this + name_cp_index->offset))->to_string();
                 
-    auto signatrue = constant->get_symbol_at(*(int*)(this + descriptor_cp_index->offset))->to_string();
+    auto signatrue = constant->get_symbol_at(*(unsigned short*)(this + descriptor_cp_index->offset))->to_string();
 
-    auto generic_signature_index = *(int*)(this + signature_cp_index->offset);
+    auto generic_signature_index = *(unsigned short*)(this + signature_cp_index->offset);
 
     auto ret_value = local_variable_entry{
-        .start_location = *(long*)(this+start_bci->offset),
-        .length = *(int*)(this + length->offset),
-        .name = name,.signature = signatrue,
+        .start_location = (long)*(unsigned short*)(this+start_bci->offset),
+        .length = (int)*(unsigned short*)(this + length->offset),
+        .name = name,
+        .signature = signatrue,
         .generic_signature = (generic_signature_index > 0 ) ? constant->get_symbol_at(generic_signature_index)->to_string() : "",
-        .slot = *(int*)(this + slot->offset)
+        .slot = (int)*(unsigned short*)(this + slot->offset)
     };
 
 

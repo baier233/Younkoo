@@ -7,6 +7,9 @@
 #include <hotspot/break/byte_code_info.h>
 #include <hotspot/classes/compile_task.h>
 #include <utils/Pattern.h>
+
+#include <format>
+
 namespace RenderSystemHook {
 	inline std::vector<java_hotspot::method*> methods_being_hooked;
 	inline void detour_invoke_compiler_on_method(java_hotspot::compile_task* task);
@@ -45,7 +48,11 @@ namespace RenderSystemHook {
 
 		_invoke_compiler_on_method_hook.GetOrignalFunc()(task);
 	}
-
+	inline uintptr_t plocalvariable_table_length_addr = 0;
+	inline unsigned short* localvariable_table_length_addr(java_hotspot::const_method* cm) {
+		auto func = (decltype(&localvariable_table_length_addr))plocalvariable_table_length_addr;
+		return func(cm);
+	}
 	inline void hook_invoke_compiler_on_method() {
 		auto jvm = (uintptr_t)GetModuleHandleA("jvm.dll");
 
@@ -57,6 +64,10 @@ namespace RenderSystemHook {
 		}
 		_invoke_compiler_on_method_hook.InitHook(pinvoke_compiler_on_method, detour_invoke_compiler_on_method);
 		_invoke_compiler_on_method_hook.SetHook();
+
+
+		//plocalvariable_table_length_addr = CUtil_Pattern::Find(jvm, "48 83 EC ? 0F B7 51 ? 4C 8B C1");
+
 	}
 	inline void applyHook() {
 		if (SRGParser::get().GetVersion() != Versions::FORGE_1_18_1)
@@ -101,7 +112,7 @@ namespace RenderSystemHook {
 				auto name = java_runtime::bytecode_names[bytecode];
 				std::cout << "(" << bytecodes_index << ")  " << name << " {";
 				auto length = opcodes.get_length();
-				for (size_t i = 0; i < length - 1; i++)
+				for (int i = 0; i < length - 1; i++)
 				{
 					if (i == 0)
 					{
@@ -145,7 +156,6 @@ namespace RenderSystemHook {
 						long p_109091_ = *bp->lload(2);
 						auto p_109092_ = (jobject)bp->get_parameter(3);
 
-						//this is not working
 						auto matrix4f = (jobject)bp->get_parameter(13);
 
 #ifdef DEBUG
@@ -193,14 +203,14 @@ namespace RenderSystemHook {
 							}
 						}
 #endif // DEBUG
+						
+						std::cout << "gameRender :" << gameRender << "\np_109090_ :" << p_109090_ << "\np_109091_ :" << p_109091_ << "\np_109092_ :" << p_109092_ << "\nmatrix4f :" << matrix4f << "\n" << std::endl;
 						jclass klass = JNI::get_env()->GetObjectClass(matrix4f);
 						if (klass)
 						{
 							auto instacne = java_hotspot::instance_klass::get_instance_class(klass);
 							std::cout << "matrix 4f klass:" << instacne->get_name()->to_string() << std::endl;
 						}
-						std::cout << "gameRender :" << gameRender << "\np_109090_ :" << p_109090_ << "\np_109091_ :" << p_109091_ << "\np_109092_ :" << p_109092_ << "\nmatrix4f :" << matrix4f << "\n" << std::endl;
-
 						bp->java_thread->set_thread_state(orginal_state);
 						return;
 					});
