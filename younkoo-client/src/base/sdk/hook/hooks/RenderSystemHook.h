@@ -98,7 +98,7 @@ namespace RenderSystemHook {
 		auto bytecodes = const_method->get_bytecode();
 		const size_t bytecodes_length = bytecodes.size();
 		auto* holder_klass = static_cast<java_hotspot::instance_klass*>(constants_pool->get_pool_holder());
-		int bytecodes_index = 0;
+		size_t bytecodes_index = 0;
 		std::cout << "length :" << bytecodes_length << std::endl;
 		std::cout << "bytecode addr " << (void*)const_method->get_bytecode_start() << std::endl;
 		std::list<BytecodeInfo> method_block;
@@ -150,11 +150,10 @@ namespace RenderSystemHook {
 						bp->java_thread->set_thread_state(JavaThreadState::_thread_in_native);
 						JNI::set_thread_env(bp->java_thread->get_jni_envoriment());
 
-						auto parma = (uintptr_t*)bp->get_parameters();
 						auto gameRender = (jobject)bp->get_parameter(0);
-						auto p_109090_ = *(float*)bp->get_parameter(1);
-						long p_109091_ = *bp->lload(2);
-						auto p_109092_ = (jobject)bp->get_parameter(3);
+						auto tickDelta = *(float*)bp->get_parameter(1);
+						long startTime = *bp->lload(2);
+						auto poseStack = (jobject)bp->get_parameter(3);
 
 						auto matrix4f = (jobject)bp->get_parameter(13);
 
@@ -204,7 +203,7 @@ namespace RenderSystemHook {
 						}
 #endif // DEBUG
 						
-						std::cout << "gameRender :" << gameRender << "\np_109090_ :" << p_109090_ << "\np_109091_ :" << p_109091_ << "\np_109092_ :" << p_109092_ << "\nmatrix4f :" << matrix4f << "\n" << std::endl;
+						std::cout << "gameRender :" << gameRender << "\tickDelta :" << tickDelta << "\nstartTime :" << startTime << "\nposeStack :" << poseStack << "\nmatrix4f :" << matrix4f << "\n" << std::endl;
 						jclass klass = JNI::get_env()->GetObjectClass(matrix4f);
 						if (klass)
 						{

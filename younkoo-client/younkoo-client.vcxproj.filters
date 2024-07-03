@@ -779,6 +779,9 @@
     <ClInclude Include="src\base\jvm\hotspot\classes\local_variable_table.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\math\Matrix4f.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\render\gui\input\IOEvents.h">
