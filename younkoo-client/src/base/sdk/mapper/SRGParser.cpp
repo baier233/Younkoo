@@ -56,6 +56,7 @@ void SRGParser::Init(const unsigned char* srgBytes, size_t size, bool Reverse)
 		}
 	}
 }
+//#define MCPDEBUG
 //#include "resources/maps/forge189.h"
 //#include "resources/maps/vanilla189.h"
 //#include "resources/maps/forge1181.h"
@@ -84,8 +85,12 @@ Versions SRGParser::GetVersion() const
 	return this->version;
 }
 
+
 std::string SRGParser::getObfuscatedFieldName(const std::string& originalClassName, const std::string& originalFieldName)
 {
+#ifdef MCPDEBUG
+	return originalFieldName;
+#endif
 	if (version == Versions::MCP_1_8_9 or version == Versions::MCP_1_12_2 or version == Versions::MCP_1_18_1 or version == Versions::LUNAR_1_8_9 or version == Versions::LUNAR_1_12_2)return originalFieldName;
 	std::string key = originalClassName + "/" + originalFieldName;
 	if (fieldMappings.find(key) != fieldMappings.end()) {
@@ -102,6 +107,9 @@ std::string SRGParser::getObfuscatedFieldName(const std::string& originalClassNa
 
 std::pair<std::string, std::string> SRGParser::getObfuscatedMethodName(const std::string& originalClassName, const std::string& originalMethodName, const std::string& methodDesc)
 {
+#ifdef MCPDEBUG
+	return std::make_pair(originalMethodName, methodDesc);
+#endif
 	if (version == Versions::MCP_1_8_9 or version == Versions::MCP_1_12_2 or version == Versions::MCP_1_18_1 or version == Versions::LUNAR_1_8_9 or version == Versions::LUNAR_1_12_2)	return std::make_pair(originalMethodName, methodDesc);
 	std::string key = originalClassName + "/" + originalMethodName + "/" + methodDesc;
 	//std::cout << key << std::endl;
@@ -120,6 +128,9 @@ std::pair<std::string, std::string> SRGParser::getObfuscatedMethodName(const std
 
 std::string SRGParser::getObfuscatedClassName(const std::string& originalClassName)
 {
+#ifdef MCPDEBUG
+	return originalClassName;
+#endif
 	if (version == Versions::MCP_1_8_9 or version == Versions::MCP_1_12_2 or version == Versions::MCP_1_18_1 or version == Versions::LUNAR_1_8_9 or version == Versions::LUNAR_1_12_2)return originalClassName;
 	if (classMappings.find(originalClassName) != classMappings.end()) {
 		std::cout << "WrapperClass:" << originalClassName << " Obfuscator:" << classMappings[originalClassName] << std::endl;

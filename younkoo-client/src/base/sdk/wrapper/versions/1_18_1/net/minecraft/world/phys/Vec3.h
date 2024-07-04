@@ -21,8 +21,8 @@ JNI::Field<jdouble, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/world/phys/Vec3"), "z")
 )> z{ *this };/* D */
 
-Math::Vector3 toVector3() {
-	return Math::Vector3(x.get(), y.get(), z.get());
+Math::Vector3D toVector3() {
+	return Math::Vector3D(x.get(), y.get(), z.get());
 }
 
 END_KLASS_DEF();

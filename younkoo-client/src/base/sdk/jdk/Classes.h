@@ -13,4 +13,7 @@ namespace JDK {
 
 	BEGIN_KLASS_DEF_EX(List, return "java/util/List", Collection)
 		END_KLASS_DEF();
+
+	BEGIN_KLASS_DEF(FloatBuffer, return "java/nio/FloatBuffer")
+		END_KLASS_DEF();
 }

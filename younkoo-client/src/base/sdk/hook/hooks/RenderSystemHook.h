@@ -166,7 +166,7 @@ namespace RenderSystemHook {
 						long startTime = *bp->lload(2);
 						auto poseStack = (jobject)bp->get_parameter(4);
 
-						auto matrix4f = (jobject)bp->get_parameter(13);
+						auto matrix4f = (jobject)bp->get_parameter(11);
 
 #ifdef DEBUG
 
@@ -217,14 +217,17 @@ namespace RenderSystemHook {
 							matrix_struct.m01 = matrix_obj.m01.get();
 							matrix_struct.m02 = matrix_obj.m02.get();
 							matrix_struct.m03 = matrix_obj.m03.get();
+
 							matrix_struct.m10 = matrix_obj.m10.get();
 							matrix_struct.m11 = matrix_obj.m11.get();
 							matrix_struct.m12 = matrix_obj.m12.get();
 							matrix_struct.m13 = matrix_obj.m13.get();
+
 							matrix_struct.m20 = matrix_obj.m20.get();
 							matrix_struct.m21 = matrix_obj.m21.get();
 							matrix_struct.m22 = matrix_obj.m22.get();
 							matrix_struct.m23 = matrix_obj.m23.get();
+
 							matrix_struct.m30 = matrix_obj.m30.get();
 							matrix_struct.m31 = matrix_obj.m31.get();
 							matrix_struct.m32 = matrix_obj.m32.get();

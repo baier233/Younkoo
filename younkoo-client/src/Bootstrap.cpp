@@ -8,6 +8,8 @@
 
 #include "base/Younkoo.hpp"
 
+
+
 static DWORD WINAPI BootStrapThread(LPVOID hDll)
 {
 	//Setup Client Here

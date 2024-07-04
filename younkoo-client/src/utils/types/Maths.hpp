@@ -5,7 +5,6 @@
 #include <array>
 
 
-
 namespace Math {
 	class Vector3
 	{
@@ -74,6 +73,8 @@ namespace Math {
 		{
 			return sqrt(pow(x - other.x, 2.0) + pow(y - other.y, 2.0) + pow(z - other.z, 2.0));
 		}
+		Vector3D operator - (const Vector3D& rhs) const { return Vector3D(x - rhs.x, y - rhs.y, z - rhs.z); }
+		Vector3D& operator -= (const Vector3D& rhs) { return *this = *this - rhs; }
 	};
 
 
@@ -83,6 +84,14 @@ namespace Math {
 		float y{ NAN };
 		float z{ NAN };
 		float w{ NAN };
+	};
+
+	struct Vector4D
+	{
+		double x{ NAN };
+		double y{ NAN };
+		double z{ NAN };
+		double w{ NAN };
 	};
 
 	// https://github.com/Marcelektro/MCP-919/blob/main/src/minecraft/net/minecraft/util/Matrix4f.java
@@ -114,30 +123,53 @@ namespace Math {
 		result.reserve(16);
 
 		result.push_back(matrix.m00);
-		result.push_back(matrix.m01);
-		result.push_back(matrix.m02);
-		result.push_back(matrix.m03);
-
 		result.push_back(matrix.m10);
-		result.push_back(matrix.m11);
-		result.push_back(matrix.m12);
-		result.push_back(matrix.m13);
-
 		result.push_back(matrix.m20);
-		result.push_back(matrix.m21);
-		result.push_back(matrix.m22);
-		result.push_back(matrix.m23);
-
 		result.push_back(matrix.m30);
+
+		result.push_back(matrix.m01);
+		result.push_back(matrix.m11);
+		result.push_back(matrix.m21);
 		result.push_back(matrix.m31);
+
+		result.push_back(matrix.m02);
+		result.push_back(matrix.m12);
+		result.push_back(matrix.m22);
 		result.push_back(matrix.m32);
+
+		result.push_back(matrix.m03);
+		result.push_back(matrix.m13);
+		result.push_back(matrix.m23);
 		result.push_back(matrix.m33);
+
 
 		return result;
 	}
 
+	struct Matrix4 {
+		std::array<std::array<float, 4>, 4> mat;
+
+		Matrix4(std::initializer_list<float> values) {
+			auto it = values.begin();
+			for (int i = 0; i < 4; ++i) {
+				for (int j = 0; j < 4; ++j) {
+					mat[i][j] = *it++;
+				}
+			}
+		}
+	};
+
 	inline Vector4 Multiply(Vector4 v, Matrix m) {
 		return Vector4{
+			v.x * m.m00 + v.y * m.m10 + v.z * m.m20 + v.w * m.m30,
+			v.x * m.m01 + v.y * m.m11 + v.z * m.m21 + v.w * m.m31,
+			v.x * m.m02 + v.y * m.m12 + v.z * m.m22 + v.w * m.m32,
+			v.x * m.m03 + v.y * m.m13 + v.z * m.m23 + v.w * m.m33
+		};
+	}
+
+	inline Vector4D Multiply(Vector4D v, Matrix m) {
+		return Vector4D{
 			v.x * m.m00 + v.y * m.m10 + v.z * m.m20 + v.w * m.m30,
 			v.x * m.m01 + v.y * m.m11 + v.z * m.m21 + v.w * m.m31,
 			v.x * m.m02 + v.y * m.m12 + v.z * m.m22 + v.w * m.m32,
@@ -150,10 +182,10 @@ namespace Math {
 	inline void __gluMultMatrixVecf(const std::vector<float>& m, const std::array<float, 4>& in, std::array<float, 4>& out) {
 		for (int i = 0; i < 4; i++) {
 			out[i] =
-				in[0] * m[static_cast<unsigned long long>(0) * 4 + static_cast<size_t>(i)] +
-				in[1] * m[static_cast<unsigned long long>(1) * 4 + static_cast<size_t>(i)] +
-				in[2] * m[static_cast<unsigned long long>(2) * 4 + static_cast<size_t>(i)] +
-				in[3] * m[static_cast<unsigned long long>(3) * 4 + static_cast<size_t>(i)];
+				in[0] * m[static_cast<unsigned long long>(0) * 4 + static_cast<std::vector<float, std::allocator<float>>::size_type>(i)] +
+				in[1] * m[static_cast<unsigned long long>(1) * 4 + static_cast<std::vector<float, std::allocator<float>>::size_type>(i)] +
+				in[2] * m[static_cast<unsigned long long>(2) * 4 + static_cast<std::vector<float, std::allocator<float>>::size_type>(i)] +
+				in[3] * m[static_cast<unsigned long long>(3) * 4 + static_cast<std::vector<float, std::allocator<float>>::size_type>(i)];
 		}
 	}
 
@@ -166,13 +198,8 @@ namespace Math {
 		const std::vector<int>& viewport,
 		std::vector<float>& win_pos)
 	{
-		std::array<float, 4> in{};
+		std::array<float, 4> in = { objx, objy, objz, 1.0f };
 		std::array<float, 4> out{};
-
-		in[0] = objx;
-		in[1] = objy;
-		in[2] = objz;
-		in[3] = 1.0f;
 
 		__gluMultMatrixVecf(modelMatrix, in, out);
 		__gluMultMatrixVecf(projMatrix, out, in);
@@ -181,7 +208,7 @@ namespace Math {
 			return false;
 		}
 
-		in[3] = (1.0f / in[3]) * 0.5f;
+		in[3] = 1.0f / in[3] * 0.5f;
 
 		// Map x, y and z to range 0-1
 		in[0] = in[0] * in[3] + 0.5f;
@@ -198,48 +225,44 @@ namespace Math {
 
 	namespace W2S {
 
-		inline std::vector < float > world2Screen(const std::vector<int>& viewport, const std::vector<float>& modelViewMatrix, const std::vector<float>& projectionMatrix, float x, float y, float z, int screenHeight, double guiScale = 1) {
+		inline bool world2Screen(const std::vector<int>& viewport, const Matrix& modelViewMatrix, const Matrix& projectionMatrix, float x, float y, float z, int screenHeight, Vector2D& point, double guiScale = 2.0f) {
 			std::vector<float> result(3);
 
-			bool var12 = gluProject(static_cast<float>(x), static_cast<float>(y), static_cast<float>(z), modelViewMatrix, projectionMatrix, viewport, result);
+			bool ok = gluProject(static_cast<float>(x), static_cast<float>(y), static_cast<float>(z), structToVector(modelViewMatrix), structToVector(projectionMatrix), viewport, result);
 
-			if (!var12) {
-				return {};
+			if (!ok) {
+				return false;
 			}
 			else {
-				return { result[0] / (float)guiScale
-					,(float)(((float)screenHeight - result[1]) / guiScale),
-					result[2] };
+				point = { result[0] / static_cast<float>(guiScale)
+					,(static_cast<float>(viewport[3]) - result[1]) / static_cast<float>(guiScale) };
+				return true;
 			}
 		}
 
-		inline bool WorldToScreen(Vector3 point, Matrix modelView, Matrix projection, int screenWidth, int screenHeight, Vector2& screenPos) {
+		inline bool WorldToScreen(Vector3D point, Matrix modelView, Matrix projection, int screenWidth, int screenHeight, Vector2D& screenPos) {
 			// csp = Clip Space Position
-			Vector4 csp = Multiply(
+			Vector4D csp = Multiply(
 				Multiply(
-					Vector4{ point.x, point.y, point.z, 1.0f },
+					Vector4D{ point.x, point.y, point.z, 1.0f },
 					modelView
 				),
 				projection
 			);
 
 			// ndc = Native Device Coordinate
-			Vector3 ndc{
+			Vector3D ndc{
 				csp.x / csp.w,
 				csp.y / csp.w,
 				csp.z / csp.w
 			};
 
 			//Logger::Log("NDC.Z: " + std::to_string(ndc.z));
-
-			if (ndc.z > 1 && ndc.z < 1.15) {
-				screenPos = Vector2{
+			screenPos = Vector2D{
 					((ndc.x + 1.0f) / 2.0f) * screenWidth,
 					((1.0f - ndc.y) / 2.0f) * screenHeight,
-				};
-				return true;
-			}
-			return false;
+			};
+			return true;
 		}
 	}
 

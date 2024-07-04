@@ -13,7 +13,7 @@ class EventRender3D
 public:
 	Math::Matrix PROJECTION_MATRIX;
 	Math::Matrix MODLEVIEW_MATRIX;
-	Math::Vector3 CAMERA_POS;
+	Math::Vector3D CAMERA_POS;
 	float TICK_DELTA;
 	long START_TIME = 0;
 	double GUI_SCALE = 0;

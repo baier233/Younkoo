@@ -1,3 +1,3 @@
 #pragma once
-#define GIT_COMMIT_HASH "c9e79d6"
-#define GIT_COMMIT_TIME "Wed Jul 3 23:53:19 2024 +0800"
+#define GIT_COMMIT_HASH "469a292"
+#define GIT_COMMIT_TIME "Fri Jul 5 00:05:54 2024 +0800"

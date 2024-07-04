@@ -8,8 +8,8 @@ public:
 	using Object::Object;
 	// higer version only
 	void setGlowing(bool value);
-	Math::Vector3 getPosition();
-	Math::Vector3 getPosition(float tickDetal);
+	Math::Vector3D getPosition();
+	Math::Vector3D getPosition(float tickDetal);
 };
 
 END_WRAP

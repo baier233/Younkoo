@@ -102,12 +102,15 @@ void NanoVGHelper::drawGradientRoundedRect(NVGcontext* vg, float x, float y, flo
 	nvgFillPaint(vg, nvgLinearGradient(vg, pts[0], pts[1], pts[2], pts[3], nvgColor, nvgColor2));
 	nvgFill(vg);
 }
-void NanoVGHelper::nvgTextW(NVGcontext* vg, const std::wstring& str, int x, int y, int font, int size, NVGcolor col)
+void NanoVGHelper::nvgTextW(NVGcontext* vg, const std::wstring& str, int x, int y, int font, int size, NVGcolor col, int alight)
 {
 	nvgBeginPath(vg);
 	nvgFontSize(vg, size);
 	nvgFontFaceId(vg, font);
-	nvgTextAlign(vg, NVG_ALIGN_LEFT | NVG_ALIGN_TOP);
+	if (alight)
+	{
+		nvgTextAlign(vg, NVG_ALIGN_LEFT | NVG_ALIGN_TOP);
+	}
 	auto utf8Str = Wide2Utf8(str);
 	nvgFillColor(vg, col);
 	nvgText(vg, x, y, utf8Str.c_str(), utf8Str.c_str() + utf8Str.size());
