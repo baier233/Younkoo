@@ -1,12 +1,21 @@
 ﻿#pragma once
 #include <Windows.h>
 #include <SDK.hpp>
-#include <wrapper/versions/1_18_1/net/minecraft/client/renderer/ClientRenderer.h>
 #include <JVM.hpp>
-#include  <hotspot/java_hook.h>
+
+#include <hotspot/java_hook.h>
 #include <hotspot/break/byte_code_info.h>
 #include <hotspot/classes/compile_task.h>
+
+
+#include <wrapper/versions/1_18_1/net/minecraft/client/renderer/ClientRenderer.h>
+#include <wrapper/versions/1_18_1/com/mojang/blaze3d/vertex/PoseStack.h>
+
 #include <utils/Pattern.h>
+#include <utils/types/Maths.hpp>
+
+#include <base/Younkoo.hpp>
+#include <base/event/Events.h>
 
 #include <format>
 
@@ -69,6 +78,7 @@ namespace RenderSystemHook {
 		//plocalvariable_table_length_addr = CUtil_Pattern::Find(jvm, "48 83 EC ? 0F B7 51 ? 4C 8B C1");
 
 	}
+
 	inline void applyHook() {
 		if (SRGParser::get().GetVersion() != Versions::FORGE_1_18_1)
 			return;
@@ -150,10 +160,11 @@ namespace RenderSystemHook {
 						bp->java_thread->set_thread_state(JavaThreadState::_thread_in_native);
 						JNI::set_thread_env(bp->java_thread->get_jni_envoriment());
 
-						auto gameRender = (jobject)bp->get_parameter(0);
+						auto gameRender_obj = (jobject)bp->get_parameter(0);
 						auto tickDelta = *(float*)bp->get_parameter(1);
+
 						long startTime = *bp->lload(2);
-						auto poseStack = (jobject)bp->get_parameter(3);
+						auto poseStack = (jobject)bp->get_parameter(4);
 
 						auto matrix4f = (jobject)bp->get_parameter(13);
 
@@ -176,33 +187,70 @@ namespace RenderSystemHook {
 							auto err = JVM::get().jvmti->GetLocalVariableTable(mid, &entry_count, &table_ptr);
 							err = JVM::get().jvmti->GetFrameLocation(thread, 0, &methoid, &cur_loc);
 							for (int j = 0; j < entry_count; j++) {
-								if (table_ptr[j].start_location > cur_loc) break;
-
-
-								if (table_ptr[j].signature[0] == 'L') { //   fully-qualified-class
-									jobject param_obj{};
-									jlong param_obj_tag = 0;
-
-									JVM::get().jvmti->GetLocalObject(thread, 0, table_ptr[j].slot, &param_obj); // frame at depth zero is the current frame                  
-									if (param_obj) JVM::get().jvmti->GetTag(param_obj, &param_obj_tag);
-									if (param_obj_tag == 0) {
-
-									}
-									printf(", param_obj_tag: %ld", param_obj_tag);
-									printf(", slot:%d, start:%ld, cur:%ld, param:%s%s\n", table_ptr[j].slot, table_ptr[j].start_location, cur_loc, table_ptr[j].signature, table_ptr[j].name);
-									if (param_obj)
-									{
-										JNI::get_env()->DeleteLocalRef(param_obj);
-									}
-									JVM::get().jvmti->Deallocate(reinterpret_cast<unsigned char*>(table_ptr[j].signature));
-									JVM::get().jvmti->Deallocate(reinterpret_cast<unsigned char*>(table_ptr[j].name));
-									JVM::get().jvmti->Deallocate(reinterpret_cast<unsigned char*>(table_ptr[j].generic_signature));
-								}
+								if (!table_ptr[j].name || !table_ptr[j].signature) continue;
+								printf("name:%s ,signature:%s , slot:%d, start:%ld, cur:%ld, param:%s%s\n", table_ptr[j].name, table_ptr[j].signature, table_ptr[j].slot, table_ptr[j].start_location, cur_loc, table_ptr[j].signature, table_ptr[j].name);
+								JVM::get().jvmti->Deallocate(reinterpret_cast<unsigned char*>(table_ptr[j].signature));
+								JVM::get().jvmti->Deallocate(reinterpret_cast<unsigned char*>(table_ptr[j].name));
+								JVM::get().jvmti->Deallocate(reinterpret_cast<unsigned char*>(table_ptr[j].generic_signature));
 
 							}
 						}
 #endif // DEBUG
-						
+
+						/*jclass klass = JNI::get_env()->GetObjectClass(poseStack);
+						if (klass)
+						{
+							auto instacne = java_hotspot::instance_klass::get_instance_class(klass);
+							std::cout << "poseStack klass:" << instacne->get_name()->to_string() << std::endl;
+						}
+
+						JNI::get_env()->DeleteLocalRef(klass);
+						*/
+
+						V1_18_1::PoseStack stack(poseStack, true);
+						V1_18_1::Matrix4f projectionMatrix(matrix4f, true);
+
+						V1_18_1::GameRenderer gameRenderer(gameRender_obj, true);
+
+						static auto fill_matrix_with_matrix4f = [](Math::Matrix& matrix_struct, V1_18_1::Matrix4f& matrix_obj) {
+							matrix_struct.m00 = matrix_obj.m00.get();
+							matrix_struct.m01 = matrix_obj.m01.get();
+							matrix_struct.m02 = matrix_obj.m02.get();
+							matrix_struct.m03 = matrix_obj.m03.get();
+							matrix_struct.m10 = matrix_obj.m10.get();
+							matrix_struct.m11 = matrix_obj.m11.get();
+							matrix_struct.m12 = matrix_obj.m12.get();
+							matrix_struct.m13 = matrix_obj.m13.get();
+							matrix_struct.m20 = matrix_obj.m20.get();
+							matrix_struct.m21 = matrix_obj.m21.get();
+							matrix_struct.m22 = matrix_obj.m22.get();
+							matrix_struct.m23 = matrix_obj.m23.get();
+							matrix_struct.m30 = matrix_obj.m30.get();
+							matrix_struct.m31 = matrix_obj.m31.get();
+							matrix_struct.m32 = matrix_obj.m32.get();
+							matrix_struct.m33 = matrix_obj.m33.get();
+							};
+
+						auto modelViewMatrix = stack.last().pose();
+
+						Math::Matrix projection{ }, modelView{};
+						fill_matrix_with_matrix4f(projection, projectionMatrix);
+						fill_matrix_with_matrix4f(modelView, modelViewMatrix);
+						auto scale = V1_18_1::Minecraft::static_obj().getInstance().getWindow().getGuiScale();
+						Younkoo::get().EventBus.get()->fire_event(EventRender3D{
+							.PROJECTION_MATRIX = projection,
+							.MODLEVIEW_MATRIX = modelView,
+							.CAMERA_POS = gameRenderer.getMainCamera().getPosition().toVector3(),
+							.TICK_DELTA = tickDelta
+							,.START_TIME = startTime,
+							.GUI_SCALE = scale
+							});
+
+						projectionMatrix.clear_ref();
+						stack.clear_ref();
+						gameRenderer.clear_ref();
+
+						/*
 						std::cout << "gameRender :" << gameRender << "\tickDelta :" << tickDelta << "\nstartTime :" << startTime << "\nposeStack :" << poseStack << "\nmatrix4f :" << matrix4f << "\n" << std::endl;
 						jclass klass = JNI::get_env()->GetObjectClass(matrix4f);
 						if (klass)
@@ -210,6 +258,11 @@ namespace RenderSystemHook {
 							auto instacne = java_hotspot::instance_klass::get_instance_class(klass);
 							std::cout << "matrix 4f klass:" << instacne->get_name()->to_string() << std::endl;
 						}
+
+						JNI::get_env()->DeleteLocalRef(klass);
+						*/
+
+
 						bp->java_thread->set_thread_state(orginal_state);
 						return;
 					});

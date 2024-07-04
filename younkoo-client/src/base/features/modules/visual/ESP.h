@@ -11,6 +11,7 @@ public:
 	void onDisable();
 	void onUpdate();
 	void onRender(const EventRender2D& e);
+	void onRender3D(const EventRender3D& e);
 private:
 
 	ESP();

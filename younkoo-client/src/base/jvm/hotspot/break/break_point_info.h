@@ -71,9 +71,9 @@ public:
 	{
 		return (uintptr_t**)(this->parameters - index * 8);
 	}
-	[[nodiscard]] inline long* lload(std::size_t index) const
+	[[nodiscard]] inline long long* lload(std::size_t index) const
 	{
-		return (long*)(this->parameters + (-1 - index) * 8);
+		return (long long*)(this->parameters + (-1 - index) * 8);
 	}
 
 	inline uintptr_t* get_operand(int i)

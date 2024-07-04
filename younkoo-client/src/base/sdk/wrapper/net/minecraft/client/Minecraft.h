@@ -17,6 +17,7 @@ public:
 	World getWorld();
 	EntityPlayerSP getPlayer();
 	MovingObjectPosition getMouseOver();
+	float getFrameTime();
 
 private:
 	Minecraft() = default;

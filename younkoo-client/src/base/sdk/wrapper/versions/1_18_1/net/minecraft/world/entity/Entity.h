@@ -14,5 +14,10 @@ JNI::Method<void, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "setGlowingTag", "(Z)V").first
 ), jboolean> setGlowingTag{ *this };
 
+JNI::Method<Vec3, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "getPosition", "(F)Lnet/minecraft/world/phys/Vec3;").first
+), jfloat> getPosition{ *this };
+
+
 END_KLASS_DEF()
 END_1_18_1

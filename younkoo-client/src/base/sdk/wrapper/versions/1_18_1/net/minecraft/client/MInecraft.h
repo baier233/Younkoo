@@ -6,6 +6,7 @@
 #include <wrapper/versions/1_18_1/net/minecraft/client/gui/screens/Screen.h>
 #include <wrapper/versions/1_18_1/net/minecraft/client/multiplayer/ClientLevel.h>
 #include <wrapper/versions/1_18_1/net/minecraft/client/player/LocalPlayer.h>
+#include <wrapper/versions/1_18_1/com/mojang/blaze3d/platform/Window.h>
 
 BEGIN_1_18_1
 
@@ -35,6 +36,14 @@ JNI::Field<Screen, JNI::NOT_STATIC, DECLARE_NAME(
 JNI::Field<HitResult, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft"), "hitResult")
 )> hitResult{ *this };/* Lnet/minecraft/world/phys/HitResult; */
+
+JNI::Method<jfloat, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/client/Minecraft", "getFrameTime", "()F").first
+)> getFrameTime{ *this };
+
+JNI::Method<Window, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/client/Minecraft", "getWindow", "()Lcom/mojang/blaze3d/platform/Window;").first
+)> getWindow{ *this };
 
 END_KLASS_DEF();
 

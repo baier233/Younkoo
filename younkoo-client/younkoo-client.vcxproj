@@ -308,11 +308,15 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="ext\xorstr.hpp" />
     <ClInclude Include="src\base\jvm\hotspot\classes\local_variable_table.h" />
     <ClInclude Include="src\base\GitInfo.h" />
     <ClInclude Include="src\base\jvm\hotspot\classes\compile_task.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\platform\Window.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack$Pose.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\math\Matrix4f.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Camera.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\ClientRenderer.h" />
     <ClInclude Include="src\base\jvm\hotspot\break\break_point_info.h" />
     <ClInclude Include="src\base\jvm\hotspot\break\byte_code_info.h" />

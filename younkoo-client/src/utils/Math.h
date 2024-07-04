@@ -1,4 +1,7 @@
 ﻿#pragma once
+
+#include <cmath>
+
 namespace MathHelper {
 	inline float clamp_float(float num, float min, float max)
 	{

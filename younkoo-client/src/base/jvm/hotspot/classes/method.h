@@ -15,7 +15,7 @@ typedef unsigned short u2;
 
 namespace java_hotspot {
 
-	
+
 
 #ifdef JDK22FEATURE
 	class ConstMethodFlags {
@@ -66,7 +66,7 @@ namespace java_hotspot {
 		CM_FLAGS_DO(CM_FLAGS_GET_SET)
 #undef CM_FLAGS_GET_SET
 
-		inline int as_int() const { return _flags; }
+			inline int as_int() const { return _flags; }
 		inline void print_it() {
 #define CM_PRINT(name, ignore)          \
   if (name()) printf(#name " ");
@@ -167,17 +167,17 @@ namespace java_hotspot {
 #endif // JDK22FEATURE
 
 
-		inline bool has_method_annotations() 
+			inline bool has_method_annotations()
 		{
 			return (get_const_flags() & _has_method_annotations) != 0;
 		}
 
-		inline bool has_parameter_annotations() 
+		inline bool has_parameter_annotations()
 		{
 			return (get_const_flags() & _has_parameter_annotations) != 0;
 		}
 
-		inline bool has_type_annotations() 
+		inline bool has_type_annotations()
 		{
 			return (get_const_flags() & _has_type_annotations) != 0;
 		}
@@ -186,23 +186,23 @@ namespace java_hotspot {
 		{
 			return (get_const_flags() & _has_default_annotations) != 0;
 		}
-		
-		inline bool has_generic_signature() 
+
+		inline bool has_generic_signature()
 		{
 			return (get_const_flags() & _has_generic_signature) != 0;
 		}
 
-		inline bool has_linenumber_table() 
+		inline bool has_linenumber_table()
 		{
 			return (get_const_flags() & _has_linenumber_table) != 0;
 		}
 
-		inline bool has_checked_exceptions() 
+		inline bool has_checked_exceptions()
 		{
 			return (get_const_flags() & _has_checked_exceptions) != 0;
 		}
 
-		inline bool has_localvariable_table() 
+		inline bool has_localvariable_table()
 		{
 			return (get_const_flags() & _has_localvariable_table) != 0;
 		}
@@ -216,8 +216,8 @@ namespace java_hotspot {
 		{
 			return (get_const_flags() & _has_method_parameters) != 0;
 		}
-		
-			
+
+
 		auto get_last_u2_element() -> uintptr_t*;
 
 		auto get_localvariable_table_length_addr() -> void*;

@@ -200,7 +200,7 @@ auto java_hotspot::const_method::get_size() -> int
 {
 	//_constMethod_size
 	static VMStructEntry* _constMethod_size_entry = JVMWrappers::find_type_fields("ConstMethod").value().get()["_constMethod_size"];
-	return *(int*)(this+ _constMethod_size_entry->offset);
+	return *(int*)(this + _constMethod_size_entry->offset);
 }
 
 std::vector<java_hotspot::local_variable_entry> java_hotspot::const_method::get_local_variable_entries()

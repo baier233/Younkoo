@@ -782,6 +782,18 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\math\Matrix4f.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ext\xorstr.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack$Pose.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\platform\Window.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\render\gui\input\IOEvents.h">

@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include <SDK.hpp>
+#include <wrapper/versions/1_18_1/com/mojang/blaze3d/vertex/PoseStack$Pose.h>
+#include <wrapper/versions/1_18_1/com/mojang/math/Matrix4f.h>
 
 BEGIN_1_18_1
 
