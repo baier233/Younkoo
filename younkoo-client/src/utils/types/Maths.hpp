@@ -5,6 +5,7 @@
 #include <array>
 
 
+
 namespace Math {
 	class Vector3
 	{
@@ -117,9 +118,12 @@ namespace Math {
 		float minX, minY, minZ, maxX, maxY, maxZ;
 	};
 
-	inline std::vector<float> structToVector(const Matrix& matrix)
+	inline std::vector<double> structToVector(const Matrix& matrix)
 	{
-		std::vector<float> result;
+
+		//column-major order
+
+		std::vector<double> result;
 		result.reserve(16);
 
 		result.push_back(matrix.m00);
@@ -140,6 +144,53 @@ namespace Math {
 		result.push_back(matrix.m03);
 		result.push_back(matrix.m13);
 		result.push_back(matrix.m23);
+		result.push_back(matrix.m33);
+
+
+		return result;
+	}
+
+	inline std::array<float, 16> structToArray(const Matrix& matrix)
+	{
+
+		//column-major order
+
+		std::array<float, 16> result{
+			matrix.m00 ,matrix.m10,matrix.m20,matrix.m30,
+			matrix.m01 ,matrix.m11,matrix.m21,matrix.m31,
+			matrix.m02 ,matrix.m12,matrix.m22,matrix.m32,
+			matrix.m03 ,matrix.m13,matrix.m23,matrix.m33,
+		};
+
+
+		return result;
+	}
+
+	inline std::vector<double> structToVector2(const Matrix& matrix)
+	{
+		std::vector<double> result;
+		result.reserve(16);
+
+		result.reserve(16);
+
+		result.push_back(matrix.m00);
+		result.push_back(matrix.m01);
+		result.push_back(matrix.m02);
+		result.push_back(matrix.m03);
+
+		result.push_back(matrix.m10);
+		result.push_back(matrix.m11);
+		result.push_back(matrix.m12);
+		result.push_back(matrix.m13);
+
+		result.push_back(matrix.m20);
+		result.push_back(matrix.m21);
+		result.push_back(matrix.m22);
+		result.push_back(matrix.m23);
+
+		result.push_back(matrix.m30);
+		result.push_back(matrix.m31);
+		result.push_back(matrix.m32);
 		result.push_back(matrix.m33);
 
 
@@ -179,66 +230,9 @@ namespace Math {
 
 
 
-	inline void __gluMultMatrixVecf(const std::vector<float>& m, const std::array<float, 4>& in, std::array<float, 4>& out) {
-		for (int i = 0; i < 4; i++) {
-			out[i] =
-				in[0] * m[static_cast<unsigned long long>(0) * 4 + static_cast<std::vector<float, std::allocator<float>>::size_type>(i)] +
-				in[1] * m[static_cast<unsigned long long>(1) * 4 + static_cast<std::vector<float, std::allocator<float>>::size_type>(i)] +
-				in[2] * m[static_cast<unsigned long long>(2) * 4 + static_cast<std::vector<float, std::allocator<float>>::size_type>(i)] +
-				in[3] * m[static_cast<unsigned long long>(3) * 4 + static_cast<std::vector<float, std::allocator<float>>::size_type>(i)];
-		}
-	}
-
-	inline bool gluProject(
-		float objx,
-		float objy,
-		float objz,
-		const std::vector<float>& modelMatrix,
-		const std::vector<float>& projMatrix,
-		const std::vector<int>& viewport,
-		std::vector<float>& win_pos)
-	{
-		std::array<float, 4> in = { objx, objy, objz, 1.0f };
-		std::array<float, 4> out{};
-
-		__gluMultMatrixVecf(modelMatrix, in, out);
-		__gluMultMatrixVecf(projMatrix, out, in);
-
-		if (in[3] == 0.0f) {
-			return false;
-		}
-
-		in[3] = 1.0f / in[3] * 0.5f;
-
-		// Map x, y and z to range 0-1
-		in[0] = in[0] * in[3] + 0.5f;
-		in[1] = in[1] * in[3] + 0.5f;
-		in[2] = in[2] * in[3] + 0.5f;
-
-		// Map x,y to viewport
-		win_pos[0] = in[0] * viewport[2] + viewport[0];
-		win_pos[1] = in[1] * viewport[3] + viewport[1];
-		win_pos[2] = in[2];
-
-		return true;
-	}
-
 	namespace W2S {
 
-		inline bool world2Screen(const std::vector<int>& viewport, const Matrix& modelViewMatrix, const Matrix& projectionMatrix, float x, float y, float z, int screenHeight, Vector2D& point, double guiScale = 2.0f) {
-			std::vector<float> result(3);
-
-			bool ok = gluProject(static_cast<float>(x), static_cast<float>(y), static_cast<float>(z), structToVector(modelViewMatrix), structToVector(projectionMatrix), viewport, result);
-
-			if (!ok) {
-				return false;
-			}
-			else {
-				point = { result[0] / static_cast<float>(guiScale)
-					,(static_cast<float>(viewport[3]) - result[1]) / static_cast<float>(guiScale) };
-				return true;
-			}
-		}
+		std::array<double, 3> world2Screen(const std::array<float, 16>& modelViewMatrix, const std::array<float, 16>& projectionMatrix, const Math::Vector3D& pos, double guiScale = 2.0f);
 
 		inline bool WorldToScreen(Vector3D point, Matrix modelView, Matrix projection, int screenWidth, int screenHeight, Vector2D& screenPos) {
 			// csp = Clip Space Position

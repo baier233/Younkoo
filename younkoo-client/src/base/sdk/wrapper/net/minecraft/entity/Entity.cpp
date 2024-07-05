@@ -40,3 +40,15 @@ Math::Vector3D Wrapper::Entity::getPosition(float tickDetla)
 	}
 	return Math::Vector3D();
 }
+
+float Wrapper::Entity::getHeight()
+{
+
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+
+		V1_18_1::Entity entity = this->instance->object_instance;
+		return entity.getBbHeight();
+	}
+	return 0.0f;
+}

@@ -169,7 +169,7 @@ namespace NanoVGHelper {
 	void drawHollowRoundRect(NVGcontext* vg, float x, float y, float width, float height, int color, float radius, float thickness);
 	void drawRoundedRectVaried(NVGcontext* vg, float x, float y, float width, float height, int color, float radiusTL, float radiusTR, float radiusBR, float radiusBL);
 	void drawGradientRoundedRect(NVGcontext* vg, float x, float y, float width, float height, int color, int color2, float radius, GradientDirection direction);
-	void nvgTextW(NVGcontext* vg, const std::wstring& str, int x, int y, int font, int size, NVGcolor col, int alight = NVG_ALIGN_LEFT | NVG_ALIGN_TOP);
+	void nvgTextW(NVGcontext* vg, const std::wstring& str, float x, float y, int font, int size, NVGcolor col, int alight = NVG_ALIGN_LEFT | NVG_ALIGN_TOP);
 	void nvgRect(NVGcontext* vg, float x, float y, float width, float height, NVGcolor col);
 	std::pair<float, float> nvgTextBoundsW(NVGcontext* vg, const std::wstring& str, int font, int size);
 	void nvgTextBoundsW(NVGcontext* vg, int x, int y, const  std::wstring& str, float bounds[]);

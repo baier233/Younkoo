@@ -73,7 +73,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(ProjectDir)\ext\nanovg;$(ProjectDir)\src\base\sdk;$(ProjectDir)\src;$(ProjectDir)\src\base\jvm;$(ProjectDir)\ext;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\ext\GL;$(ProjectDir)\ext\SDL2;$(ProjectDir)\ext\detours;$(ProjectDir)\ext\glad;$(ProjectDir)\ext\GLFW;$(ProjectDir)\ext\nanovg;$(ProjectDir)\ext\jni;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)\ext\GL\debug;$(ProjectDir)\ext\GL;$(ProjectDir)\ext\SDL2;$(ProjectDir)\ext\detours;$(ProjectDir)\ext\glad;$(ProjectDir)\ext\GLFW;$(ProjectDir)\ext\nanovg;$(ProjectDir)\ext\jni;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(ProjectDir)\ext\nanovg;$(ProjectDir)\src\base\sdk;$(ProjectDir)\src;$(ProjectDir)\src\base\jvm;$(ProjectDir)\ext;$(IncludePath)</IncludePath>
@@ -136,7 +136,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>OpenGl32.lib;jvm.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OpenGl32.lib;jvm.lib;glew32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>powershell -ExecutionPolicy Bypass -Command "&amp; { $(ProjectDir)scripts\update_git_info.ps1 $(ProjectDir) }"</Command>
@@ -262,6 +262,7 @@
     <ClCompile Include="src\base\features\modules\player\Team.cpp" />
     <ClCompile Include="src\base\render\gui\clickgui\component\impl\settings\ValueComponent.cpp" />
     <ClCompile Include="src\base\cleaner\UnloadedModuleCleaner.cpp" />
+    <ClCompile Include="src\utils\types\details\WorldToScreen.cpp" />
     <ClCompile Include="src\utils\Wstr.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\World.cpp" />
   </ItemGroup>

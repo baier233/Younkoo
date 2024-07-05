@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <SDK.hpp>
 
 BEGIN_1_18_1

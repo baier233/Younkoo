@@ -327,6 +327,9 @@
     <ClCompile Include="src\base\jvm\hotspot\classes\local_variable_table.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\utils\types\details\WorldToScreen.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">

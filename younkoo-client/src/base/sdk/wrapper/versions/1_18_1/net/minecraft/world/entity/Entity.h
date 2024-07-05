@@ -42,5 +42,15 @@ JNI::Method<jdouble, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "getZ", "()D").first
 )> getZ{ *this };
 
+JNI::Method<jfloat, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "getBbHeight", "()F").first
+)> getBbHeight{ *this };
+
+
+JNI::Method<jfloat, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "getBbWidth", "()F").first
+)> getBbWidth{ *this };
+
+
 END_KLASS_DEF()
 END_1_18_1

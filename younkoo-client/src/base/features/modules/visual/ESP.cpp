@@ -61,7 +61,8 @@ void ESP::onRender(const EventRender2D& e)
 	auto vg = NanoVGHelper::Context;
 	for (const auto& point : pointsToRender)
 	{
-		NanoVGHelper::nvgTextW(vg, L"入", point.x, point.y, NanoVGHelper::fontHarmony, 15, nvgRGBA(255, 255, 255, 255), 0);
+
+		NanoVGHelper::nvgTextW(vg, L"入", point.x, point.y, NanoVGHelper::fontHarmony, 15, nvgRGBA(255, 255, 255, 255));
 	}
 }
 template<typename T>
@@ -91,18 +92,20 @@ static std::string arrayToString(const std::vector<T>& arr) {
 	oss << "]";
 	return oss.str();
 }
+#include <format>
 void ESP::onRender3D(const EventRender3D& e)
 {
 	ToggleCheck;
 	if (NanoGui::available) return;
 	glGetIntegerv(GL_VIEWPORT, viewport.data());
+	/*
 	currentContext = (Context{
 		.projection = e.PROJECTION_MATRIX ,
 		.modelView = e.MODLEVIEW_MATRIX,
 		.cameraPos = e.CAMERA_POS,
 		.guiScale = e.GUI_SCALE,
 		.renderDetla = e.TICK_DELTA,
-		});
+		});*/
 
 
 	auto mc = Wrapper::Minecraft::getMinecraft();
@@ -115,7 +118,7 @@ void ESP::onRender3D(const EventRender3D& e)
 	for (auto& player : players)
 	{
 
-		if (player.isEqualTo(mc.getPlayer())) continue;
+		//if (player.isEqualTo(mc.getPlayer())) continue;
 
 		auto postion = player.getPosition(ctx.renderDetla);
 
@@ -127,31 +130,26 @@ void ESP::onRender3D(const EventRender3D& e)
 
 
 		auto renderPos = postion - e.CAMERA_POS;
+		renderPos.y += player.getHeight() + 0.3f;
 		Math::Vector2D point{};
+
+		//std::cout << "Camera Pos : { " << std::format("{},{},{}", e.CAMERA_POS.x, e.CAMERA_POS.y, e.CAMERA_POS.z) << "}" << std::endl;
 		//std::cout << "modelView :" << arrayToString(Math::structToVector(e.MODLEVIEW_MATRIX)) << std::endl;
 		//std::cout << "projection :" << arrayToString(Math::structToVector(e.PROJECTION_MATRIX)) << std::endl;
-		auto result = Math::W2S::world2Screen(std::vector<int>(viewport.begin(), viewport.end()),
-			e.MODLEVIEW_MATRIX,
-			e.PROJECTION_MATRIX,
-			renderPos.x,
-			renderPos.y,
-			renderPos.z,
-			height,
-			point,
-			ctx.guiScale
+		auto result = Math::W2S::world2Screen(
+			Math::structToArray(e.MODLEVIEW_MATRIX),
+			Math::structToArray(e.PROJECTION_MATRIX),
+			renderPos,
+			e.GUI_SCALE
 		);
-		if (result)
+		if (result[2] > 0 && result[2] < 1)
 		{
 
 			//points.push_back(point);
-			std::cout << "Point : {" << point.x << "," << point.y << "}" << std::endl;
-
-		}
-		if (Math::Vector2D point2{}; Math::W2S::WorldToScreen(renderPos, e.MODLEVIEW_MATRIX, e.PROJECTION_MATRIX, width, height, point2))
-		{
-
+			point = { result[0],result[1] };
+			std::cout << "Point(cpp) : {" << point.x << "," << point.y << "}" << std::endl;
 			points.push_back(point);
-			std::cout << "Point2 : {" << point.x << "," << point.y << "}" << std::endl;
+
 		}
 	}
 	pointsToRender = points;

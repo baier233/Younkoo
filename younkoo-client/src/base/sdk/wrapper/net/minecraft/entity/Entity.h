@@ -10,6 +10,7 @@ public:
 	void setGlowing(bool value);
 	Math::Vector3D getPosition();
 	Math::Vector3D getPosition(float tickDetal);
+	float getHeight();
 };
 
 END_WRAP

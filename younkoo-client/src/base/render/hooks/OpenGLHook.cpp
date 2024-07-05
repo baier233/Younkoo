@@ -82,7 +82,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 			opengl_ctx_init();
 		}
 		else {
-			//wglCopyContext(renderer.renderContext.OriginalGLContext, renderer.renderContext.MenuGLContext, GL_ALL_ATTRIB_BITS);
+			wglCopyContext(renderer.renderContext.OriginalGLContext, renderer.renderContext.MenuGLContext, GL_ALL_ATTRIB_BITS);
 		}
 		// Change Current Context to my mirror context.
 		wglMakeCurrent(hdc, renderer.renderContext.MenuGLContext);
@@ -119,7 +119,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 			opengl_ctx_init();
 		}
 		else {
-			//wglCopyContext(renderer.renderContext.OriginalGLContext, renderer.renderContext.MenuGLContext, GL_ALL_ATTRIB_BITS);
+			wglCopyContext(renderer.renderContext.OriginalGLContext, renderer.renderContext.MenuGLContext, GL_ALL_ATTRIB_BITS);
 		}
 	}
 	// Change current context back to mine.
