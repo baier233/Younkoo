@@ -165,6 +165,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\features\modules\visual\NameTag.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\classes\local_variable_table.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\classes\compile_task.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\break\break_point_info.cpp" />
@@ -311,6 +312,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
     <ClInclude Include="ext\xorstr.hpp" />
+    <ClInclude Include="src\base\features\modules\visual\NameTag.h" />
     <ClInclude Include="src\base\jvm\hotspot\classes\local_variable_table.h" />
     <ClInclude Include="src\base\GitInfo.h" />
     <ClInclude Include="src\base\jvm\hotspot\classes\compile_task.h" />
@@ -360,9 +362,9 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\LocalPlayer.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\chat\Component.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\player\Player.h" />
-    <ClCompile Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\Entity.h">
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\Entity.h">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-    </ClCompile>
+    </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\LivingEntity.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\BlockPos.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\InteractionHand.h" />

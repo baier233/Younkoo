@@ -14,6 +14,7 @@ public:
 	Math::Vector3D getPosition();
 	Math::Vector3D getPosition(float tickDetal);
 	std::string getDisplayName();
+	float getWidth();
 	float getHeight();
 };
 

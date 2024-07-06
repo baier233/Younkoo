@@ -110,7 +110,7 @@ void NanoVGHelper::nvgTextW(NVGcontext* vg, const std::wstring& str, float x, fl
 
 	auto bounds = nvgTextBoundsW(vg, str, font, size);
 	auto textWidth = bounds.first;
-	auto textHeight = bounds.second;
+	auto textHeight = bounds.second;/*
 	if (align & NVG_ALIGN_CENTER) {
 		x -= textWidth / 2;
 	}
@@ -123,7 +123,7 @@ void NanoVGHelper::nvgTextW(NVGcontext* vg, const std::wstring& str, float x, fl
 	}
 	else if (align & NVG_ALIGN_BOTTOM) {
 		y -= textHeight;
-	}
+	}*/
 
 	if (align)
 	{

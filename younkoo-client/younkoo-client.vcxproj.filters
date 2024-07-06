@@ -333,8 +333,8 @@
     <ClCompile Include="src\base\sdk\hook\hooks\RenderSystemHook.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\Entity.h">
-      <Filter>头文件</Filter>
+    <ClCompile Include="src\base\features\modules\visual\NameTag.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -801,6 +801,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\chat\Component.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\Entity.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\modules\visual\NameTag.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

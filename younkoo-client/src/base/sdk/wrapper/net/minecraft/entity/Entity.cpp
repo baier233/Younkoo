@@ -52,6 +52,17 @@ std::string Wrapper::Entity::getDisplayName()
 	return std::string();
 }
 
+float Wrapper::Entity::getWidth()
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+
+		V1_18_1::Entity entity = this->instance->object_instance;
+		return entity.getBbWidth();
+	}
+	return 0.0f;
+}
+
 float Wrapper::Entity::getHeight()
 {
 
