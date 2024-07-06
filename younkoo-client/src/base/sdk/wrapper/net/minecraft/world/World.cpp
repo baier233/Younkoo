@@ -13,10 +13,10 @@ std::vector<Wrapper::EntityPlayer> Wrapper::World::getPlayerList()
 
 		if (!players.object_instance) return result;
 
-		auto vec = ((JNI::Array<V1_18_1::Player>)players.toArray()).to_vector();
+		auto vec = (/*(JNI::Array<V1_18_1::Player>)*/players.toArray()).to_vector();
 		for (auto& obj : vec)
 		{
-			result.emplace_back(EntityPlayer(JNI::EmptyMembers(obj)));
+			result.push_back(EntityPlayer(JNI::EmptyMembers(obj)));
 		}
 		return result;
 	}

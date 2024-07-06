@@ -56,7 +56,7 @@ void SRGParser::Init(const unsigned char* srgBytes, size_t size, bool Reverse)
 		}
 	}
 }
-#define MCPDEBUG
+//#define MCPDEBUG
 //#include "resources/maps/forge189.h"
 //#include "resources/maps/vanilla189.h"
 //#include "resources/maps/forge1181.h"

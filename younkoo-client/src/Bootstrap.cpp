@@ -27,7 +27,7 @@ BOOL Main::ProcessAttach(HMODULE hDll)
 	Thread::s_nTlsIndent = TlsAlloc();
 	Thread::s_nTlsThread = TlsAlloc();
 
-	//Utils::CreateConsole_();
+	Utils::CreateConsole_();
 
 	current_module = hDll;
 
@@ -50,7 +50,7 @@ BOOL Main::ProcessDetach(HMODULE hDll)
 		TlsFree(Thread::s_nTlsThread);
 	}
 
-	//Utils::CloseConsole_();
+	Utils::CloseConsole_();
 	return TRUE;
 }
 

@@ -21,9 +21,9 @@ namespace java_hotspot {
 
 		auto get_fields() -> array<uint16_t>*;
 
-		auto set_breakpoints(jvm_internal::breakpoint_info* breakpoints) -> void;
+		void set_breakpoints(jvm_internal::breakpoint_info* breakpoints);
 
-		auto get_breakpoints() -> jvm_internal::breakpoint_info*;
+		jvm_internal::breakpoint_info* get_breakpoints();
 
 		inline static instance_klass* get_instance_class(_jclass* const klasas) {
 			/* Check if class is null */

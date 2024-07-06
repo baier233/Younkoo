@@ -130,7 +130,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -181,6 +181,7 @@
     <ClCompile Include="src\base\jvm\hotspot\utility\jvm_static.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\utility\vm_helper.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\java_hook.cpp" />
+    <ClCompile Include="src\base\sdk\hook\hooks\RenderSystemHook.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\EntityLivingBase.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\player\EntityPlayer.cpp" />
@@ -357,8 +358,11 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\multiplayer\ClientLevel.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\AbstractClientPlayer.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\LocalPlayer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\chat\Component.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\player\Player.h" />
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\Entity.h" />
+    <ClCompile Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\Entity.h">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </ClCompile>
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\LivingEntity.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\BlockPos.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\InteractionHand.h" />

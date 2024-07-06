@@ -330,6 +330,12 @@
     <ClCompile Include="src\utils\types\details\WorldToScreen.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\sdk\hook\hooks\RenderSystemHook.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\Entity.h">
+      <Filter>头文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -677,9 +683,6 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\LivingEntity.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\Entity.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\AbstractClientPlayer.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -764,9 +767,6 @@
     <ClInclude Include="src\base\jvm\hotspot\break\jvm_break_points.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\sdk\hook\hooks\RenderSystemHook.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\ClientRenderer.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -795,6 +795,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\platform\Window.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\hook\hooks\RenderSystemHook.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\chat\Component.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

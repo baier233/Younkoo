@@ -2,6 +2,7 @@
 
 #include <SDK.hpp>
 #include <wrapper/versions/1_18_1/net/minecraft/world/phys/Vec3.h>
+#include <wrapper/versions/1_18_1/net/minecraft/network/chat/Component.h>
 
 
 BEGIN_1_18_1
@@ -50,6 +51,10 @@ JNI::Method<jfloat, JNI::NOT_STATIC, DECLARE_NAME(
 JNI::Method<jfloat, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "getBbWidth", "()F").first
 )> getBbWidth{ *this };
+
+JNI::Method<Component, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/Nameable", "getDisplayName", "()Lnet/minecraft/network/chat/Component;").first
+)> getDisplayName{ *this };
 
 
 END_KLASS_DEF()

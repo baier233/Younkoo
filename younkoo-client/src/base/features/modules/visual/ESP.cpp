@@ -20,7 +20,7 @@ static std::atomic<Context> currentContext;
 
 std::array<int, 16> viewport{};
 
-static std::vector<Math::Vector2D> pointsToRender;
+static std::vector<std::pair<std::string, Math::Vector2D>> entitiesToRender;
 
 ESP::ESP() :AbstractModule(xorstr_("ESP"), Category::VISUAL)
 {
@@ -54,15 +54,17 @@ void ESP::onUpdate()
 
 
 }
+#include <utils/Wstr.h>
 
 void ESP::onRender(const EventRender2D& e)
 {
 	ToggleCheck;
+	static auto &renderer = Renderer::get();
 	auto vg = NanoVGHelper::Context;
-	for (const auto& point : pointsToRender)
+	for (const auto& entity : entitiesToRender)
 	{
 
-		NanoVGHelper::nvgTextW(vg, L"入", point.x, point.y, NanoVGHelper::fontHarmony, 15, nvgRGBA(255, 255, 255, 255));
+		NanoVGHelper::nvgTextW(vg, wstr::toString(entity.first), entity.second.x / renderer.renderContext.devicePixelRatio, entity.second.y / renderer.renderContext.devicePixelRatio, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
 	}
 }
 template<typename T>
@@ -113,14 +115,16 @@ void ESP::onRender3D(const EventRender3D& e)
 	auto level = mc.getWorld();
 	auto players = level.getPlayerList();
 	auto& renderer = Renderer::get();
-	std::vector<Math::Vector2D> points;
-	auto ctx = currentContext.load();
+
+	decltype(entitiesToRender) entites;
+
+
 	for (auto& player : players)
 	{
 
 		//if (player.isEqualTo(mc.getPlayer())) continue;
 
-		auto postion = player.getPosition(ctx.renderDetla);
+		auto postion = player.getPosition(e.TICK_DELTA);
 
 		RECT rect;
 		GetClientRect(renderer.renderContext.HandleWindow, &rect);
@@ -140,7 +144,7 @@ void ESP::onRender3D(const EventRender3D& e)
 			Math::structToArray(e.MODLEVIEW_MATRIX),
 			Math::structToArray(e.PROJECTION_MATRIX),
 			renderPos,
-			e.GUI_SCALE
+			/*e.GUI_SCALE*/ 1
 		);
 		if (result[2] > 0 && result[2] < 1)
 		{
@@ -148,9 +152,9 @@ void ESP::onRender3D(const EventRender3D& e)
 			//points.push_back(point);
 			point = { result[0],result[1] };
 			std::cout << "Point(cpp) : {" << point.x << "," << point.y << "}" << std::endl;
-			points.push_back(point);
+			entites.push_back(std::make_pair(player.getDisplayName(),point));
 
 		}
 	}
-	pointsToRender = points;
+	entitiesToRender = entites;
 }
