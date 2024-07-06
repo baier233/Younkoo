@@ -165,6 +165,7 @@ namespace NanoVGHelper {
 		}
 	}
 
+	void drawOutlineRect(NVGcontext* vg, float x, float y, float width, float height, int outlineWidth, int color);
 	void drawRect(NVGcontext* vg, float x, float y, float width, float height, int color);
 	void drawHollowRoundRect(NVGcontext* vg, float x, float y, float width, float height, int color, float radius, float thickness);
 	void drawRoundedRectVaried(NVGcontext* vg, float x, float y, float width, float height, int color, float radiusTL, float radiusTR, float radiusBR, float radiusBL);

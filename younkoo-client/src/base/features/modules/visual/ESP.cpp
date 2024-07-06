@@ -61,7 +61,8 @@ void ESP::onRender(const EventRender2D& e)
 		NanoVGHelper::nvgTextW(vg, entityName, entity.name_pos.x / renderer.renderContext.devicePixelRatio - bounds.first / 2, entity.name_pos.y / renderer.renderContext.devicePixelRatio - bounds.second / 2, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
 
 
-		NanoVGHelper::drawRect(vg, entity.left, entity.top, entity.right- entity.left, entity.bottom - entity.top, NanoVGHelper::rgbaToColor(255,255,255,255));
+		NanoVGHelper::drawOutlineRect(vg, entity.left, entity.top, entity.right- entity.left, entity.bottom - entity.top,2.f, NanoVGHelper::rgbaToColor(255,255,255,255));
+		
 	}
 }
 
@@ -106,16 +107,15 @@ void ESP::onRender3D(const EventRender3D& e)
 
 		auto renderPos = postion - e.CAMERA_POS;
 
-
+			
 		{
 
-			auto entityHeight = player.getHeight() /2 + 0.2f;
-			auto entityWidth = player.getWidth() /2;
-			auto entityWidthHalf = player.getWidth() / 2;
+			auto entityHeight = player.getHeight() + 0.15f;
+			auto entityWidth = player.getWidth();
 
 
 			using namespace Math;
-			Vector3D top{ renderPos - Vector3D{0,  - entityHeight *2, 0} }; // Over the head
+			Vector3D top{ renderPos - Vector3D{0,  - entityHeight, 0} }; // Over the head
 			Vector3D left{ (renderPos - Vector3D{entityWidth, 0, 0}) }; // In the middle to the left
 			Vector3D right{ (renderPos - Vector3D{-entityWidth, 0, 0}) }; // In the middle to the right
 			Vector3D back{ (renderPos - Vector3D{0, 0, entityWidth}) }; // In the middle to the back

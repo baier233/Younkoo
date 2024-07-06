@@ -68,6 +68,17 @@ static std::string Wide2Utf8(const std::wstring& str) {
 	WideCharToMultiByte(CP_UTF8, 0, str.c_str(), -1, &utf8Str[0], sizeRequired, NULL, NULL);
 	return utf8Str;
 }
+void NanoVGHelper::drawOutlineRect(NVGcontext* vg, float x, float y, float width, float height, int outlineWidth, int color)
+{
+
+	NVGcolor nvgColor = nvgFillColorEx(vg, color);
+	nvgBeginPath(vg);
+	nvgRect(vg, x, y, width, height);
+	nvgStrokeWidth(vg, outlineWidth);
+	nvgStrokeColor(vg, nvgColor);
+	nvgStroke(vg);
+
+}
 void NanoVGHelper::drawRect(NVGcontext* vg, float x, float y, float width, float height, int color)
 {
 	nvgBeginPath(vg);

@@ -93,7 +93,7 @@ void RenderSystemHook::applyHook() {
 
 
 
-					/*jclass klass = JNI::get_env()->GetObjectClass(matrix4f);
+					jclass klass = JNI::get_env()->GetObjectClass(matrix4f);
 					if (klass)
 					{
 						auto instacne = java_hotspot::instance_klass::get_instance_class(klass);
@@ -101,7 +101,7 @@ void RenderSystemHook::applyHook() {
 
 					}
 
-					JNI::get_env()->DeleteLocalRef(klass);*/
+					JNI::get_env()->DeleteLocalRef(klass);
 
 #ifdef DEBUG
 
