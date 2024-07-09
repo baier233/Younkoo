@@ -52,7 +52,7 @@ namespace java_hotspot {
 	public:
 		auto get_next() -> java_thread*;
 
-		auto get_jni_envoriment() -> JNIEnv*;
+		auto get_jni_environment() -> JNIEnv*;
 
 		inline uintptr_t* get_operand_stack()
 		{

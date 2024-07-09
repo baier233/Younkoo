@@ -20,7 +20,7 @@ auto java_hotspot::java_thread::get_next() -> java_thread* {
 	return *reinterpret_cast<java_thread**>(reinterpret_cast<uint8_t*>(this) + _next_entry->offset);
 }
 
-auto java_hotspot::java_thread::get_jni_envoriment() -> JNIEnv* {
+auto java_hotspot::java_thread::get_jni_environment() -> JNIEnv* {
 	static VMStructEntry* _anchor_entry = JVMWrappers::find_type_fields("JavaThread").value().get()["_anchor"];
 	static VMTypeEntry* _java_thread_type = JVMWrappers::find_type("JavaFrameAnchor").value();
 	if (!_anchor_entry) {
