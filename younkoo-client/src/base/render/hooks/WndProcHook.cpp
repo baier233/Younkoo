@@ -10,6 +10,7 @@ static bool IsVkDown(int vk) {
 
 #include "../gui/input/Context.hpp"
 #include "../gui/input/IOEvents.h"
+#include <base/render/Renderer.hpp>
 //#include "../glfw/glfw_constants.h"
 //
 static int getKeyMods(void)
@@ -319,6 +320,11 @@ static WNDPROC SetCallbacks(HWND hWnd)
 		//std::cout << "Reshape :" << width << "," << height << std::endl;
 		// 窗口大小改变回调
 		WndProcHook::RESIZED.store(true);
+		auto& renderer = Renderer::get();
+		auto winWidth = static_cast<int>(static_cast<float>(width) / renderer.renderContext.devicePixelRatio);
+		auto winHeight = static_cast<int>(static_cast<float>(height) / renderer.renderContext.devicePixelRatio);
+
+		renderer.renderContext.winSize = std::make_pair(winWidth, winHeight);
 		if (YounkooIO::IOEvents.IOEventsWindowSizeCallback)
 		{
 			return YounkooIO::IOEvents.IOEventsWindowSizeCallback(window, width, height);

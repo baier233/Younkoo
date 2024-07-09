@@ -56,7 +56,7 @@ void NameTag::onRender(const EventRender2D& e)
 	{
 		auto entityName = wstr::toString(entity.first);
 		auto bounds = NanoVGHelper::nvgTextBoundsW(e.vg, entityName, NanoVGHelper::fontHarmony, 30);
-		NanoVGHelper::nvgTextW(vg, entityName, entity.second.x / renderer.renderContext.devicePixelRatio - bounds.first / 2, entity.second.y / renderer.renderContext.devicePixelRatio - bounds.second / 2, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
+		NanoVGHelper::nvgTextW(vg, entityName, entity.second.x - bounds.first / 2, entity.second.y - bounds.second / 2, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
 	}
 }
 
@@ -67,15 +67,6 @@ void NameTag::onRender3D(const EventRender3D& e)
 	if (NanoGui::available) return;
 	static auto& renderContext = Renderer::get().renderContext;
 	viewport = { 0,0,renderContext.winSize.first,renderContext.winSize.second };
-	/*
-	currentContext = (Context{
-		.projection = e.PROJECTION_MATRIX ,
-		.modelView = e.MODLEVIEW_MATRIX,
-		.cameraPos = e.CAMERA_POS,
-		.guiScale = e.GUI_SCALE,
-		.renderDetla = e.TICK_DELTA,
-		});*/
-
 
 	auto mc = Wrapper::Minecraft::getMinecraft();
 	if (!mc.getObject()) return;

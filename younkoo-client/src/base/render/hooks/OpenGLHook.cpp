@@ -111,10 +111,6 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 		renderer.renderContext.HandleWindow = WindowFromDC(hdc);
 		// If Initialized,update my mirror context from minecraft's.
 
-		winWidth = static_cast<int>(static_cast<float>(winWidth) / renderer.renderContext.devicePixelRatio);
-		winHeight = static_cast<int>(static_cast<float>(winHeight) / renderer.renderContext.devicePixelRatio);
-
-		renderer.renderContext.winSize = std::make_pair(winWidth, winHeight);
 		if (renderer.renderContext.ClassName == "LWJGL") {
 			opengl_ctx_init();
 		}

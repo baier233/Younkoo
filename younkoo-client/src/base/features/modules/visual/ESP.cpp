@@ -19,7 +19,9 @@ struct EntityData {
 	float left;
 	float right;
 };
-static std::vector<EntityData> entitiesToRender;
+
+static std::vector<EntityData> entitiesToRender[2]{ {},{} };
+static int currentBufferIndex = 0;
 
 ESP::ESP() : AbstractModule(xorstr_("ESP"), Category::VISUAL) {
 	REGISTER_EVENT(EventRender3D, ESP::onRender3D);
@@ -45,8 +47,10 @@ void ESP::onRender(const EventRender2D& e) {
 	ToggleCheck;
 	static auto& renderer = Renderer::get();
 	auto vg = NanoVGHelper::Context;
-
-	for (const auto& entity : entitiesToRender) {
+	int nextBufferIndex = (currentBufferIndex + 1) % 2;
+	if (entitiesToRender[nextBufferIndex].empty()) return;
+	currentBufferIndex = nextBufferIndex;
+	for (const auto& entity : entitiesToRender[currentBufferIndex]) {
 		auto entityName = wstr::toString(entity.name);
 		auto bounds = NanoVGHelper::nvgTextBoundsW(e.vg, entityName, NanoVGHelper::fontHarmony, 30);
 		NanoVGHelper::nvgTextW(vg, entityName, entity.name_pos.x - bounds.first / 2, entity.name_pos.y - bounds.second / 2, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
@@ -61,7 +65,7 @@ void ESP::onRender3D(const EventRender3D& e) {
 	ToggleCheck;
 	if (NanoGui::available) return;
 
-	static auto& renderContext = Renderer::get().renderContext;
+	const auto& renderContext = Renderer::get().renderContext;
 	viewport = { 0, 0, renderContext.winSize.first, renderContext.winSize.second };
 
 	auto mc = Wrapper::Minecraft::getMinecraft();
@@ -71,7 +75,7 @@ void ESP::onRender3D(const EventRender3D& e) {
 	auto players = level.getPlayerList();
 	auto& renderer = Renderer::get();
 
-	std::vector<EntityData> entites;
+	std::vector<EntityData> newEntities;
 
 	for (auto& player : players) {
 		auto postion = player.getPosition(e.TICK_DELTA);
@@ -123,7 +127,7 @@ void ESP::onRender3D(const EventRender3D& e) {
 		if (ok) {
 			auto result = W2S::world2Screen(structToArray(e.MODLEVIEW_MATRIX), structToArray(e.PROJECTION_MATRIX), Vector3D(renderPos.x, renderPos.y + entityHeight + 0.3f, renderPos.z), viewport, 1);
 
-			entites.push_back(EntityData{
+			newEntities.push_back(EntityData{
 				.name = player.getDisplayName(),
 				.name_pos = Vector2(result[0], result[1]),
 				.top = topPoint,
@@ -133,6 +137,8 @@ void ESP::onRender3D(const EventRender3D& e) {
 				});
 		}
 	}
-
-	entitiesToRender = std::move(entites);
+	entitiesToRender[currentBufferIndex] = {};
+	int nextBufferIndex = (currentBufferIndex + 1) % 2;
+	entitiesToRender[nextBufferIndex] = std::move(newEntities);
+	//currentBufferIndex = nextBufferIndex;
 }

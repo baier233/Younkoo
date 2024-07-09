@@ -9,6 +9,7 @@
 //Visual
 #include "visual/HUD.h"
 #include "visual/ESP.h"
+#include "visual/NameTag.h"
 
 ModuleManager::ModuleManager() {
 
@@ -72,6 +73,7 @@ bool ModuleManager::LoadModules()
 		this->addModule<AutoClicker>(&AutoClicker::getInstance());
 		this->addModule<TriggerBot>(&TriggerBot::getInstance());
 		this->addModule<ESP>(&ESP::getInstance());
+		this->addModule<NameTag>(&NameTag::getInstance());
 	}
 	return true;
 }
