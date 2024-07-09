@@ -67,6 +67,7 @@ void ESP::onRender(const EventRender2D& e)
 }
 
 #include <format>
+#include <utils/Misc.hpp>
 void ESP::onRender3D(const EventRender3D& e)
 {
 	ToggleCheck;
@@ -74,15 +75,10 @@ void ESP::onRender3D(const EventRender3D& e)
 	//glGetIntegerv(GL_VIEWPORT, viewport.data());
 	static auto& renderContext = Renderer::get().renderContext;
 	viewport = { 0,0,renderContext.winSize.first,renderContext.winSize.second };
-	/*
-	currentContext = (Context{
-		.projection = e.PROJECTION_MATRIX ,
-		.modelView = e.MODLEVIEW_MATRIX,
-		.cameraPos = e.CAMERA_POS,
-		.guiScale = e.GUI_SCALE,
-		.renderDetla = e.TICK_DELTA,
-		});*/
 
+	//std::cout << "Camera Pos : { " << std::format("{},{},{}", e.CAMERA_POS.x, e.CAMERA_POS.y, e.CAMERA_POS.z) << "}" << std::endl;
+	std::cout << "modelView :" << Utils::Misc::arrayToString(Math::structToVector(e.MODLEVIEW_MATRIX)) << std::endl;
+	std::cout << "projection :" << Utils::Misc::arrayToString(Math::structToVector(e.PROJECTION_MATRIX)) << std::endl;
 
 	auto mc = Wrapper::Minecraft::getMinecraft();
 	if (!mc.getObject()) return;
@@ -196,9 +192,6 @@ void ESP::onRender3D(const EventRender3D& e)
 
 
 
-		//std::cout << "Camera Pos : { " << std::format("{},{},{}", e.CAMERA_POS.x, e.CAMERA_POS.y, e.CAMERA_POS.z) << "}" << std::endl;
-		//std::cout << "modelView :" << arrayToString(Math::structToVector(e.MODLEVIEW_MATRIX)) << std::endl;
-		//std::cout << "projection :" << arrayToString(Math::structToVector(e.PROJECTION_MATRIX)) << std::endl;
 
 	}
 	entitiesToRender = entites;
