@@ -1,4 +1,4 @@
-#include "NameTag.h"
+﻿#include "NameTag.h"
 
 #include "../ModuleManager.h"
 #include <wrapper/net/minecraft/client/Minecraft.h>
@@ -9,7 +9,7 @@
 #include <map>
 
 
-std::array<int, 4> viewport{};
+static std::array<int, 4> viewport{};
 
 static std::vector<std::pair<std::string, Math::Vector2D>> entitiesToRender;
 
@@ -65,7 +65,8 @@ void NameTag::onRender3D(const EventRender3D& e)
 {
 	ToggleCheck;
 	if (NanoGui::available) return;
-	glGetIntegerv(GL_VIEWPORT, viewport.data());
+	static auto& renderContext = Renderer::get().renderContext;
+	viewport = { 0,0,renderContext.winSize.first,renderContext.winSize.second };
 	/*
 	currentContext = (Context{
 		.projection = e.PROJECTION_MATRIX ,
@@ -110,6 +111,7 @@ void NameTag::onRender3D(const EventRender3D& e)
 			Math::structToArray(e.MODLEVIEW_MATRIX),
 			Math::structToArray(e.PROJECTION_MATRIX),
 			renderPos,
+			viewport,
 			/*e.GUI_SCALE*/ 1
 		);
 		if (result[2] > 0 && result[2] < 1)

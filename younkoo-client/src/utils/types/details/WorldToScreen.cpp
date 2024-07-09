@@ -50,10 +50,8 @@ static bool _gluProject(
 	return true;
 }
 
-std::array<double, 3> Math::W2S::world2Screen(const std::array<float, 16>& modelViewMatrix, const std::array<float, 16>& projectionMatrix, const Math::Vector3D& pos, double guiScale) {
-	std::array<int, 4> viewport{};
+std::array<double, 3> Math::W2S::world2Screen(const std::array<float, 16>& modelViewMatrix, const std::array<float, 16>& projectionMatrix, const Math::Vector3D& pos, const std::array<int, 4>& viewport, double guiScale) {
 
-	glGetIntegerv(GL_VIEWPORT, viewport.data());
 
 
 	std::array<float, 3> win_pos{};

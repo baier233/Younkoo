@@ -136,19 +136,20 @@ auto java_hotspot::const_method::get_const_flags() -> u2
 auto java_hotspot::const_method::get_localvariable_table_length_addr() -> void*
 {
 	assert(has_localvariable_table(), "called only if table is present");
-	if (has_exception_table()) {
+
+	if (has_exception_handler()) {
 		// If exception_table present, locate immediately before them.
-		return (unsigned short*)exception_table_start() - 1;
+		return (u2*)exception_table_start() - 1;
 	}
 	else {
 		if (has_checked_exceptions()) {
 			// If checked_exception present, locate immediately before them.
-			return (unsigned short*)checked_exceptions_start() - 1;
+			return (u2*)checked_exceptions_start() - 1;
 		}
 		else {
 			if (has_method_parameters()) {
 				// If method parameters present, locate immediately before them.
-				return (unsigned short*)method_parameters_start() - 1;
+				return (u2*)method_parameters_start() - 1;
 			}
 			else {
 				// Else, the exception table is at the end of the constMethod.
@@ -162,7 +163,7 @@ auto java_hotspot::const_method::get_localvariable_table_length_addr() -> void*
 
 auto java_hotspot::const_method::get_exception_table_length_addr() -> void*
 {
-	assert(has_exception_table(), "called only if table is present");
+	assert(has_exception_handler(), "called only if table is present");
 	if (has_checked_exceptions()) {
 		// If checked_exception present, locate immediately before them.
 		return (unsigned short*)checked_exceptions_start() - 1;
@@ -180,14 +181,15 @@ auto java_hotspot::const_method::get_exception_table_length_addr() -> void*
 	}
 }
 
-auto java_hotspot::const_method::get_last_u2_element() -> uintptr_t*
+auto java_hotspot::const_method::get_last_u2_element() -> u2*
 {
 	int offset = 0;
 	if (has_method_annotations()) offset++;
 	if (has_parameter_annotations()) offset++;
 	if (has_type_annotations()) offset++;
 	if (has_default_annotations()) offset++;
-	return (uintptr_t*)((uint8_t**)this + get_size() - offset) - 1;
+	auto end = ((intptr_t*)this + get_size());
+	return (u2*)((void**)end - offset) - 1;
 }
 
 auto java_hotspot::const_method::get_const_method_length() -> size_t {
@@ -210,10 +212,11 @@ std::vector<java_hotspot::local_variable_entry> java_hotspot::const_method::get_
 
 	auto local_table_start = this->localvariable_table_start();
 	auto num_entries = *(unsigned short*)this->get_localvariable_table_length_addr();
-
+	auto current_entry = reinterpret_cast<local_variable_table_element*>(local_table_start);
 	for (size_t i = 0; i < num_entries; i++)
 	{
-		ret_value.push_back(local_table_start[i].wrap_to_jvm_variable_entry(this->get_constants()));
+		ret_value.push_back(current_entry->wrap_to_jvm_variable_entry(this->get_constants()));
+		current_entry = reinterpret_cast<local_variable_table_element*>((uint8_t*)current_entry + local_variable_table_element::get_size());
 	}
 
 	return ret_value;

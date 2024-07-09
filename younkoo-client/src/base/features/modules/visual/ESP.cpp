@@ -9,7 +9,7 @@
 #include <map>
 
 
-std::array<int, 16> viewport{};
+static std::array<int, 4> viewport{};
 struct EntityData
 {
 	std::string name;
@@ -55,14 +55,14 @@ void ESP::onRender(const EventRender2D& e)
 	auto vg = NanoVGHelper::Context;
 	for (const auto& entity : entitiesToRender)
 	{
-		
+
 		auto entityName = wstr::toString(entity.name);
 		auto bounds = NanoVGHelper::nvgTextBoundsW(e.vg, entityName, NanoVGHelper::fontHarmony, 30);
-		NanoVGHelper::nvgTextW(vg, entityName, entity.name_pos.x / renderer.renderContext.devicePixelRatio - bounds.first / 2, entity.name_pos.y / renderer.renderContext.devicePixelRatio - bounds.second / 2, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
+		NanoVGHelper::nvgTextW(vg, entityName, entity.name_pos.x - bounds.first / 2, entity.name_pos.y - bounds.second / 2, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
 
 
-		NanoVGHelper::drawOutlineRect(vg, entity.left, entity.top, entity.right- entity.left, entity.bottom - entity.top,2.f, NanoVGHelper::rgbaToColor(255,255,255,255));
-		
+		NanoVGHelper::drawRoundedOutlineRect(vg, entity.left, entity.top, entity.right - entity.left, entity.bottom - entity.top, 2.f, 2.f, NanoVGHelper::rgbaToColor(255, 255, 255, 255));
+
 	}
 }
 
@@ -71,7 +71,9 @@ void ESP::onRender3D(const EventRender3D& e)
 {
 	ToggleCheck;
 	if (NanoGui::available) return;
-	glGetIntegerv(GL_VIEWPORT, viewport.data());
+	//glGetIntegerv(GL_VIEWPORT, viewport.data());
+	static auto& renderContext = Renderer::get().renderContext;
+	viewport = { 0,0,renderContext.winSize.first,renderContext.winSize.second };
 	/*
 	currentContext = (Context{
 		.projection = e.PROJECTION_MATRIX ,
@@ -107,7 +109,7 @@ void ESP::onRender3D(const EventRender3D& e)
 
 		auto renderPos = postion - e.CAMERA_POS;
 
-			
+
 		{
 
 			auto entityHeight = player.getHeight() + 0.15f;
@@ -115,7 +117,7 @@ void ESP::onRender3D(const EventRender3D& e)
 
 
 			using namespace Math;
-			Vector3D top{ renderPos - Vector3D{0,  - entityHeight, 0} }; // Over the head
+			Vector3D top{ renderPos - Vector3D{0,  -entityHeight, 0} }; // Over the head
 			Vector3D left{ (renderPos - Vector3D{entityWidth, 0, 0}) }; // In the middle to the left
 			Vector3D right{ (renderPos - Vector3D{-entityWidth, 0, 0}) }; // In the middle to the right
 			Vector3D back{ (renderPos - Vector3D{0, 0, entityWidth}) }; // In the middle to the back
@@ -125,7 +127,7 @@ void ESP::onRender3D(const EventRender3D& e)
 			Vector3D left2{ (renderPos - Vector3D{entityWidth, 0, entityWidth}) }; // In the middle to the left
 			Vector3D right2{ (renderPos - Vector3D{-entityWidth, 0, -entityWidth}) }; // In the middle to the right
 			Vector3D back2{ (renderPos - Vector3D{-entityWidth, 0, entityWidth}) }; // In the middle to the back
-			Vector3D front2{ (renderPos - Vector3D{entityWidth, 0, -entityWidth})  }; // And in the middle to the front
+			Vector3D front2{ (renderPos - Vector3D{entityWidth, 0, -entityWidth}) }; // And in the middle to the front
 
 
 
@@ -137,12 +139,13 @@ void ESP::onRender3D(const EventRender3D& e)
 			float rightPoint = FLT_MIN;
 			float bottomPoint = FLT_MIN;
 
-			for (int i = 0 ; i < posArray.size();i++)
+			for (int i = 0; i < posArray.size(); i++)
 			{
 				auto result = Math::W2S::world2Screen(
 					Math::structToArray(e.MODLEVIEW_MATRIX),
 					Math::structToArray(e.PROJECTION_MATRIX),
 					posArray[i],
+					viewport,
 					/*e.GUI_SCALE*/ 1
 				);
 				Math::Vector2D point{};
@@ -170,7 +173,8 @@ void ESP::onRender3D(const EventRender3D& e)
 				auto result = Math::W2S::world2Screen(
 					Math::structToArray(e.MODLEVIEW_MATRIX),
 					Math::structToArray(e.PROJECTION_MATRIX),
-					Math::Vector3D(renderPos.x,top.y + 0.3f,renderPos.z ),
+					Math::Vector3D(renderPos.x, top.y + 0.3f, renderPos.z),
+					viewport,
 					/*e.GUI_SCALE*/ 1
 				);
 
@@ -185,7 +189,7 @@ void ESP::onRender3D(const EventRender3D& e)
 			}
 
 
-			
+
 		}
 
 
@@ -195,7 +199,7 @@ void ESP::onRender3D(const EventRender3D& e)
 		//std::cout << "Camera Pos : { " << std::format("{},{},{}", e.CAMERA_POS.x, e.CAMERA_POS.y, e.CAMERA_POS.z) << "}" << std::endl;
 		//std::cout << "modelView :" << arrayToString(Math::structToVector(e.MODLEVIEW_MATRIX)) << std::endl;
 		//std::cout << "projection :" << arrayToString(Math::structToVector(e.PROJECTION_MATRIX)) << std::endl;
-		
+
 	}
 	entitiesToRender = entites;
 }

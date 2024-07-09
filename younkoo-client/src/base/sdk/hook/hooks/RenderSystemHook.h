@@ -54,7 +54,7 @@ namespace RenderSystemHook {
 
 			if (current_pool_holder == pMethod->get_const_method()->get_constants()->get_pool_holder())
 			{
-				std::cout << "Force break compile of " << static_cast<java_hotspot::instance_klass*>(current_pool_holder)->get_name()->to_string() << std::endl;
+				//std::cout << "Force break compile of " << static_cast<java_hotspot::instance_klass*>(current_pool_holder)->get_name()->to_string() << std::endl;
 				return;
 			}
 		}
@@ -64,6 +64,11 @@ namespace RenderSystemHook {
 	inline uintptr_t plocalvariable_table_length_addr = 0;
 	inline unsigned short* localvariable_table_length_addr(java_hotspot::const_method* cm) {
 		auto func = (decltype(&localvariable_table_length_addr))plocalvariable_table_length_addr;
+		return func(cm);
+	}
+	inline uintptr_t plocalvariable_table_start = 0;
+	inline java_hotspot::local_variable_table_element* localvariable_table_start(java_hotspot::const_method* cm) {
+		auto func = (decltype(&localvariable_table_start))plocalvariable_table_start;
 		return func(cm);
 	}
 	inline void hook_invoke_compiler_on_method() {
@@ -78,8 +83,6 @@ namespace RenderSystemHook {
 		_invoke_compiler_on_method_hook.InitHook(pinvoke_compiler_on_method, detour_invoke_compiler_on_method);
 		_invoke_compiler_on_method_hook.SetHook();
 
-
-		//plocalvariable_table_length_addr = CUtil_Pattern::Find(jvm, "48 83 EC ? 0F B7 51 ? 4C 8B C1");
 
 	}
 

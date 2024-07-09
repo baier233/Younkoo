@@ -79,6 +79,15 @@ void NanoVGHelper::drawOutlineRect(NVGcontext* vg, float x, float y, float width
 	nvgStroke(vg);
 
 }
+void NanoVGHelper::drawRoundedOutlineRect(NVGcontext* vg, float x, float y, float width, float height, float radius, int outlineWidth, int color)
+{
+	NVGcolor nvgColor = nvgFillColorEx(vg, color);
+	nvgBeginPath(vg);
+	nvgRoundedRect(vg, x, y, width, height, radius);
+	nvgStrokeWidth(vg, outlineWidth);
+	nvgStrokeColor(vg, nvgColor);
+	nvgStroke(vg);
+}
 void NanoVGHelper::drawRect(NVGcontext* vg, float x, float y, float width, float height, int color)
 {
 	nvgBeginPath(vg);

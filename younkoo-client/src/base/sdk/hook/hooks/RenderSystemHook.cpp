@@ -1,4 +1,4 @@
-#include "RenderSystemHook.h"
+﻿#include "RenderSystemHook.h"
 
 
 void RenderSystemHook::applyHook() {
@@ -88,10 +88,33 @@ void RenderSystemHook::applyHook() {
 					long startTime = *bp->lload(2);
 					auto poseStack = (jobject)bp->get_parameter(4);
 
+					static int matrix4f_4f_slot = 11;
+					std::once_flag flag{};
+					std::call_once(flag, [bp] {
+						{
+							auto c_m = bp->method->get_const_method();
+							auto entries = c_m->get_local_variable_entries();
+							for (auto& entry : entries)
+							{
+								std::cout << std::format("entry : {}\nstart_location: {}\nlength: {}\nsignature: {}\ngeneric_signature: {}\nslot: {}",
+									entry.name, entry.start_location, entry.length, entry.signature, entry.generic_signature, entry.slot) << std::endl;
+								if (entry.name == "matrix4f")
+								{
+									matrix4f_4f_slot = entry.slot;
+								}
+							}
+						}
+
+						});
+
+
 					// 11 or 13?
-					auto matrix4f = (jobject)bp->get_parameter(13);
+					auto matrix4f = (jobject)bp->get_parameter(matrix4f_4f_slot);
 
 
+
+
+#ifdef DEBUG
 
 					jclass klass = JNI::get_env()->GetObjectClass(matrix4f);
 					if (klass)
@@ -102,8 +125,6 @@ void RenderSystemHook::applyHook() {
 					}
 
 					JNI::get_env()->DeleteLocalRef(klass);
-
-#ifdef DEBUG
 
 
 					{
@@ -181,7 +202,7 @@ void RenderSystemHook::applyHook() {
 
 
 					//std::cout << "gameRender :" << gameRender << "\tickDelta :" << tickDelta << "\nstartTime :" << startTime << "\nposeStack :" << poseStack << "\nmatrix4f :" << matrix4f << "\n" << std::endl;
-					
+
 
 
 

@@ -232,7 +232,7 @@ namespace Math {
 
 	namespace W2S {
 
-		std::array<double, 3> world2Screen(const std::array<float, 16>& modelViewMatrix, const std::array<float, 16>& projectionMatrix, const Math::Vector3D& pos, double guiScale = 2.0f);
+		std::array<double, 3> world2Screen(const std::array<float, 16>& modelViewMatrix, const std::array<float, 16>& projectionMatrix, const Math::Vector3D& pos, const std::array<int, 4>& viewport, double guiScale = 2.0f);
 
 		inline bool WorldToScreen(Vector3D point, Matrix modelView, Matrix projection, int screenWidth, int screenHeight, Vector2D& screenPos) {
 			// csp = Clip Space Position

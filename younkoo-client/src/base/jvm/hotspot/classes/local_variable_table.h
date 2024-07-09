@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <string>
 
 namespace java_hotspot {
@@ -18,6 +18,7 @@ namespace java_hotspot {
 	{
 	public:
 		local_variable_entry wrap_to_jvm_variable_entry(const_pool* constant);
+		static size_t get_size();
 	};
 
 }

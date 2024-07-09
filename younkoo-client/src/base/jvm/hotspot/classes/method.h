@@ -113,7 +113,6 @@ namespace java_hotspot {
 			_has_type_annotations = 0x0200,
 			_has_default_annotations = 0x0400
 		};
-
 		auto get_constants() -> const_pool*;
 
 		auto get_code_size() -> unsigned short;
@@ -144,6 +143,8 @@ namespace java_hotspot {
 
 		auto get_bytecode() -> std::vector<uint8_t>;
 
+		auto get_localvariable_table_length_addr() -> void*;
+
 #ifdef JDK22FEATURE
 		auto get_const_flags_jdk22() -> ConstMethodFlags*;
 #endif // JDK22FEATURE
@@ -167,7 +168,12 @@ namespace java_hotspot {
 #endif // JDK22FEATURE
 
 
-			inline bool has_method_annotations()
+			inline bool has_exception_handler()
+		{
+			return (get_const_flags() & _has_exception_table) != 0;
+		}
+
+		inline bool has_method_annotations()
 		{
 			return (get_const_flags() & _has_method_annotations) != 0;
 		}
@@ -207,10 +213,6 @@ namespace java_hotspot {
 			return (get_const_flags() & _has_localvariable_table) != 0;
 		}
 
-		inline bool has_exception_table()
-		{
-			return (get_const_flags() & _has_exception_table) != 0;
-		}
 
 		inline bool has_method_parameters()
 		{
@@ -218,9 +220,8 @@ namespace java_hotspot {
 		}
 
 
-		auto get_last_u2_element() -> uintptr_t*;
+		auto get_last_u2_element() -> u2*;
 
-		auto get_localvariable_table_length_addr() -> void*;
 
 		auto get_exception_table_length_addr() -> void*;
 
@@ -228,8 +229,9 @@ namespace java_hotspot {
 			u2* addr = (u2*)get_localvariable_table_length_addr();
 			u2 length = *addr;
 			assert(length > 0, "should only be called if table is present");
-			static size_t local_variable_table_element_size = JVMWrappers::find_type("LocalVariableTableElement").value()->size;
-			addr -= length * local_variable_table_element_size / sizeof(u2);
+			auto local_variable_table_element_size = local_variable_table_element::get_size();
+			auto size = static_cast<size_t>(length) * local_variable_table_element_size;
+			addr -= size / sizeof(u2);
 			return (local_variable_table_element*)addr;
 		}
 
@@ -239,12 +241,12 @@ namespace java_hotspot {
 			return (unsigned short*)(has_generic_signature() ? (get_last_u2_element() - 1) :
 				get_last_u2_element());
 		}
-		inline uintptr_t* method_parameters_start() {
+		inline uint8_t* method_parameters_start() {
 			unsigned short* addr = method_parameters_length_addr();
 			unsigned short length = *addr;
 			static size_t method_parameters_element_size = JVMWrappers::find_type("MethodParametersElement").value()->size;
 			addr -= length * method_parameters_element_size / sizeof(unsigned short);
-			return (uintptr_t*)addr;
+			return (uint8_t*)addr;
 		}
 
 		inline unsigned short* checked_exceptions_length_addr() {
@@ -261,24 +263,24 @@ namespace java_hotspot {
 			}
 		}
 
-		inline uintptr_t* checked_exceptions_start() {
+		inline uint8_t* checked_exceptions_start() {
 			unsigned short* addr = checked_exceptions_length_addr();
 			unsigned short length = *addr;
 			assert(length > 0, "should only be called if table is present");
 			static size_t check_exception_element_size = JVMWrappers::find_type("CheckedExceptionElement").value()->size;
 			addr -= length * check_exception_element_size / sizeof(unsigned short);
-			return (uintptr_t*)addr;
+			return (uint8_t*)addr;
 		}
 
 
 
-		inline uintptr_t* exception_table_start() {
+		inline uint8_t* exception_table_start() {
 			unsigned short* addr = (unsigned short*)get_exception_table_length_addr();
 			unsigned short length = *addr;
 			assert(length > 0, "should only be called if table is present");
 			static size_t exception_table_size = JVMWrappers::find_type("ExceptionTableElement").value()->size;
 			addr -= length * exception_table_size / sizeof(unsigned short);
-			return (uintptr_t*)addr;
+			return (uint8_t*)addr;
 		}
 
 
