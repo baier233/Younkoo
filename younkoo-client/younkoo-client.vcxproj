@@ -130,7 +130,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -178,8 +178,8 @@
     <ClCompile Include="src\base\jvm\hotspot\classes\const_pool.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\classes\field_info.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\classes\java_thread.cpp" />
-    <ClCompile Include="src\base\jvm\hotspot\classes\klass.cpp" />
-    <ClCompile Include="src\base\jvm\hotspot\classes\method.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\instance_klass.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\c_method.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\classes\symbol.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\utility\jvm_internal.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\utility\jvm_static.cpp" />
@@ -337,8 +337,8 @@
     <ClInclude Include="src\base\jvm\hotspot\classes\const_pool.h" />
     <ClInclude Include="src\base\jvm\hotspot\classes\field_info.h" />
     <ClInclude Include="src\base\jvm\hotspot\classes\java_thread.h" />
-    <ClInclude Include="src\base\jvm\hotspot\classes\klass.h" />
-    <ClInclude Include="src\base\jvm\hotspot\classes\method.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\instance_klass.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\c_method.h" />
     <ClInclude Include="src\base\jvm\hotspot\classes\symbol.h" />
     <ClInclude Include="src\base\jvm\hotspot\include_header.h" />
     <ClInclude Include="src\base\jvm\hotspot\magic_enum.hpp" />
@@ -367,6 +367,7 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\multiplayer\ClientLevel.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\AbstractClientPlayer.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\LocalPlayer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\commands\arguments\EntityAnchorArgument$Anchor.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\chat\Component.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\player\Player.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\Entity.h">

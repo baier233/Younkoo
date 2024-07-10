@@ -48,7 +48,6 @@ JNI::Method<Window, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedMethodName("net/minecraft/client/Minecraft", "getWindow", "()Lcom/mojang/blaze3d/platform/Window;").first
 )> getWindow{ *this };
 
-
 JNI::Field<Options, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft"), "options")
 )> options{ *this };/* Lnet/minecraft/client/Options; */

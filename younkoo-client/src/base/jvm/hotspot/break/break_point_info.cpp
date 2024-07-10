@@ -4,7 +4,7 @@
 
 #include "break_point_info.h"
 
-#include "../classes/method.h"
+#include "../classes/c_method.h"
 
 
 auto jvm_internal::breakpoint_info::create(java_hotspot::method* method, int bci) -> breakpoint_info* {

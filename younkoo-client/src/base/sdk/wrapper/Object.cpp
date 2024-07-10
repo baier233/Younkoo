@@ -14,27 +14,45 @@ Object::Object(const JNI::EmptyMembers& obj_wrap)
 
 bool Object::operator ==(const Object& other_Object)
 {
-	return this->instance->object_instance == other_Object.instance->object_instance || JNI::get_env()->IsSameObject(this->instance->object_instance, other_Object.instance->object_instance);
+	return this->getObject() == other_Object.getObject() || JNI::get_env()->IsSameObject(this->getObject(), other_Object.getObject());
 }
 
 bool Object::isEqualTo(const Object& other_Object)
 {
-	return JNI::get_env()->IsSameObject(this->instance->object_instance, other_Object.instance->object_instance);
+	return JNI::get_env()->IsSameObject(this->getObject(), other_Object.getObject());
 }
 
 
 bool Object::isNULL()
 {
-	return JNI::get_env()->IsSameObject(this->instance->object_instance, NULL);
+	return JNI::get_env()->IsSameObject(this->getObject(), NULL);
 }
 
 jclass Object::getClass()
 {
+	if (!this->instance) return nullptr;
+
 	return this->instance->owner_klass;
 }
 
 jobject Object::getObject()
 {
+	if (!this->instance) return nullptr;
+
+	return this->instance->object_instance;
+}
+
+jclass Object::getClass() const
+{
+	if (!this->instance) return nullptr;
+
+	return this->instance->owner_klass;
+}
+
+jobject Object::getObject() const
+{
+	if (!this->instance) return nullptr;
+
 	return this->instance->object_instance;
 }
 

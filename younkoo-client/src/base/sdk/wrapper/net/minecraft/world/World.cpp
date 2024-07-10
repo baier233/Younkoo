@@ -8,7 +8,7 @@ std::vector<Wrapper::EntityPlayer> Wrapper::World::getPlayerList()
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
 	{
 
-		V1_18_1::ClientLevel level = this->instance->object_instance;
+		V1_18_1::ClientLevel level = this->getObject();
 		auto players = level.players.get();
 
 		if (!players.object_instance) return result;

@@ -20,6 +20,8 @@ public:
 	Math::Vector2 getAngles();
 	void setAngles(Math::Vector2 angles);
 	float getEyeHeight();
+
+	bool isSneaking();
 };
 
 END_WRAP

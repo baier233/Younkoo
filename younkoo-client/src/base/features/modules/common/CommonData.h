@@ -12,7 +12,10 @@ public:
 	Math::Matrix projection;
 	Math::Matrix modelView;
 	Math::Vector3D renderPos;
+	Math::Vector3D cameraPos;
+
 	float renderPartialTicks;
+	float eyeHeight;
 	float fov;
 
 

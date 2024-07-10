@@ -93,6 +93,6 @@ namespace JNI {
 			this->owner_klass = lambda_get_klass();
 		}
 
-		jclass owner_klass;
+		jclass owner_klass = nullptr;
 	};
 }

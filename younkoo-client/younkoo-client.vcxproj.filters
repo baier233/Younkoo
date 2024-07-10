@@ -294,10 +294,10 @@
     <ClCompile Include="src\base\jvm\hotspot\classes\java_thread.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\classes\klass.cpp">
+    <ClCompile Include="src\base\jvm\hotspot\classes\instance_klass.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\classes\method.cpp">
+    <ClCompile Include="src\base\jvm\hotspot\classes\c_method.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\base\jvm\hotspot\classes\symbol.cpp">
@@ -737,10 +737,10 @@
     <ClInclude Include="src\base\jvm\hotspot\classes\java_thread.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\classes\klass.h">
+    <ClInclude Include="src\base\jvm\hotspot\classes\instance_klass.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\classes\method.h">
+    <ClInclude Include="src\base\jvm\hotspot\classes\c_method.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\jvm\hotspot\classes\symbol.h">
@@ -831,6 +831,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\settings\GameSettings.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\commands\arguments\EntityAnchorArgument$Anchor.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

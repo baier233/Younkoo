@@ -4,6 +4,7 @@
 #include <wrapper/versions/1_18_1/net/minecraft/world/phys/Vec3.h>
 #include <wrapper/versions/1_18_1/net/minecraft/world/phys/Vec2.h>
 #include <wrapper/versions/1_18_1/net/minecraft/network/chat/Component.h>
+#include <wrapper/versions/1_18_1/net/minecraft/commands/arguments/EntityAnchorArgument$Anchor.h>
 
 
 BEGIN_1_18_1
@@ -68,5 +69,43 @@ JNI::Method<jfloat, JNI::NOT_STATIC, DECLARE_NAME(
 JNI::Method<void, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "setRot", "(FF)V").first
 ), jfloat, jfloat> setRot{ *this };
+
+JNI::Method<void, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "setYRot", "(F)V").first
+), jfloat> setYRot{ *this };
+
+JNI::Method<void, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "setXRot", "(F)V").first
+), jfloat> setXRot{ *this };
+
+JNI::Method<jboolean, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "isShiftKeyDown", "()Z").first
+)> isShiftKeyDown{ *this };
+
+JNI::Method<void, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "lookAt", "(Lnet/minecraft/commands/arguments/EntityAnchorArgument$Anchor;Lnet/minecraft/world/phys/Vec3;)V").first
+), EntityAnchorArgument$Anchor, Vec3> lookAt{ *this };
+
+
+JNI::Method<void, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "setYHeadRot", "(F)V").first
+), jfloat> setYHeadRot{ *this };
+
+JNI::Field<jfloat, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/world/entity/Entity"), "yRotO")
+)> yRotO{ *this };/* F */
+
+JNI::Field<jfloat, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/world/entity/Entity"), "xRotO")
+)> xRotO{ *this };/* F */
+
+JNI::Field<jfloat, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/world/entity/Entity"), "yRot")
+)> yRot{ *this };/* F */
+
+JNI::Field<jfloat, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/world/entity/Entity"), "xRot")
+)> xRot{ *this };/* F */
+
 END_KLASS_DEF()
 END_1_18_1

@@ -3,6 +3,8 @@
 #include "../../../render/Renderer.hpp"
 #include "../render/gui/GUI.h"
 
+#include <base/features/modules/ModuleManager.h>
+
 #include <base/features/modules/common/CommonData.h>
 
 
@@ -22,6 +24,7 @@ AimAssist::AimAssist() :AbstractModule(xorstr_("AimAssist"), Category::COMBAT, '
 	this->addValue(BoolType, aimAssistFeedbackValue);
 	this->addValue(BoolType, fovCircleValue);
 	this->addValue(ListType, targetPriorityValue);
+	REGISTER_EVENT(EventRender2D, AimAssist::onRender2D);
 }
 
 
@@ -56,8 +59,6 @@ void AimAssist::onRender2D(const EventRender2D& e)
 		float radAimbotFov = (float)(fov * PI / 180);
 		float radViewFov = (float)(CommonData::get().fov * PI / 180);
 		float circleRadius = tanf(radAimbotFov / 2) / tanf(radViewFov / 2) * screenSizeX / 1.7325;
-
-		// Begin drawing with NanoVG
 		nvgBeginPath(vg);
 		nvgCircle(vg, screenSizeX / 2, screenSizeY / 2, circleRadius);
 		nvgStrokeColor(vg, nvgRGBA(25, 255, 255, 75));
@@ -89,6 +90,18 @@ void AimAssist::onRender2D(const EventRender2D& e)
 		}
 	}
 }
+static auto calcRot = [](Wrapper::EntityPlayerSP& thePlayer, Wrapper::Entity& other, float renderPartialTicks) -> Math::Vector2 {
+	Math::Vector3D headPos = thePlayer.getPosition() + Math::Vector3D{ 0,thePlayer.getEyeHeight(),0 };
+	auto eyePos = other.getPosition(renderPartialTicks) + Math::Vector3D{ 0,other.getEyeHeight(),0 };
+
+	double relativePosX = eyePos.x - headPos.x;
+	double relativePosY = eyePos.y - headPos.y;
+	double relativePosZ = eyePos.z - headPos.z;
+	double distance = std::sqrt(relativePosX * relativePosX + relativePosZ * relativePosZ);
+	auto targetPitchRot = Math::wrapAngleTo180((float)(-(std::atan2(relativePosY, distance) * (double)(180.f / (float)PI))));
+	auto targetYawRot = Math::wrapAngleTo180((float)((std::atan2(relativePosZ, relativePosX) * (double)(180.f / (float)PI)) - 90.0));
+	return { targetYawRot,targetPitchRot };
+	};
 
 void AimAssist::onUpdate()
 {
@@ -104,22 +117,26 @@ void AimAssist::onUpdate()
 	auto smooth = smoothValue->getValue();
 	auto fovCircle = fovCircleValue->getValue();
 
+	if ((aimKey && (!GetAsyncKeyState(VK_LBUTTON) && 1))) {
+		AimAssist::data = {};
+		return;
+	}
 
-
+	float renderPartialTicks = CommonData::get().renderPartialTicks;
 	auto mc = Wrapper::Minecraft::getMinecraft();
 
 	auto level = mc.getWorld();
 	auto players = level.getPlayerList();
 
 	auto thePlayer = mc.getPlayer();
-	auto pos = thePlayer.getPosition();
-	Math::Vector3D headPos = pos + Math::Vector3D{ 0, thePlayer.getEyeHeight(), 0 };
+	Math::Vector3D headPos = thePlayer.getPosition() + Math::Vector3D{ 0, thePlayer.getEyeHeight(), 0 };
 	auto currentLookAngles = thePlayer.getAngles();
 
 	Wrapper::EntityPlayer target{};
 	float finalDist = FLT_MAX;
 	float finalDiff = 370;
 	float finalHealth = FLT_MAX;
+
 
 	float realAimDistance = aimDistance;
 
@@ -133,7 +150,11 @@ void AimAssist::onUpdate()
 	{
 		if (player.isNULL()) continue;
 		if (player.isEqualTo(thePlayer)) continue;
-		float playerHeight = target.getHeight() - 0.1;
+
+		if (player.getDisplayName().length() < 0) return;
+
+		float playerHeight = player.getEyeHeight();
+
 		Math::Vector2 difference = Math::vec_wrapAngleTo180(currentLookAngles.Invert() - Math::getAngles(headPos, player.getPosition() + Math::Vector3D(0, playerHeight, 0)).Invert());
 		if (difference.x < 0) difference.x = -difference.x;
 		if (difference.y < 0) difference.y = -difference.y;
@@ -180,20 +201,19 @@ void AimAssist::onUpdate()
 		return;
 	}
 
-
 	Math::Vector3D ePos = target.getPosition();
-	Math::Vector3D eLastPos = target.getLastTickPos();
+	Math::Vector3D eRenderPos = target.getPosition(renderPartialTicks);
 
-	float eHeight = target.getHeight() - 0.1;
-
+	float eHeight = target.getEyeHeight();
 	Math::Vector3D eHeadPos = ePos + Math::Vector3D(0, eHeight, 0);
-	Math::Vector3D eLastHeadPos = eLastPos + Math::Vector3D(0, eHeight, 0);
+	Math::Vector3D eRenderHeadPos = eRenderPos + Math::Vector3D(0, eHeight, 0);
 
 	Math::Vector2 anglesFoot = Math::getAngles(headPos, ePos);
 	Math::Vector2 anglesHead = Math::getAngles(headPos, eHeadPos);
 
 	Math::Vector2 difference = Math::vec_wrapAngleTo180(currentLookAngles.Invert() - anglesHead.Invert());
 	Math::Vector2 differenceFoot = Math::vec_wrapAngleTo180(currentLookAngles.Invert() - anglesFoot.Invert());
+
 
 	float offset = randomFloat(-randomYaw, randomYaw);
 	if (adaptive) {
@@ -205,11 +225,12 @@ void AimAssist::onUpdate()
 			offset += adaptiveOffset;
 		}
 	}
+	auto rot = calcRot(thePlayer, target, renderPartialTicks);
+
 
 	float targetYaw = currentLookAngles.x + ((difference.x + offset) / smooth);
 
 	Math::Vector3D renderPos = CommonData::get().renderPos;
-	float renderPartialTicks = CommonData::get().renderPartialTicks;
 
 	if (currentLookAngles.y > anglesFoot.y || currentLookAngles.y < anglesHead.y) {
 		float targetPitchFoot = currentLookAngles.y + (differenceFoot.y / smooth);
@@ -224,20 +245,23 @@ void AimAssist::onUpdate()
 		if (diffFoot > diffHead)
 		{
 			targetPitch = targetPitchHead;
-			data = renderPos - Math::Vector3D{ 0, 0.21, 0 } - eLastHeadPos + (eLastHeadPos - eHeadPos) * renderPartialTicks;
+			data = renderPos - Math::Vector3D{ 0, 0.21, 0 } - eRenderHeadPos;
 		}
 		else
 		{
 			targetPitch = targetPitchFoot;
-			data = renderPos - Math::Vector3D{ 0, 0.23, 0 } - eLastPos + (eLastPos - ePos) * renderPartialTicks;
+			data = renderPos - Math::Vector3D{ 0, 0.23, 0 } - eRenderPos;
 		}
 		pitchInfluenced = true;
 		targetPitch += randomFloat(-randomPitch, randomPitch);
+		//thePlayer.setAngles(rot);
 		thePlayer.setAngles(Math::Vector2(targetYaw, targetPitch));
 	}
 	else {
-		data = renderPos - eLastPos + (eLastPos - ePos) * renderPartialTicks;
+		data = renderPos - ePos;
 		pitchInfluenced = false;
+		//thePlayer.setAngles(rot);
 		thePlayer.setAngles(Math::Vector2(targetYaw, currentLookAngles.y + randomFloat(-randomPitch, randomPitch)));
 	}
 }
+

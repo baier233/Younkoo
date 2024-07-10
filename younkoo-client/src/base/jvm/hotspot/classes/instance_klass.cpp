@@ -2,7 +2,7 @@
 // Created by Administrator on 2024/3/15.
 //
 
-#include "klass.h"
+#include "instance_klass.h"
 #include "../utility/jvm_internal.h"
 
 auto java_hotspot::instance_klass::get_name() -> symbol* {

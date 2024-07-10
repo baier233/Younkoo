@@ -5,7 +5,7 @@
 #include "jvm_break_points.h"
 
 #include "../classes/java_thread.h"
-#include "../classes/method.h"
+#include "../classes/c_method.h"
 
 extern "C" {
 	uintptr_t __forceinline jhook_get_r14_address();

@@ -12,10 +12,10 @@ CommonData::CommonData()
 	fov = 0;
 	projection = {};
 	modelView = {};
+	eyeHeight = 0;
 }
 void CommonData::onRender3D(const EventRender3D& e)
 {
-	renderPos = e.CAMERA_POS;
 	renderPartialTicks = e.TICK_DELTA;
 	projection = e.PROJECTION_MATRIX;
 	modelView = e.MODLEVIEW_MATRIX;
@@ -23,7 +23,19 @@ void CommonData::onRender3D(const EventRender3D& e)
 
 void CommonData::onUpdate()
 {
-	this->fov = Wrapper::Minecraft::getMinecraft().getSettings().getFov();
+	auto mc = Wrapper::Minecraft::getMinecraft();
+	if (mc.isNULL()) return;
+	auto settings = mc.getSettings();
+	if (settings.isNULL()) return;
+	this->fov = settings.getFov();
+	auto player = mc.getPlayer();
+	if (player.isNULL()) return;
+	float ySubtractValue = 3.4;
+	if (player.isSneaking())
+		ySubtractValue -= .175f;
+
+	this->eyeHeight = player.getEyeHeight();
+	this->renderPos = /*player.getPosition(renderPartialTicks) -*/ cameraPos /*+ Math::Vector3D{ 0, ySubtractValue - eyeHeight, 0 }*/;
 }
 
 

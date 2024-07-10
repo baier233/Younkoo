@@ -28,7 +28,7 @@ bool Wrapper::Minecraft::isInGuiState()
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
 	{
 
-		V1_18_1::Minecraft mc = this->instance->object_instance;
+		V1_18_1::Minecraft mc = this->getObject();
 		return !JNI::get_env()->IsSameObject(mc.screen.get().object_instance, NULL);
 	}
 
@@ -41,7 +41,7 @@ Wrapper::World Wrapper::Minecraft::getWorld()
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
 	{
 
-		V1_18_1::Minecraft mc = this->instance->object_instance;
+		V1_18_1::Minecraft mc = this->getObject();
 		return World(mc.level.get());
 	}
 	return World();
@@ -52,7 +52,7 @@ Wrapper::EntityPlayerSP Wrapper::Minecraft::getPlayer()
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
 	{
 
-		V1_18_1::Minecraft mc = this->instance->object_instance;
+		V1_18_1::Minecraft mc = this->getObject();
 		return EntityPlayerSP(mc.player.get());
 	}
 	return EntityPlayerSP();
@@ -62,7 +62,7 @@ Wrapper::MovingObjectPosition Wrapper::Minecraft::getMouseOver()
 {
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
 	{
-		V1_18_1::Minecraft mc = this->instance->object_instance;
+		V1_18_1::Minecraft mc = this->getObject();
 		return mc.hitResult.get();
 	}
 	assert("unimplemented version");
@@ -73,7 +73,7 @@ float Wrapper::Minecraft::getFrameTime()
 {
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
 	{
-		V1_18_1::Minecraft mc = this->instance->object_instance;
+		V1_18_1::Minecraft mc = this->getObject();
 		return mc.getFrameTime();
 	}
 	assert("unimplemented version");
@@ -84,7 +84,7 @@ Wrapper::GameSettings Wrapper::Minecraft::getSettings()
 {
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
 	{
-		V1_18_1::Minecraft mc = this->instance->object_instance;
+		V1_18_1::Minecraft mc = this->getObject();
 		return mc.options.get();
 	}
 	assert("unimplemented version");

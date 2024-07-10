@@ -8,7 +8,7 @@
 #include "const_pool.h"
 #include "symbol.h"
 #include "array.h"
-#include "method.h"
+#include "c_method.h"
 
 namespace java_hotspot {
 	class instance_klass {

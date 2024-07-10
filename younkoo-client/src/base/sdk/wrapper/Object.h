@@ -15,6 +15,9 @@ public:
 	bool isNULL();
 	jclass getClass();
 	jobject getObject();
+
+	jclass getClass() const;
+	jobject getObject() const;
 protected:
 
 	std::shared_ptr<JNI::EmptyMembers> instance;

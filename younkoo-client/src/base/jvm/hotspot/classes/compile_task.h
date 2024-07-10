@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "../include_header.h"
 #include "../utility/jvm_internal.h"
-#include "method.h"
+#include "c_method.h"
 
 namespace java_hotspot {
 	class compile_task
