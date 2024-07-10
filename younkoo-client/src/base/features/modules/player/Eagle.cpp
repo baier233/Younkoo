@@ -10,7 +10,7 @@
 
 
 
-Eagle::Eagle() :AbstractModule(xorstr_("Eagle"), Category::PLAYER)
+Eagle::Eagle() :AbstractModule(xorstr_("Eagle"), Category::PLAYER, 'G')
 {
 }
 

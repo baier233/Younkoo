@@ -3,6 +3,7 @@
 #include "../render/gui/GUI.h"
 
 #include <random>
+#include <base/features/modules/player/Team.h>
 
 long lastClickTime = 0;
 int nextCps = 10;
@@ -16,6 +17,7 @@ TriggerBot::TriggerBot() :AbstractModule(xorstr_("TriggerBot"), Category::COMBAT
 
 	this->addValue(FloatType, minCpsValue);
 	this->addValue(FloatType, maxCpsValue);
+	this->addValue(BoolType, onlyPlayer);
 }
 
 TriggerBot& TriggerBot::getInstance()
@@ -42,6 +44,16 @@ void TriggerBot::onUpdate()
 	const auto handleWindow = Renderer::get().renderContext.HandleWindow;
 	auto mouseOver = mc.getMouseOver();
 	if (mouseOver.isTypeOfEntity()) {
+
+		auto entity = mouseOver.getEntity();
+		if (onlyPlayer->getValue() && JNI::get_env()->IsInstanceOf(entity.getObject(), Wrapper::EntityPlayer::klass())) {
+			Wrapper::EntityPlayer player(*entity.instance.get());
+			if (Team::getInstance().isSameTeam(player)) return;
+		}
+		else {
+			return;
+		}
+
 		long milli = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 		if (lastClickTime == 0) lastClickTime = milli;
 		if ((milli - lastClickTime) < (1000 / nextCps)) return;

@@ -1,5 +1,1 @@
 ﻿#pragma once
-class AntiBot
-{
-};
-

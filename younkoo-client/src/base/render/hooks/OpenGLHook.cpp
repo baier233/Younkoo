@@ -3,7 +3,7 @@
 #include "../Renderer.hpp"
 #include "../nano/NanovgHelper.hpp"
 #include "../../event/Events.h"
-
+#include "../ultra/UltralightHelper.h"
 typedef bool(__stdcall* template_wglSwapBuffers) (HDC hdc);
 static TitanHook<template_wglSwapBuffers> wglSwapBuffersHook;
 static LPVOID wglSwapBuffers{};
@@ -103,6 +103,8 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
 		WndProcHook::Init(renderer.renderContext.HandleWindow);
 		NanoGui::Init(renderer.renderContext.HandleWindow, hdc, NanoVGHelper::Context);
+		glEnable(GL_TEXTURE_2D);
+		//UltralightHelper::SetupContext();
 		// Change it back to Minecraft's opengl context.
 		wglMakeCurrent(renderer.renderContext.HandleDeviceContext, renderer.renderContext.OriginalGLContext);
 		renderer.Initialized = true;
@@ -143,6 +145,8 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 		NanoGui::drawContents();
 	}
 
+	//UltralightHelper::Update();
+	//UltralightHelper::Render();
 
 	context.EndFrame();
 

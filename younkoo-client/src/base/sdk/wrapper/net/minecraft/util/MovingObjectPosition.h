@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include "wrapper/versions/1_18_1/net/minecraft/world/phys/HitResult.h"
 #include "wrapper/Object.h"
-
+#include <wrapper/net/minecraft/entity/Entity.h>
+#include <wrapper/net/minecraft/util/BlockPos.h>
 BEGIN_WRAP
 
 class MovingObjectPosition :public Object
@@ -11,6 +11,8 @@ public:
 	std::string getType();
 	bool isTypeOfBlock();
 	bool isTypeOfEntity();
+	Entity getEntity();
+	BlockPos getBlockPos();
 
 protected:
 

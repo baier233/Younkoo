@@ -14,6 +14,8 @@
 
 //Player
 #include "player/Eagle.h"
+#include "player/Team.h"
+#include "player/AutoTool.h"
 
 ModuleManager::ModuleManager() {
 
@@ -80,6 +82,8 @@ bool ModuleManager::LoadModules()
 		this->addModule<NameTag>(&NameTag::getInstance());
 		this->addModule<AimAssist>(&AimAssist::getInstance());
 		this->addModule<Eagle>(&Eagle::getInstance());
+		this->addModule<Team>(&Team::getInstance());
+		this->addModule<AutoTool>(&AutoTool::getInstance());
 	}
 	return true;
 }

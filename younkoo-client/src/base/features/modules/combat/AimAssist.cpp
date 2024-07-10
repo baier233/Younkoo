@@ -6,6 +6,7 @@
 #include <base/features/modules/ModuleManager.h>
 
 #include <base/features/modules/common/CommonData.h>
+#include <base/features/modules/player/Team.h>
 
 
 
@@ -197,6 +198,12 @@ void AimAssist::onUpdate()
 	}
 
 	if (target.isNULL()) {
+		data = {};
+		return;
+	}
+
+	if (Team::getInstance().isSameTeam(target))
+	{
 		data = {};
 		return;
 	}

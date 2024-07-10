@@ -53,6 +53,8 @@ JNI::Field<Options, JNI::NOT_STATIC, DECLARE_NAME(
 )> options{ *this };/* Lnet/minecraft/client/Options; */
 
 
+
+
 END_KLASS_DEF();
 
 

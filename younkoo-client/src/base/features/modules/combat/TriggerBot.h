@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "../AbstractModule.h"
 #include "../../../Younkoo.hpp"
@@ -15,5 +15,6 @@ public:
 protected:
 	DEFINE_FLOAT_VALUE(maxCpsValue, "Max Cps", "Left Mouse Maximum Clicks per Second. ", 14, 0, 20);
 	DEFINE_FLOAT_VALUE(minCpsValue, "Min Cps", "Left Mouse Minmum Clicks per Second. ", 8, 0, 20);
+	DEFINE_BOOL_VALUE(onlyPlayer, "Only Player", "Only attacks player.", true);
 	TriggerBot();
 };

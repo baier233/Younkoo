@@ -12,9 +12,16 @@ Object::Object(const JNI::EmptyMembers& obj_wrap)
 	this->instance = std::make_shared<JNI::EmptyMembers>(obj_wrap);
 }
 
+
 bool Object::operator ==(const Object& other_Object)
 {
 	return this->getObject() == other_Object.getObject() || JNI::get_env()->IsSameObject(this->getObject(), other_Object.getObject());
+}
+
+Object Object::operator=(const Object& other_Object)
+{
+	this->instance = std::make_shared<JNI::EmptyMembers>(*other_Object.instance.get());
+	return *this;
 }
 
 bool Object::isEqualTo(const Object& other_Object)

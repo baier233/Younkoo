@@ -16,4 +16,7 @@ namespace JDK {
 
 	BEGIN_KLASS_DEF(FloatBuffer, return "java/nio/FloatBuffer")
 		END_KLASS_DEF();
+
+
+
 }

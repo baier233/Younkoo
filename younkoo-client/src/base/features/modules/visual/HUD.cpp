@@ -42,7 +42,7 @@ void HUD::onRender(const EventRender2D& e)
 
 	float x = 5;
 	float y = 5;
-	static std::wstring watermark(L"Younkoo Client");
+	static std::wstring watermark(L"Akarin Client");
 	auto bounds = nvgTextBoundsW(e.vg, watermark, NanoVGHelper::fontHarmony, 30);
 	nvgTextW(e.vg, watermark, x2 - bounds.first / static_cast <float>(2), y, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
 	auto mods = ModuleManager::get().getMods();

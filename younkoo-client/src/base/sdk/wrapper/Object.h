@@ -11,6 +11,7 @@ public:
 	Object(const JNI::EmptyMembers& obj_wrap);
 	Object(const Object& other_Object);
 	bool operator==(const Object& other_Object);
+	Object operator=(const Object& other_Object);
 	bool isEqualTo(const Object& other_Object);
 	bool isNULL();
 	jclass getClass();
@@ -18,9 +19,9 @@ public:
 
 	jclass getClass() const;
 	jobject getObject() const;
-protected:
 
 	std::shared_ptr<JNI::EmptyMembers> instance;
+
 };
 
 END_WRAP

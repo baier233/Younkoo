@@ -8,7 +8,7 @@
 #include <hotspot/classes/compile_task.h>
 
 
-#include <wrapper/versions/1_18_1/net/minecraft/client/renderer/ClientRenderer.h>
+#include <wrapper/versions/1_18_1/net/minecraft/client/renderer/GameRenderer.h>
 #include <wrapper/versions/1_18_1/com/mojang/blaze3d/vertex/PoseStack.h>
 #include <wrapper/versions/1_18_1/net/minecraft/client/MInecraft.h>
 
