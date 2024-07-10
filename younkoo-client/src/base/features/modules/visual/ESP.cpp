@@ -79,10 +79,10 @@ void ESP::onRender3D(const EventRender3D& e) {
 
 	for (auto& player : players) {
 		auto postion = player.getPosition(e.TICK_DELTA);
-		RECT rect;
+		/*RECT rect;
 		GetClientRect(renderer.renderContext.HandleWindow, &rect);
 		int width = rect.right - rect.left;
-		int height = rect.bottom - rect.top;
+		int height = rect.bottom - rect.top;*/
 
 		auto renderPos = postion - e.CAMERA_POS;
 		auto entityHeight = player.getHeight() + 0.15f;

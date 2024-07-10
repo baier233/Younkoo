@@ -79,3 +79,14 @@ float Wrapper::Minecraft::getFrameTime()
 	assert("unimplemented version");
 	return 0.0f;
 }
+
+Wrapper::GameSettings Wrapper::Minecraft::getSettings()
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		V1_18_1::Minecraft mc = this->instance->object_instance;
+		return mc.options.get();
+	}
+	assert("unimplemented version");
+	return GameSettings();
+}

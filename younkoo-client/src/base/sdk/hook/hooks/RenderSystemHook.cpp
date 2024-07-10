@@ -5,6 +5,7 @@
 void RenderSystemHook::applyHook() {
 	if (SRGParser::get().GetVersion() != Versions::FORGE_1_18_1)
 		return;
+	(void)JNI::get_env()->PushLocalFrame(66);
 
 	jclass klass = JNI::find_class(V1_18_1::GameRenderer::get_name());
 
@@ -74,11 +75,16 @@ void RenderSystemHook::applyHook() {
 	info->set_orig_bytecode(opcode.opcode);
 	info->set_next(holder_klass->get_breakpoints());
 	holder_klass->set_breakpoints(info);
+
+	(void)JNI::get_env()->PopLocalFrame(nullptr);
+
 	jvm_break_points::set_breakpoint_with_original_code(method, opcode.index, static_cast<std::uint8_t>(opcode.opcode), [mid](break_point_info* bp) -> void
 		{
 			const auto orginal_state = bp->java_thread->get_thread_state();
 			bp->java_thread->set_thread_state(JavaThreadState::_thread_in_native);
 			JNI::set_thread_env(bp->java_thread->get_jni_environment());
+
+			(void)JNI::get_env()->PushLocalFrame(60);
 
 			auto gameRender_obj = (jobject)bp->get_parameter(0);
 			auto tickDelta = *(float*)bp->get_parameter(1);
@@ -149,6 +155,8 @@ void RenderSystemHook::applyHook() {
 			projectionMatrix.clear_ref(); stack.clear_ref(); gameRenderer.clear_ref();
 
 			//std::cout << "\tickDelta :" << tickDelta << "\nstartTime :" << startTime << "\nposeStack :" << poseStack << "\nmatrix4f :" << matrix4f << "\n" << std::endl;
+
+			(void)JNI::get_env()->PopLocalFrame(nullptr);
 
 			bp->java_thread->set_thread_state(orginal_state);
 			return;

@@ -4,6 +4,7 @@
 #include <vector>
 #include <array>
 
+#define PI 3.141592653589793238462643383279502884197
 
 
 namespace Math {
@@ -75,7 +76,11 @@ namespace Math {
 			return sqrt(pow(x - other.x, 2.0) + pow(y - other.y, 2.0) + pow(z - other.z, 2.0));
 		}
 		Vector3D operator - (const Vector3D& rhs) const { return Vector3D(x - rhs.x, y - rhs.y, z - rhs.z); }
+		Vector3D operator + (const Vector3D& rhs) const { return Vector3D(x + rhs.x, y + rhs.y, z + rhs.z); }
+		Vector3D operator += (const Vector3D& rhs) { return *this = *this + rhs; }
 		Vector3D& operator -= (const Vector3D& rhs) { return *this = *this - rhs; }
+
+		Vector3D operator * (const float& rhs) const { return Vector3D(x * rhs, y * rhs, z * rhs); }
 	};
 
 
@@ -258,6 +263,60 @@ namespace Math {
 			};
 			return true;
 		}
+	}
+
+	inline float wrapAngleTo180(float angle)
+	{
+		angle = std::fmod(angle, 360.0f);
+		if (angle >= 180.0f) {
+			angle -= 360.0f;
+		}
+
+		if (angle < -180.0f) {
+			angle += 360.0f;
+		}
+
+		return angle;
+	}
+	inline float radiantsToDeg(float x)
+	{
+		return x * 180.f / PI;
+	}
+	inline Vector2 getAngles(Vector3 pos, Vector3 pos1)
+	{
+		double d_x = pos1.x - pos.x;
+		double d_y = pos1.y - pos.y;
+		double d_z = pos1.z - pos.z;
+
+		double hypothenuse = sqrt(d_x * d_x + d_z * d_z);
+		float yaw = radiantsToDeg(atan2(d_z, d_x)) - 90.f;
+		float pitch = radiantsToDeg(-atan2(d_y, hypothenuse));
+
+		return Vector2(yaw, pitch);
+	}
+
+	inline Vector2 getAngles(Vector3D pos, Vector3D pos1)
+	{
+		double d_x = pos1.x - pos.x;
+		double d_y = pos1.y - pos.y;
+		double d_z = pos1.z - pos.z;
+
+		double hypothenuse = sqrt(d_x * d_x + d_z * d_z);
+		float yaw = radiantsToDeg(atan2(d_z, d_x)) - 90.f;
+		float pitch = radiantsToDeg(-atan2(d_y, hypothenuse));
+
+		return Vector2(yaw, pitch);
+	}
+	inline Vector2 vec_wrapAngleTo180(Vector2 angle)
+	{
+		return Vector2{
+			wrapAngleTo180(angle.x),
+			wrapAngleTo180(angle.y),
+		};
+	}
+
+	inline float coterminal(float angle) {
+		return std::fmod(angle, 180) < 0 ? angle + 170 : angle;
 	}
 
 }

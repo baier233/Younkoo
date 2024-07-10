@@ -6,6 +6,9 @@
 
 BEGIN_1_18_1
 BEGIN_KLASS_DEF_EX(LivingEntity, return SRGParser::get().getObfuscatedClassName("net/minecraft/world/entity/LivingEntity"), Entity)
+JNI::Method<jfloat, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/LivingEntity", "getHealth", "()F").first
+)> getHealth{ *this };
 
 END_KLASS_DEF()
 END_1_18_1

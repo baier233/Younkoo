@@ -5,6 +5,7 @@
 //Combat
 #include "combat/AutoClicker.h"
 #include "combat/TriggerBot.h"
+#include "combat/AimAssist.h"
 
 //Visual
 #include "visual/HUD.h"
@@ -74,6 +75,7 @@ bool ModuleManager::LoadModules()
 		this->addModule<TriggerBot>(&TriggerBot::getInstance());
 		this->addModule<ESP>(&ESP::getInstance());
 		this->addModule<NameTag>(&NameTag::getInstance());
+		this->addModule<AimAssist>(&AimAssist::getInstance());
 	}
 	return true;
 }

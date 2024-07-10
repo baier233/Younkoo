@@ -41,6 +41,20 @@ Math::Vector3D Wrapper::Entity::getPosition(float tickDetla)
 	return Math::Vector3D();
 }
 
+Math::Vector3D Wrapper::Entity::getLastTickPos()
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		V1_18_1::Entity entity = this->instance->object_instance;
+		return Math::Vector3D(
+			entity.xOld.get(),
+			entity.yOld.get(),
+			entity.zOld.get()
+		);
+	}
+	return Math::Vector3D();
+}
+
 std::string Wrapper::Entity::getDisplayName()
 {
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
@@ -71,6 +85,41 @@ float Wrapper::Entity::getHeight()
 
 		V1_18_1::Entity entity = this->instance->object_instance;
 		return entity.getBbHeight();
+	}
+	return 0.0f;
+}
+
+Math::Vector2 Wrapper::Entity::getAngles()
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+
+		V1_18_1::Entity entity = this->instance->object_instance;
+		auto rotation = entity.getRotationVector();
+		return { rotation.x.get(), rotation.y.get() };
+	}
+	return Math::Vector2();
+}
+
+void Wrapper::Entity::setAngles(Math::Vector2 angles)
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+
+		V1_18_1::Entity entity = this->instance->object_instance;
+		entity.setRot(angles.x, angles.y);
+	}
+	return;
+}
+
+float Wrapper::Entity::getEyeHeight()
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+
+		V1_18_1::Entity entity = this->instance->object_instance;
+		auto rotation = entity.getRotationVector();
+		return entity.getEyeHeight();
 	}
 	return 0.0f;
 }

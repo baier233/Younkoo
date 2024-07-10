@@ -7,7 +7,7 @@ BEGIN_WRAP
 class EntityLivingBase :public Entity {
 public:
 	using Entity::Entity;
-
+	float getHealth();
 };
 
 END_WRAP

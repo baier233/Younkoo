@@ -2,6 +2,7 @@
 
 #include <SDK.hpp>
 #include <wrapper/versions/1_18_1/net/minecraft/world/phys/Vec3.h>
+#include <wrapper/versions/1_18_1/net/minecraft/world/phys/Vec2.h>
 #include <wrapper/versions/1_18_1/net/minecraft/network/chat/Component.h>
 
 
@@ -56,6 +57,16 @@ JNI::Method<Component, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/Nameable", "getDisplayName", "()Lnet/minecraft/network/chat/Component;").first
 )> getDisplayName{ *this };
 
+JNI::Method<Vec2, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "getRotationVector", "()Lnet/minecraft/world/phys/Vec2;").first
+)> getRotationVector{ *this };
 
+JNI::Method<jfloat, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "getEyeHeight", "()F").first
+)> getEyeHeight{ *this };
+
+JNI::Method<void, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "setRot", "(FF)V").first
+), jfloat, jfloat> setRot{ *this };
 END_KLASS_DEF()
 END_1_18_1

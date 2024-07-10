@@ -165,6 +165,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ext\StackWalk\StackWalker.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\settings\GameSettings.cpp" />
+    <ClCompile Include="src\base\features\modules\common\CommonData.cpp" />
     <ClCompile Include="src\base\features\modules\visual\NameTag.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\classes\local_variable_table.cpp" />
     <ClCompile Include="src\base\jvm\hotspot\classes\compile_task.cpp" />
@@ -311,7 +314,10 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="ext\StackWalk\StackWalker.h" />
     <ClInclude Include="ext\xorstr.hpp" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\settings\GameSettings.h" />
+    <ClInclude Include="src\base\features\modules\common\CommonData.h" />
     <ClInclude Include="src\base\features\modules\visual\NameTag.h" />
     <ClInclude Include="src\base\jvm\hotspot\classes\local_variable_table.h" />
     <ClInclude Include="src\base\GitInfo.h" />
@@ -321,6 +327,7 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\math\Matrix4f.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Camera.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Options.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\ClientRenderer.h" />
     <ClInclude Include="src\base\jvm\hotspot\break\break_point_info.h" />
     <ClInclude Include="src\base\jvm\hotspot\break\byte_code_info.h" />
@@ -370,6 +377,7 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\InteractionHand.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult$Type.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\Vec2.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\Vec3.h" />
     <ClInclude Include="src\utils\animation\simple\SimpleAnimation.h" />
     <ClInclude Include="src\base\render\gui\api\ScrollComponent.h" />

@@ -32,7 +32,7 @@ protected:
 
 	DEFINE_BOOL_VALUE(inInventoryValue, "Inventory", "Still effective when inventory screen is open.", false);
 
-	std::shared_ptr<ModeValue>clickModeValue = std::make_unique<ModeValue>("Mode", "Click Mode.", std::vector<int>{ BOTH, LEFTONLY, RIGHTONLY }, std::vector<std::string>{ "Both", "Left Only", "Right Only" }, BOTH);
+	std::shared_ptr<ModeValue>clickModeValue = std::make_shared<ModeValue>("Mode", "Click Mode.", std::vector<int>{ BOTH, LEFTONLY, RIGHTONLY }, std::vector<std::string>{ "Both", "Left Only", "Right Only" }, BOTH);
 
 	AutoClicker();
 };

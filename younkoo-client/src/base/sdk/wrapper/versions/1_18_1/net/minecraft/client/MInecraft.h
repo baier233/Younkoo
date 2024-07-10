@@ -2,10 +2,13 @@
 
 #include <SDK.hpp>
 
-#include <wrapper/versions/1_18_1/net/minecraft/world/phys/HitResult.h>
+#include <wrapper/versions/1_18_1/net/minecraft/client/Options.h>
 #include <wrapper/versions/1_18_1/net/minecraft/client/gui/screens/Screen.h>
 #include <wrapper/versions/1_18_1/net/minecraft/client/multiplayer/ClientLevel.h>
 #include <wrapper/versions/1_18_1/net/minecraft/client/player/LocalPlayer.h>
+
+#include <wrapper/versions/1_18_1/net/minecraft/world/phys/HitResult.h>
+
 #include <wrapper/versions/1_18_1/com/mojang/blaze3d/platform/Window.h>
 
 BEGIN_1_18_1
@@ -44,6 +47,12 @@ JNI::Method<jfloat, JNI::NOT_STATIC, DECLARE_NAME(
 JNI::Method<Window, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedMethodName("net/minecraft/client/Minecraft", "getWindow", "()Lcom/mojang/blaze3d/platform/Window;").first
 )> getWindow{ *this };
+
+
+JNI::Field<Options, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft"), "options")
+)> options{ *this };/* Lnet/minecraft/client/Options; */
+
 
 END_KLASS_DEF();
 

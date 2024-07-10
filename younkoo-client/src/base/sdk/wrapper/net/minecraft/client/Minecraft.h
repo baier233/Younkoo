@@ -5,6 +5,7 @@
 #include "wrapper/net/minecraft/world/World.h"
 #include "wrapper/net/minecraft/client/entity/EntityPlayerSP.h"
 #include "wrapper/Object.h"
+#include <wrapper/net/minecraft/client/settings/GameSettings.h>
 
 BEGIN_WRAP
 
@@ -18,6 +19,7 @@ public:
 	EntityPlayerSP getPlayer();
 	MovingObjectPosition getMouseOver();
 	float getFrameTime();
+	GameSettings getSettings();
 
 private:
 	Minecraft() = default;

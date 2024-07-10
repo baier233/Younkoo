@@ -13,9 +13,13 @@ public:
 	void setGlowing(bool value);
 	Math::Vector3D getPosition();
 	Math::Vector3D getPosition(float tickDetal);
+	Math::Vector3D getLastTickPos();
 	std::string getDisplayName();
 	float getWidth();
 	float getHeight();
+	Math::Vector2 getAngles();
+	void setAngles(Math::Vector2 angles);
+	float getEyeHeight();
 };
 
 END_WRAP

@@ -11,8 +11,8 @@
 
 static std::array<int, 4> viewport{};
 
-static std::vector<std::pair<std::string, Math::Vector2D>> entitiesToRender;
-
+static std::vector < std::pair<std::string, Math::Vector2D>> entitiesToRender[2]{ {},{} };
+static int currentBufferIndex = 0;
 NameTag::NameTag() :AbstractModule(xorstr_("NameTag"), Category::VISUAL)
 {
 	REGISTER_EVENT(EventRender3D, NameTag::onRender3D);
@@ -52,7 +52,10 @@ void NameTag::onRender(const EventRender2D& e)
 	ToggleCheck;
 	static auto& renderer = Renderer::get();
 	auto vg = NanoVGHelper::Context;
-	for (const auto& entity : entitiesToRender)
+	int nextBufferIndex = (currentBufferIndex + 1) % 2;
+	if (entitiesToRender[nextBufferIndex].empty()) return;
+	currentBufferIndex = nextBufferIndex;
+	for (const auto& entity : entitiesToRender[currentBufferIndex])
 	{
 		auto entityName = wstr::toString(entity.first);
 		auto bounds = NanoVGHelper::nvgTextBoundsW(e.vg, entityName, NanoVGHelper::fontHarmony, 30);
@@ -74,7 +77,7 @@ void NameTag::onRender3D(const EventRender3D& e)
 	auto players = level.getPlayerList();
 	auto& renderer = Renderer::get();
 
-	decltype(entitiesToRender) entites;
+	std::vector<std::pair<std::string, Math::Vector2D>>entites;
 
 
 	for (auto& player : players)
@@ -84,11 +87,11 @@ void NameTag::onRender3D(const EventRender3D& e)
 
 		auto postion = player.getPosition(e.TICK_DELTA);
 
-		RECT rect;
+		/*RECT rect;
 		GetClientRect(renderer.renderContext.HandleWindow, &rect);
 
 		int width = rect.right - rect.left;
-		int height = rect.bottom - rect.top;
+		int height = rect.bottom - rect.top;*/
 
 
 		auto renderPos = postion - e.CAMERA_POS;
@@ -115,5 +118,7 @@ void NameTag::onRender3D(const EventRender3D& e)
 
 		}
 	}
-	entitiesToRender = entites;
+	entitiesToRender[currentBufferIndex] = {};
+	int nextBufferIndex = (currentBufferIndex + 1) % 2;
+	entitiesToRender[nextBufferIndex] = std::move(entites);
 }

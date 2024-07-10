@@ -46,6 +46,7 @@ namespace SDK {
 					JNI::_refs_to_delete.push_back(MinecraftClassLoader);
 					env->DeleteLocalRef(className);
 					env->DeleteLocalRef(klass);
+					env->DeleteLocalRef(classLoaderObj);
 					break;
 				}
 				env->DeleteLocalRef(className);

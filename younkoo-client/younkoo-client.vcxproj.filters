@@ -336,6 +336,15 @@
     <ClCompile Include="src\base\features\modules\visual\NameTag.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ext\StackWalk\StackWalker.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\features\modules\common\CommonData.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\settings\GameSettings.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -807,6 +816,21 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\features\modules\visual\NameTag.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\StackWalk\StackWalker.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\Vec2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\modules\common\CommonData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Options.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\settings\GameSettings.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
