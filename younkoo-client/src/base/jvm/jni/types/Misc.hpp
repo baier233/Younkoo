@@ -8,6 +8,7 @@
 
 namespace JNI {
 
+
 	template<size_t N>
 	struct string_litteral
 	{
@@ -104,5 +105,7 @@ namespace JNI {
 			return T::get_signature();
 		return std::string("");
 	}
+
+
 
 }

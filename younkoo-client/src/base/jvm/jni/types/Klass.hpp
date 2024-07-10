@@ -1,10 +1,13 @@
 ﻿#pragma once
 #include "Env.hpp"
 #include "Misc.hpp"
+#include "Method.hpp"
 
 #include <iostream>
 
 namespace JNI {
+
+
 	template<class klass_type> struct jclass_cache
 	{
 		inline static std::shared_mutex mutex{};
@@ -49,9 +52,24 @@ namespace JNI {
 		{
 		}
 
-		void init() {
+		inline void init() {
 			clear_cached_jclass<Klass>();
 			get_cached_jclass<Klass>();
+		}
+
+
+
+		template<class... method_parameters_type>
+		static Klass new_object(JNI::ConstructorMethod<method_parameters_type...>members_type::* constructor, const method_parameters_type&... method_parameters) {
+			Klass tmp{};
+			JNI::ConstructorMethod<method_parameters_type...> c = (tmp.*constructor);
+			auto id = c.get_id();
+			if (!id)
+			{
+				c.init();
+				id = c.get_id();
+			}
+			return Klass{ JNI::get_env()->NewObject(get_cached_jclass<Klass>(),id , std::conditional_t<is_jni_primitive_type<method_parameters_type>, method_parameters_type, jobject>(method_parameters)...) };
 		}
 
 		static inline std::string get_name()
@@ -63,7 +81,7 @@ namespace JNI {
 		{
 			return "L" + get_name() + ";";
 		}
-		void print() {
+		inline void print() {
 			std::cout << get_name() + " :\n{	" << "\n  Name:" << this->get_name() << "\n  Sign:" << this->get_signature() << "\n  owner_klass :" << this->owner_klass << "\n}" << std::endl;
 		}
 	private:

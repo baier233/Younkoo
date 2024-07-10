@@ -166,6 +166,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ext\StackWalk\StackWalker.cpp" />
+    <ClCompile Include="src\base\features\modules\player\SafeWalk.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\settings\GameSettings.cpp" />
     <ClCompile Include="src\base\features\modules\common\CommonData.cpp" />
     <ClCompile Include="src\base\features\modules\visual\NameTag.cpp" />
@@ -316,6 +317,7 @@
     </ClCompile>
     <ClInclude Include="ext\StackWalk\StackWalker.h" />
     <ClInclude Include="ext\xorstr.hpp" />
+    <ClInclude Include="src\base\features\modules\player\SafeWalk.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\settings\GameSettings.h" />
     <ClInclude Include="src\base\features\modules\common\CommonData.h" />
     <ClInclude Include="src\base\features\modules\visual\NameTag.h" />

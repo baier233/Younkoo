@@ -18,7 +18,7 @@ namespace JNI {
 			init();
 		}
 		void init() {
-			this->method_name = method_name_lambda()();
+			this->method_name = get_name();
 			auto method_sign = get_signature();
 			std::cout << "Getting Method : " << method_name + " " + method_sign << " isStatic :" << is_static << std::endl;
 			if constexpr (is_static)
@@ -166,8 +166,12 @@ namespace JNI {
 			return id;
 		}
 
-		std::string get_name()
+		virtual std::string get_name()
 		{
+			if (method_name.empty())
+			{
+				return method_name_lambda()();
+			}
 			return method_name;
 		}
 
@@ -185,11 +189,31 @@ namespace JNI {
 			return is_static;
 		}
 
-	private:
+	protected:
 		jclass owner_klass;
 		jobject object_instance;
 		static inline jmethodID id = nullptr;
 		static inline std::string method_name;
+	};
+
+
+
+
+	using init_lambda = decltype([] {return "<init>"; });
+
+	template<class... method_parameters_type >
+	class ConstructorMethod : public Method<void, JNI::NOT_STATIC, init_lambda, method_parameters_type... >
+	{
+	public:
+		using Method<void, JNI::NOT_STATIC, init_lambda, method_parameters_type... > ::Method;
+		inline jmethodID get_id()
+		{
+			return this->id;
+		}
+
+		std::string get_name() override {
+			return "<init>";
+		}
 	};
 
 }

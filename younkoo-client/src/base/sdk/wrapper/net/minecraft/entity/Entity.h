@@ -20,8 +20,10 @@ public:
 	Math::Vector2 getAngles();
 	void setAngles(Math::Vector2 angles);
 	float getEyeHeight();
-
+	bool isOnGround();
 	bool isSneaking();
+	Math::Vector3D getMotion();
+	void setMotion(Math::Vector3D motion);
 };
 
 END_WRAP

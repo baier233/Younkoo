@@ -10,7 +10,7 @@
 
 
 
-AimAssist::AimAssist() :AbstractModule(xorstr_("AimAssist"), Category::COMBAT, 'U')
+AimAssist::AimAssist() :AbstractModule(xorstr_("AimAssist"), Category::COMBAT)
 {
 	this->addValue(FloatType, fovValue);
 	this->addValue(FloatType, aimDistanceValue);

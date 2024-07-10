@@ -345,6 +345,9 @@
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\settings\GameSettings.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\features\modules\player\SafeWalk.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -834,6 +837,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\commands\arguments\EntityAnchorArgument$Anchor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\modules\player\SafeWalk.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -107,5 +107,16 @@ JNI::Field<jfloat, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/world/entity/Entity"), "xRot")
 )> xRot{ *this };/* F */
 
+JNI::Method<jboolean, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "isOnGround", "()Z").first
+)> isOnGround{ *this };
+
+JNI::Method<Vec3, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "getDeltaMovement", "()Lnet/minecraft/world/phys/Vec3;").first
+)> getDeltaMovement{ *this };
+
+JNI::Method<void, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "setDeltaMovement", "(Lnet/minecraft/world/phys/Vec3;)V").first
+), Vec3> setDeltaMovement{ *this };
 END_KLASS_DEF()
 END_1_18_1

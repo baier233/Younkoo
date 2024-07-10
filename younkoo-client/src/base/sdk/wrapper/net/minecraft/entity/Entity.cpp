@@ -121,11 +121,20 @@ float Wrapper::Entity::getEyeHeight()
 {
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
 	{
-
 		V1_18_1::Entity entity = this->getObject();
 		return entity.getEyeHeight();
 	}
 	return 0.0f;
+}
+
+bool Wrapper::Entity::isOnGround()
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		V1_18_1::Entity entity = this->getObject();
+		return entity.isOnGround();
+	}
+	return false;
 }
 
 bool Wrapper::Entity::isSneaking()
@@ -136,4 +145,23 @@ bool Wrapper::Entity::isSneaking()
 		return entity.isShiftKeyDown();
 	}
 	return false;
+}
+
+Math::Vector3D Wrapper::Entity::getMotion()
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		V1_18_1::Entity entity = this->getObject();
+		return entity.getDeltaMovement().toVector3();
+	}
+	return Math::Vector3D();
+}
+
+void Wrapper::Entity::setMotion(Math::Vector3D motion)
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		V1_18_1::Entity entity = this->getObject();
+		entity.setDeltaMovement(V1_18_1::Vec3::fromVector3(motion));
+	}
 }

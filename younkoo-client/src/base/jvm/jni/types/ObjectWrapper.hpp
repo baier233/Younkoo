@@ -3,7 +3,6 @@
 #include "Misc.hpp"
 #include <functional>
 #include <iostream>
-#include "Klass.hpp"
 
 namespace JNI {
 
