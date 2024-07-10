@@ -46,7 +46,10 @@ void TriggerBot::onUpdate()
 	if (mouseOver.isTypeOfEntity()) {
 
 		auto entity = mouseOver.getEntity();
-		if (onlyPlayer->getValue() && JNI::get_env()->IsInstanceOf(entity.getObject(), Wrapper::EntityPlayer::klass())) {
+		if (entity.isNULL()) return;
+		auto klass = Wrapper::EntityPlayer::klass();
+		//std::cout << klass << std::endl;
+		if (onlyPlayer->getValue() && JNI::get_env()->IsSameObject(entity.getClass(), klass)) {
 			Wrapper::EntityPlayer player(*entity.instance.get());
 			if (Team::getInstance().isSameTeam(player)) return;
 		}

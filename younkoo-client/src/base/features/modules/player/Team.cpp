@@ -35,11 +35,13 @@ void Team::onUpdate()
 {
 }
 
-bool Team::isSameTeam(const Wrapper::EntityPlayer& other)
+bool Team::isSameTeam(Wrapper::EntityPlayer& other)
 {
 	if (this->getToggle() && SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
 	{
-		return Wrapper::Minecraft::getMinecraft().getPlayer().isSameTeam(other);
+		auto mc = Wrapper::Minecraft::getMinecraft();
+		auto player = mc.getPlayer();
+		return player.isSameTeam(other);
 	}
 	return false;
 }

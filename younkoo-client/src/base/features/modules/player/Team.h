@@ -15,7 +15,7 @@ public:
 	void onEnable();
 	void onDisable();
 	void onUpdate();
-	bool isSameTeam(const Wrapper::EntityPlayer& other);
+	bool isSameTeam(Wrapper::EntityPlayer& other);
 protected:
 	Team();
 private:

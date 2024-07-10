@@ -354,9 +354,6 @@
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\BlockPos.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\render\ultra\UltralightHelper.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\player\InventoryPlayer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -884,9 +881,6 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\KeyMapping.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\render\ultra\UltralightHelper.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\player\Inventory.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -921,6 +915,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\BlockHitResult.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\strutils.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -136,7 +136,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>AppCore.lib;Ultralight.lib;UltralightCore.lib;WebCore.lib;OpenGl32.lib;jvm.lib;glew32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OpenGl32.lib;jvm.lib;glew32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>powershell -ExecutionPolicy Bypass -Command "&amp; { $(ProjectDir)scripts\update_git_info.ps1 $(ProjectDir) }"</Command>
@@ -162,7 +162,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>AppCore.lib;Ultralight.lib;UltralightCore.lib;WebCore.lib;OpenGl32.lib;jvm.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OpenGl32.lib;jvm.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -278,7 +278,6 @@
     <ClCompile Include="src\utils\types\details\WorldToScreen.cpp" />
     <ClCompile Include="src\utils\Wstr.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\World.cpp" />
-    <ClCompile Include="src\base\render\ultra\UltralightHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\base\jvm\jni\types\Array.hpp">
@@ -499,6 +498,7 @@
     <ClInclude Include="src\utils\Misc.hpp" />
     <ClInclude Include="src\base\render\hooks\WndProcHook.hpp" />
     <ClInclude Include="src\utils\Pattern.h" />
+    <ClInclude Include="src\utils\strutils.h" />
     <ClInclude Include="src\utils\TimerUtil.hpp" />
     <ClInclude Include="src\utils\types\Maths.hpp" />
     <ClInclude Include="src\base\sdk\mapper\SRGParser.h" />
@@ -509,7 +509,6 @@
     <ClInclude Include="src\base\cleaner\UnloadedModuleCleaner.h" />
     <ClInclude Include="src\utils\Wstr.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\World.h" />
-    <ClInclude Include="src\base\render\ultra\UltralightHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="src\base\jvm\hotspot\utility\getter.asm">

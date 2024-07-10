@@ -9,7 +9,7 @@ class EntityPlayer :public EntityLivingBase {
 public:
 	using EntityLivingBase::EntityLivingBase;
 
-	bool isSameTeam(const EntityPlayer& other);
+	bool isSameTeam(EntityPlayer& other);
 	static jclass klass();
 	InventoryPlayer getInventory();
 
