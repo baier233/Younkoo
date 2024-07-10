@@ -165,3 +165,12 @@ void Wrapper::Entity::setMotion(Math::Vector3D motion)
 		entity.setDeltaMovement(V1_18_1::Vec3::fromVector3(motion));
 	}
 }
+
+void Wrapper::Entity::setSneak(bool value)
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		V1_18_1::Entity entity = this->getObject();
+		entity.setShiftKeyDown(value);
+	}
+}

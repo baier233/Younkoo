@@ -189,10 +189,11 @@ bool Younkoo::setup()
 	SRGParser::get().SetVersion(Versions::FORGE_1_18_1);
 	std::cout << SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft") << std::endl;
 	std::cout << SRGParser::get().getObfuscatedFieldName("net/minecraft/client/Minecraft", "instance") << std::endl;
-	auto method = SRGParser::get().getObfuscatedMethodName("net/minecraft/client/Minecraft", "getInstance", "()Lnet/minecraft/client/Minecraft;");
+	auto method = SRGParser::get().getObfuscatedMethodName("net/minecraft/world/level/Level", "getBlockState", "(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;");
 	std::cout << method.first << " " << method.second << std::endl;
 	auto result = SDK::SetUpForge1181ClassLoader("Render thread");
 	if (!result) result = SDK::SetUpClassLoader(SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft"));
+
 	flag &= result;
 
 	if (!flag) return flag;

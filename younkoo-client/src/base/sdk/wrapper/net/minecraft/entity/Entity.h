@@ -24,6 +24,7 @@ public:
 	bool isSneaking();
 	Math::Vector3D getMotion();
 	void setMotion(Math::Vector3D motion);
+	void setSneak(bool value);
 };
 
 END_WRAP

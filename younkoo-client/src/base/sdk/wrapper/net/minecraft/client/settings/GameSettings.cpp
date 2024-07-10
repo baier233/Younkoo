@@ -10,3 +10,14 @@ float Wrapper::GameSettings::getFov()
 	assert("unimplemented version");
 	return 0.0f;
 }
+
+void Wrapper::GameSettings::setShiftKeyPressed(bool value)
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		V1_18_1::Options settings = this->getObject();
+		settings.keyShift.get().setDown(value);
+	}
+	assert("unimplemented version");
+	return;
+}

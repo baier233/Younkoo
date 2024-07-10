@@ -13,7 +13,7 @@
 #include "visual/NameTag.h"
 
 //Player
-#include "player/SafeWalk.h"
+#include "player/Eagle.h"
 
 ModuleManager::ModuleManager() {
 
@@ -79,7 +79,7 @@ bool ModuleManager::LoadModules()
 		this->addModule<ESP>(&ESP::getInstance());
 		this->addModule<NameTag>(&NameTag::getInstance());
 		this->addModule<AimAssist>(&AimAssist::getInstance());
-		this->addModule<SafeWalk>(&SafeWalk::getInstance());
+		this->addModule<Eagle>(&Eagle::getInstance());
 	}
 	return true;
 }

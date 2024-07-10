@@ -118,5 +118,9 @@ JNI::Method<Vec3, JNI::NOT_STATIC, DECLARE_NAME(
 JNI::Method<void, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "setDeltaMovement", "(Lnet/minecraft/world/phys/Vec3;)V").first
 ), Vec3> setDeltaMovement{ *this };
+
+JNI::Method<void, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "setShiftKeyDown", "(Z)V").first
+), jboolean> setShiftKeyDown{ *this };
 END_KLASS_DEF()
 END_1_18_1

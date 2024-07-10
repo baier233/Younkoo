@@ -165,8 +165,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\math\BlockPos.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\block\Block.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\block\state\BlockState.cpp" />
     <ClCompile Include="ext\StackWalk\StackWalker.cpp" />
-    <ClCompile Include="src\base\features\modules\player\SafeWalk.cpp" />
+    <ClCompile Include="src\base\features\modules\player\Eagle.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\settings\GameSettings.cpp" />
     <ClCompile Include="src\base\features\modules\common\CommonData.cpp" />
     <ClCompile Include="src\base\features\modules\visual\NameTag.cpp" />
@@ -208,7 +211,6 @@
     <ClCompile Include="src\base\features\modules\combat\AimAssist.cpp" />
     <ClCompile Include="src\base\features\modules\player\AntiBot.cpp" />
     <ClCompile Include="src\base\features\modules\visual\ESP.cpp" />
-    <ClCompile Include="src\base\features\modules\player\Eagle.cpp" />
     <ClCompile Include="src\base\features\modules\player\FastPlace.cpp" />
     <ClCompile Include="src\base\features\modules\combat\KillAura.cpp" />
     <ClCompile Include="src\base\render\gui\GUI.cpp" />
@@ -315,9 +317,12 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\math\BlockPos.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\block\Block.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\block\state\BlockState.h" />
     <ClInclude Include="ext\StackWalk\StackWalker.h" />
     <ClInclude Include="ext\xorstr.hpp" />
-    <ClInclude Include="src\base\features\modules\player\SafeWalk.h" />
+    <ClInclude Include="src\base\features\modules\player\Eagle.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\settings\GameSettings.h" />
     <ClInclude Include="src\base\features\modules\common\CommonData.h" />
     <ClInclude Include="src\base\features\modules\visual\NameTag.h" />
@@ -329,6 +334,7 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\math\Matrix4f.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Camera.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\KeyMapping.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Options.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\ClientRenderer.h" />
     <ClInclude Include="src\base\jvm\hotspot\break\break_point_info.h" />
@@ -378,6 +384,10 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\LivingEntity.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\BlockPos.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\InteractionHand.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\Block.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\state\BlockBehaviour$BlockStateBase.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\state\BlockState.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\Level.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult$Type.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\Vec2.h" />
@@ -392,7 +402,6 @@
     <ClInclude Include="src\base\features\modules\combat\AimAssist.h" />
     <ClInclude Include="src\base\features\modules\player\AntiBot.h" />
     <ClInclude Include="src\base\features\modules\visual\ESP.h" />
-    <ClInclude Include="src\base\features\modules\player\Eagle.h" />
     <ClInclude Include="src\base\features\modules\player\FastPlace.h" />
     <ClInclude Include="src\base\features\modules\combat\KillAura.h" />
     <ClInclude Include="src\base\render\gui\GUI.h" />
