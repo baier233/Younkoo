@@ -322,6 +322,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="..\..\SDKGenerator\output\net\minecraft\world\phys\Vec3.h" />
     <ClInclude Include="src\base\features\modules\player\AutoTool.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\item\Item.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\item\ItemStack.h" />
@@ -409,6 +410,34 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\Vec2.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\Vec3.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\com\mojang\blaze3d\platform\Window.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\com\mojang\blaze3d\vertex\PoseStack$Pose.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\com\mojang\blaze3d\vertex\PoseStack.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\client\Minecraft.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\client\multiplayer\ClientLevel.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\client\player\AbstractClientPlayer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\client\player\LocalPlayer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\commands\arguments\EntityAnchorArgument$Anchor.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\core\BlockPos.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\core\NonNullList.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\network\chat\Component.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\resources\ResourceLocation.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\entity\Entity.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\entity\LivingEntity.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\entity\player\Inventory.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\entity\player\Player.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\InteractionHand.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\item\ArmorItem.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\item\DyeableLeatherItem.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\item\Item.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\item\ItemStack.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\level\block\Block.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\level\block\state\BlockBehaviour$BlockStateBase.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\level\block\state\BlockState.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\level\Level.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\phys\Vec2.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\phys\Vec3.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\org\joml\Matrix4f.h" />
     <ClInclude Include="src\utils\animation\simple\SimpleAnimation.h" />
     <ClInclude Include="src\base\render\gui\api\ScrollComponent.h" />
     <ClInclude Include="src\base\render\gui\clickgui\component\impl\settings\impl\BooleanValueComponent.h" />

@@ -920,6 +920,93 @@
     <ClInclude Include="src\utils\strutils.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\com\mojang\blaze3d\platform\Window.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\com\mojang\blaze3d\vertex\PoseStack$Pose.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\com\mojang\blaze3d\vertex\PoseStack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\org\joml\Matrix4f.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\client\Minecraft.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\client\player\AbstractClientPlayer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\client\player\LocalPlayer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\resources\ResourceLocation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\client\multiplayer\ClientLevel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SDKGenerator\output\net\minecraft\world\phys\Vec3.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\phys\Vec3.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\phys\Vec2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\core\BlockPos.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\core\NonNullList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\InteractionHand.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\level\Level.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\level\block\Block.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\level\block\state\BlockBehaviour$BlockStateBase.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\level\block\state\BlockState.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\entity\Entity.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\entity\LivingEntity.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\entity\player\Inventory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\entity\player\Player.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\item\ArmorItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\item\DyeableLeatherItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\item\Item.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\item\ItemStack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\commands\arguments\EntityAnchorArgument$Anchor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\network\chat\Component.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\render\gui\input\IOEvents.h">
