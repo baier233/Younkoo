@@ -30,12 +30,12 @@
 	using unobf_klass_name = JNI::Klass<unobf_klass_name##_members,decltype([](){obf_klass_name;})>;						\
 	struct unobf_klass_name##_members : public JNI::EmptyMembers											\
 	{																										\
-		unobf_klass_name##_members( std::function<jclass()> lambda_get_klass , jobject object_instance, bool is_global_ref ) :		\
-			JNI::EmptyMembers(lambda_get_klass, object_instance, is_global_ref)									\
+		unobf_klass_name##_members( std::function<jclass()> lambda_get_klass , jobject object_instance, bool is_global_ref,bool has_super_klass = false ) :		\
+			JNI::EmptyMembers(lambda_get_klass, object_instance, is_global_ref,false)									\
 		{																									\
 		}																									\
 \
-		inline static auto& static_obj() {												\
+		inline static auto& static_obj(){												\
 			static unobf_klass_name empty;														\
 			return empty;																			\
 		}																								\
@@ -47,10 +47,14 @@
 	using unobf_klass_name = JNI::Klass<unobf_klass_name##_members,decltype([](){obf_klass_name;})>;									\
 	struct unobf_klass_name##_members : public inherit_from##_members										\
 	{																										\
-		unobf_klass_name##_members(std::function<jclass()> lambda_get_klass,jobject object_instance, bool is_global_ref) :		\
-			inherit_from##_members(lambda_get_klass,object_instance, is_global_ref)								\
+		unobf_klass_name##_members(std::function<jclass()> lambda_get_klass,jobject object_instance, bool is_global_ref,bool has_super_klass = false) :		\
+			inherit_from##_members(lambda_get_klass,object_instance, is_global_ref,true)								\
 		{																									\
 		}																									\
+		inline static auto& static_obj(){												\
+			static unobf_klass_name empty;														\
+			return empty;																			\
+		}																								\
 
 
 

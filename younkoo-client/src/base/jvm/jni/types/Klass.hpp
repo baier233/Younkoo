@@ -47,14 +47,15 @@ namespace JNI {
 	class Klass : public members_type
 	{
 	public:
-		Klass(jobject object_instance = nullptr, bool is_global_ref = false) :
-			members_type([]() {return get_cached_jclass<Klass>(); }, object_instance, is_global_ref)
+		Klass(jobject object_instance = nullptr, bool is_global_ref = false, bool has_super_klass = false) :
+			members_type([]() {return get_cached_jclass<Klass>(); }, object_instance, is_global_ref, has_super_klass)
 		{
 		}
 
-		inline void init() {
+		inline jclass init() {
 			clear_cached_jclass<Klass>();
-			get_cached_jclass<Klass>();
+
+			return get_cached_jclass<Klass>();;
 		}
 
 

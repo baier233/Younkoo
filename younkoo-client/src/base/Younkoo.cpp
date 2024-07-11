@@ -75,7 +75,8 @@ static bool __forceinline printStackTrace()
 			auto module_name = std::string(moduleName);
 			std::cout << "Address: " << module_name << " + 0x" << std::hex << offset << std::dec << std::endl;
 
-			result = module_name.find("api-ms-w") != std::string::npos;
+
+			if (!result)result = module_name.find("api-ms-w") != std::string::npos;
 
 		}
 		else {
