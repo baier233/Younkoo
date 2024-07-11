@@ -3,7 +3,6 @@
 #include "../Renderer.hpp"
 #include "../nano/NanovgHelper.hpp"
 #include "../../event/Events.h"
-#include "../ultra/UltralightHelper.h"
 typedef bool(__stdcall* template_wglSwapBuffers) (HDC hdc);
 static TitanHook<template_wglSwapBuffers> wglSwapBuffersHook;
 static LPVOID wglSwapBuffers{};
