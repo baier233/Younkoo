@@ -86,10 +86,13 @@ namespace JNI {
 	};
 	struct EmptyMembers : public ObjectWrapper
 	{
-		EmptyMembers(std::function<jclass()> lambda_get_klass, jobject object_instance, bool is_global_ref) :
+		EmptyMembers(std::function<jclass()> lambda_get_klass, jobject object_instance, bool is_global_ref, bool has_super_klass = false) :
 			ObjectWrapper(object_instance, is_global_ref)
 		{
-			this->owner_klass = lambda_get_klass();
+			if (!has_super_klass)
+			{
+				this->owner_klass = lambda_get_klass();
+			}
 		}
 
 		jclass owner_klass = nullptr;

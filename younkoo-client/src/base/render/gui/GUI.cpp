@@ -3,6 +3,7 @@
 #include "nanogui/Screen.h"
 #include "nanogui/FormHelper.h"
 #include "nanogui/Slider.h"
+#include "nanogui/VScrollPanel.h"
 #include <memory>
 
 #include <iostream>
@@ -10,6 +11,8 @@
 #include "../../event/Events.h"
 #include "../Younkoo.hpp"
 #include "../features/modules/ModuleManager.h"
+
+#include "../Renderer.hpp"
 
 #include <iomanip>
 #include <sstream>
@@ -29,25 +32,29 @@ public:
 	}
 };
 using namespace nanogui;
-void createWindow(int xPos, const std::string& title, Category category) {
+static void createWindow(int xPos, const std::string& title, Category category) {
 	auto win = new Window(NanoGui::screen, title);
 	win->setPosition(Vector2i(xPos, 10));
 	win->setLayout(new GroupLayout());
 
-	for (auto m : ModuleManager::get().getMods()) {
+	// 添加 VScrollPanel
+	auto scrollPanel = new VScrollPanel(win);
 
+	auto panel = new Widget(scrollPanel);
+	panel->setLayout(new GroupLayout());
+
+	for (auto m : ModuleManager::get().getMods()) {
 		AbstractModule* mod = ToBaseModule(m);
 		if (mod->getCategory() == category) {
-			auto panel = new Widget(win);
-			panel->setLayout(new GroupLayout());
+			auto modulePanel = new Widget(panel);
+			modulePanel->setLayout(new GroupLayout());
 
-			auto titlePanel = new Widget(panel);
+			auto titlePanel = new Widget(modulePanel);
 			titlePanel->setLayout(new BoxLayout(Orientation::Horizontal, Alignment::Middle, 0, 5));
 			auto label = new Label(titlePanel, mod->getName(), "sans-bold");
 
-			auto contentPanel = new Widget(panel);
+			auto contentPanel = new Widget(modulePanel);
 			contentPanel->setLayout(new BoxLayout(Orientation::Vertical, Alignment::Fill, 5, 5));
-
 
 			auto button = new Button(contentPanel, mod->getToggle() ? "Disable" : "Toggle");
 			button->setCallback([mod, button] {
@@ -132,7 +139,6 @@ void createWindow(int xPos, const std::string& title, Category category) {
 							try {
 								float value_ = std::stof(text);
 								*(float*)value->getPtr() = value_;
-								//floatValue->setValue(value);
 								slider->setValue(value_);
 							}
 							catch (...) {
@@ -147,8 +153,7 @@ void createWindow(int xPos, const std::string& title, Category category) {
 					if (auto modeValue = dynamic_cast<ModeValue*>(value.get())) {
 						auto label = new Label(contentPanel, modeValue->getName());
 						std::vector<std::string> items;
-						for (size_t i = 0; i < modeValue->getModes().size(); i++)
-						{
+						for (size_t i = 0; i < modeValue->getModes().size(); i++) {
 							items.push_back(modeValue->getDescs()[i]);
 						}
 						auto comboBox = new ComboBox(contentPanel, items);
@@ -169,7 +174,7 @@ void createWindow(int xPos, const std::string& title, Category category) {
 							colorArray[2] = color.b();
 							colorArray[3] = color.w();
 							});
-						
+
 					}
 					break;
 				default:
@@ -178,8 +183,29 @@ void createWindow(int xPos, const std::string& title, Category category) {
 			}
 		}
 	}
-}
+	win->performLayout(NanoGui::screen->nvgContext());
 
+	// 获取布局后的宽高
+	Vector2i size = win->preferredSize(NanoGui::screen->nvgContext());
+	int width = size.x();
+	int height = size.y();
+
+	auto winHeight = Renderer::get().renderContext.winSize.second;
+	std::cout << height << " " << winHeight << std::endl;
+	if (width < 250)
+	{
+		width = 250;
+	}
+	if (height < 100)
+	{
+		height = 100;
+	}
+	if (height > winHeight * 0.85)
+	{
+		height = winHeight * 0.85;
+	}
+	scrollPanel->setFixedSize(Vector2i(width, height));
+}
 
 
 void NanoGui::Init(void* hwnd, void* hdc, void* vg)

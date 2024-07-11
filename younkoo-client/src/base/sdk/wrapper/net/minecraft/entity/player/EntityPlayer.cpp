@@ -22,7 +22,8 @@ jclass Wrapper::EntityPlayer::klass()
 {
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
 	{
-		return V1_18_1::Player::static_obj().owner_klass;
+		static auto klass = V1_18_1::Player::static_obj().init();
+		return klass;
 	}
 	return jclass();
 }

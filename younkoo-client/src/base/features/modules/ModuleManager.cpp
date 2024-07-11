@@ -6,6 +6,7 @@
 #include "combat/AutoClicker.h"
 #include "combat/TriggerBot.h"
 #include "combat/AimAssist.h"
+#include "combat/KillAura.h"
 
 //Visual
 #include "visual/HUD.h"
@@ -72,15 +73,20 @@ bool ModuleManager::LoadModules()
 {
 	{/*Visual*/
 		this->addModule<HUD>(&HUD::getInstance());
+		this->addModule<ESP>(&ESP::getInstance());
+		this->addModule<AimAssist>(&AimAssist::getInstance());
 	}
 
 	{/*Combat*/
 
 		this->addModule<AutoClicker>(&AutoClicker::getInstance());
 		this->addModule<TriggerBot>(&TriggerBot::getInstance());
-		this->addModule<ESP>(&ESP::getInstance());
 		this->addModule<NameTag>(&NameTag::getInstance());
-		this->addModule<AimAssist>(&AimAssist::getInstance());
+		this->addModule<KillAura>(&KillAura::getInstance());
+	}
+
+	{/*Player*/
+
 		this->addModule<Eagle>(&Eagle::getInstance());
 		this->addModule<Team>(&Team::getInstance());
 		this->addModule<AutoTool>(&AutoTool::getInstance());

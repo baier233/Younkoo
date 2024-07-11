@@ -3,7 +3,8 @@
 #include "../Renderer.hpp"
 #include "../nano/NanovgHelper.hpp"
 #include "../../event/Events.h"
-#include "../ultra/UltralightHelper.h"
+
+#include "../gui/clickgui/NewClickGui.h"
 typedef bool(__stdcall* template_wglSwapBuffers) (HDC hdc);
 static TitanHook<template_wglSwapBuffers> wglSwapBuffersHook;
 static LPVOID wglSwapBuffers{};
@@ -93,8 +94,8 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 		RECT area;
 		GetClientRect(renderer.renderContext.HandleWindow, &area);
 
-		winWidth = area.right;
-		winHeight = area.bottom;
+		winWidth = area.right - area.left;
+		winHeight = area.bottom - area.top;
 
 		winWidth = static_cast<int>(static_cast<float>(winWidth) / renderer.renderContext.devicePixelRatio);
 		winHeight = static_cast<int>(static_cast<float>(winHeight) / renderer.renderContext.devicePixelRatio);
@@ -127,7 +128,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	// Do draw and render here.
 	auto& vg = NanoVGHelper::Context;
 	using namespace NanoVGHelper;
-
+	static NewClickGui GUI;
 
 
 
@@ -140,6 +141,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	if (NanoGui::available.load())
 	{
 		NanoGui::drawGui();
+		//GUI.drawScreen(vg, renderer.renderContext.winSize);
 	}
 	else {
 		NanoGui::drawContents();

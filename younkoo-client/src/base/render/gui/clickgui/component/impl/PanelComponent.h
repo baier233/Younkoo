@@ -13,7 +13,7 @@ public:
 	void drawScreen(NVGcontext* vg, std::pair<int, int> winSize) override;
 
 	float x = 0, y = 0;
-	const float width = 145;
+	const float width = 165;
 	float height = 0;
 private:
 	Category category;

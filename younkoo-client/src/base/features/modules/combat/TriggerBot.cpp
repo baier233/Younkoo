@@ -35,6 +35,7 @@ void TriggerBot::onDisable()
 {
 
 }
+#include <hotspot/classes/instance_klass.h>
 
 void TriggerBot::onUpdate()
 {
@@ -47,15 +48,18 @@ void TriggerBot::onUpdate()
 
 		auto entity = mouseOver.getEntity();
 		if (entity.isNULL()) return;
-		auto klass = Wrapper::EntityPlayer::klass();
-		//std::cout << klass << std::endl;
-		if (onlyPlayer->getValue() && JNI::get_env()->IsSameObject(entity.getClass(), klass)) {
-			Wrapper::EntityPlayer player(*entity.instance.get());
-			if (Team::getInstance().isSameTeam(player)) return;
+		static auto klass = Wrapper::EntityPlayer::klass();
+		if (onlyPlayer->getValue()) {
+			if (JNI::get_env()->IsInstanceOf(entity.getObject(), klass)) {
+
+				Wrapper::EntityPlayer player(*entity.instance.get());
+				if (Team::getInstance().isSameTeam(player)) return;
+			}
+			else {
+				return;
+			}
 		}
-		else {
-			return;
-		}
+
 
 		long milli = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 		if (lastClickTime == 0) lastClickTime = milli;

@@ -44,18 +44,29 @@ void HUD::onRender(const EventRender2D& e)
 	float y = 5;
 	static std::wstring watermark(L"Akarin Client");
 	auto bounds = nvgTextBoundsW(e.vg, watermark, NanoVGHelper::fontHarmony, 30);
-	nvgTextW(e.vg, watermark, x2 - bounds.first / static_cast <float>(2), y, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
+	nvgTextW(e.vg, watermark, x2 - bounds.first / static_cast<float>(2), y, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
+
 	auto mods = ModuleManager::get().getMods();
+	std::vector<std::pair<std::wstring, std::pair<float, float>>> modNamesWithBounds;
+
 	for (auto iter = mods.cbegin(); iter < mods.cend(); iter++) {
 		auto sbmod = reinterpret_cast<AbstractModule*>(*iter);
 		if (sbmod && sbmod->getToggle())
 		{
 			auto sbname1 = sbmod->getName();
 			std::wstring sbname(sbname1.begin(), sbname1.end());
-			nvgTextW(e.vg, sbname, x, y, NanoVGHelper::fontHarmony, 20, nvgRGBA(255, 255, 255, 255));
-			std::pair<float, float> bounds = nvgTextBoundsW(e.vg, sbname, NanoVGHelper::fontHarmony, 20);
-			y += bounds.second;
+			auto bounds = nvgTextBoundsW(e.vg, sbname, NanoVGHelper::fontHarmony, 20);
+			modNamesWithBounds.push_back({ sbname, bounds });
 		}
+	}
 
+	std::sort(modNamesWithBounds.begin(), modNamesWithBounds.end(), [](const auto& a, const auto& b) {
+		return a.second.first < b.second.first;
+		});
+
+	for (const auto& mod : modNamesWithBounds) {
+		const auto& sbname = mod.first;
+		nvgTextW(e.vg, sbname, x, y, NanoVGHelper::fontHarmony, 20, nvgRGBA(255, 255, 255, 255));
+		y += mod.second.second;
 	}
 }

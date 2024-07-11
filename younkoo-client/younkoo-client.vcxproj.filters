@@ -366,6 +366,9 @@
     <ClCompile Include="src\base\features\modules\player\AutoTool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\features\modules\visual\ItemESP.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -1005,6 +1008,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\network\chat\Component.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\render\resources\fonts\clickgui-icon.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\render\resources\fonts\roboto.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\modules\visual\ItemESP.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

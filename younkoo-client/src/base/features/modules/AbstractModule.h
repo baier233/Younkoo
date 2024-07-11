@@ -18,13 +18,29 @@
 #define NoAssignOperator(_Class) _Class& operator=(const _Class&) = delete
 
 enum class Category : unsigned int {
-	COMBAT = 1,
+	COMBAT = 0,
 	MOVEMENT,
 	PLAYER,
-	MISC,
-	VISUAL
-	//safeDestruct
+	VISUAL,
+	MISC
 };
+
+inline std::string getCategoryName(Category category) {
+	switch (category) {
+	case Category::COMBAT:
+		return "COMBAT";
+	case Category::MOVEMENT:
+		return "MOVEMENT";
+	case Category::PLAYER:
+		return "PLAYER";
+	case Category::MISC:
+		return "MISC";
+	case Category::VISUAL:
+		return "VISUAL";
+	default:
+		return "UNKNOWN";
+	}
+}
 
 class AbstractModule {
 protected:
