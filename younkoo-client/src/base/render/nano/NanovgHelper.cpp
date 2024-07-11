@@ -13,6 +13,9 @@ void error_callback(int error, const char* description)
 #include "../resources/fonts/harmony_sc_light.h"
 #include "../resources/fonts/harmony_sc_regular.h"
 
+#include "../resources/fonts/clickgui-icon.h"
+#include "../resources/fonts/roboto.h"
+
 #include "../Renderer.hpp"
 
 bool NanoVGHelper::InitContext(HWND window2Attach)
@@ -34,8 +37,10 @@ bool NanoVGHelper::InitContext(HWND window2Attach)
 		Context = gl3::init();
 	}
 
-	//fontHarmony = nvgCreateFont(Context, "raleway", "C:\\Users\\Baier\\AppData\\Local\\Microsoft\\Windows\\Fonts\\HarmonyOS_Sans_SC_Regular.ttf");
+	fontRobotoBold = nvgCreateFont(Context, "roboto_bold", R"(C:\Windows\Fonts\Roboto-Bold.ttf)");
+	fontRoboto = nvgCreateFontMem(Context, "roboto", roboto, roboto_size, 0);
 	fontHarmony = nvgCreateFontMem(Context, "harmony_sans_regular", harmony_sc_regular, harmony_sc_regular_size, 0);
+	fontClickguiIcon = nvgCreateFontMem(Context, "clickgui-icon", clickgui_icon, clickgui_icon_size, 0);
 
 	nvgShapeAntiAlias(Context, 1);
 	return Context != nullptr;

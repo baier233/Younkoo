@@ -81,7 +81,7 @@ class ScissorHelperImpl {
 	std::vector<std::shared_ptr<Scissor>> scissors;
 
 public:
-	std::shared_ptr<Scissor> scissor(NVGcontext* vg, float x, float y, float width, float height) {
+	inline std::shared_ptr<Scissor> scissor(NVGcontext* vg, float x, float y, float width, float height) {
 		auto scissor = std::make_shared<Scissor>(x, y, width, height);
 		if (std::find(scissors.begin(), scissors.end(), scissor) != scissors.end()) return scissor;
 		scissors.push_back(scissor);
@@ -89,7 +89,7 @@ public:
 		return scissor;
 	}
 
-	void resetScissor(NVGcontext* vg, std::shared_ptr<Scissor> scissor) {
+	inline void resetScissor(NVGcontext* vg, std::shared_ptr<Scissor> scissor) {
 		auto it = std::find(scissors.begin(), scissors.end(), scissor);
 		if (it != scissors.end()) {
 			scissors.erase(it);
@@ -97,30 +97,30 @@ public:
 		}
 	}
 
-	void clearScissors(NVGcontext* vg) {
+	inline void clearScissors(NVGcontext* vg) {
 		scissors.clear();
 		nvgResetScissor(vg);
 	}
 
-	void save() {
+	inline void save() {
 		previousScissors.push_back(scissors);
 	}
 
-	void restore(NVGcontext* vg) {
+	inline void restore(NVGcontext* vg) {
 		scissors = previousScissors.front();
 		previousScissors.pop_front();
 		applyScissors(vg);
 	}
 
 private:
-	void applyScissors(NVGcontext* vg) {
+	inline void applyScissors(NVGcontext* vg) {
 		nvgResetScissor(vg);
 		if (scissors.size() == 0) return;
 		std::shared_ptr<Scissor> finalScissor = getFinalScissor(scissors);
 		nvgScissor(vg, finalScissor->x, finalScissor->y, finalScissor->width, finalScissor->height);
 	}
 
-	std::shared_ptr<Scissor> getFinalScissor(const std::vector<std::shared_ptr<Scissor>>& scissors) {
+	inline std::shared_ptr<Scissor> getFinalScissor(const std::vector<std::shared_ptr<Scissor>>& scissors) {
 		auto finalScissor = Scissor(*scissors.at(0).get());
 		for (int i = 1; i < scissors.size(); i++) {
 			auto scissor = scissors.at(i);
@@ -154,6 +154,15 @@ namespace NanoVGHelper {
 			((b & 0xFF) << 0);
 	}
 
+	inline NVGcolor colorToRGBA(int color) {
+		NVGcolor nvgColor{};
+		nvgColor.a = ((color >> 24) & 0xFF) / 255.0f;
+		nvgColor.r = ((color >> 16) & 0xFF) / 255.0f;
+		nvgColor.g = ((color >> 8) & 0xFF) / 255.0f;
+		nvgColor.b = ((color >> 0) & 0xFF) / 255.0f;
+		return nvgColor;
+	}
+
 	void renderGlow(NVGcontext* vg, float x, float y, float width, float height, float radius, float offset, int color);
 
 	inline void renderShadow(NVGcontext* vg, float x, float y, float width, float height, float radius, int shadowRadius) {
@@ -164,6 +173,8 @@ namespace NanoVGHelper {
 			alpha += 2;
 		}
 	}
+
+
 
 	void drawOutlineRect(NVGcontext* vg, float x, float y, float width, float height, int outlineWidth, int color);
 	void drawRoundedOutlineRect(NVGcontext* vg, float x, float y, float width, float height, float radius, int outlineWidth, int color);
@@ -213,7 +224,6 @@ namespace NanoVGHelper {
 	void drawEllipse(NVGcontext* vg, float x, float y, float radiusX, float radiusY, int color);
 	void drawCircle(NVGcontext* vg, float x, float y, float radius, int color);
 	void drawHSBBox(NVGcontext* vg, float x, float y, float width, float height, int colorTarget);
-	inline int fontHarmony{};
 
 	inline std::array<float, 4> getValues(float x, float y, float width, float height, GradientDirection direction) {
 		switch (direction) {
@@ -237,7 +247,19 @@ namespace NanoVGHelper {
 			return std::array<float, 4>{x, y + height, x + width, y};
 		}
 	}
-
+	inline void startRotate(NVGcontext* vg, float x, float y, float rotate) {
+		push();
+		nvgTranslate(vg, x, y);
+		nvgRotate(vg, rotate);
+		nvgTranslate(vg, -x, -y);
+	}
+	inline void stopRotate() {
+		pop();
+	}
+	inline int fontHarmony{};
+	inline int fontClickguiIcon{};
+	inline int fontRobotoBold{};
+	inline int fontRoboto{};
 	inline ScissorHelperImpl scissorHelper;
 }
 

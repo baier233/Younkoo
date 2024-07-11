@@ -95,12 +95,15 @@ void NameTag::onRender(const EventRender2D& e)
 	int nextBufferIndex = (currentBufferIndex + 1) % 2;
 	if (entitiesToRender[nextBufferIndex].empty()) return;
 	currentBufferIndex = nextBufferIndex;
+
+	constexpr auto textSize = 25;
+
 	for (const auto& entity : entitiesToRender[currentBufferIndex])
 	{
 		auto entityName = wstr::toString(entity.first);
 		//std::wcout << entityName << std::endl;
 		auto [name, color] = parseName(entityName);
-		auto bounds = NanoVGHelper::nvgTextBoundsW(e.vg, name, NanoVGHelper::fontHarmony, 30);
+		auto bounds = NanoVGHelper::nvgTextBoundsW(e.vg, name, NanoVGHelper::fontHarmony, 25);
 
 		float textX = entity.second.x - bounds.first / 2;
 		float textY = entity.second.y - bounds.second / 2;
@@ -108,7 +111,7 @@ void NameTag::onRender(const EventRender2D& e)
 		float textHeight = bounds.second;
 
 		NanoVGHelper::drawRoundedRect(vg, textX - 5, textY - 5, textWidth + 10, textHeight + 10, NanoVGHelper::rgbaToColor(0, 0, 0, 128), 5.0f);
-		NanoVGHelper::nvgTextW(vg, name, textX, textY, NanoVGHelper::fontHarmony, 30, color);
+		NanoVGHelper::nvgTextW(vg, name, textX, textY, NanoVGHelper::fontHarmony, 25, color);
 		//NanoVGHelper::nvgTextW(vg, entityName, entity.second.x - bounds.first / 2, entity.second.y - bounds.second / 2, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
 	}
 }
@@ -165,7 +168,7 @@ void NameTag::onRender3D(const EventRender3D& e)
 			//points.push_back(point);
 			point = { result[0],result[1] };
 			//std::cout << "Point(cpp) : {" << point.x << "," << point.y << "}" << std::endl;
-			entites.push_back(std::make_pair(player.getDisplayName(), point));
+			entites.push_back(std::make_pair(player.getDisplayName() + " HP:" + std::to_string(static_cast<int>(player.getHealth())), point));
 
 		}
 	}

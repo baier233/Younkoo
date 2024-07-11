@@ -14,9 +14,9 @@ private:
 	AnimationFunction equationFunction;
 
 public:
-	Easing(AnimationFunction func) : equationFunction(func) { }
+	inline Easing(AnimationFunction func) : equationFunction(func) { }
 
-	double getEquation(double x) const {
+	inline double getEquation(double x) const {
 		return equationFunction(x);
 	}
 
@@ -32,19 +32,19 @@ public:
 	static Easing EASE_OUT_ELASTIC;
 };
 
-Easing Easing::EASE_IN_BACK([](double x) {
+inline Easing Easing::EASE_IN_BACK([](double x) {
 	double c1 = 1.70158;
 	double c3 = c1 + 1;
 	return c3 * x * x * x - c1 * x * x;
 	});
 
-Easing Easing::EASE_OUT_BACK([](double x) {
+inline Easing Easing::EASE_OUT_BACK([](double x) {
 	double c1 = 1.70158;
 	double c3 = c1 + 1;
 	return std::max(0.0, 1 + c3 * std::pow(x - 1, 3) + c1 * std::pow(x - 1, 2));
 	});
 
-Easing Easing::EASE_IN_OUT_BACK([](double x) {
+inline Easing Easing::EASE_IN_OUT_BACK([](double x) {
 	double c1 = 1.70158;
 	double c2 = c1 * 1.525;
 	return x < 0.5
@@ -52,33 +52,33 @@ Easing Easing::EASE_IN_OUT_BACK([](double x) {
 		: (std::pow(2 * x - 2, 2) * ((c2 + 1) * (x * 2 - 2) + c2) + 2) / 2;
 	});
 
-Easing Easing::EASE_OUT_CIRC([](double x) {
+inline Easing Easing::EASE_OUT_CIRC([](double x) {
 	return std::sqrt(1 - std::pow(x - 1, 2));
 	});
 
-Easing Easing::EASE_IN_CIRC([](double x) {
+inline Easing Easing::EASE_IN_CIRC([](double x) {
 	return 1 - std::sqrt(1 - std::pow(x, 2));
 	});
 
-Easing Easing::EASE_IN_OUT_CIRC([](double x) {
+inline Easing Easing::EASE_IN_OUT_CIRC([](double x) {
 	return x < 0.5
 		? (1 - std::sqrt(1 - std::pow(2 * x, 2))) / 2
 		: (std::sqrt(1 - std::pow(-2 * x + 2, 2)) + 1) / 2;
 	});
 
-Easing Easing::LINEAR([](double x) {
+inline Easing Easing::LINEAR([](double x) {
 	return 1 - ((x - 1) * (x - 1));
 	});
 
-Easing Easing::SMOOTH_STEP([](double x) {
+inline Easing Easing::SMOOTH_STEP([](double x) {
 	return -2 * std::pow(x, 3) + (3 * std::pow(x, 2));
 	});
 
-Easing Easing::EASE_IN_OUT_CUBIC([](double x) {
+inline Easing Easing::EASE_IN_OUT_CUBIC([](double x) {
 	return x < 0.5 ? 4 * x * x * x : 1 - std::pow(-2 * x + 2, 3) / 2;
 	});
 
-Easing Easing::EASE_OUT_ELASTIC([](double x) {
+inline Easing Easing::EASE_OUT_ELASTIC([](double x) {
 	double c4 = (2 * M_PI) / 3;
 	if (x == 0) {
 		return 0.0;

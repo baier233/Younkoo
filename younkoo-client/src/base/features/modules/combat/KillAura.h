@@ -25,6 +25,7 @@ protected:
 
 	DEFINE_BOOL_VALUE(autoBlockValue, "AutoBlock", "AutoBlock", false);
 	DEFINE_BOOL_VALUE(keepSprintValue, "KeepSprint", "KeepSprint", false);
+	DEFINE_FLOAT_VALUE(smoothValue, "Smooth", "Smooth..", 15.f, 1.0f, 90.0f);
 	std::shared_ptr<ModeValue> targetPriorityListMode = std::make_shared<ModeValue>("Target", std::vector<int>{ Distance, Health, Crosshair }, std::vector<std::string>{ "Distance", "Health", "Closest to Crosshair" }, Distance);
 	std::shared_ptr<ModeValue> killauraMode = std::make_shared<ModeValue>("Mode", std::vector<int>{ Legit }, std::vector<std::string>{ "Legit" }, Legit);
 
@@ -41,6 +42,4 @@ protected:
 private:
 
 	bool pitchInfluenced = false;
-	Math::Vector3D data;
-	Math::Vector3D renderData;
 };

@@ -19,13 +19,14 @@ static double distance(double x1, double y1, double z1, double x2, double y2, do
 	return distance(y1 - y2, distance(x1 - x2, z1 - z2));
 }
 
-KillAura::KillAura() :AbstractModule(xorstr_("KillAura"), Category::COMBAT)
+KillAura::KillAura() :AbstractModule(xorstr_("KillAura"), Category::COMBAT, 'R')
 {
 
 	this->addValue(FloatType, rangeValue);
 	this->addValue(FloatType, leftMinCpsValue);
 	this->addValue(FloatType, leftMaxCpsValue);
 	this->addValue(FloatType, fovValue);
+	this->addValue(FloatType, smoothValue);
 	this->addValue(BoolType, keepSprintValue);
 	this->addValue(BoolType, autoBlockValue);
 	this->addValue(ListType, killauraMode);
@@ -59,9 +60,10 @@ void KillAura::onRender2D(const EventRender2D& e)
 void KillAura::onUpdate()
 {
 	ToggleCheck;
-	if (NanoGui::available) return;
-	auto fov = fovValue->getValue();
 	auto mc = Wrapper::Minecraft::getMinecraft();
+	if (NanoGui::available || mc.isInGuiState()) return;
+	auto fov = fovValue->getValue();
+	auto smooth = smoothValue->getValue();
 	auto thePlayer = mc.getPlayer();
 	auto level = mc.getWorld();
 
@@ -128,9 +130,9 @@ void KillAura::onUpdate()
 	}
 
 	if (target.isNULL()) {
-		data = {};
 		return;
 	}
+	if (thePlayer.isSameTeam(target)) return;
 
 	float renderPartialTicks = CommonData::get().renderPartialTicks;
 
@@ -152,13 +154,13 @@ void KillAura::onUpdate()
 
 		float offset = 0;
 
-		float targetYaw = currentLookAngles.x + ((difference.x + offset) / 1.0f);
+		float targetYaw = currentLookAngles.x + ((difference.x + offset) / smooth);
 
 		Math::Vector3D renderPos = CommonData::get().renderPos;
 
 		if (currentLookAngles.y > anglesFoot.y || currentLookAngles.y < anglesHead.y) {
-			float targetPitchFoot = currentLookAngles.y + (differenceFoot.y / 1.0f);
-			float targetPitchHead = currentLookAngles.y + (difference.y / 1.0f);
+			float targetPitchFoot = currentLookAngles.y + (differenceFoot.y / smooth);
+			float targetPitchHead = currentLookAngles.y + (difference.y / smooth);
 
 			float diffFoot = currentLookAngles.y - targetPitchFoot;
 			float diffHead = currentLookAngles.y - targetPitchHead;
@@ -169,17 +171,14 @@ void KillAura::onUpdate()
 			if (diffFoot > diffHead)
 			{
 				targetPitch = targetPitchHead;
-				data = renderPos - Math::Vector3D(0, 0.21, 0) - eHeadRenderPos;
 			}
 			else
 			{
 				targetPitch = targetPitchFoot;
-				data = renderPos - Math::Vector3D(0, 0.23, 0) - eRenderPos;
 			}
 			thePlayer.setAngles(Math::Vector2(targetYaw, targetPitch));
 		}
 		else {
-			data = renderPos - eRenderPos;
 			thePlayer.setAngles(Math::Vector2(targetYaw, currentLookAngles.y + 0));
 		}
 	}

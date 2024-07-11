@@ -37,8 +37,8 @@ void AutoTool::onDisable()
 void AutoTool::onUpdate()
 {
 	ToggleCheck;
-	if (NanoGui::available) return;
 	auto mc = Wrapper::Minecraft::getMinecraft();
+	if (NanoGui::available || mc.isInGuiState()) return;
 	auto player = mc.getPlayer();
 	auto level = mc.getWorld();
 	if (IsKeyBeingDown(VK_LBUTTON)) {

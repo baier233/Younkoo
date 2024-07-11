@@ -166,6 +166,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\features\modules\visual\ItemESP.cpp" />
     <ClCompile Include="src\base\features\modules\player\AutoTool.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\item\Item.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\item\ItemStack.cpp" />
@@ -322,7 +323,10 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\base\features\modules\visual\ItemESP.h" />
     <ClInclude Include="src\base\features\modules\player\AutoTool.h" />
+    <ClInclude Include="src\base\render\resources\fonts\clickgui-icon.h" />
+    <ClInclude Include="src\base\render\resources\fonts\roboto.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\item\Item.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\item\ItemStack.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\player\InventoryPlayer.h" />
