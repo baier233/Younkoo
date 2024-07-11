@@ -12,7 +12,17 @@ public:
 	void onUpdate();
 	void onRender(const EventRender2D& e);
 	void onRender3D(const EventRender3D& e);
-private:
 
+
+	DEFINE_BOOL_VALUE(displayerNameValue, "Displayer Name", "Displayer Name", false);
+
+	std::shared_ptr<ModeValue> modeValue = std::make_shared<ModeValue>("Mode", std::vector<int>{ PSEUDO3D, MODE3D, MODE2D }, std::vector<std::string>{ "Pseudo 3D", "3D", "2D" }, PSEUDO3D);
+
+	enum TARGETMODE {
+		PSEUDO3D,
+		MODE3D,
+		MODE2D,
+	};
+private:
 	ItemESP();
 };

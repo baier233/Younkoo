@@ -17,6 +17,7 @@
 #include "player/Eagle.h"
 #include "player/Team.h"
 #include "player/AutoTool.h"
+#include "visual/ItemESP.h"
 
 ModuleManager::ModuleManager() {
 
@@ -75,6 +76,7 @@ bool ModuleManager::LoadModules()
 		this->addModule<HUD>(&HUD::getInstance());
 		this->addModule<ESP>(&ESP::getInstance());
 		this->addModule<AimAssist>(&AimAssist::getInstance());
+		this->addModule<ItemESP>(&ItemESP::getInstance());
 	}
 
 	{/*Combat*/

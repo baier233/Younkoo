@@ -145,7 +145,7 @@ void RenderSystemHook::applyHook() {
 
 			Younkoo::get().EventBus.get()->fire_event(EventRender3D{
 				.PROJECTION_MATRIX = projection,
-				.MODLEVIEW_MATRIX = modelView,
+				.MODELVIEW_MATRIX = modelView,
 				.CAMERA_POS = gameRenderer.getMainCamera().getPosition().toVector3(),
 				.TICK_DELTA = tickDelta
 				,.START_TIME = startTime,

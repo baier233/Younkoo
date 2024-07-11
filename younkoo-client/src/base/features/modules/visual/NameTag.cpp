@@ -153,10 +153,10 @@ void NameTag::onRender3D(const EventRender3D& e)
 		Math::Vector2D point{};
 
 		//std::cout << "Camera Pos : { " << std::format("{},{},{}", e.CAMERA_POS.x, e.CAMERA_POS.y, e.CAMERA_POS.z) << "}" << std::endl;
-		//std::cout << "modelView :" << arrayToString(Math::structToVector(e.MODLEVIEW_MATRIX)) << std::endl;
+		//std::cout << "modelView :" << arrayToString(Math::structToVector(e.MODELVIEW_MATRIX)) << std::endl;
 		//std::cout << "projection :" << arrayToString(Math::structToVector(e.PROJECTION_MATRIX)) << std::endl;
 		auto result = Math::W2S::world2Screen(
-			Math::structToArray(e.MODLEVIEW_MATRIX),
+			Math::structToArray(e.MODELVIEW_MATRIX),
 			Math::structToArray(e.PROJECTION_MATRIX),
 			renderPos,
 			viewport,

@@ -3,6 +3,7 @@
 #include <SDK.hpp>
 #include <wrapper/versions/1_18_1/net/minecraft/world/phys/Vec3.h>
 #include <wrapper/versions/1_18_1/net/minecraft/world/phys/Vec2.h>
+#include <wrapper/versions/1_18_1/net/minecraft/world/phys/AABB.h>
 #include <wrapper/versions/1_18_1/net/minecraft/network/chat/Component.h>
 #include <wrapper/versions/1_18_1/net/minecraft/commands/arguments/EntityAnchorArgument$Anchor.h>
 
@@ -122,5 +123,10 @@ JNI::Method<void, JNI::NOT_STATIC, DECLARE_NAME(
 JNI::Method<void, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/entity/Entity", "setShiftKeyDown", "(Z)V").first
 ), jboolean> setShiftKeyDown{ *this };
+
+
+JNI::Method<AABB, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/world/level/entity/EntityAccess", "getBoundingBox", "()Lnet/minecraft/world/phys/AABB;").first
+)> getBoundingBox{ *this };
 END_KLASS_DEF()
 END_1_18_1

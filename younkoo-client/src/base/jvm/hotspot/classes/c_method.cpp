@@ -135,7 +135,7 @@ auto java_hotspot::const_method::get_const_flags() -> u2
 
 auto java_hotspot::const_method::get_localvariable_table_length_addr() -> void*
 {
-	assert(has_localvariable_table(), "called only if table is present");
+	MY_ASSERT(has_localvariable_table(), "called only if table is present");
 
 	if (has_exception_handler()) {
 		// If exception_table present, locate immediately before them.
@@ -163,7 +163,7 @@ auto java_hotspot::const_method::get_localvariable_table_length_addr() -> void*
 
 auto java_hotspot::const_method::get_exception_table_length_addr() -> void*
 {
-	assert(has_exception_handler(), "called only if table is present");
+	MY_ASSERT(has_exception_handler(), "called only if table is present");
 	if (has_checked_exceptions()) {
 		// If checked_exception present, locate immediately before them.
 		return (unsigned short*)checked_exceptions_start() - 1;

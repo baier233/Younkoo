@@ -211,7 +211,6 @@ bool Younkoo::setup()
 
 	std::cout << "Setting Up" << std::endl;
 
-
 	(void)CommonData::get();
 
 	while (!shouldShutDown)

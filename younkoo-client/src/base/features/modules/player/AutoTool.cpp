@@ -89,6 +89,10 @@ void AutoTool::onUpdate()
 		{
 			return;
 		}
+		if (bestSlot = inventory.getCurrentSlot())
+		{
+			return;
+		}
 
 		inventory.setCurrentItem(bestSlot);
 	}

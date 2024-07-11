@@ -16,3 +16,12 @@ private:
 
 	ESP();
 };
+
+struct EntityData {
+	std::string name;
+	Math::Vector2 name_pos;
+	float top;
+	float bottom;
+	float left;
+	float right;
+};

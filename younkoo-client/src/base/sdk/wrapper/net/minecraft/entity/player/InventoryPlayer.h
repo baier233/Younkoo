@@ -10,6 +10,8 @@ public:
 	ItemStack getArrmorItem(int index);
 	ItemStack getStackInSlot(int index);
 	void setCurrentItem(int index);
+
+	int getCurrentSlot();
 };
 
 

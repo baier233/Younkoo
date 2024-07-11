@@ -18,6 +18,8 @@ public:
 	float eyeHeight;
 	float fov;
 
+	std::array<int, 4>viewport;
+
 
 	CommonData();
 protected:

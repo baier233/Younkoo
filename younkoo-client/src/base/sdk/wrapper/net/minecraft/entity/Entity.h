@@ -25,6 +25,7 @@ public:
 	Math::Vector3D getMotion();
 	void setMotion(Math::Vector3D motion);
 	void setSneak(bool value);
+	Math::Box<double> getBoundingBox();
 };
 
 END_WRAP

@@ -4,6 +4,14 @@
 
 #ifndef METHOD_H
 #define METHOD_H
+#define MY_ASSERT(condition, message) \
+    do { \
+        if (!(condition)) { \
+            std::cerr << "MY_ASSERTion `" #condition "` failed in " << __FILE__ \
+                      << " line " << __LINE__ << ": " << message << std::endl; \
+            std::abort(); \
+        } \
+    } while (false)
 
 #include "const_pool.h"
 #include "../break/break_point_info.h"
@@ -228,7 +236,7 @@ namespace java_hotspot {
 		inline local_variable_table_element* localvariable_table_start() {
 			u2* addr = (u2*)get_localvariable_table_length_addr();
 			u2 length = *addr;
-			assert(length > 0, "should only be called if table is present");
+			MY_ASSERT(length > 0, "should only be called if table is present");
 			auto local_variable_table_element_size = local_variable_table_element::get_size();
 			auto size = static_cast<size_t>(length) * local_variable_table_element_size;
 			addr -= size / sizeof(u2);
@@ -237,7 +245,7 @@ namespace java_hotspot {
 
 
 		inline unsigned short* method_parameters_length_addr() {
-			assert(has_method_parameters(), "called only if table is present");
+			MY_ASSERT(has_method_parameters(), "called only if table is present");
 			return (unsigned short*)(has_generic_signature() ? (get_last_u2_element() - 1) :
 				get_last_u2_element());
 		}
@@ -251,7 +259,7 @@ namespace java_hotspot {
 
 		inline unsigned short* checked_exceptions_length_addr() {
 			// Located immediately before the generic signature index.
-			assert(has_checked_exceptions(), "called only if table is present");
+			MY_ASSERT(has_checked_exceptions(), "called only if table is present");
 			if (has_method_parameters()) {
 				// If method parameters present, locate immediately before them.
 				return (unsigned short*)method_parameters_start() - 1;
@@ -266,7 +274,7 @@ namespace java_hotspot {
 		inline uint8_t* checked_exceptions_start() {
 			unsigned short* addr = checked_exceptions_length_addr();
 			unsigned short length = *addr;
-			assert(length > 0, "should only be called if table is present");
+			MY_ASSERT(length > 0, "should only be called if table is present");
 			static size_t check_exception_element_size = JVMWrappers::find_type("CheckedExceptionElement").value()->size;
 			addr -= length * check_exception_element_size / sizeof(unsigned short);
 			return (uint8_t*)addr;
@@ -277,7 +285,7 @@ namespace java_hotspot {
 		inline uint8_t* exception_table_start() {
 			unsigned short* addr = (unsigned short*)get_exception_table_length_addr();
 			unsigned short length = *addr;
-			assert(length > 0, "should only be called if table is present");
+			MY_ASSERT(length > 0, "should only be called if table is present");
 			static size_t exception_table_size = JVMWrappers::find_type("ExceptionTableElement").value()->size;
 			addr -= length * exception_table_size / sizeof(unsigned short);
 			return (uint8_t*)addr;

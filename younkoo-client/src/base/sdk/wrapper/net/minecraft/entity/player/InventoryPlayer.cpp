@@ -31,3 +31,13 @@ void Wrapper::InventoryPlayer::setCurrentItem(int index)
 		return inventory.selected.set(index);
 	}
 }
+
+int Wrapper::InventoryPlayer::getCurrentSlot()
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		V1_18_1::Inventory inventory = this->getObject();
+		return inventory.selected.get();
+	}
+	return 0;
+}

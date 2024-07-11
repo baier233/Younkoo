@@ -51,9 +51,6 @@ static bool _gluProject(
 }
 
 std::array<double, 3> Math::W2S::world2Screen(const std::array<float, 16>& modelViewMatrix, const std::array<float, 16>& projectionMatrix, const Math::Vector3D& pos, const std::array<int, 4>& viewport, double guiScale) {
-
-
-
 	std::array<float, 3> win_pos{};
 	bool var12 = _gluProject(static_cast<float>(pos.x), static_cast<float>(pos.y), static_cast<float>(pos.z), modelViewMatrix, projectionMatrix, viewport, win_pos);
 	if (!var12) {

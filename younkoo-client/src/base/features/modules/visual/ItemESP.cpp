@@ -15,6 +15,8 @@
 ItemESP::ItemESP() : AbstractModule(xorstr_("ItemESP"), Category::VISUAL) {
 	REGISTER_EVENT(EventRender3D, ItemESP::onRender3D);
 	REGISTER_EVENT(EventRender2D, ItemESP::onRender);
+	this->addValue(BoolType, displayerNameValue);
+	this->addValue(ListType, modeValue);
 }
 
 ItemESP& ItemESP::getInstance() {
@@ -32,27 +34,240 @@ void ItemESP::onUpdate() {
 
 #include <utils/Wstr.h>
 
+#include <format>
+#include <utils/Misc.hpp>
+#include <wrapper/net/minecraft/entity/item/EntityItem.h>
+#include <utils/render.h>
+#include "../common/CommonData.h"
+#include "ESP.h"
+static std::vector<std::pair<Math::Vector2D, Math::Vector2D>> linesToDraw[2]{ {},{ } };
+static std::vector<Math::Box<double>> boxesToDraw[2]{ {},{ } };
+static std::vector<EntityData> entites2DToDraw[2]{ {},{ } };
+static int currentBufferIndex = 0;
+
 void ItemESP::onRender(const EventRender2D& e) {
-	ToggleCheck;
-	static auto& renderer = Renderer::get();
-	auto vg = NanoVGHelper::Context;
+	{
+		ToggleCheck;
+		if (NanoGui::available) return;
+
+		static auto& vg = NanoVGHelper::Context;
+
+		if (modeValue->getValue() == PSEUDO3D) {
+
+			int nextBufferIndex = (currentBufferIndex + 1) % 2;
+			if (linesToDraw[nextBufferIndex].empty()) return;
+			currentBufferIndex = nextBufferIndex;
+
+			for (const auto& [begin, end] : linesToDraw[currentBufferIndex]) {
+				NanoVGHelper::drawLine(vg, begin.x, begin.y, end.x, end.y, 1, NanoVGHelper::rgbaToColor(255, 255, 255, 255));
+			}
+		}
+
+
+		if (modeValue->getValue() == MODE3D) {
+			int nextBufferIndex = (currentBufferIndex + 1) % 2;
+			if (boxesToDraw[nextBufferIndex].empty()) return;
+			currentBufferIndex = nextBufferIndex;
+
+			glMatrixMode(GL_PROJECTION);
+			glLoadMatrixf(Math::structToArray(CommonData::get().projection).data());
+			glMatrixMode(GL_MODELVIEW);
+			glLoadMatrixf(Math::structToArray(CommonData::get().modelView).data());
+
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glEnable(GL_BLEND);
+			glLineWidth(2.0f);
+			glDisable(GL_TEXTURE_2D);
+
+			glDisable(GL_DEPTH_TEST);
+			glDepthMask(GL_FALSE);
+			glEnable(GL_LINE_SMOOTH);
+			for (auto& box : boxesToDraw[currentBufferIndex])
+			{
+				utils::render::drawFilledBox(box);
+			}
+			glDisable(GL_LINE_SMOOTH);
+			glEnable(GL_TEXTURE_2D);
+			glEnable(GL_DEPTH_TEST);
+			glDepthMask(GL_TRUE);
+			glDisable(GL_BLEND);
+		}
+		if (modeValue->getValue() == MODE2D)
+		{
+			int nextBufferIndex = (currentBufferIndex + 1) % 2;
+			if (entites2DToDraw[nextBufferIndex].empty()) return;
+			currentBufferIndex = nextBufferIndex;
+			for (const auto& entity : entites2DToDraw[currentBufferIndex]) {
+				auto entityName = wstr::toString(entity.name);
+				auto bounds = NanoVGHelper::nvgTextBoundsW(e.vg, entityName, NanoVGHelper::fontHarmony, 15);
+				if (displayerNameValue->getValue()) NanoVGHelper::nvgTextW(vg, entityName, entity.name_pos.x - bounds.first / 2, entity.name_pos.y - bounds.second / 2, NanoVGHelper::fontHarmony, 15, nvgRGBA(255, 255, 255, 255));
+				NanoVGHelper::drawRoundedOutlineRect(vg, entity.left, entity.top, entity.right - entity.left, entity.bottom - entity.top, 0.f, 2.f, NanoVGHelper::rgbaToColor(0, 0, 0, 255));
+				NanoVGHelper::drawRoundedOutlineRect(vg, entity.left, entity.top, entity.right - entity.left, entity.bottom - entity.top, 0.f, 1.f, NanoVGHelper::rgbaToColor(255, 255, 255, 255));
+			}
+
+		}
+		return;
+	}
+	// Check if the ESP feature is toggled on
 
 }
 
-#include <format>
-#include <utils/Misc.hpp>
-
 void ItemESP::onRender3D(const EventRender3D& e) {
-	ToggleCheck;
-	if (NanoGui::available) return;
+	{
+		ToggleCheck;
+		if (NanoGui::available) return;
 
-	const auto& renderContext = Renderer::get().renderContext;
+		const auto& renderContext = Renderer::get().renderContext;
+		std::array<int, 4> viewport = { 0, 0, renderContext.winSize.first, renderContext.winSize.second };
 
-	auto mc = Wrapper::Minecraft::getMinecraft();
-	if (!mc.getObject()) return;
+		auto mc = Wrapper::Minecraft::getMinecraft();
+		if (!mc.getObject()) return;
 
-	auto level = mc.getWorld();
-	auto players = level.getPlayerList();
-	auto& renderer = Renderer::get();
+		auto level = mc.getWorld();
+		auto entites = level.getEntityList();
+		auto& renderer = Renderer::get();
+
+		std::vector<std::pair<Math::Vector2D, Math::Vector2D>> newLines;
+		std::vector<Math::Box<double>> newBoxes;
+		std::vector<EntityData> newEntities;
+
+		auto mode = modeValue->getValue();
+		for (auto& entity : entites) {
+			if (!JNI::get_env()->IsInstanceOf(entity.getObject(), Wrapper::EntityItem::klass())) continue;
+			auto postion = entity.getPosition(e.TICK_DELTA);
+
+			auto renderPos = postion - e.CAMERA_POS;
+
+			using namespace Math;
+			auto height = entity.getHeight();
+			auto width = entity.getWidth() / 2.f;
+			Box<double> box{ renderPos.x - static_cast<double>(width), renderPos.y, renderPos.z - static_cast<double>(width), renderPos.x + static_cast<double>(width), renderPos.y + static_cast<double>(height), renderPos.z + static_cast<double>(width) };
+
+			if (mode == MODE3D) newBoxes.push_back(box);
+
+
+
+			if (mode == PSEUDO3D)
+			{
+
+				auto minX = box.minX;
+				auto minY = box.minY;
+				auto minZ = box.minZ;
+				auto maxX = box.maxX;
+				auto maxY = box.maxY;
+				auto maxZ = box.maxZ;
+
+				std::vector<std::array<Math::Vector3D, 4>> faces{
+
+					//front
+					{Math::Vector3D{minX, minY, minZ}, Math::Vector3D{maxX, minY, minZ}, Math::Vector3D{maxX, maxY, minZ}, Math::Vector3D{minX, maxY, minZ}},
+
+					//back
+					{Math::Vector3D{minX, minY, maxZ}, Math::Vector3D{maxX, minY, maxZ}, Math::Vector3D{maxX, maxY, maxZ}, Math::Vector3D{minX, maxY, maxZ}},
+
+					//left
+					{Math::Vector3D{minX, minY, minZ}, Math::Vector3D{minX, maxY, minZ}, Math::Vector3D{minX, maxY, maxZ}, Math::Vector3D{minX, minY, maxZ}},
+
+					//right
+					{Math::Vector3D{maxX, minY,minZ}, Math::Vector3D{maxX, maxY, minZ}, Math::Vector3D{maxX, maxY, maxZ}, Math::Vector3D{maxX, minY, maxZ}},
+
+					//top
+					{Math::Vector3D{minX, maxY, minZ}, Math::Vector3D{maxX, maxY, minZ}, Math::Vector3D{maxX, maxY, maxZ}, Math::Vector3D{minX, maxY, maxZ}},
+
+					//bottom
+					{Math::Vector3D{minX, minY, minZ}, Math::Vector3D{maxX, minY, minZ}, Math::Vector3D{maxX, minY, maxZ}, Math::Vector3D{minX, minY, maxZ}},
+				};
+				for (auto& face : faces) {
+					bool ok = true;
+					std::vector<Math::Vector2D> projected;
+					for (auto& pos : face)
+					{
+						auto result = W2S::world2Screen(structToArray(e.MODELVIEW_MATRIX), structToArray(e.PROJECTION_MATRIX), pos, viewport, 1);
+						Vector2D point{ result[0], result[1] };
+						if (result[2] > 0 && result[2] < 1) {
+							projected.push_back(point);
+						}
+						else {
+							ok = false;
+							break;
+						}
+					}
+
+					if (ok)
+					{
+						newLines.push_back(std::make_pair(Math::Vector2D{ projected[0].x,projected[0].y }, Math::Vector2D{ projected[1].x,projected[1].y }));
+						newLines.push_back(std::make_pair(Math::Vector2D{ projected[1].x,projected[1].y }, Math::Vector2D{ projected[2].x,projected[2].y }));
+						newLines.push_back(std::make_pair(Math::Vector2D{ projected[2].x,projected[2].y }, Math::Vector2D{ projected[3].x,projected[3].y }));
+						newLines.push_back(std::make_pair(Math::Vector2D{ projected[3].x,projected[3].y }, Math::Vector2D{ projected[0].x,projected[0].y }));
+					}
+				}
+			}
+			else {
+				auto entityHeight = entity.getHeight() + 0.15f;
+				auto entityWidth = entity.getWidth();
+
+				using namespace Math;
+				std::array<Vector3D, 10> posArray = {
+					renderPos,
+					renderPos - Vector3D{0, -entityHeight, 0}, // Over the head
+					renderPos - Vector3D{entityWidth, 0, 0}, // In the middle to the left
+					renderPos - Vector3D{-entityWidth, 0, 0}, // In the middle to the right
+					renderPos - Vector3D{0, 0, entityWidth}, // In the middle to the back
+					renderPos - Vector3D{0, 0, -entityWidth}, // In the middle to the front
+					renderPos - Vector3D{entityWidth / 1.388888, 0, entityWidth}, // Middle left
+					renderPos - Vector3D{-entityWidth / 1.388888, 0, -entityWidth}, // Middle right
+					renderPos - Vector3D{-entityWidth / 1.388888, 0, entityWidth}, // Middle back
+					renderPos - Vector3D{entityWidth / 1.388888, 0, -entityWidth} // Middle front
+				};
+
+				bool ok = true;
+				float leftPoint = FLT_MAX;
+				float topPoint = FLT_MAX;
+				float rightPoint = FLT_MIN;
+				float bottomPoint = FLT_MIN;
+
+				for (const auto& pos : posArray) {
+					auto result = W2S::world2Screen(structToArray(e.MODELVIEW_MATRIX), structToArray(e.PROJECTION_MATRIX), pos, viewport, 1);
+					Vector2 point{ result[0], result[1] };
+
+					if (result[2] > 0 && result[2] < 1) {
+						leftPoint = std::min(point.x, leftPoint);
+						topPoint = std::min(point.y, topPoint);
+						rightPoint = std::max(point.x, rightPoint);
+						bottomPoint = std::max(point.y, bottomPoint);
+					}
+					else {
+						ok = false;
+						break;
+					}
+				}
+
+				if (ok) {
+					auto result = W2S::world2Screen(structToArray(e.MODELVIEW_MATRIX), structToArray(e.PROJECTION_MATRIX), Vector3D(renderPos.x, renderPos.y + entityHeight + 0.15f, renderPos.z), viewport, 1);
+
+					newEntities.push_back(EntityData{
+						.name = entity.getDisplayName(),
+						.name_pos = Vector2(result[0], result[1]),
+						.top = topPoint,
+						.bottom = bottomPoint,
+						.left = leftPoint,
+						.right = rightPoint
+						});
+				}
+			}
+			//continue;
+
+		}
+
+		linesToDraw[currentBufferIndex] = {};
+		boxesToDraw[currentBufferIndex] = {};
+		entites2DToDraw[currentBufferIndex] = {};
+		int nextBufferIndex = (currentBufferIndex + 1) % 2;
+
+		linesToDraw[nextBufferIndex] = std::move(newLines);
+		boxesToDraw[nextBufferIndex] = std::move(newBoxes);
+		entites2DToDraw[nextBufferIndex] = std::move(newEntities);
+	}
+	return;
 
 }

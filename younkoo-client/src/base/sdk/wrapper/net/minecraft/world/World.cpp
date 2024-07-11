@@ -24,6 +24,20 @@ std::vector<Wrapper::EntityPlayer> Wrapper::World::getPlayerList()
 	return result;
 }
 
+std::vector<Wrapper::Entity> Wrapper::World::getEntityList()
+{
+	auto result = std::vector<Entity>();
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		V1_18_1::ClientLevel level = this->getObject();
+		auto iterator = level.entitiesForRendering().iterator();
+		while (iterator.hasNext()) {
+			result.push_back(iterator.next());
+		}
+	}
+	return result;
+}
+
 Wrapper::BlockState Wrapper::World::getBlockState(const Math::Vector3D& pos)
 {
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)

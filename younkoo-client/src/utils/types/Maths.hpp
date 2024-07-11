@@ -8,35 +8,89 @@
 
 
 namespace Math {
-	class Vector3
+
+
+
+
+	template<typename T> class Vector3
 	{
 	public:
 
-		float x{ NAN };
-		float y{ NAN };
-		float z{ NAN };
+		T x{ NAN };
+		T y{ NAN };
+		T z{ NAN };
 
-		Vector3() {};
-		Vector3(const float x, const float y, const float z) : x(x), y(y), z(z) {}
-		Vector3 operator + (const Vector3& rhs) const { return Vector3(x + rhs.x, y + rhs.y, z + rhs.z); }
-		Vector3 operator + (const float rhs) const { return Vector3(x + rhs, y + rhs, z + rhs); }
-		Vector3 operator - (const Vector3& rhs) const { return Vector3(x - rhs.x, y - rhs.y, z - rhs.z); }
-		Vector3 operator - (const float rhs) const { return Vector3(x - rhs, y - rhs, z - rhs); }
-		Vector3 operator * (const Vector3& rhs) const { return Vector3(x * rhs.x, y * rhs.y, z * rhs.z); }
-		Vector3 operator * (const float& rhs) const { return Vector3(x * rhs, y * rhs, z * rhs); }
-		Vector3 operator / (const float& rhs) const { return Vector3(x / rhs, y / rhs, z / rhs); }
-		Vector3& operator += (const Vector3& rhs) { return *this = *this + rhs; }
-		Vector3& operator -= (const Vector3& rhs) { return *this = *this - rhs; }
-		Vector3& operator *= (const float& rhs) { return *this = *this * rhs; }
-		Vector3& operator /= (const float& rhs) { return *this = *this / rhs; }
-		//Vector3 operator == (const Vector3& rhs) { return this == rhs; }
-		float Length() const { return sqrtf(x * x + y * y + z * z); }
-		Vector3 Normalize() const { return *this * (1 / Length()); }
-		Vector3 Invert() const { return Vector3{ -x, -y, -z }; }
-		float Distance(const Vector3& rhs) const { return (*this - rhs).Length(); }
-		float Dist() { return std::sqrt(x * x + y * y); }
+		Vector3<T>() {};
+		Vector3<T>(const T x, const T y, const T z) : x(x), y(y), z(z) {}
+		Vector3<T> operator + (const Vector3<T>& rhs) const { return Vector3<T>(x + rhs.x, y + rhs.y, z + rhs.z); }
+		Vector3<T> operator + (const T rhs) const { return Vector3<T>(x + rhs, y + rhs, z + rhs); }
+		Vector3<T> operator - (const Vector3<T>& rhs) const { return Vector3<T>(x - rhs.x, y - rhs.y, z - rhs.z); }
+		Vector3<T> operator - (const T rhs) const { return Vector3<T>(x - rhs, y - rhs, z - rhs); }
+		Vector3<T> operator * (const Vector3<T>& rhs) const { return Vector3<T>(x * rhs.x, y * rhs.y, z * rhs.z); }
+		Vector3<T> operator * (const T& rhs) const { return Vector3<T>(x * rhs, y * rhs, z * rhs); }
+		Vector3<T> operator / (const T& rhs) const { return Vector3<T>(x / rhs, y / rhs, z / rhs); }
+		Vector3<T>& operator += (const Vector3<T>& rhs) { return *this = *this + rhs; }
+		Vector3<T>& operator -= (const Vector3<T>& rhs) { return *this = *this - rhs; }
+		Vector3<T>& operator *= (const T& rhs) { return *this = *this * rhs; }
+		Vector3<T>& operator /= (const T& rhs) { return *this = *this / rhs; }
+		//Vector3<T> operator == (const Vector3<T>& rhs) { return this == rhs; }
+		T Length() const { return sqrtf(x * x + y * y + z * z); }
+		Vector3<T> Normalize() const { return *this * (1 / Length()); }
+		Vector3<T> Invert() const { return Vector3<T>{ -x, -y, -z }; }
+		T Distance(const Vector3<T>& rhs) const { return (*this - rhs).Length(); }
+		T Dist() { return std::sqrt(x * x + y * y); }
 	};
+	template<typename T>
+	struct Box {
+		T minX, minY, minZ;
+		T maxX, maxY, maxZ;
 
+
+		Box<T> operator + (const Box<T>& rhs) const {
+			return Box<T>{minX + rhs.minX,
+				minY + rhs.minY,
+				minZ + rhs.minZ,
+				maxX + rhs.maxX,
+				maxY + rhs.maxY,
+				maxZ + rhs.maxZ};
+		}
+		Box<T> operator + (const Vector3<T>& rhs) const {
+			return Box<T>{minX + rhs.x,
+				minY + rhs.y,
+				minZ + rhs.z,
+				maxX + rhs.x,
+				maxY + rhs.y,
+				maxZ + rhs.z};
+		}
+		Box<T> operator - (const Box<T>& rhs) const {
+			return Box<T>{minX - rhs.minX,
+				minY - rhs.minY,
+				minZ - rhs.minZ,
+				maxX - rhs.maxX,
+				maxY - rhs.maxY,
+				maxZ - rhs.maxZ};
+		}
+		Box<T> operator - (const Vector3<T>& rhs) const {
+			return Box<T>{minX - rhs.x,
+				minY - rhs.y,
+				minZ - rhs.z,
+				maxX - rhs.x,
+				maxY - rhs.y,
+				maxZ - rhs.z};
+		}
+		template<typename NT>
+		inline Box<NT> cast() const {
+			return Box<NT>{
+				static_cast<NT>(minX),
+					static_cast<NT>(minY),
+					static_cast<NT>(minZ),
+					static_cast<NT>(maxX),
+					static_cast<NT>(maxY),
+					static_cast<NT>(maxZ)
+			};
+		}
+
+	};
 	struct Vector2
 	{
 
@@ -67,8 +121,8 @@ namespace Math {
 		unsigned int y{ 0 };
 		unsigned int z{ 0 };
 	};
-
-	struct Vector3D {
+	using Vector3D = Vector3<double>;
+	/*struct Vector3D {
 		double x, y, z;
 
 		double distance(const Vector3D& other) const
@@ -81,7 +135,7 @@ namespace Math {
 		Vector3D& operator -= (const Vector3D& rhs) { return *this = *this - rhs; }
 
 		Vector3D operator * (const float& rhs) const { return Vector3D(x * rhs, y * rhs, z * rhs); }
-	};
+	};*/
 
 
 	struct Vector4
@@ -98,6 +152,16 @@ namespace Math {
 		double y{ NAN };
 		double z{ NAN };
 		double w{ NAN };
+	};
+	struct Rect
+	{
+		float left{ FLT_MAX };
+		float top{ FLT_MAX };
+		float right{ FLT_MIN };
+		float bottom{ FLT_MIN };
+		inline bool vaild() {
+			return left != FLT_MAX && top != FLT_MAX && right != FLT_MIN && bottom != FLT_MIN;
+		}
 	};
 
 	// https://github.com/Marcelektro/MCP-919/blob/main/src/minecraft/net/minecraft/util/Matrix4f.java
@@ -238,6 +302,9 @@ namespace Math {
 	namespace W2S {
 
 		std::array<double, 3> world2Screen(const std::array<float, 16>& modelViewMatrix, const std::array<float, 16>& projectionMatrix, const Math::Vector3D& pos, const std::array<int, 4>& viewport, double guiScale = 2.0f);
+		inline std::array<double, 3> world2Screen(const Math::Matrix& modelViewMatrix, const Math::Matrix& projectionMatrix, const Math::Vector3D& pos, const std::array<int, 4>& viewport, double guiScale = 2.0f) {
+			return world2Screen(Math::structToArray(modelViewMatrix), Math::structToArray(projectionMatrix), pos, viewport, guiScale);
+		}
 
 		inline bool WorldToScreen(Vector3D point, Matrix modelView, Matrix projection, int screenWidth, int screenHeight, Vector2D& screenPos) {
 			// csp = Clip Space Position
@@ -282,7 +349,7 @@ namespace Math {
 	{
 		return x * 180.f / PI;
 	}
-	inline Vector2 getAngles(Vector3 pos, Vector3 pos1)
+	inline Vector2 getAngles(Vector3<float> pos, Vector3<float> pos1)
 	{
 		double d_x = pos1.x - pos.x;
 		double d_y = pos1.y - pos.y;

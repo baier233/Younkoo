@@ -11,14 +11,7 @@
 #include <array>
 
 static std::array<int, 4> viewport{};
-struct EntityData {
-	std::string name;
-	Math::Vector2 name_pos;
-	float top;
-	float bottom;
-	float left;
-	float right;
-};
+
 
 static std::vector<EntityData> entitiesToRender[2]{ {},{} };
 static int currentBufferIndex = 0;
@@ -51,8 +44,8 @@ void ESP::onRender(const EventRender2D& e) {
 	if (entitiesToRender[nextBufferIndex].empty()) return;
 	currentBufferIndex = nextBufferIndex;
 	for (const auto& entity : entitiesToRender[currentBufferIndex]) {
-		auto entityName = wstr::toString(entity.name);
-		auto bounds = NanoVGHelper::nvgTextBoundsW(e.vg, entityName, NanoVGHelper::fontHarmony, 30);
+		//auto entityName = wstr::toString(entity.name);
+		//auto bounds = NanoVGHelper::nvgTextBoundsW(e.vg, entityName, NanoVGHelper::fontHarmony, 30);
 		//NanoVGHelper::nvgTextW(vg, entityName, entity.name_pos.x - bounds.first / 2, entity.name_pos.y - bounds.second / 2, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
 		NanoVGHelper::drawRoundedOutlineRect(vg, entity.left, entity.top, entity.right - entity.left, entity.bottom - entity.top, 0.f, 2.f, NanoVGHelper::rgbaToColor(0, 0, 0, 255));
 		NanoVGHelper::drawRoundedOutlineRect(vg, entity.left, entity.top, entity.right - entity.left, entity.bottom - entity.top, 0.f, 1.f, NanoVGHelper::rgbaToColor(255, 255, 255, 255));
@@ -110,7 +103,7 @@ void ESP::onRender3D(const EventRender3D& e) {
 		float bottomPoint = FLT_MIN;
 
 		for (const auto& pos : posArray) {
-			auto result = W2S::world2Screen(structToArray(e.MODLEVIEW_MATRIX), structToArray(e.PROJECTION_MATRIX), pos, viewport, 1);
+			auto result = W2S::world2Screen(structToArray(e.MODELVIEW_MATRIX), structToArray(e.PROJECTION_MATRIX), pos, viewport, 1);
 			Vector2 point{ result[0], result[1] };
 
 			if (result[2] > 0 && result[2] < 1) {
@@ -126,7 +119,7 @@ void ESP::onRender3D(const EventRender3D& e) {
 		}
 
 		if (ok) {
-			auto result = W2S::world2Screen(structToArray(e.MODLEVIEW_MATRIX), structToArray(e.PROJECTION_MATRIX), Vector3D(renderPos.x, renderPos.y + entityHeight + 0.3f, renderPos.z), viewport, 1);
+			auto result = W2S::world2Screen(structToArray(e.MODELVIEW_MATRIX), structToArray(e.PROJECTION_MATRIX), Vector3D(renderPos.x, renderPos.y + entityHeight + 0.3f, renderPos.z), viewport, 1);
 
 			newEntities.push_back(EntityData{
 				.name = player.getDisplayName(),

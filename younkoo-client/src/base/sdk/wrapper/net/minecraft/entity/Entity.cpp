@@ -174,3 +174,13 @@ void Wrapper::Entity::setSneak(bool value)
 		entity.setShiftKeyDown(value);
 	}
 }
+
+Math::Box<double> Wrapper::Entity::getBoundingBox()
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		V1_18_1::Entity entity = this->getObject();
+		return entity.getBoundingBox().toBox();
+	}
+	return Math::Box<double>();
+}

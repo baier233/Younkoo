@@ -15,6 +15,9 @@ JNI::Field < JDK::List, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/client/multiplayer/ClientLevel"), "players")
 )> players{ *this };/* Ljava/util/List; */
 
+JNI::Method<JDK::java_lang::Iterable, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/client/multiplayer/ClientLevel", "entitiesForRendering", "()Ljava/lang/Iterable;").first
+)> entitiesForRendering{ *this };
 END_KLASS_DEF();
 
 

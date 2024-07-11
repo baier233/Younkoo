@@ -10,6 +10,7 @@ class World :public Object {
 public:
 	using Object::Object;
 	std::vector<EntityPlayer> getPlayerList();
+	std::vector<Entity> getEntityList();
 	BlockState getBlockState(const Math::Vector3D& pos);
 	BlockState getBlockState(const BlockPos& pos);
 };

@@ -18,8 +18,9 @@ void CommonData::onRender3D(const EventRender3D& e)
 {
 	renderPartialTicks = e.TICK_DELTA;
 	projection = e.PROJECTION_MATRIX;
-	modelView = e.MODLEVIEW_MATRIX;
+	modelView = e.MODELVIEW_MATRIX;
 }
+#include <base/render/Renderer.hpp>
 
 void CommonData::onUpdate()
 {
@@ -36,6 +37,10 @@ void CommonData::onUpdate()
 
 	this->eyeHeight = player.getEyeHeight();
 	this->renderPos = /*player.getPosition(renderPartialTicks) -*/ cameraPos /*+ Math::Vector3D{ 0, ySubtractValue - eyeHeight, 0 }*/;
+
+	const auto& renderContext = Renderer::get().renderContext;
+	this->viewport = { 0, 0, renderContext.winSize.first, renderContext.winSize.second };
+
 }
 
 
