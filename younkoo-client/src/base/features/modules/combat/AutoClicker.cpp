@@ -59,7 +59,7 @@ void AutoClicker::onDisable()
 {
 
 }
-
+static bool blockState = false;
 void AutoClicker::onUpdate()
 {
 	ToggleCheck;
@@ -108,11 +108,15 @@ void AutoClicker::onUpdate()
 
 		if (miningValue->getValue() && mouseOver.isTypeOfBlock()) {
 			//std::cout << "Break" << std::endl;
-			PostMessageA(handleWindow, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
-			updateCps();
+			if (!blockState)
+			{
+				PostMessageA(handleWindow, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+				updateCps();
+				blockState = true;
+			}
 			break;
 		}
-
+		blockState = false;
 		//CommonData::getInstance()->isCombat = true;
 		PostMessageA(handleWindow, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
 		PostMessageA(handleWindow, WM_LBUTTONUP, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
