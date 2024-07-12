@@ -5,7 +5,7 @@
 
 #include <optional>
 #include <random>
-#include <wrapper/net/minecraft/entity/item/ItemBlock.h>
+#include <wrapper/net/minecraft/item/ItemBlock.h>
 
 
 namespace Left {
@@ -142,9 +142,17 @@ void AutoClicker::onUpdate()
 
 		if (GetAsyncKeyState(VK_RBUTTON) && 1) {
 
-			auto item = mc.getPlayer().getInventory().getCurrentItem();
-			if (item.getObject() == NULL) return;
-			if (blockOnlyValue->getValue() && !(JNI::get_env()->IsInstanceOf(mc.getPlayer().getMainHandItemStack().getItem().getObject(), Wrapper::ItemBlock::klass()) || JNI::get_env()->IsInstanceOf(mc.getPlayer().getOffhandItemStack().getItem().getObject(), Wrapper::ItemBlock::klass()))) return;
+			auto itemStack = mc.getPlayer().getInventory().getCurrentItem();
+			if (itemStack.isNULL()) return;
+			auto mainItem = itemStack.getItem();
+			if (mainItem.getObject() == NULL) return;
+
+			auto offitemStack = mc.getPlayer().getOffhandItemStack();
+			if (offitemStack.isNULL()) return;
+			auto offItem = offitemStack.getItem();
+			if (mainItem.getObject() == NULL) return;
+
+			if (blockOnlyValue->getValue() && !(JNI::get_env()->IsInstanceOf(mainItem.getObject(), Wrapper::ItemBlock::klass()) || JNI::get_env()->IsInstanceOf(offItem.getObject(), Wrapper::ItemBlock::klass()))) return;
 
 			POINT pos_cursor;
 

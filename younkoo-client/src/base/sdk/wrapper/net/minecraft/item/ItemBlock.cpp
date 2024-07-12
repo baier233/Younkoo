@@ -1,6 +1,6 @@
 ﻿#include "ItemBlock.h"
 
-#include <wrapper/versions/1_18_1/net/minecraft/world/entity/item/BlockItem.h>
+#include <wrapper/versions/1_18_1/net/minecraft/world/item/BlockItem.h>
 
 jclass Wrapper::ItemBlock::klass()
 {
