@@ -11,3 +11,14 @@ jclass Wrapper::EntityItem::klass()
 	}
 	return jclass();
 }
+
+
+Wrapper::ItemStack Wrapper::EntityItem::getItemStack()
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		V1_18_1::ItemEntity itemEntity = this->getObject();
+		return itemEntity.getItem();
+	}
+	return ItemStack();
+}

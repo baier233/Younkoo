@@ -35,11 +35,11 @@ namespace utils {
 			glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ);
 			glEnd();
 		}
-		inline void drawFilledBox(Math::Box<double>& boundingBox)
+		inline void drawFilledBox(Math::Box<double>& boundingBox, NVGcolor color = { 1,1,1 ,1 * 0.15f })
 		{
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			glColor4f(255, 255, 255, 0.15f);
+			glColor4f(color.r, color.g, color.b, color.a);
 			glBegin(7);
 			glVertex3f(boundingBox.minX, boundingBox.minY, boundingBox.minZ);
 			glVertex3f(boundingBox.minX, boundingBox.maxY, boundingBox.minZ);

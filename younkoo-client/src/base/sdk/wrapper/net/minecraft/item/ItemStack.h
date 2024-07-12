@@ -8,6 +8,7 @@ class ItemStack : public Object
 public:
 	using Object::Object;
 	float getStrVsBlock(const BlockState& state);
+	int getColorBasedOnRarity();
 };
 END_WRAP;
 

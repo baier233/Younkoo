@@ -31,5 +31,8 @@ namespace JDK {
 	}
 
 
+	BEGIN_KLASS_DEF(Integer, return "java/lang/Integer")
+		JNI::Method<jint, JNI::NOT_STATIC, DECLARE_NAME(return "intValue")> intValue{ *this };
+	END_KLASS_DEF();
 
 }

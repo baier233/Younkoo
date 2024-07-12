@@ -40,9 +40,9 @@ void ItemESP::onUpdate() {
 #include <utils/render.h>
 #include "../common/CommonData.h"
 #include "ESP.h"
-static std::vector<std::pair<Math::Vector2D, Math::Vector2D>> linesToDraw[2]{ {},{ } };
-static std::vector<Math::Box<double>> boxesToDraw[2]{ {},{ } };
-static std::vector<EntityData> entites2DToDraw[2]{ {},{ } };
+static std::vector<std::pair<std::pair<Math::Vector2D, Math::Vector2D>, int>> linesToDraw[2]{ {},{ } };
+static std::vector<std::pair<Math::Box<double>, int>> boxesToDraw[2]{ {},{ } };
+static std::vector<std::pair<EntityData, int >> entites2DToDraw[2]{ {},{ } };
 static int currentBufferIndex = 0;
 
 void ItemESP::onRender(const EventRender2D& e) {
@@ -58,8 +58,11 @@ void ItemESP::onRender(const EventRender2D& e) {
 			if (linesToDraw[nextBufferIndex].empty()) return;
 			currentBufferIndex = nextBufferIndex;
 
-			for (const auto& [begin, end] : linesToDraw[currentBufferIndex]) {
-				NanoVGHelper::drawLine(vg, begin.x, begin.y, end.x, end.y, 1, NanoVGHelper::rgbaToColor(255, 255, 255, 255));
+			for (const auto& [pair, color] : linesToDraw[currentBufferIndex]) {
+				const auto& [begin, end] = pair;
+				auto rgbaColor = NanoVGHelper::colorToRGB255(color);
+				rgbaColor.a = 0XFF;
+				NanoVGHelper::drawLine(vg, begin.x, begin.y, end.x, end.y, 1, NanoVGHelper::rgbaToColor(rgbaColor.r, rgbaColor.g, rgbaColor.b, rgbaColor.a));
 			}
 		}
 
@@ -82,9 +85,11 @@ void ItemESP::onRender(const EventRender2D& e) {
 			glDisable(GL_DEPTH_TEST);
 			glDepthMask(GL_FALSE);
 			glEnable(GL_LINE_SMOOTH);
-			for (auto& box : boxesToDraw[currentBufferIndex])
+			for (auto& [box, color] : boxesToDraw[currentBufferIndex])
 			{
-				utils::render::drawFilledBox(box);
+				auto rgbaColor = NanoVGHelper::colorToRGB(color);
+				rgbaColor.a = 0.15f;
+				utils::render::drawFilledBox(box, rgbaColor);
 			}
 			glDisable(GL_LINE_SMOOTH);
 			glEnable(GL_TEXTURE_2D);
@@ -97,12 +102,14 @@ void ItemESP::onRender(const EventRender2D& e) {
 			int nextBufferIndex = (currentBufferIndex + 1) % 2;
 			if (entites2DToDraw[nextBufferIndex].empty()) return;
 			currentBufferIndex = nextBufferIndex;
-			for (const auto& entity : entites2DToDraw[currentBufferIndex]) {
+			for (const auto& [entity, color] : entites2DToDraw[currentBufferIndex]) {
 				auto entityName = wstr::toString(entity.name);
+				auto rgbaColor = NanoVGHelper::colorToRGB255(color);
+				rgbaColor.a = 0XFF;
 				auto bounds = NanoVGHelper::nvgTextBoundsW(e.vg, entityName, NanoVGHelper::fontHarmony, 15);
-				if (displayerNameValue->getValue()) NanoVGHelper::nvgTextW(vg, entityName, entity.name_pos.x - bounds.first / 2, entity.name_pos.y - bounds.second / 2, NanoVGHelper::fontHarmony, 15, nvgRGBA(255, 255, 255, 255));
+				if (displayerNameValue->getValue()) NanoVGHelper::nvgTextW(vg, entityName, entity.name_pos.x - bounds.first / 2, entity.name_pos.y - bounds.second / 2, NanoVGHelper::fontHarmony, 15, nvgRGBA(rgbaColor.r, rgbaColor.g, rgbaColor.b, rgbaColor.a));
 				NanoVGHelper::drawRoundedOutlineRect(vg, entity.left, entity.top, entity.right - entity.left, entity.bottom - entity.top, 0.f, 2.f, NanoVGHelper::rgbaToColor(0, 0, 0, 255));
-				NanoVGHelper::drawRoundedOutlineRect(vg, entity.left, entity.top, entity.right - entity.left, entity.bottom - entity.top, 0.f, 1.f, NanoVGHelper::rgbaToColor(255, 255, 255, 255));
+				NanoVGHelper::drawRoundedOutlineRect(vg, entity.left, entity.top, entity.right - entity.left, entity.bottom - entity.top, 0.f, 1.f, NanoVGHelper::rgbaToColor(rgbaColor.r, rgbaColor.g, rgbaColor.b, rgbaColor.a));
 			}
 
 		}
@@ -127,9 +134,9 @@ void ItemESP::onRender3D(const EventRender3D& e) {
 		auto entites = level.getEntityList();
 		auto& renderer = Renderer::get();
 
-		std::vector<std::pair<Math::Vector2D, Math::Vector2D>> newLines;
-		std::vector<Math::Box<double>> newBoxes;
-		std::vector<EntityData> newEntities;
+		std::vector < std::pair<std::pair<Math::Vector2D, Math::Vector2D>, int>> newLines;
+		std::vector<std::pair<Math::Box<double>, int>> newBoxes;
+		std::vector<std::pair<EntityData, int>> newEntities;
 
 		auto mode = modeValue->getValue();
 		for (auto& entity : entites) {
@@ -142,8 +149,10 @@ void ItemESP::onRender3D(const EventRender3D& e) {
 			auto height = entity.getHeight();
 			auto width = entity.getWidth() / 2.f;
 			Box<double> box{ renderPos.x - static_cast<double>(width), renderPos.y, renderPos.z - static_cast<double>(width), renderPos.x + static_cast<double>(width), renderPos.y + static_cast<double>(height), renderPos.z + static_cast<double>(width) };
+			Wrapper::EntityItem itemEntity(*entity.instance.get());
+			auto color = itemEntity.getItemStack().getColorBasedOnRarity();
 
-			if (mode == MODE3D) newBoxes.push_back(box);
+			if (mode == MODE3D) newBoxes.push_back(std::make_pair(box, color));
 
 
 
@@ -195,10 +204,10 @@ void ItemESP::onRender3D(const EventRender3D& e) {
 
 					if (ok)
 					{
-						newLines.push_back(std::make_pair(Math::Vector2D{ projected[0].x,projected[0].y }, Math::Vector2D{ projected[1].x,projected[1].y }));
-						newLines.push_back(std::make_pair(Math::Vector2D{ projected[1].x,projected[1].y }, Math::Vector2D{ projected[2].x,projected[2].y }));
-						newLines.push_back(std::make_pair(Math::Vector2D{ projected[2].x,projected[2].y }, Math::Vector2D{ projected[3].x,projected[3].y }));
-						newLines.push_back(std::make_pair(Math::Vector2D{ projected[3].x,projected[3].y }, Math::Vector2D{ projected[0].x,projected[0].y }));
+						newLines.push_back(std::make_pair(std::make_pair(Math::Vector2D{ projected[0].x,projected[0].y }, Math::Vector2D{ projected[1].x,projected[1].y }), color));
+						newLines.push_back(std::make_pair(std::make_pair(Math::Vector2D{ projected[1].x,projected[1].y }, Math::Vector2D{ projected[2].x,projected[2].y }), color));
+						newLines.push_back(std::make_pair(std::make_pair(Math::Vector2D{ projected[2].x,projected[2].y }, Math::Vector2D{ projected[3].x,projected[3].y }), color));
+						newLines.push_back(std::make_pair(std::make_pair(Math::Vector2D{ projected[3].x,projected[3].y }, Math::Vector2D{ projected[0].x,projected[0].y }), color));
 					}
 				}
 			}
@@ -245,14 +254,14 @@ void ItemESP::onRender3D(const EventRender3D& e) {
 				if (ok) {
 					auto result = W2S::world2Screen(structToArray(e.MODELVIEW_MATRIX), structToArray(e.PROJECTION_MATRIX), Vector3D(renderPos.x, renderPos.y + entityHeight + 0.15f, renderPos.z), viewport, 1);
 
-					newEntities.push_back(EntityData{
+					newEntities.push_back(std::make_pair(EntityData{
 						.name = entity.getDisplayName(),
 						.name_pos = Vector2(result[0], result[1]),
 						.top = topPoint,
 						.bottom = bottomPoint,
 						.left = leftPoint,
 						.right = rightPoint
-						});
+						}, color));
 				}
 			}
 			//continue;

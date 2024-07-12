@@ -156,10 +156,28 @@ namespace NanoVGHelper {
 
 	inline NVGcolor colorToRGBA(int color) {
 		NVGcolor nvgColor{};
-		nvgColor.a = ((color >> 24) & 0xFF) / 255.0f;
-		nvgColor.r = ((color >> 16) & 0xFF) / 255.0f;
-		nvgColor.g = ((color >> 8) & 0xFF) / 255.0f;
-		nvgColor.b = ((color >> 0) & 0xFF) / 255.0f;
+		nvgColor.a = ((color >> 24) & 0xFF);
+		nvgColor.r = ((color >> 16) & 0xFF);
+		nvgColor.g = ((color >> 8) & 0xFF);
+		nvgColor.b = ((color >> 0) & 0xFF);
+		return nvgColor;
+	}
+
+	inline NVGcolor colorToRGB(int color) {
+		NVGcolor nvgColor{};
+		nvgColor.r = ((color >> 16) & 0xFF) / 255;
+		nvgColor.g = ((color >> 8) & 0xFF) / 255;
+		nvgColor.b = ((color >> 0) & 0xFF) / 255;
+		nvgColor.a = 0XFF / 255;
+		return nvgColor;
+	}
+
+	inline NVGcolor colorToRGB255(int color) {
+		NVGcolor nvgColor{};
+		nvgColor.r = ((color >> 16) & 0xFF);
+		nvgColor.g = ((color >> 8) & 0xFF);
+		nvgColor.b = ((color >> 0) & 0xFF);
+		nvgColor.a = 0XFF / 255;
 		return nvgColor;
 	}
 

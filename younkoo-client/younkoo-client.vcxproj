@@ -646,6 +646,7 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack$Pose.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\math\Matrix4f.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\ChatFormatting.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Camera.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\KeyMapping.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Options.h" />
@@ -704,6 +705,7 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\DyeableLeatherItem.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\Item.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\ItemStack.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\Rarity.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\Block.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\state\BlockBehaviour$BlockStateBase.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\state\BlockState.h" />

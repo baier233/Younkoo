@@ -381,6 +381,12 @@
     <ClCompile Include="ext\gl2d\gl2dParticleSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\render\api\FixedPipelineEmulator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\AABB.h">
+      <Filter>头文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -1899,6 +1905,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ext\gl2d\gl2dParticleSystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\render\api\FixedPipelineEmulator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\render.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\Rarity.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\ChatFormatting.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
