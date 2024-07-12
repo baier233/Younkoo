@@ -23,11 +23,18 @@ Eagle& Eagle::getInstance()
 
 void Eagle::onEnable()
 {
+
+
 }
 
 void Eagle::onDisable()
 {
 
+	auto mc = Wrapper::Minecraft::getMinecraft();
+
+	auto options = mc.getSettings();
+	if (options.isNULL()) return;
+	options.setShiftKeyPressed(false);
 }
 
 
@@ -39,7 +46,7 @@ void Eagle::onUpdate()
 	auto player = mc.getPlayer();
 	auto level = mc.getWorld();
 
-	auto state = level.getBlockState(player.getPosition() - Math::Vector3D{ 0,0.49,0 });
+	auto state = level.getBlockState(player.getPosition() - Math::Vector3D{ 0,0.1,0 });
 	auto result = !state.isNULL() && state.isAir();
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
 	{

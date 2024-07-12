@@ -30,7 +30,9 @@ void AbstractModule::toggle() {
 	this->onToggled();
 }
 
+#include <base/render/gui/GUI.h>
 void AbstractModule::onToggled() {
+	NanoGui::updateModule(this);
 	if (this->i_toggle) {
 		this->onEnable();
 	}
@@ -60,8 +62,8 @@ void AbstractModule::disable() {
 void AbstractModule::setKeyCode(int keycode) {
 	this->key = keycode;
 }
-
 void AbstractModule::onKeyEvent(int key) {
-	if (this->getKey() == key)
+	if (this->getKey() == key) {
 		this->toggle();
+	}
 }

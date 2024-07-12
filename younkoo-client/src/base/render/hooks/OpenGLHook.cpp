@@ -138,6 +138,12 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 		NanoGui::available = !NanoGui::available;
 	}
 
+	if (WndProcHook::RESIZED.load())
+	{
+		//Calc componenst and windows postion and size;
+		NanoGui::layOut();
+	}
+
 	if (NanoGui::available.load())
 	{
 		NanoGui::drawGui();

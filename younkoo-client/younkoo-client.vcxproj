@@ -169,6 +169,7 @@
     <ClCompile Include="ext\gl2d\gl2d.cpp" />
     <ClCompile Include="ext\gl2d\gl2dParticleSystem.cpp" />
     <ClCompile Include="ext\glm\detail\glm.cpp" />
+    <ClCompile Include="src\base\sdk\hook\HookHandler.cpp" />
     <ClCompile Include="src\base\render\api\FixedPipelineEmulator.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\item\EntityItem.cpp" />
     <ClCompile Include="src\base\features\modules\visual\ItemESP.cpp" />
@@ -622,6 +623,7 @@
     <ClInclude Include="ext\nanovg\fontstash.h" />
     <ClInclude Include="ext\nanovg\stb_image.h" />
     <ClInclude Include="ext\nanovg\stb_truetype.h" />
+    <ClInclude Include="src\base\sdk\hook\HookHandler.h" />
     <ClInclude Include="src\base\render\api\FixedPipelineEmulator.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\item\EntityItem.h" />
     <ClInclude Include="src\base\features\modules\visual\ItemESP.h" />

@@ -12,7 +12,6 @@
 
 static std::array<int, 4> viewport{};
 
-
 static std::vector<EntityData> entitiesToRender[2]{ {},{} };
 static int currentBufferIndex = 0;
 

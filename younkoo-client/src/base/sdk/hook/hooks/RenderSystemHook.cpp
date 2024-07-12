@@ -86,9 +86,9 @@ void RenderSystemHook::applyHook() {
 
 			(void)JNI::get_env()->PushLocalFrame(60);
 
-			auto gameRender_obj = (jobject)bp->get_parameter(0);
-			auto tickDelta = *(float*)bp->get_parameter(1);
-			long startTime = *bp->lload(2);
+			const auto gameRender_obj = (jobject)bp->get_parameter(0);
+			const auto tickDelta = *(float*)bp->get_parameter(1);
+			const long startTime = *bp->lload(2);
 
 			static int matrix4f_4f_slot = 11;
 			static int poseStack_slot = 4;
@@ -97,8 +97,8 @@ void RenderSystemHook::applyHook() {
 				static std::once_flag flag{};
 				std::call_once(flag, [bp] {
 					{
-						auto c_m = bp->method->get_const_method();
-						auto entries = c_m->get_local_variable_entries();
+						const auto c_m = bp->method->get_const_method();
+						const auto entries = c_m->get_local_variable_entries();
 						for (auto& entry : entries)
 						{
 							/*std::cout << std::format("entry : {}\nstart_location: {}\nlength: {}\nsignature: {}\ngeneric_signature: {}\nslot: {}",
@@ -160,5 +160,7 @@ void RenderSystemHook::applyHook() {
 
 			bp->java_thread->set_thread_state(orginal_state);
 			return;
-		});
+		}
+	);
+
 }

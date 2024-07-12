@@ -264,8 +264,6 @@ void ItemESP::onRender3D(const EventRender3D& e) {
 						}, color));
 				}
 			}
-			//continue;
-
 		}
 
 		linesToDraw[currentBufferIndex] = {};

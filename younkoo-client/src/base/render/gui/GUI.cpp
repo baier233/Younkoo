@@ -16,6 +16,24 @@
 
 #include <iomanip>
 #include <sstream>
+
+#include <map>
+using namespace nanogui;
+
+static std::vector<std::pair<std::pair<int, int>, std::function<void(int oWidth, int oHeight)>>> layoutLambdas;
+static std::map<AbstractModule*, Button*> toggleButtons;
+
+
+
+void NanoGui::updateModule(AbstractModule* mod)
+{
+	auto it = toggleButtons.find(mod);
+	if (it != toggleButtons.end())
+	{
+		auto button = it->second;
+		button->setCaption(mod->getToggle() ? "Disable" : "Toggle");
+	}
+}
 namespace NanoGui {
 	nanogui::ref<nanogui::Screen> screen = nullptr;
 	///screen 不需要主动调用decref,在delete form的时候screen会跟着释放。
@@ -31,7 +49,6 @@ public:
 		Younkoo::get().EventBus->fire_event(e);
 	}
 };
-using namespace nanogui;
 static void createWindow(int xPos, const std::string& title, Category category) {
 	auto win = new Window(NanoGui::screen, title);
 	win->setPosition(Vector2i(xPos, 10));
@@ -61,6 +78,8 @@ static void createWindow(int xPos, const std::string& title, Category category) 
 				mod->toggle();
 				button->setCaption(mod->getToggle() ? "Disable" : "Toggle");
 				});
+
+			toggleButtons[mod] = button;
 
 			for (auto& valuePair : mod->getValues()) {
 				ValueType valueType = valuePair.first;
@@ -185,28 +204,41 @@ static void createWindow(int xPos, const std::string& title, Category category) 
 	}
 	win->performLayout(NanoGui::screen->nvgContext());
 
-	// 获取布局后的宽高
 	Vector2i size = win->preferredSize(NanoGui::screen->nvgContext());
-	int width = size.x();
-	int height = size.y();
 
-	auto winHeight = Renderer::get().renderContext.winSize.second;
-	std::cout << height << " " << winHeight << std::endl;
-	if (width < 250)
-	{
-		width = 250;
-	}
-	if (height < 100)
-	{
-		height = 100;
-	}
-	if (height > winHeight * 0.85)
-	{
-		height = winHeight * 0.85;
-	}
-	scrollPanel->setFixedSize(Vector2i(width, height));
+	std::function<void(int, int)> doLayout = [win, scrollPanel](int width, int height) {
+
+		auto [winWidth, winHeight] = Renderer::get().renderContext.winSize;
+		//std::cout << "height : " << width << " " << winHeight << std::endl;
+		//std::cout << "width :" << height << " " << winWidth << std::endl;
+		if (width < 250)
+		{
+			width = 250;
+		}
+		if (height < 100)
+		{
+			height = 100;
+		}
+		if (height > winHeight * 0.85)
+		{
+			height = winHeight * 0.85;
+		}
+		scrollPanel->setFixedSize(Vector2i(width, height));
+		};
+	layoutLambdas.push_back(std::make_pair(std::make_pair(size.x(), size.y()), doLayout));
 }
 
+
+void NanoGui::layOut()
+{
+	for (auto& [oWinSize, doLayout] : layoutLambdas)
+	{
+		auto& [width, height] = oWinSize;
+		doLayout(width, height);
+	}
+
+	screen->performLayout();
+}
 
 void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 {
@@ -239,8 +271,10 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 		}
 		xPos += 200;
 	}
+
+	layOut();
+
 	screen->setVisible(true);
-	screen->performLayout();
 
 	YounkooIO::IOEvents.SetCursorPosCallback(
 		[](HWND w, double x, double y) {
@@ -327,6 +361,7 @@ void NanoGui::drawContents()
 	screen->updateContext();
 	screen->drawContentWrap();
 }
+
 
 void NanoGui::clean()
 {

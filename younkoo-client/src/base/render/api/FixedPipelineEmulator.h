@@ -89,6 +89,7 @@ public:
 		glBindTexture(GL_TEXTURE_2D, textureId);
 		glUniform1i(u_texture, 0);
 	}
+
 	inline void begin() {
 		shaderProgram.bind();
 		glm::mat4 mvpMatrix = projectionMatrix * modelViewMatrix;
