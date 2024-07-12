@@ -1,5 +1,7 @@
 ﻿#include "ItemStack.h"
 #include <wrapper/versions/1_18_1/net/minecraft/world/item/ItemStack.h>
+#include <wrapper/versions/1_18_1/net/minecraft/world/item/Item.h>
+
 float Wrapper::ItemStack::getStrVsBlock(const BlockState& state)
 {
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
@@ -10,6 +12,17 @@ float Wrapper::ItemStack::getStrVsBlock(const BlockState& state)
 	}
 	return 0.0f;
 }
+
+Wrapper::Item Wrapper::ItemStack::getItem()
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		V1_18_1::ItemStack stack = this->getObject();
+		return stack.getItem();
+	}
+	return Item();
+}
+
 
 int Wrapper::ItemStack::getColorBasedOnRarity()
 {
