@@ -15,7 +15,7 @@
 ItemESP::ItemESP() : AbstractModule(xorstr_("ItemESP"), Category::VISUAL) {
 	REGISTER_EVENT(EventRender3D, ItemESP::onRender3D);
 	REGISTER_EVENT(EventRender2D, ItemESP::onRender);
-	this->addValue(BoolType, displayerNameValue);
+	this->addValue(BoolType, displayNameValue);
 	this->addValue(ListType, modeValue);
 }
 
@@ -107,7 +107,7 @@ void ItemESP::onRender(const EventRender2D& e) {
 				auto rgbaColor = NanoVGHelper::colorToRGB255(color);
 				rgbaColor.a = 0XFF;
 				auto bounds = NanoVGHelper::nvgTextBoundsW(e.vg, entityName, NanoVGHelper::fontHarmony, 15);
-				if (displayerNameValue->getValue()) NanoVGHelper::nvgTextW(vg, entityName, entity.name_pos.x - bounds.first / 2, entity.name_pos.y - bounds.second / 2, NanoVGHelper::fontHarmony, 15, nvgRGBA(rgbaColor.r, rgbaColor.g, rgbaColor.b, rgbaColor.a));
+				if (displayNameValue->getValue()) NanoVGHelper::nvgTextW(vg, entityName, entity.name_pos.x - bounds.first / 2, entity.name_pos.y - bounds.second / 2, NanoVGHelper::fontHarmony, 15, nvgRGBA(rgbaColor.r, rgbaColor.g, rgbaColor.b, rgbaColor.a));
 				NanoVGHelper::drawRoundedOutlineRect(vg, entity.left, entity.top, entity.right - entity.left, entity.bottom - entity.top, 0.f, 2.f, NanoVGHelper::rgbaToColor(0, 0, 0, 255));
 				NanoVGHelper::drawRoundedOutlineRect(vg, entity.left, entity.top, entity.right - entity.left, entity.bottom - entity.top, 0.f, 1.f, NanoVGHelper::rgbaToColor(rgbaColor.r, rgbaColor.g, rgbaColor.b, rgbaColor.a));
 			}

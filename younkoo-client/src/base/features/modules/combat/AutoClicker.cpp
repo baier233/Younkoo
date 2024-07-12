@@ -133,13 +133,19 @@ void AutoClicker::onUpdate()
 
 	if (right)
 	{
-		auto item = mc.getPlayer().getInventory().getCurrentItem();
-		if (item.getObject() == NULL) return;
-		if (blockOnlyValue->getValue() && !JNI::get_env()->IsInstanceOf(item.getObject(), Wrapper::ItemBlock::klass())) return;
+
 		long milli = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 		if (Right::lastClickTime == 0) Right::lastClickTime = milli;
 		if ((milli - Right::lastClickTime) < (1000 / Right::nextCps)) return;
+
+
+
 		if (GetAsyncKeyState(VK_RBUTTON) && 1) {
+
+			auto item = mc.getPlayer().getInventory().getCurrentItem();
+			if (item.getObject() == NULL) return;
+			if (blockOnlyValue->getValue() && !JNI::get_env()->IsInstanceOf(item.getObject(), Wrapper::ItemBlock::klass())) return;
+
 			POINT pos_cursor;
 
 			GetCursorPos(&pos_cursor);
