@@ -12,6 +12,7 @@ public:
 	void setCurrentItem(int index);
 
 	int getCurrentSlot();
+	ItemStack getCurrentItem();
 };
 
 

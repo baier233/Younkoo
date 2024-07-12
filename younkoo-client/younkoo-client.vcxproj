@@ -173,6 +173,7 @@
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\item\EntityItem.cpp" />
     <ClCompile Include="src\base\features\modules\visual\ItemESP.cpp" />
     <ClCompile Include="src\base\features\modules\player\AutoTool.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\item\ItemBlock.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\item\Item.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\item\ItemStack.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\player\InventoryPlayer.cpp" />
@@ -627,6 +628,7 @@
     <ClInclude Include="src\base\features\modules\player\AutoTool.h" />
     <ClInclude Include="src\base\render\resources\fonts\clickgui-icon.h" />
     <ClInclude Include="src\base\render\resources\fonts\roboto.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\item\ItemBlock.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\item\Item.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\item\ItemStack.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\player\InventoryPlayer.h" />
@@ -692,6 +694,7 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\commands\arguments\EntityAnchorArgument$Anchor.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\NonNullList.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\chat\Component.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\item\BlockItem.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\item\ItemEntity.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\player\Inventory.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\player\Player.h" />

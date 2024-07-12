@@ -41,3 +41,13 @@ int Wrapper::InventoryPlayer::getCurrentSlot()
 	}
 	return 0;
 }
+
+Wrapper::ItemStack Wrapper::InventoryPlayer::getCurrentItem()
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		V1_18_1::Inventory inventory = this->getObject();
+		return inventory.getSelected();
+	}
+	return ItemStack();
+}

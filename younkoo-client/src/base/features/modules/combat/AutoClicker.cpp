@@ -5,6 +5,7 @@
 
 #include <optional>
 #include <random>
+#include <wrapper/net/minecraft/entity/item/ItemBlock.h>
 
 
 namespace Left {
@@ -40,6 +41,7 @@ AutoClicker::AutoClicker() :AbstractModule(xorstr_("AutoClicker"), Category::COM
 	this->addValue(BoolType, inInventoryValue);
 
 	this->addValue(ListType, clickModeValue);
+	this->addValue(ListType, blockOnlyValue);
 }
 
 
@@ -80,6 +82,8 @@ void AutoClicker::onUpdate()
 	auto [left, right] = getClickMode(static_cast<ClickMode>(clickModeValue->getValue())).value_or(std::make_pair(false, false));
 	const auto handleWindow = Renderer::get().renderContext.HandleWindow;
 
+	auto mc = Wrapper::Minecraft::getMinecraft();
+
 	while (left)
 	{
 		long milli = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
@@ -88,7 +92,6 @@ void AutoClicker::onUpdate()
 
 		if (!GetAsyncKeyState(VK_LBUTTON) && 1) break;
 
-		auto mc = Wrapper::Minecraft::getMinecraft();
 		auto mouseOver = mc.getMouseOver();
 
 		POINT pos_cursor;
@@ -130,7 +133,26 @@ void AutoClicker::onUpdate()
 
 	if (right)
 	{
+		auto item = mc.getPlayer().getInventory().getCurrentItem();
+		if (item.getObject() == NULL) return;
+		if (blockOnlyValue->getValue() && !JNI::get_env()->IsInstanceOf(item.getObject(), Wrapper::ItemBlock::klass())) return;
+		long milli = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+		if (Right::lastClickTime == 0) Right::lastClickTime = milli;
+		if ((milli - Right::lastClickTime) < (1000 / Right::nextCps)) return;
+		if (GetAsyncKeyState(VK_RBUTTON) && 1) {
+			POINT pos_cursor;
 
+			GetCursorPos(&pos_cursor);
+			PostMessageA(handleWindow, WM_RBUTTONDOWN, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+			PostMessageA(handleWindow, WM_RBUTTONUP, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+
+			Right::lastClickTime = milli;
+
+			std::random_device rd;
+			std::mt19937 gen(rd());
+			std::uniform_int_distribution<> distrib(this->rightMinCpsValue->getValue(), this->rightMaxCpsValue->getValue());
+			Right::nextCps = distrib(gen);
+		}
 	}
 
 }

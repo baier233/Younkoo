@@ -387,6 +387,9 @@
     <ClCompile Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\AABB.h">
       <Filter>头文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\item\ItemBlock.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -1917,6 +1920,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\ChatFormatting.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\item\BlockItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\item\ItemBlock.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

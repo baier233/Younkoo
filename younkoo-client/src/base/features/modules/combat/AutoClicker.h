@@ -31,6 +31,7 @@ protected:
 	DEFINE_FLOAT_VALUE(blockHitChanceValue, "BlockHit Chance", "Automatically right click chance. ", 3, 1, 50);
 
 	DEFINE_BOOL_VALUE(inInventoryValue, "Inventory", "Still effective when inventory screen is open.", false);
+	DEFINE_BOOL_VALUE(blockOnlyValue, "Right Block Only", "Only do right click when current item is Block.", false);
 
 	std::shared_ptr<ModeValue>clickModeValue = std::make_shared<ModeValue>("Mode", "Click Mode.", std::vector<int>{ BOTH, LEFTONLY, RIGHTONLY }, std::vector<std::string>{ "Both", "Left Only", "Right Only" }, BOTH);
 
