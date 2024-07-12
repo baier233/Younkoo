@@ -14,7 +14,7 @@ public:
 	void onRender3D(const EventRender3D& e);
 
 
-	DEFINE_BOOL_VALUE(displayerNameValue, "Displayer Name", "Displayer Name", false);
+	DEFINE_BOOL_VALUE(displayNameValue, "Display Name", "Display Name", false);
 
 	std::shared_ptr<ModeValue> modeValue = std::make_shared<ModeValue>("Mode", std::vector<int>{ PSEUDO3D, MODE3D, MODE2D }, std::vector<std::string>{ "Pseudo 3D", "3D", "2D" }, PSEUDO3D);
 

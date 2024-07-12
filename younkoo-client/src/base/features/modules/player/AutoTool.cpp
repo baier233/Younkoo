@@ -89,7 +89,7 @@ void AutoTool::onUpdate()
 		{
 			return;
 		}
-		if (bestSlot = inventory.getCurrentSlot())
+		if (bestSlot == inventory.getCurrentSlot())
 		{
 			return;
 		}

@@ -39,9 +39,9 @@ AutoClicker::AutoClicker() :AbstractModule(xorstr_("AutoClicker"), Category::COM
 
 	this->addValue(BoolType, miningValue);
 	this->addValue(BoolType, inInventoryValue);
+	this->addValue(BoolType, blockOnlyValue);
 
 	this->addValue(ListType, clickModeValue);
-	this->addValue(BoolType, blockOnlyValue);
 }
 
 
@@ -133,12 +133,19 @@ void AutoClicker::onUpdate()
 
 	if (right)
 	{
-		if (mc.getPlayer().getMainHandItemStack().getItem().getObject() == NULL || mc.getPlayer().getOffhandItemStack().getItem().getObject() == NULL) return;
-		if (blockOnlyValue->getValue() && !(JNI::get_env()->IsInstanceOf(mc.getPlayer().getMainHandItemStack().getItem().getObject(), Wrapper::ItemBlock::klass()) || JNI::get_env()->IsInstanceOf(mc.getPlayer().getOffhandItemStack().getItem().getObject(), Wrapper::ItemBlock::klass()))) return;
+
 		long milli = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 		if (Right::lastClickTime == 0) Right::lastClickTime = milli;
 		if ((milli - Right::lastClickTime) < (1000 / Right::nextCps)) return;
+
+
+
 		if (GetAsyncKeyState(VK_RBUTTON) && 1) {
+
+			auto item = mc.getPlayer().getInventory().getCurrentItem();
+			if (item.getObject() == NULL) return;
+			if (blockOnlyValue->getValue() && !(JNI::get_env()->IsInstanceOf(mc.getPlayer().getMainHandItemStack().getItem().getObject(), Wrapper::ItemBlock::klass()) || JNI::get_env()->IsInstanceOf(mc.getPlayer().getOffhandItemStack().getItem().getObject(), Wrapper::ItemBlock::klass()))) return;
+
 			POINT pos_cursor;
 
 			GetCursorPos(&pos_cursor);
