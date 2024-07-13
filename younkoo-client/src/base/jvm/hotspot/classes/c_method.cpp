@@ -232,6 +232,10 @@ auto java_hotspot::method::get_signature() -> std::string {
 	const auto const_method = this->get_const_method();
 	const auto signature_index = const_method->get_signature_index();
 	const auto const_pool = const_method->get_constants();
+	if (!const_pool)
+	{
+		return "";
+	}
 	const auto base = reinterpret_cast<symbol**>(const_pool->get_base());
 	return base[signature_index]->to_string();
 }

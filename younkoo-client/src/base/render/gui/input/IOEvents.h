@@ -126,6 +126,7 @@ namespace YounkooIO {
 
 
 	inline EventQueque IOEvents;
+	inline std::queue<KeyEvent> keyEvents;
 
 	inline void Clear() noexcept {
 		IOEvents.Clear();

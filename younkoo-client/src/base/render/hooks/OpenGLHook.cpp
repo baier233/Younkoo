@@ -26,11 +26,15 @@ static auto getWindowSize(const HWND& window) {
 #include <nanovg.h>
 #include <iostream>
 
+
+
+
 #include "WndProcHook.hpp"
 
 #include <locale>
 #include <codecvt>
 #include "../../Younkoo.hpp"
+
 
 
 
@@ -123,7 +127,6 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 	}
 	// Change current context back to mine.
 	wglMakeCurrent(renderer.renderContext.HandleDeviceContext, renderer.renderContext.MenuGLContext);
-
 
 	// Do draw and render here.
 	auto& vg = NanoVGHelper::Context;

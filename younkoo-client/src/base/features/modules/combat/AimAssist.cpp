@@ -232,7 +232,7 @@ void AimAssist::onUpdate()
 			offset += adaptiveOffset;
 		}
 	}
-	auto rot = calcRot(thePlayer, target, renderPartialTicks);
+	//auto rot = calcRot(thePlayer, target, renderPartialTicks);
 
 
 	float targetYaw = currentLookAngles.x + ((difference.x + offset) / smooth);

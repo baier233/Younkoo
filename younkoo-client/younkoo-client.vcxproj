@@ -166,10 +166,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\sdk\hook\hooks\BedRendererHook.cpp" />
     <ClCompile Include="ext\gl2d\gl2d.cpp" />
     <ClCompile Include="ext\gl2d\gl2dParticleSystem.cpp" />
     <ClCompile Include="ext\glm\detail\glm.cpp" />
-    <ClCompile Include="src\base\sdk\hook\HookHandler.cpp" />
+    <ClCompile Include="src\base\sdk\hook\HookManager.cpp" />
     <ClCompile Include="src\base\render\api\FixedPipelineEmulator.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\item\EntityItem.cpp" />
     <ClCompile Include="src\base\features\modules\visual\ItemESP.cpp" />
@@ -331,6 +332,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\base\sdk\hook\hooks\BedRendererHook.h" />
     <ClInclude Include="ext\gl2d\gl2d.h" />
     <ClInclude Include="ext\gl2d\gl2dParticleSystem.h" />
     <ClInclude Include="ext\glm\common.hpp" />
@@ -623,7 +625,8 @@
     <ClInclude Include="ext\nanovg\fontstash.h" />
     <ClInclude Include="ext\nanovg\stb_image.h" />
     <ClInclude Include="ext\nanovg\stb_truetype.h" />
-    <ClInclude Include="src\base\sdk\hook\HookHandler.h" />
+    <ClInclude Include="src\base\sdk\hook\AbstractHook.h" />
+    <ClInclude Include="src\base\sdk\hook\HookManager.h" />
     <ClInclude Include="src\base\render\api\FixedPipelineEmulator.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\item\EntityItem.h" />
     <ClInclude Include="src\base\features\modules\visual\ItemESP.h" />
@@ -654,6 +657,8 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Camera.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\KeyMapping.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Options.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BlockEntityRenderDispatcher.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BlockEntityRenderer.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\GameRenderer.h" />
     <ClInclude Include="src\base\jvm\hotspot\break\break_point_info.h" />
     <ClInclude Include="src\base\jvm\hotspot\break\byte_code_info.h" />
@@ -693,9 +698,11 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\multiplayer\ClientLevel.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\AbstractClientPlayer.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\LocalPlayer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\MultiBufferSource.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\commands\arguments\EntityAnchorArgument$Anchor.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\NonNullList.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\chat\Component.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BedRenderer.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\BlockItem.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\item\ItemEntity.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\player\Inventory.h" />
@@ -708,10 +715,13 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\InteractionHand.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\ArmorItem.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\DyeableLeatherItem.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\DyeColor.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\Item.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\ItemStack.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\Rarity.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\Block.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\entity\BedBlockEntity.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\entity\BlockEntity.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\state\BlockBehaviour$BlockStateBase.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\state\BlockState.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\Level.h" />

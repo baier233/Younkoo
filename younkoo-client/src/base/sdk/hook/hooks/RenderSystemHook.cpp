@@ -1,23 +1,54 @@
 ﻿#include "RenderSystemHook.h"
 
-#include <ranges>
+#include <Windows.h>
+#include <SDK.hpp>
+#include <JVM.hpp>
 
-void RenderSystemHook::applyHook() {
+#include <hotspot/java_hook.h>
+#include <hotspot/break/byte_code_info.h>
+#include <hotspot/classes/compile_task.h>
+
+
+#include <wrapper/versions/1_18_1/net/minecraft/client/renderer/GameRenderer.h>
+#include <wrapper/versions/1_18_1/com/mojang/blaze3d/vertex/PoseStack.h>
+#include <wrapper/versions/1_18_1/net/minecraft/client/MInecraft.h>
+
+
+#include <base/Younkoo.hpp>
+#include <base/event/Events.h>
+
+#include <format>
+
+
+void GameRendererHook::hook(const HookManagerData& container)
+{
 	if (SRGParser::get().GetVersion() != Versions::FORGE_1_18_1)
 		return;
+
+	auto& methods_being_hooked = container.methods_being_hooked;
+	auto& klasses_dont_compile = container.klasses_dont_compile;
+	auto& methods_dont_compile = container.methods_dont_compile;
+
+
 	(void)JNI::get_env()->PushLocalFrame(66);
 
 	jclass klass = JNI::find_class(V1_18_1::GameRenderer::get_name());
 
-	JavaHook::JVM::Init(JNI::get_env());
 
 	// Prevent method inlining to avoid crash with "error: unhandled bytecode".
-	hook_invoke_compiler_on_method();
+	{
+		auto mid = (jmethodID)V1_18_1::GameRenderer::static_obj().render;
+		const auto method = *reinterpret_cast<java_hotspot::method**>(mid);
+		//methods_dont_compile.push_back(method);
+	}
+
 
 	JVM::get().jvmti->RetransformClasses(1, &klass);
 	auto mid = (jmethodID)V1_18_1::GameRenderer::static_obj().renderLevel;
 	const auto method = *reinterpret_cast<java_hotspot::method**>(mid);
+
 	methods_being_hooked.emplace_back(method);
+
 	method->set_dont_inline(true);
 	const auto access_flags = method->get_access_flags();
 	access_flags->set_not_c1_compilable();
@@ -162,5 +193,4 @@ void RenderSystemHook::applyHook() {
 			return;
 		}
 	);
-
 }

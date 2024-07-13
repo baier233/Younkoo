@@ -7,6 +7,7 @@
 
 #include "../include_header.h"
 
+
 namespace jvm_byte_code {
 	inline std::uint8_t bytecode_operand_consumption[] =
 	{
