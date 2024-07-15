@@ -390,7 +390,10 @@
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\item\ItemBlock.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\sdk\hook\HookHandler.cpp">
+    <ClCompile Include="src\base\sdk\hook\HookManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\sdk\hook\hooks\BedRendererHook.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1931,7 +1934,34 @@
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\item\ItemBlock.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\sdk\hook\HookHandler.h">
+    <ClInclude Include="src\base\sdk\hook\HookManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\hook\AbstractHook.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\hook\hooks\BedRendererHook.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BedRenderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\entity\BedBlockEntity.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\DyeColor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\MultiBufferSource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BlockEntityRenderDispatcher.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\entity\BlockEntity.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BlockEntityRenderer.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

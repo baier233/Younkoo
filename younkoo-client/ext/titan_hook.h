@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <Windows.h>
 #include "detours/include/detours.h"
 #include "lazy_importer.hpp"
@@ -12,10 +12,14 @@ public:
 	}
 
 	void SetHook() {
-		DetourTransactionBegin();
-		DetourUpdateThread(LI_FN(GetCurrentThread)());
-		DetourAttach(&(LPVOID&)targetFunc_, myFunc_);
-		DetourTransactionCommit();
+		if (targetFunc_ && myFunc_)
+		{
+			DetourTransactionBegin();
+			DetourUpdateThread(LI_FN(GetCurrentThread)());
+			DetourAttach(&(LPVOID&)targetFunc_, myFunc_);
+			DetourTransactionCommit();
+
+		}
 	}
 
 	T GetOrignalFunc() {
@@ -31,16 +35,19 @@ public:
 	}
 
 	void RemoveHook() {
-		DetourTransactionBegin();
-		DetourUpdateThread(GetCurrentThread());
-		DetourDetach(&(LPVOID&)targetFunc_, myFunc_);
-		DetourTransactionCommit();
+		if (targetFunc_)
+		{
+			DetourTransactionBegin();
+			DetourUpdateThread(GetCurrentThread());
+			DetourDetach(&(LPVOID&)targetFunc_, myFunc_);
+			DetourTransactionCommit();
+		}
 	}
 
 	~TitanHook() {
 		RemoveHook();
 	}
 private:
-	void* targetFunc_;
-	void* myFunc_;
+	void* targetFunc_ = 0;
+	void* myFunc_ = 0;
 };

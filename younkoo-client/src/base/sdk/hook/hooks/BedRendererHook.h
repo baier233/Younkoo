@@ -1,10 +1,7 @@
 ﻿#pragma once
-
 #include "../AbstractHook.h"
-class GameRendererHook : public AbstractHook
+class BedRendererHook : public AbstractHook
 {
 public:
 	void hook(const HookManagerData& container) override;
-private:
-
 };

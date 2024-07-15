@@ -13,6 +13,10 @@ JNI::Method<void, JNI::NOT_STATIC, DECLARE_NAME(
 JNI::Method<Camera, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedMethodName("net/minecraft/client/renderer/GameRenderer", "getMainCamera", "()Lnet/minecraft/client/Camera;").first
 )> getMainCamera{ *this };
+
+JNI::Method<void, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/client/renderer/GameRenderer", "render", "(FJZ)V").first
+), jfloat, jlong, jboolean> render{ *this };
 END_KLASS_DEF();
 
 END_1_18_1

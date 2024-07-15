@@ -9,6 +9,9 @@
 #include "classes/const_pool.h"
 
 
+#include <ranges>
+#include <algorithm>
+
 namespace JavaHook {
 	namespace JVM {
 		bool Init(JNIEnv* env);
@@ -16,3 +19,11 @@ namespace JavaHook {
 	}
 
 }
+
+struct BytecodeInfo
+{
+	BytecodeInfo() {  };
+	java_runtime::bytecodes opcode{};
+	std::vector<int> operands{};
+	int index = 0;
+};

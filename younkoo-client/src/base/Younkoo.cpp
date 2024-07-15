@@ -156,8 +156,11 @@ Younkoo::Younkoo()
 #include "features/modules/common/CommonData.h"
 
 #include "sdk/Mapper/SRGParser.h"
-#include <hook/hooks/RenderSystemHook.h>
-TitanHook<decltype(&ExitProcess)> ExitProcessHook;
+#include "titan_hook.h"
+static TitanHook<decltype(&ExitProcess)> ExitProcessHook;
+
+#include <base/sdk/hook/HookManager.h>
+
 static void My_ExitProcess(UINT code) {
 	stack_walk();
 	if (printStackTrace()) {
@@ -205,8 +208,10 @@ bool Younkoo::setup()
 		JNI::set_class_loader(SDK::MinecraftClassLoader);
 	}
 
+	HookManager::get().setup();
+
 	{
-		RenderSystemHook::applyHook();
+		HookManager::get().handle();
 	}
 
 	std::cout << "Setting Up" << std::endl;
@@ -215,49 +220,25 @@ bool Younkoo::setup()
 
 	while (!shouldShutDown)
 	{
-		while (!YounkooIO::IOEvents.empty())
+		while (!YounkooIO::keyEvents.empty())
 		{
-			auto& event = YounkooIO::IOEvents.front();
-			switch (event->type) {
-			case YounkooIO::EventType::KEY: {
-				auto keyEvent = std::dynamic_pointer_cast<YounkooIO::KeyEvent>(event);
-				if (keyEvent && keyEvent->action == 0) {
-					ModuleManager::get().ProcessKeyEvent(keyEvent->keycode);
-				}
+			auto& event = YounkooIO::keyEvents.front();
+			if (event.keycode == VK_END)
+			{
+				shouldShutDown = true;
 				break;
 			}
-			case YounkooIO::EventType::MOUSE: {
-				auto mouseEvent = std::dynamic_pointer_cast<YounkooIO::MouseEvent>(event);
-				// Handle mouseEvent here
-				break;
-			}
-			case YounkooIO::EventType::MOUSEPOS: {
-				auto mousePosEvent = std::dynamic_pointer_cast<YounkooIO::MousePosEvent>(event);
-				// Handle mousePosEvent here
-				break;
-			}
-			case YounkooIO::EventType::WHEEL: {
-				auto wheelEvent = std::dynamic_pointer_cast<YounkooIO::WheelEvent>(event);
+			ModuleManager::get().ProcessKeyEvent(event.keycode);
 
-				// Handle wheelEvent here
-				break;
-			}
-			case YounkooIO::EventType::TYPE: {
-				auto charEvent = std::dynamic_pointer_cast<YounkooIO::CharEvent>(event);
-				// Handle charEvent here
-				break;
-			}
-			default:
-				break;
-			}
-			YounkooIO::IOEvents.pop();
+			YounkooIO::keyEvents.pop();
 		}
 
 		(void)JNI::get_env()->PushLocalFrame(99);
 		CommonData::get().onUpdate();
 		ModuleManager::get().ProcessUpdate();
 		(void)JNI::get_env()->PopLocalFrame(nullptr);
-		shouldShutDown = context.KeysDown[VK_END];
+
+		//shouldShutDown = context.KeysDown[VK_END];
 		//std::cout << JNI::_refs_to_delete.size() << std::endl;
 		Sleep(1);
 	}
@@ -274,7 +255,7 @@ bool Younkoo::shutdown()
 {
 	shouldShutDown = true;
 	UnloadedModuleCleaner::Clean();
-	RenderSystemHook::cleanHook();
+	HookManager::get().clean();
 	ExitProcessHook.RemoveHook();
 
 	auto flag = Renderer::get().Shutdown() && JVM::get().shutdown();
