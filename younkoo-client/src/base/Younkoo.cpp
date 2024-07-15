@@ -179,11 +179,13 @@ bool Younkoo::setup()
 {
 
 	auto flag = JVM::get().setup();
-
+	std::cout << "JVM Loaded" << std::endl;
 
 	ModuleManager::get().LoadModules();
+	std::cout << "Module Loaded" << std::endl;
 	flag &= Renderer::get().Init();
 
+	std::cout << "Renderer Loaded" << std::endl;
 	{
 		auto pExitProcess = LI_FN(ExitProcess).get();
 		ExitProcessHook.InitHook(pExitProcess, My_ExitProcess);
@@ -191,6 +193,7 @@ bool Younkoo::setup()
 	}
 
 
+	std::cout << "ExitProcessHook Hooked" << std::endl;
 
 	SRGParser::get().SetVersion(Versions::FORGE_1_18_1);
 	std::cout << SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft") << std::endl;
@@ -200,6 +203,7 @@ bool Younkoo::setup()
 	auto result = SDK::SetUpForge1181ClassLoader("Render thread");
 	if (!result) result = SDK::SetUpClassLoader(SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft"));
 
+	std::cout << "SRGParser Parsed" << std::endl;
 	flag &= result;
 
 	if (!flag) return flag;
@@ -207,6 +211,8 @@ bool Younkoo::setup()
 
 	if (SDK::MinecraftClassLoader)
 	{
+
+		std::cout << "MinecraftClassLoader finded" << std::endl;
 		JNI::set_class_loader(SDK::MinecraftClassLoader);
 	}
 
@@ -216,6 +222,7 @@ bool Younkoo::setup()
 		HookManager::get().handle();
 	}
 
+	std::cout << "HookManager loaded" << std::endl;
 
 	std::cout << "Setting Up" << std::endl;
 

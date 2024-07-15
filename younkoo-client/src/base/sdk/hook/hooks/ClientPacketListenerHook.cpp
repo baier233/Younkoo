@@ -61,14 +61,13 @@ static void ResolveHandleChunkBlocksUpdate(java_hotspot::method* method) {
 	auto bytecode = static_cast<java_runtime::bytecodes>(bytecodes[hook_index]);
 	info->set_orig_bytecode(bytecode);
 	info->set_next(holder_klass->get_breakpoints());
-	holder_klass->set_breakpoints(info);
 	std::cout << "holder_klass :" << holder_klass->get_name() << std::endl;
 
 
 	auto& bc_info = method_block.back();
 	auto* info_2 = jvm_internal::breakpoint_info::create(method, bc_info.index);
 	info_2->set_orig_bytecode(bc_info.opcode);
-	info->set_next(holder_klass->get_breakpoints());
+	info->set_next(info);
 	holder_klass->set_breakpoints(info_2);
 
 	(void)JNI::get_env()->PopLocalFrame(nullptr);

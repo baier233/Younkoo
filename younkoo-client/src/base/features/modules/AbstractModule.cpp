@@ -47,7 +47,6 @@ bool AbstractModule::getToggle() {
 
 void AbstractModule::setToggle(bool _NEW) {
 	if (_NEW == this->i_toggle)return;
-	this->i_toggle = _NEW;
 	this->onToggled();
 }
 
