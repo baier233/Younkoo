@@ -7,6 +7,7 @@ namespace NanoGui {
 	void drawGui();
 	void drawContents();
 	void updateModule(AbstractModule* module);
+	void updateValues();
 	void clean();
 	inline std::atomic<bool> available = false;
 }

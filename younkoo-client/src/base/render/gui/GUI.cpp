@@ -22,7 +22,11 @@ using namespace nanogui;
 
 static std::vector<std::pair<std::pair<int, int>, std::function<void(int oWidth, int oHeight)>>> layoutLambdas;
 static std::map<AbstractModule*, Button*> toggleButtons;
-
+static std::map<AbstractModule*, CheckBox*> boolWidgets;
+static std::map<AbstractModule*, std::pair<Slider*, TextBox*>> intWidgets;
+static std::map<AbstractModule*, std::pair<Slider*, TextBox*>> floatWidgets;
+static std::map<AbstractModule*, ComboBox*> listWidgets;
+static std::map<AbstractModule*, ColorPicker*> colorWidgets;
 
 
 void NanoGui::updateModule(AbstractModule* mod)
@@ -34,6 +38,79 @@ void NanoGui::updateModule(AbstractModule* mod)
 		button->setCaption(mod->getToggle() ? "Disable" : "Toggle");
 	}
 }
+void NanoGui::updateValues() {
+	for (auto& m : ModuleManager::get().getMods()) {
+		auto mod = ToBaseModule(m);
+		for (auto& valuePair : mod->getValues()) {
+			ValueType valueType = valuePair.first;
+			auto& value = valuePair.second;
+			auto it = toggleButtons.find(mod);
+			if (it != toggleButtons.end())
+			{
+				auto button = it->second;
+				button->setCaption(mod->getToggle() ? "Disable" : "Toggle");
+			}
+			switch (valueType) {
+			case BoolType:
+				if (auto boolValue = dynamic_cast<BoolValue*>(value.get())) {
+					auto it = boolWidgets.find(mod);
+					if (it != boolWidgets.end()) {
+						auto checkBox = it->second;
+						checkBox->setChecked(boolValue->getValue());
+					}
+				}
+				break;
+			case IntType:
+				if (auto intValue = dynamic_cast<NumberValue*>(value.get())) {
+					auto it = intWidgets.find(mod);
+					if (it != intWidgets.end()) {
+						auto [slider, textBox] = it->second;
+						int value = intValue->getValue();
+						slider->setValue(value);
+						textBox->setValue(std::to_string(value));
+					}
+				}
+				break;
+			case FloatType:
+				if (auto floatValue = dynamic_cast<FloatValue*>(value.get())) {
+					auto it = floatWidgets.find(mod);
+					if (it != floatWidgets.end()) {
+						auto [slider, textBox] = it->second;
+						float value = floatValue->getValue();
+						slider->setValue(value);
+						std::ostringstream oss;
+						oss << std::fixed << std::setprecision(2) << value;
+						textBox->setValue(oss.str());
+					}
+				}
+				break;
+			case ListType:
+				if (auto modeValue = dynamic_cast<ModeValue*>(value.get())) {
+					auto it = listWidgets.find(mod);
+					if (it != listWidgets.end()) {
+						auto comboBox = it->second;
+						comboBox->setSelectedIndex(modeValue->getValue());
+					}
+				}
+				break;
+			case ColorType:
+				if (auto colorValue = dynamic_cast<ColorValue*>(value.get())) {
+					auto it = colorWidgets.find(mod);
+					if (it != colorWidgets.end()) {
+						auto colorPicker = it->second;
+						auto colorArray = (float*)value->getPtr();
+						Color color(colorArray[0], colorArray[1], colorArray[2], colorArray[3]);
+						colorPicker->setColor(color);
+					}
+				}
+				break;
+			default:
+				break;
+			}
+		}
+	}
+}
+
 namespace NanoGui {
 	nanogui::ref<nanogui::Screen> screen = nullptr;
 	///screen 不需要主动调用decref,在delete form的时候screen会跟着释放。
@@ -56,7 +133,6 @@ static void createWindow(int xPos, const std::string& title, Category category) 
 
 	// 添加 VScrollPanel
 	auto scrollPanel = new VScrollPanel(win);
-
 	auto panel = new Widget(scrollPanel);
 	panel->setLayout(new GroupLayout());
 
@@ -92,12 +168,12 @@ static void createWindow(int xPos, const std::string& title, Category category) 
 							*(bool*)value->getPtr() = enabled;
 							});
 						checkBox->setChecked(boolValue->getValue());
+						boolWidgets[mod] = checkBox;
 					}
 					break;
 				case IntType:
 					if (auto intValue = dynamic_cast<NumberValue*>(value.get())) {
 						auto label = new Label(contentPanel, intValue->getName());
-
 						auto sliderPanel = new Widget(contentPanel);
 						sliderPanel->setLayout(new BoxLayout(Orientation::Horizontal, Alignment::Middle, 0, 5));
 
@@ -113,6 +189,7 @@ static void createWindow(int xPos, const std::string& title, Category category) 
 						slider->setCallback([value, textBox](float value_) {
 							int v = static_cast<int>(value_);
 							*(float*)value->getPtr() = v;
+							textBox->setValue(std::to_string(v));
 							});
 
 						textBox->setCallback([value, slider](const std::string& text) {
@@ -123,16 +200,15 @@ static void createWindow(int xPos, const std::string& title, Category category) 
 							}
 							catch (...) {
 								return false;
-								// 处理无效输入
 							}
 							return true;
 							});
+						intWidgets[mod] = std::make_pair(slider, textBox);
 					}
 					break;
 				case FloatType:
 					if (auto floatValue = dynamic_cast<FloatValue*>(value.get())) {
 						auto label = new Label(contentPanel, floatValue->getName());
-
 						auto sliderPanel = new Widget(contentPanel);
 						sliderPanel->setLayout(new BoxLayout(Orientation::Horizontal, Alignment::Middle, 0, 5));
 
@@ -162,10 +238,10 @@ static void createWindow(int xPos, const std::string& title, Category category) 
 							}
 							catch (...) {
 								return false;
-								// 处理无效输入
 							}
 							return true;
 							});
+						floatWidgets[mod] = std::make_pair(slider, textBox);
 					}
 					break;
 				case ListType:
@@ -180,6 +256,7 @@ static void createWindow(int xPos, const std::string& title, Category category) 
 						comboBox->setCallback([value](int selectedIndex) {
 							*(int*)value->getPtr() = selectedIndex;
 							});
+						listWidgets[mod] = comboBox;
 					}
 					break;
 				case ColorType:
@@ -193,7 +270,7 @@ static void createWindow(int xPos, const std::string& title, Category category) 
 							colorArray[2] = color.b();
 							colorArray[3] = color.w();
 							});
-
+						colorWidgets[mod] = colorPicker;
 					}
 					break;
 				default:
@@ -207,26 +284,19 @@ static void createWindow(int xPos, const std::string& title, Category category) 
 	Vector2i size = win->preferredSize(NanoGui::screen->nvgContext());
 
 	std::function<void(int, int)> doLayout = [win, scrollPanel](int width, int height) {
-
 		auto [winWidth, winHeight] = Renderer::get().renderContext.winSize;
-		//std::cout << "height : " << width << " " << winHeight << std::endl;
-		//std::cout << "width :" << height << " " << winWidth << std::endl;
-		if (width < 250)
-		{
+		if (width < 250) {
 			width = 250;
 		}
-		if (height < 100)
-		{
+		if (height < 100) {
 			height = 100;
 		}
-		if (height > winHeight * 0.85)
-		{
+		if (height > winHeight * 0.85) {
 			height = winHeight * 0.85;
 		}
 		scrollPanel->setFixedSize(Vector2i(width, height));
 		};
 	layoutLambdas.push_back(std::make_pair(std::make_pair(size.x(), size.y()), doLayout));
-
 }
 #include "../config/ConfigManager.h"
 static void createSettingsWindow(int xPos) {
@@ -243,6 +313,7 @@ static void createSettingsWindow(int xPos) {
 	Savebutton->setCallback([] {
 		//TODO:Set your own name
 		ConfigManager::get().SaveConfig("config.json");
+		NanoGui::updateValues();
 		});
 	auto Detachbutton = new Button(panel, "Detach");
 	Detachbutton->setCallback([] {

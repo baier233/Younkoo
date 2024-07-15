@@ -1,4 +1,4 @@
-#include "ConfigManager.h"
+ï»¿#include "ConfigManager.h"
 
 void ConfigManager::SaveConfig(std::string name)
 {
@@ -14,23 +14,28 @@ void ConfigManager::SaveConfig(std::string name)
 			for (const auto& v : mod->getValues()) {
 				nlohmann::json moduleSet;
 				moduleSet["name"] = v.second->getName();
-				switch (v.first)
-				{
-				case BoolType: {
-					BoolValue* pValue = static_cast<BoolValue*>(v.second.get());
-					moduleSet["value"] = pValue->getValue();
+				auto& value = v.second;
+				switch (v.first) {
+				case BoolType:
+					if (auto boolValue = dynamic_cast<BoolValue*>(value.get())) {
+						moduleSet["value"] = boolValue->getValue();
+					}
 					break;
-				}
-				case FloatType: {
-					FloatValue* pValue = static_cast<FloatValue*>(v.second.get());
-					moduleSet["value"] = pValue->getValue();
+				case IntType:
+					if (auto intValue = dynamic_cast<NumberValue*>(value.get())) {
+						moduleSet["value"] = intValue->getValue();
+					}
 					break;
-				}
-				case ListType: {
-					ModeValue* pValue = static_cast<ModeValue*>(v.second.get());
-					moduleSet["value"] = pValue->getDescs()[pValue->getValue()];
+				case FloatType:
+					if (auto floatValue = dynamic_cast<FloatValue*>(value.get())) {
+						moduleSet["value"] = floatValue->getValue();
+					}
 					break;
-				}
+				case ListType:
+					if (auto listValue = dynamic_cast<ModeValue*> (value.get())) {
+						moduleSet["value"] = listValue->getDescs()[listValue->getValue()];
+					}
+					break;
 				default:
 					break;
 				}
@@ -44,7 +49,7 @@ void ConfigManager::SaveConfig(std::string name)
 	try
 	{
 		std::ofstream jsonFile(jsonFilePath);
-		jsonFile << jsonObject.dump(4); // 4 ±íÊ¾Ëõ½ø¼¶±ð
+		jsonFile << jsonObject.dump(4); // 4 è¡¨ç¤ºç¼©è¿›çº§åˆ«
 		jsonFile.close();
 		std::cout << "JSON configuration file has been saved to: " << jsonFilePath << std::endl;
 	}
@@ -54,7 +59,7 @@ void ConfigManager::SaveConfig(std::string name)
 	}
 
 }
-
+#include <utils/strutils.h>
 void ConfigManager::LoadConfig(std::string name)
 {
 	std::filesystem::path jsonFilePath = this->GetConfigPath() / name;
@@ -70,58 +75,70 @@ void ConfigManager::LoadConfig(std::string name)
 		std::cerr << "An error occurred while reading the JSON configuration file: " << e.what() << std::endl;
 		return;
 	}
-	for (const auto& [name, config] : jsonObject.items())
+	try
 	{
-		AbstractModule* mod = ModuleManager::get().getModule(name);
-		if (mod)
+		for (const auto& [name, config] : jsonObject.items())
 		{
-			mod->setToggle(config["Enabled"]);
-			mod->setKeyCode(config["key"]);
-
-			for (const auto& cv : config["values"])
+			AbstractModule* mod = ModuleManager::get().getModule(name);
+			if (mod)
 			{
-				for (const auto& [valueType, value] : mod->getValues())
+				mod->setToggle(config["Enabled"]);
+				mod->setKeyCode(config["key"]);
+
+				for (const auto& cv : config["values"])
 				{
-					if (value->getName().find(cv["name"]) != std::string::npos)
+
+					for (const auto& [valueType, value] : mod->getValues())
 					{
-						switch (valueType)
+						auto jValueName = cv["name"].get<std::string>();
+						auto valueName = value->getName();
+						if (jValueName == valueName)
 						{
-						case BoolType:
-						{
-							BoolValue* pValue = static_cast<BoolValue*>(value.get());
-							*pValue->getValuePtr() = cv["value"].get<bool>();
-							break;
-						}
-						case FloatType:
-						{
-							FloatValue* pValue = static_cast<FloatValue*>(value.get());
-							*pValue->getValuePtr() = cv["value"].get<float>();
-							break;
-						}
-						case ListType:
-						{
+							std::cout << "True :" << jValueName << " == " << valueName << std::endl;
+							switch (valueType)
 							{
-								ModeValue* pValue = static_cast<ModeValue*>(value.get());
-								const std::string& modeDesc = cv["value"].get<std::string>();
-								for (size_t i = 0; i < pValue->getModes().size(); i++)
+							case BoolType:
+							{
+								BoolValue* pValue = dynamic_cast<BoolValue*>(value.get());
+								*pValue->getValuePtr() = cv["value"].get<bool>();
+								break;
+							}
+							case FloatType:
+							{
+								FloatValue* pValue = dynamic_cast<FloatValue*>(value.get());
+								*pValue->getValuePtr() = cv["value"].get<float>();
+								break;
+							}
+							case ListType:
+							{
 								{
-									if (pValue->getDescs()[i].find(modeDesc) != std::string::npos)
+									ModeValue* pValue = dynamic_cast<ModeValue*>(value.get());
+									const std::string& modeDesc = cv["value"].get<std::string>();
+									for (size_t i = 0; i < pValue->getModes().size(); i++)
 									{
-										*pValue->getValuePtr() = i;
-										break;
+										if (pValue->getDescs()[i].find(modeDesc) != std::string::npos)
+										{
+											*pValue->getValuePtr() = i;
+											break;
+										}
 									}
 								}
 							}
-						}
-						break;
-						default:
 							break;
+							default:
+								break;
+							}
 						}
 					}
 				}
 			}
 		}
 	}
+	catch (const std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+
 }
 
 std::filesystem::path ConfigManager::GetConfigPath()

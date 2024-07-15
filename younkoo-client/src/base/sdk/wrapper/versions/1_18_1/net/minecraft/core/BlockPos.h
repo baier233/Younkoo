@@ -2,11 +2,12 @@
 
 #include <SDK.hpp>
 
+#include <wrapper/versions/1_18_1/net/minecraft/core/Vec3i.h>
 #include <wrapper/versions/1_18_1/net/minecraft/world/phys/Vec3.h>
 
 BEGIN_1_18_1
 
-BEGIN_KLASS_DEF_EX(BlockPos, return SRGParser::get().getObfuscatedClassName("net/minecraft/core/BlockPos"), Vec3)
+BEGIN_KLASS_DEF_EX(BlockPos, return SRGParser::get().getObfuscatedClassName("net/minecraft/core/BlockPos"), Vec3i)
 
 JNI::Field<jint, JNI::STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/core/BlockPos"), "PACKED_X_LENGTH")
