@@ -166,6 +166,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\features\modules\player\HitDelayFix.cpp" />
     <ClCompile Include="src\base\sdk\hook\hooks\BedRendererHook.cpp" />
     <ClCompile Include="ext\gl2d\gl2d.cpp" />
     <ClCompile Include="ext\gl2d\gl2dParticleSystem.cpp" />
@@ -333,6 +334,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\base\features\modules\player\HitDelayFix.h" />
     <ClInclude Include="src\base\sdk\hook\hooks\BedRendererHook.h" />
     <ClInclude Include="ext\gl2d\gl2d.h" />
     <ClInclude Include="ext\gl2d\gl2dParticleSystem.h" />
