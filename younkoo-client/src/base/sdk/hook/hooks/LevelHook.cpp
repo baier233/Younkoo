@@ -131,7 +131,7 @@ void LevelHook::hook(const HookManagerData& container)
 			std::cout << "BlockPos :" << blockPos.getX() << " " << blockPos.getY() << " " << blockPos.getZ() << std::endl;
 			Younkoo::get().EventBus->fire_event(EventChangeBlock{ blockPos,blockState });
 
-			state.clear_ref();
+			//state.clear_ref();
 			pos.clear_ref();
 			newPos.clear_ref();
 

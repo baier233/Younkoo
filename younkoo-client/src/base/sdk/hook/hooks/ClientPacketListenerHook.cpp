@@ -254,10 +254,10 @@ static void ResolveHandleLevelChunkWithLight(java_hotspot::method* method) {
 	jvm_break_points::set_breakpoint_with_original_code(method, hook_index, static_cast<std::uint8_t>(bytecode), [](break_point_info* bp) -> void
 		{
 			static std::once_flag flag{};
+			JNI::set_thread_env(bp->java_thread->get_jni_environment());
 			std::call_once(flag, [bp] {
 				{
 
-					JNI::set_thread_env(bp->java_thread->get_jni_environment());
 					const auto c_m = bp->method->get_const_method();
 					const auto entries = c_m->get_local_variable_entries();
 					for (auto& entry : entries)

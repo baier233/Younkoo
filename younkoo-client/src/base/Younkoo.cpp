@@ -221,7 +221,7 @@ bool Younkoo::setup()
 
 	(void)CommonData::get();
 
-	ChunkScanner::setup();
+	//ChunkScanner::setup();
 
 	while (!shouldShutDown)
 	{
@@ -259,7 +259,7 @@ bool Younkoo::setup()
 bool Younkoo::shutdown()
 {
 	shouldShutDown = true;
-	ChunkScanner::clean();
+	//ChunkScanner::clean();
 	UnloadedModuleCleaner::Clean();
 	HookManager::get().clean();
 	ExitProcessHook.RemoveHook();

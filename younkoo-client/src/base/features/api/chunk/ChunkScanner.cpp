@@ -83,8 +83,8 @@ static void scanChunk(const ChunkUpdateRequest* req) {
 	}
 
 	auto end = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<double, std::micro> duration = end - start;
-	std::cout << "Scanning chunk took " << duration.count() << "us\n";
+	std::chrono::duration<double, std::atto> duration = end - start;
+	std::cout << "Scanning chunk took " << duration.count() << "s\n";
 }
 
 
