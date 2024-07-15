@@ -60,10 +60,14 @@ namespace JNI {
 			return get_cached_jclass<Klass>();;
 		}
 
-
+		template<class... method_parameters_type>
+		static inline Klass new_object(JNI::ConstructorMethod<method_parameters_type...>members_type::* constructor, jmethodID id, const method_parameters_type&... method_parameters) {
+			Klass tmp{};
+			return Klass{ JNI::get_env()->NewObject(get_cached_jclass<Klass>(),id , std::conditional_t<is_jni_primitive_type<method_parameters_type>, method_parameters_type, jobject>(method_parameters)...) };
+		}
 
 		template<class... method_parameters_type>
-		static Klass new_object(JNI::ConstructorMethod<method_parameters_type...>members_type::* constructor, const method_parameters_type&... method_parameters) {
+		static inline Klass new_object(JNI::ConstructorMethod<method_parameters_type...>members_type::* constructor, const method_parameters_type&... method_parameters) {
 			Klass tmp{};
 			JNI::ConstructorMethod<method_parameters_type...> c = (tmp.*constructor);
 			auto id = c.get_id();

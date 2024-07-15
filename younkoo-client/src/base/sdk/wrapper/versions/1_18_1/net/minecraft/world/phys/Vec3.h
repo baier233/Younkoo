@@ -20,13 +20,17 @@ JNI::Field<jdouble, JNI::NOT_STATIC, DECLARE_NAME(
 JNI::Field<jdouble, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/world/phys/Vec3"), "z")
 )> z{ *this };/* D */
-JNI::ConstructorMethod<jdouble, jdouble, jdouble> constructor{ *this };
+
+
+JNI::ConstructorMethod<jdouble, jdouble, jdouble> constructor_0{ *this };
+
 
 Math::Vector3D toVector3() {
 	return Math::Vector3D(x.get(), y.get(), z.get());
 }
 static inline Vec3 fromVector3(Math::Vector3D vec) {
-	return Vec3::new_object(&Vec3::constructor, (jdouble)vec.x, (jdouble)vec.y, (jdouble)vec.z);
+	static auto id = Vec3::static_obj().constructor_0.init();
+	return Vec3::new_object(&Vec3::constructor_0, id, (jdouble)vec.x, (jdouble)vec.y, (jdouble)vec.z);
 }
 END_KLASS_DEF();
 

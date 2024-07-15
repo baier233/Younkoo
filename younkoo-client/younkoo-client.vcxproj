@@ -297,52 +297,51 @@
     <ClCompile Include="src\utils\types\details\WorldToScreen.cpp" />
     <ClCompile Include="src\utils\Wstr.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\World.cpp" />
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\Vec3.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\Vec3i.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\base\jvm\jni\types\Array.hpp">
+    <ClInclude Include="src\base\jvm\jni\types\Array.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\jni\types\Field.hpp">
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\jni\types\Field.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\jni\types\Env.hpp">
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\jni\types\Env.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\jni\types\Klass.hpp">
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\jni\types\Klass.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\jni\types\Method.hpp">
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\jni\types\Method.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\jni\types\Misc.hpp">
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\jni\types\Misc.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\jni\types\ObjectWrapper.hpp">
+    </ClInclude>
+    <ClInclude Include="src\base\jvm\jni\types\ObjectWrapper.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </ClCompile>
+    </ClInclude>
     <ClInclude Include="ext\json.hpp" />
     <ClInclude Include="src\base\config\ConfigManager.h" />
     <ClInclude Include="src\base\features\api\InventoryUtils.h" />
@@ -896,7 +895,6 @@
     <ClInclude Include="src\base\cleaner\UnloadedModuleCleaner.h" />
     <ClInclude Include="src\utils\Wstr.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\World.h" />
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\Vec3.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\Vec3i.h" />
   </ItemGroup>
   <ItemGroup>

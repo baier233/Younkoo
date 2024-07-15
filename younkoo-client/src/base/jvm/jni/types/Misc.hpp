@@ -6,6 +6,7 @@
 #include <shared_mutex> 
 #include <iostream>
 
+#define LOG
 namespace JNI {
 
 

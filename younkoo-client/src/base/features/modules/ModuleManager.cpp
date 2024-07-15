@@ -79,7 +79,7 @@ bool ModuleManager::LoadModules()
 		this->addModule<ESP>(&ESP::getInstance());
 		this->addModule<AimAssist>(&AimAssist::getInstance());
 		this->addModule<ItemESP>(&ItemESP::getInstance());
-		this->addModule <BlockESP >(&BlockESP::getInstance());
+		//this->addModule <BlockESP >(&BlockESP::getInstance());
 	}
 
 	{/*Combat*/

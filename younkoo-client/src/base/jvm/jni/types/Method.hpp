@@ -4,7 +4,6 @@
 #include <iostream>
 #include "ObjectWrapper.hpp"
 #include <functional>
-
 namespace JNI {
 	template<typename method_return_type, is_static_t is_static = NOT_STATIC, typename method_name_lambda = decltype([] {return ""; }), class... method_parameters_type >
 	class Method
@@ -17,7 +16,7 @@ namespace JNI {
 			if (id) return;
 			init();
 		}
-		void init() {
+		inline jmethodID init() {
 			this->method_name = get_name();
 			auto method_sign = get_signature();
 #ifdef LOG
@@ -28,6 +27,7 @@ namespace JNI {
 			if constexpr (!is_static)
 				id = get_env()->GetMethodID(owner_klass, method_name.c_str(), method_sign.c_str());
 			assertm(id, "failed to find MethodID ");
+			return id;
 		}
 		Method(std::string method_name, const EmptyMembers& m) :
 			owner_klass(m.owner_klass),
