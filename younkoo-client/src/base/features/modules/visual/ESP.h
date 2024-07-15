@@ -12,6 +12,8 @@ public:
 	void onUpdate();
 	void onRender(const EventRender2D& e);
 	void onRender3D(const EventRender3D& e);
+protected:
+	DEFINE_BOOL_VALUE(teamBasedColorValue, "Team Based Color", "Team Based Color", true);
 private:
 
 	ESP();

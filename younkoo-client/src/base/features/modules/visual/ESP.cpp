@@ -18,6 +18,7 @@ static int currentBufferIndex = 0;
 ESP::ESP() : AbstractModule(xorstr_("ESP"), Category::VISUAL) {
 	REGISTER_EVENT(EventRender3D, ESP::onRender3D);
 	REGISTER_EVENT(EventRender2D, ESP::onRender);
+	this->addValue(BoolType, teamBasedColorValue);
 }
 
 ESP& ESP::getInstance() {
@@ -34,6 +35,47 @@ void ESP::onUpdate() {
 }
 
 #include <utils/Wstr.h>
+#include <utils/strutils.h>
+
+static std::map<wchar_t, NVGcolor> colorMap = {
+	{'0', nvgRGBA(0, 0, 0, 255)},         // "black"
+	{'1', nvgRGBA(0, 0, 139, 255)},       // "dark_blue"
+	{'2', nvgRGBA(0, 139, 139, 255)},     // "dark_aqua"
+	{'3', nvgRGBA(0, 206, 209, 255)},     // "dark_aqua"
+	{'4', nvgRGBA(139, 0, 0, 255)},       // "dark_red"
+	{'5', nvgRGBA(139, 0, 139, 255)},     // "dark_purple"
+	{'6', nvgRGBA(255, 215, 0, 255)},     // "gold"
+	{'7', nvgRGBA(169, 169, 169, 255)},   // "gray"
+	{'8', nvgRGBA(105, 105, 105, 255)},   // "dark_gray"
+	{'9', nvgRGBA(0, 0, 255, 255)},       // "blue"
+	{'a', nvgRGBA(0, 255, 0, 255)},       // "green"
+	{'b', nvgRGBA(0, 255, 255, 255)},     // "aqua"
+	{'c', nvgRGBA(255, 0, 0, 255)},       // "red"
+	{'d', nvgRGBA(255, 182, 193, 255)},   // "light_purple"
+	{'e', nvgRGBA(255, 255, 0, 255)},     // "yellow"
+	{'f', nvgRGBA(255, 255, 255, 255)}    // "white"
+};
+
+static std::pair<std::wstring, NVGcolor> parseName(const std::wstring& name) {
+	if (strutil::starts_with(name, L"红队 |")) {
+		return std::make_pair(name.substr(5), nvgRGBA(255, 69, 69, 255));
+	}
+	else if (strutil::starts_with(name, L"蓝队 |")) {
+		return std::make_pair(name.substr(5), nvgRGBA(70, 130, 180, 255));
+	}
+	else if (strutil::starts_with(name, L"绿队 |")) {
+		return std::make_pair(name.substr(5), nvgRGBA(144, 238, 144, 255));
+	}
+	else if (strutil::starts_with(name, L"黄队 |")) {
+		return std::make_pair(name.substr(5), nvgRGBA(255, 255, 102, 255));
+	}
+	else if (strutil::starts_with(name, L"§")) {
+		if (name.size() > 1 && colorMap.find(name[1]) != colorMap.end()) {
+			return std::make_pair(name.substr(2), colorMap[name[1]]);
+		}
+	}
+	return std::make_pair(name, nvgRGBA(255, 255, 255, 255));
+}
 
 void ESP::onRender(const EventRender2D& e) {
 	ToggleCheck;
@@ -43,11 +85,20 @@ void ESP::onRender(const EventRender2D& e) {
 	if (entitiesToRender[nextBufferIndex].empty()) return;
 	currentBufferIndex = nextBufferIndex;
 	for (const auto& entity : entitiesToRender[currentBufferIndex]) {
-		//auto entityName = wstr::toString(entity.name);
+		auto entityName = wstr::toString(entity.name);
 		//auto bounds = NanoVGHelper::nvgTextBoundsW(e.vg, entityName, NanoVGHelper::fontHarmony, 30);
 		//NanoVGHelper::nvgTextW(vg, entityName, entity.name_pos.x - bounds.first / 2, entity.name_pos.y - bounds.second / 2, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
 		NanoVGHelper::drawRoundedOutlineRect(vg, entity.left, entity.top, entity.right - entity.left, entity.bottom - entity.top, 0.f, 2.f, NanoVGHelper::rgbaToColor(0, 0, 0, 255));
-		NanoVGHelper::drawRoundedOutlineRect(vg, entity.left, entity.top, entity.right - entity.left, entity.bottom - entity.top, 0.f, 1.f, NanoVGHelper::rgbaToColor(255, 255, 255, 255));
+		int color = 0;
+		if (teamBasedColorValue->getValue())
+		{
+			auto teamColor = parseName(entityName).second;
+			color = NanoVGHelper::rgbaToColor(teamColor.r * 255, teamColor.g * 255, teamColor.b * 255, 255);
+			
+		} else {
+			color = -1;
+		}
+		NanoVGHelper::drawRoundedOutlineRect(vg, entity.left, entity.top, entity.right - entity.left, entity.bottom - entity.top, 0.f, 1.f, color);
 	}
 }
 

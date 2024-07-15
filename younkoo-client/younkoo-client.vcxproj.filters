@@ -418,6 +418,7 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\Vec3i.cpp">
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\MovementInput.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2061,6 +2062,10 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\Vec3i.h">
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\Input.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\MovementInput.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
