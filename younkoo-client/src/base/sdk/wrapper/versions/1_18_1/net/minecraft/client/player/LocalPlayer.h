@@ -6,7 +6,7 @@
 
 #include "../../../../../../java/lang/String.h"
 #include <wrapper/versions/1_18_1/net/minecraft/world/entity/player/Player.h>
-
+#include <wrapper/versions/1_18_1/net/minecraft/client/player/Input.h>
 BEGIN_1_18_1
 
 BEGIN_KLASS_DEF_EX(LocalPlayer, return SRGParser::get().getObfuscatedClassName("net/minecraft/client/player/LocalPlayer"), Player)
@@ -157,6 +157,11 @@ JNI::Field<jboolean, JNI::NOT_STATIC, DECLARE_NAME(
 JNI::Method<jboolean, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedMethodName("net/minecraft/client/player/LocalPlayer", "isHandsBusy", "()Z").first
 )> isHandsBusy{ *this };
+
+JNI::Field<Input, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/client/player/LocalPlayer"), "input")
+)> input{ *this };/* Lnet/minecraft/client/player/Input; */
+
 END_KLASS_DEF();
 
 END_1_18_1

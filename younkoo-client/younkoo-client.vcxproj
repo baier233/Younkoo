@@ -209,6 +209,7 @@
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\player\EntityPlayer.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\Entity.cpp" />
     <ClCompile Include="src\base\features\modules\combat\TriggerBot.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\MovementInput.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\MovingObjectPosition.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\Object.cpp" />
@@ -649,6 +650,7 @@
     <ClInclude Include="src\base\jvm\hotspot\classes\local_variable_table.h" />
     <ClInclude Include="src\base\GitInfo.h" />
     <ClInclude Include="src\base\jvm\hotspot\classes\compile_task.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\MovementInput.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\platform\Window.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack$Pose.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack.h" />
@@ -657,6 +659,7 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Camera.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\KeyMapping.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Options.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\Input.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BlockEntityRenderDispatcher.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BlockEntityRenderer.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\GameRenderer.h" />

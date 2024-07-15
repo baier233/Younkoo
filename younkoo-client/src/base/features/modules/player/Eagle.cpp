@@ -47,7 +47,7 @@ void Eagle::onUpdate()
 	auto level = mc.getWorld();
 
 	auto state = level.getBlockState(player.getPosition() - Math::Vector3D{ 0,0.1,0 });
-	auto result = !state.isNULL() && state.isAir();
+	auto result = !state.isNULL() && state.isAir() && player.getMovementInput().getMoveForward() <= 0.0f;
 	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
 	{
 		auto options = mc.getSettings();
