@@ -17,6 +17,7 @@ NameTag::NameTag() :AbstractModule(xorstr_("NameTag"), Category::VISUAL)
 {
 	REGISTER_EVENT(EventRender3D, NameTag::onRender3D);
 	REGISTER_EVENT(EventRender2D, NameTag::onRender);
+	this->addValue(FloatType, fontSizeValue);
 }
 
 
@@ -97,21 +98,21 @@ void NameTag::onRender(const EventRender2D& e)
 	currentBufferIndex = nextBufferIndex;
 
 	constexpr auto textSize = 25;
-
+	int fontSize = fontSizeValue->getValue();
 	for (const auto& entity : entitiesToRender[currentBufferIndex])
 	{
 		auto entityName = wstr::toString(entity.first);
 		//std::wcout << entityName << std::endl;
 		auto [name, color] = parseName(entityName);
-		auto bounds = NanoVGHelper::nvgTextBoundsW(e.vg, name, NanoVGHelper::fontHarmony, 25);
+		auto bounds = NanoVGHelper::nvgTextBoundsW(e.vg, name, NanoVGHelper::fontHarmony, fontSize);
 
 		float textX = entity.second.x - bounds.first / 2;
 		float textY = entity.second.y - bounds.second / 2;
 		float textWidth = bounds.first;
 		float textHeight = bounds.second;
 
-		NanoVGHelper::drawRoundedRect(vg, textX - 5, textY - 5, textWidth + 10, textHeight + 10, NanoVGHelper::rgbaToColor(0, 0, 0, 128), 5.0f);
-		NanoVGHelper::nvgTextW(vg, name, textX, textY, NanoVGHelper::fontHarmony, 25, color);
+		NanoVGHelper::drawRoundedRect(vg, textX - 5, textY - 20, textWidth + 10, textHeight + 10, NanoVGHelper::rgbaToColor(0, 0, 0, 128), 5.0f);
+		NanoVGHelper::nvgTextW(vg, name, textX, textY - 15, NanoVGHelper::fontHarmony, fontSize, color);
 		//NanoVGHelper::nvgTextW(vg, entityName, entity.second.x - bounds.first / 2, entity.second.y - bounds.second / 2, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
 	}
 }
