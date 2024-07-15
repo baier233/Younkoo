@@ -79,7 +79,7 @@ void BlockESP::onRender(const EventRender2D& e) {
 	for (auto& lines : newLines) {
 		auto& begin = lines.first;
 		auto& end = lines.second;
-		NVGcolor rgbaColor = { 255,255,255,0.15 };
+		NVGcolor rgbaColor = { 255,255,255,255 };
 		NanoVGHelper::drawLine(vg, begin.x, begin.y, end.x, end.y, 1, NanoVGHelper::rgbaToColor(rgbaColor.r, rgbaColor.g, rgbaColor.b, rgbaColor.a));
 	}
 }
