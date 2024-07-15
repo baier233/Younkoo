@@ -56,6 +56,14 @@ jclass Object::getClass() const
 	return this->instance->owner_klass;
 }
 
+jclass Object::getClassBaseOnObject() const
+{
+
+	if (!this->instance) return nullptr;
+
+	return JNI::get_env()->GetObjectClass(this->instance->object_instance);
+}
+
 jobject Object::getObject() const
 {
 	if (!this->instance) return nullptr;

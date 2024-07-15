@@ -59,3 +59,14 @@ Wrapper::BlockState Wrapper::World::getBlockState(const BlockPos& pos)
 	}
 	return BlockState();
 }
+
+Wrapper::Chunk Wrapper::World::getChunk(int x, int z)
+{
+
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		V1_18_1::Level level = this->getObject();
+		return level.getChunk(x, z);
+	}
+	return Chunk();
+}

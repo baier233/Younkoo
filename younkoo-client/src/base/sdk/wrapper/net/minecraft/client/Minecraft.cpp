@@ -90,3 +90,21 @@ Wrapper::GameSettings Wrapper::Minecraft::getSettings()
 	assert("unimplemented version");
 	return GameSettings();
 }
+
+void Wrapper::Minecraft::setLeftClickCounter(int value) {
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		V1_18_1::Minecraft mc = this->getObject();
+		mc.missTime.set(value);
+	}
+	assert("unimplemented version");
+}
+
+void Wrapper::Minecraft::setRightClickDelayTimer(int value) {
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+		V1_18_1::Minecraft mc = this->getObject();
+		mc.rightClickDelay.set(value);
+	}
+	assert("unimplemented version");
+}

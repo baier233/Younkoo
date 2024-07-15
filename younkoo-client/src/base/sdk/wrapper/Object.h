@@ -18,6 +18,7 @@ public:
 	jobject getObject();
 
 	jclass getClass() const;
+	jclass getClassBaseOnObject() const;
 	jobject getObject() const;
 
 	std::shared_ptr<JNI::EmptyMembers> instance;

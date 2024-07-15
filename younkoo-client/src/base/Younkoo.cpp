@@ -154,6 +154,7 @@ Younkoo::Younkoo()
 #include "render/gui/input/Context.hpp"
 
 #include "features/modules/common/CommonData.h"
+#include "features/api/chunk/ChunkScanner.h"
 
 #include "sdk/Mapper/SRGParser.h"
 #include "titan_hook.h"
@@ -179,7 +180,8 @@ bool Younkoo::setup()
 
 	auto flag = JVM::get().setup();
 
-	flag &= ModuleManager::get().LoadModules();
+
+	ModuleManager::get().LoadModules();
 	flag &= Renderer::get().Init();
 
 	{
@@ -214,9 +216,12 @@ bool Younkoo::setup()
 		HookManager::get().handle();
 	}
 
+
 	std::cout << "Setting Up" << std::endl;
 
 	(void)CommonData::get();
+
+	//ChunkScanner::setup();
 
 	while (!shouldShutDown)
 	{
@@ -254,6 +259,7 @@ bool Younkoo::setup()
 bool Younkoo::shutdown()
 {
 	shouldShutDown = true;
+	//ChunkScanner::clean();
 	UnloadedModuleCleaner::Clean();
 	HookManager::get().clean();
 	ExitProcessHook.RemoveHook();

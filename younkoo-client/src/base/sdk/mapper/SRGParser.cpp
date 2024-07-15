@@ -99,7 +99,9 @@ std::string SRGParser::getObfuscatedFieldName(const std::string& originalClassNa
 		if (lastSlashIndex != std::string::npos) {
 			obfuscatedName = obfuscatedName.substr(lastSlashIndex + 1);
 		}
+#ifdef LOG
 		std::cout << "WrapperField:" << originalFieldName << " Obfuscator:" << obfuscatedName << std::endl;
+#endif
 		return obfuscatedName;
 	}
 	return originalFieldName;
@@ -120,7 +122,9 @@ std::pair<std::string, std::string> SRGParser::getObfuscatedMethodName(const std
 		if (lastSlashIndex != std::string::npos) {
 			obfuscatedMethodName = obfuscatedMethodName.substr(lastSlashIndex + 1);
 		}
+#ifdef LOG
 		std::cout << "WrapperMethod:" << originalClassName << " Desc:" << methodDesc << " Obfuscator:" << obfuscatedMethodName << " ObfuscatorDesc:" << obfuscatedMethod.second << std::endl;
+#endif
 		return std::make_pair(obfuscatedMethodName, obfuscatedMethod.second);
 	}
 	return std::make_pair(originalMethodName, methodDesc);

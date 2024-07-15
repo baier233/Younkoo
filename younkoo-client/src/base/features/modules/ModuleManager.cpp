@@ -18,7 +18,9 @@
 #include "player/Team.h"
 #include "player/AutoTool.h"
 #include "visual/ItemESP.h"
-
+#include "visual/BlockESP.h"
+#include "player/HitDelayFix.h"
+#include "player/FastPlace.h"
 ModuleManager::ModuleManager() {
 
 }
@@ -77,6 +79,7 @@ bool ModuleManager::LoadModules()
 		this->addModule<ESP>(&ESP::getInstance());
 		this->addModule<AimAssist>(&AimAssist::getInstance());
 		this->addModule<ItemESP>(&ItemESP::getInstance());
+		this->addModule <BlockESP >(&BlockESP::getInstance());
 	}
 
 	{/*Combat*/
@@ -92,6 +95,8 @@ bool ModuleManager::LoadModules()
 		this->addModule<Eagle>(&Eagle::getInstance());
 		this->addModule<Team>(&Team::getInstance());
 		this->addModule<AutoTool>(&AutoTool::getInstance());
+		this->addModule<FastPlace>(&FastPlace::getInstance());
+		this->addModule<HitDelayFix>(&HitDelayFix::getInstance());
 	}
 	return true;
 }
