@@ -421,6 +421,9 @@
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\MovementInput.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\features\modules\player\HitDelayFix.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -2066,6 +2069,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\MovementInput.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\modules\player\HitDelayFix.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

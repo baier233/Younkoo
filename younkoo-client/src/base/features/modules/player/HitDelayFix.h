@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "../AbstractModule.h"
 #include "../../../Younkoo.hpp"
@@ -7,15 +7,14 @@
 #include "../../../render/Renderer.hpp"
 #include "../render/gui/GUI.h"
 
-class FastPlace : public AbstractModule
+class HitDelayFix : public AbstractModule
 {
 public:
-	static FastPlace& getInstance();
+	static HitDelayFix& getInstance();
 	void onEnable();
 	void onDisable();
 	void onUpdate();
 protected:
-	FastPlace();
+	HitDelayFix();
 private:
 };
-

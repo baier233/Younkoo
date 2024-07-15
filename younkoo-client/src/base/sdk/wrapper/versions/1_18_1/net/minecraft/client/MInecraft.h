@@ -52,7 +52,13 @@ JNI::Field<Options, JNI::NOT_STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft"), "options")
 )> options{ *this };/* Lnet/minecraft/client/Options; */
 
+JNI::Field<jint, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft"), "rightClickDelay")
+)> rightClickDelay{ *this };/* I */
 
+JNI::Field<jint, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/client/Minecraft"), "missTime")
+)> missTime{ *this };/* I */
 
 
 END_KLASS_DEF();
