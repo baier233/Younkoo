@@ -166,6 +166,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\sdk\hook\hooks\PlayerHook.cpp" />
+    <ClCompile Include="src\base\features\modules\combat\Jamming.cpp" />
     <ClCompile Include="src\base\config\ConfigManager.cpp" />
     <ClCompile Include="src\base\features\api\InventoryUtils.cpp" />
     <ClCompile Include="src\base\features\modules\visual\BlockESP.cpp" />
@@ -300,6 +302,8 @@
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\Vec3i.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\base\sdk\hook\hooks\PlayerHook.h" />
+    <ClInclude Include="src\base\features\modules\combat\Jamming.h" />
     <ClInclude Include="src\base\jvm\jni\types\Array.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
