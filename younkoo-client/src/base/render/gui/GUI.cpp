@@ -313,7 +313,6 @@ static void createSettingsWindow(int xPos) {
 	Savebutton->setCallback([] {
 		//TODO:Set your own name
 		ConfigManager::get().SaveConfig("config.json");
-		NanoGui::updateValues();
 		});
 	auto Detachbutton = new Button(panel, "Detach");
 	Detachbutton->setCallback([] {
@@ -323,6 +322,7 @@ static void createSettingsWindow(int xPos) {
 	Loadbutton->setCallback([] {
 		//TODO:Choose the config you need
 		ConfigManager::get().LoadConfig("config.json");
+		NanoGui::updateValues();
 		});
 	win->performLayout(NanoGui::screen->nvgContext());
 
