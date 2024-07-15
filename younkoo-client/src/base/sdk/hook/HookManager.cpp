@@ -162,6 +162,8 @@ static void hook_invoke_compiler_on_method() {
 }
 #include "hooks/RenderSystemHook.h"
 #include "hooks/BedRendererHook.h"
+#include "hooks/ClientPacketListenerHook.h"
+#include "hooks/LevelHook.h"
 void HookManager::setup()
 {
 	JavaHook::JVM::Init(JNI::get_env());
@@ -169,6 +171,8 @@ void HookManager::setup()
 	hook_invoke_compiler_on_method();
 
 	hooks.push_back(std::make_shared<GameRendererHook>());
+	hooks.push_back(std::make_shared<ClientPacketListenerHook>());
+	hooks.push_back(std::make_shared<LevelHook>());
 	//hooks.push_back(std::make_shared<BedRendererHook>());
 
 

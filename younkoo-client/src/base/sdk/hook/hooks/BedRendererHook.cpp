@@ -30,24 +30,13 @@ void BedRendererHook::hook(const HookManagerData& container)
 	jclass klass = JNI::find_class(V1_18_1::BedRenderer::get_name());
 
 
-	// Prevent method inlining to avoid crash with "error: unhandled bytecode".
-	{
-
-		auto BlockEntityRenderDispatcherKlass = V1_18_1::BlockEntityRenderDispatcher::static_obj().owner_klass;
-		//klasses_dont_compile.push_back(java_hotspot::instance_klass::get_instance_class(BlockEntityRenderDispatcherKlass));
-	}
-
 	JVM::get().jvmti->RetransformClasses(1, &klass);
 	//klasses_dont_compile.push_back(java_hotspot::instance_klass::get_instance_class(V1_18_1::BedRenderer::static_obj().init()));
 	auto mid = (jmethodID)V1_18_1::BedRenderer::static_obj().render;
 	const auto method = *reinterpret_cast<java_hotspot::method**>(mid);
 	methods_being_hooked.emplace_back(method);
-	method->set_dont_inline(true);
-	const auto access_flags = method->get_access_flags();
-	access_flags->set_not_c1_compilable();
-	access_flags->set_not_c2_compilable();
-	access_flags->set_not_c2_osr_compilable();
-	access_flags->set_queued_for_compilation();
+
+	HookUtils::GenericResolve(method);
 
 	const auto constants_pool = method->get_const_method()->get_constants();
 
@@ -91,7 +80,6 @@ void BedRendererHook::hook(const HookManagerData& container)
 	info->set_orig_bytecode(bytecode);
 	info->set_next(holder_klass->get_breakpoints());
 	holder_klass->set_breakpoints(info);
-	std::cout << "holder_klass :" << holder_klass->get_name() << std::endl;
 
 	(void)JNI::get_env()->PopLocalFrame(nullptr);
 	std::cout << std::format("Original code :{}", static_cast<int>(bytecode)) << std::endl;

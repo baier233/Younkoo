@@ -9,7 +9,10 @@
 
 namespace Math {
 
-
+	struct ChunkPos
+	{
+		int x, z;
+	};
 
 
 	template<typename T> class Vector3
@@ -116,7 +119,7 @@ namespace Math {
 
 	struct Vector3i {
 		Vector3i(const int x, const int y, const int z) : x(x), y(y), z(z) {}
-
+		Vector3i() = default;
 		unsigned int x{ 0 };
 		unsigned int y{ 0 };
 		unsigned int z{ 0 };

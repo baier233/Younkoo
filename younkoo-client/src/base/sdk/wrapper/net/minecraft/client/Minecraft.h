@@ -24,7 +24,6 @@ public:
 	void setRightClickDelayTimer(int value);
 
 private:
-	Minecraft() = default;
 };
 
 END_WRAP

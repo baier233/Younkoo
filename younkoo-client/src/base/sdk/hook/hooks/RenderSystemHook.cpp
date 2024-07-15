@@ -4,9 +4,6 @@
 #include <SDK.hpp>
 #include <JVM.hpp>
 
-#include <hotspot/java_hook.h>
-#include <hotspot/break/byte_code_info.h>
-#include <hotspot/classes/compile_task.h>
 
 
 #include <wrapper/versions/1_18_1/net/minecraft/client/renderer/GameRenderer.h>
@@ -49,12 +46,7 @@ void GameRendererHook::hook(const HookManagerData& container)
 
 	methods_being_hooked.emplace_back(method);
 
-	method->set_dont_inline(true);
-	const auto access_flags = method->get_access_flags();
-	access_flags->set_not_c1_compilable();
-	access_flags->set_not_c2_compilable();
-	access_flags->set_not_c2_osr_compilable();
-	access_flags->set_queued_for_compilation();
+	HookUtils::GenericResolve(method);
 
 	const auto constants_pool = method->get_const_method()->get_constants();
 
@@ -124,7 +116,6 @@ void GameRendererHook::hook(const HookManagerData& container)
 			static int matrix4f_4f_slot = 11;
 			static int poseStack_slot = 4;
 			{
-
 				static std::once_flag flag{};
 				std::call_once(flag, [bp] {
 					{

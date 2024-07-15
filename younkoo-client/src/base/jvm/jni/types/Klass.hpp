@@ -29,7 +29,9 @@ namespace JNI {
 		}
 
 		auto klass_name = klass_type::get_name();
+#ifdef LOG
 		std::cout << "Finding Klass :" << klass_name << std::endl;
+#endif // LOG
 		jclass found = (jclass)get_env()->NewGlobalRef(find_class(klass_name));
 		{
 			std::unique_lock unique_lock{ jclass_cache<klass_type>::mutex };

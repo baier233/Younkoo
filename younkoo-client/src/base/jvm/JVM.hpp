@@ -11,6 +11,7 @@ public:
 	JVM();
 	bool setup();
 	bool shutdown();
+	JNIEnv* attachAndGetEnv();
 	JNIEnv* Env = nullptr;
 	jvmtiEnv* jvmti = nullptr;
 	JavaVM* jvm = nullptr;

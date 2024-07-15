@@ -396,6 +396,28 @@
     <ClCompile Include="src\base\sdk\hook\hooks\BedRendererHook.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\features\api\chunk\ChunkScanner.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\sdk\hook\hooks\ClientPacketListenerHook.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\sdk\hook\hooks\LevelHook.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\chunk\Chunk.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\features\modules\visual\BlockESP.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\features\api\InventoryUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\Vec3.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\Vec3i.cpp">
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\MovementInput.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -1970,6 +1992,79 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BlockEntityRenderer.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\base\features\api\chunk\ChunkScanner.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\hook\hooks\ClientPacketListenerHook.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\multiplayer\ClientPacketListener.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundLevelChunkWithLightPacket.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundLightUpdatePacketData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundLevelChunkPacketData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundSectionBlocksUpdatePacket.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\SectionPos.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\ChunkPos.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundForgetLevelChunkPacket.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\hook\HookUtils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\api\chunk\ChunkSharedFlag.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\hook\hooks\LevelHook.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\chunk\LevelChunk.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\chunk\Chunk.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\chunk\ChunkAccess.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\api\AbstractBlockLocationTracker.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\modules\visual\BlockESP.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\DefaultedRegistry.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\resources\ResourceLocation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\features\api\InventoryUtils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\Registry.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\Vec3.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\Vec3i.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\Vec3i.h">
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\Input.h">
       <Filter>头文件</Filter>
     </ClInclude>

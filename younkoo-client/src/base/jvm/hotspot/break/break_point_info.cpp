@@ -8,9 +8,9 @@
 
 
 auto jvm_internal::breakpoint_info::create(java_hotspot::method* method, int bci) -> breakpoint_info* {
-	static VMTypeEntry* _constMethod_entry = JVMWrappers::find_type("BreakpointInfo").value();
-	if (!_constMethod_entry)return nullptr;
-	auto new_mem = malloc(_constMethod_entry->size);
+	static VMTypeEntry* _breakpointInfo_entry = JVMWrappers::find_type("BreakpointInfo").value();
+	if (!_breakpointInfo_entry)return nullptr;
+	auto new_mem = malloc(_breakpointInfo_entry->size);
 	const auto info = new(new_mem) breakpoint_info();
 	const auto constMethod = method->get_const_method();
 	info->set_bci(bci);

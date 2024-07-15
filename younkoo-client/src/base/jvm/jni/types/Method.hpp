@@ -20,7 +20,9 @@ namespace JNI {
 		void init() {
 			this->method_name = get_name();
 			auto method_sign = get_signature();
+#ifdef LOG
 			std::cout << "Getting Method : " << method_name + " " + method_sign << " isStatic :" << is_static << std::endl;
+#endif // LOG
 			if constexpr (is_static)
 				id = get_env()->GetStaticMethodID(owner_klass, method_name.c_str(), method_sign.c_str());
 			if constexpr (!is_static)
@@ -34,7 +36,9 @@ namespace JNI {
 			if (id) return;
 			this->method_name = method_name;
 			auto method_sign = get_signature();
+#ifdef LOG
 			std::cout << "Getting Method : " << method_name + " " + method_sign << " isStatic :" << is_static << std::endl;
+#endif // LOG
 			if constexpr (is_static)
 				id = get_env()->GetStaticMethodID(owner_klass, method_name.c_str(), method_sign.c_str());
 			if constexpr (!is_static)
