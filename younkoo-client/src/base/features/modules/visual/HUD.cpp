@@ -1,7 +1,7 @@
 ﻿#include "HUD.h"
 #include "base/render/hooks/WndProcHook.hpp"
 #include "base/GitInfo.h"
-
+#include <utils/Wstr.h>
 #include "../ModuleManager.h"
 #include <base/render/gui/GUI.h>
 
@@ -166,10 +166,15 @@ void HUD::onRender(const EventRender2D& e)
 	using namespace NanoVGHelper;
 
 	float x = 5;
-	float y = 5;
+	float y = 40;
+	float text_y = 5;
 	static std::wstring watermark(L"Younkoo Client");
-	auto bounds = nvgTextBoundsW(e.vg, watermark, NanoVGHelper::fontHarmony, 30);
-	nvgTextW(e.vg, watermark, x2 - bounds.first / static_cast<float>(2), y, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
+	auto bounds = nvgTextBoundsW(e.vg, watermark, NanoVGHelper::fontHarmony, 20);
+	//nvgTextW(e.vg, watermark, x2 - bounds.first / static_cast<float>(2), y, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
+	
+	NanoVGHelper::drawRoundedRect(e.vg, x, text_y, bounds.first + 10, bounds.second + 10, NanoVGHelper::rgbaToColor(0, 0, 0, 128), 5.0f);
+	NanoVGHelper::nvgTextW(e.vg, watermark, x + 5, text_y + 5, NanoVGHelper::fontHarmony, 20, NanoVGHelper::colorToRGB(-1));
+
 	static auto& handleWindow = Renderer::get().renderContext.HandleWindow;
 	float mx = 0, my = 0;
 
@@ -201,12 +206,13 @@ void HUD::onRender(const EventRender2D& e)
 	}
 
 	std::sort(modNamesWithBounds.begin(), modNamesWithBounds.end(), [](const auto& a, const auto& b) {
-		return a.second.first < b.second.first;
+		return a.second.first > b.second.first;
 		});
 
 	for (const auto& mod : modNamesWithBounds) {
 		const auto& sbname = mod.first;
-		nvgTextW(e.vg, sbname, x, y, NanoVGHelper::fontHarmony, 20, nvgRGBA(255, 255, 255, 255));
-		y += mod.second.second;
+		NanoVGHelper::drawRect(e.vg, x, y, mod.second.first + 10, mod.second.second + 8.0f, NanoVGHelper::rgbaToColor(0, 0, 0, 100));
+		nvgTextW(e.vg, sbname, x + 5, y + (8.0f / 2.0f), NanoVGHelper::fontHarmony, 20, nvgRGBA(255, 255, 255, 255));
+		y += mod.second.second + 8;
 	}
 }
