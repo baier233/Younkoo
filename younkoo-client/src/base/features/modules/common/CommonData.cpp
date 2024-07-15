@@ -19,12 +19,13 @@ void CommonData::onRender3D(const EventRender3D& e)
 	renderPartialTicks = e.TICK_DELTA;
 	projection = e.PROJECTION_MATRIX;
 	modelView = e.MODELVIEW_MATRIX;
+	cameraPos = e.CAMERA_POS;
 }
 #include <base/render/Renderer.hpp>
 
 void CommonData::onUpdate()
 {
-	auto mc = Wrapper::Minecraft::getMinecraft();
+	mc = Wrapper::Minecraft::getMinecraft();
 	if (mc.isNULL()) return;
 	auto settings = mc.getSettings();
 	if (settings.isNULL()) return;

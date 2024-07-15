@@ -29,7 +29,7 @@ auto jvm_break_points::breakpoint_handler(
 	uintptr_t parameters
 ) -> void {
 
-	const auto callback = breakpoint_callbacks[bytecode_address];
+	const auto& callback = breakpoint_callbacks[bytecode_address];
 	if (!callback) {
 		breakpoint_hook.GetOrignalFunc()(java_thread, method, bytecode_address);
 		return;

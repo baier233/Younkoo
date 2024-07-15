@@ -16,8 +16,9 @@ namespace JNI {
 		{
 			if (id) return;
 			field_name = field_name_lambda()();
-
+#ifdef LOG
 			std::cout << "Getting Field : " << get_name() + " " + get_signature() << " isStatic :" << is_static << " type:" << typeid(*this).name() << std::endl;
+#endif // LOG
 			if constexpr (is_static)
 				id = get_env()->GetStaticFieldID(owner_klass, get_name().c_str(), get_signature().c_str());
 			if constexpr (!is_static)
@@ -41,7 +42,9 @@ namespace JNI {
 		}
 		void init() {
 			field_name = field_name_lambda()();
+#ifdef LOG
 			std::cout << "Getting Field : " << get_name() + " " + get_signature() << " isStatic :" << is_static << " type:" << typeid(*this).name() << std::endl;
+#endif // LOG
 			if constexpr (is_static)
 				id = get_env()->GetStaticFieldID(owner_klass, get_name().c_str(), get_signature().c_str());
 			if constexpr (!is_static)

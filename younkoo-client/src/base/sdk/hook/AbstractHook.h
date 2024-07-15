@@ -1,11 +1,6 @@
 ﻿#pragma once
 #include <vector>
-
-namespace java_hotspot {
-	class method;
-	class instance_klass;
-}
-
+#include "HookUtils.h"
 struct HookManagerData
 {
 

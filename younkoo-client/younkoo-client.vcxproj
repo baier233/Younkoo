@@ -166,6 +166,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\features\api\InventoryUtils.cpp" />
+    <ClCompile Include="src\base\features\modules\visual\BlockESP.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\chunk\Chunk.cpp" />
+    <ClCompile Include="src\base\sdk\hook\hooks\LevelHook.cpp" />
+    <ClCompile Include="src\base\sdk\hook\hooks\ClientPacketListenerHook.cpp" />
+    <ClCompile Include="src\base\features\api\chunk\ChunkScanner.cpp" />
     <ClCompile Include="src\base\sdk\hook\hooks\BedRendererHook.cpp" />
     <ClCompile Include="ext\gl2d\gl2d.cpp" />
     <ClCompile Include="ext\gl2d\gl2dParticleSystem.cpp" />
@@ -288,6 +294,8 @@
     <ClCompile Include="src\utils\types\details\WorldToScreen.cpp" />
     <ClCompile Include="src\utils\Wstr.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\World.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\Vec3.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\Vec3i.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\base\jvm\jni\types\Array.hpp">
@@ -332,6 +340,14 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="src\base\features\api\InventoryUtils.h" />
+    <ClInclude Include="src\base\features\modules\visual\BlockESP.h" />
+    <ClInclude Include="src\base\features\api\AbstractBlockLocationTracker.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\chunk\Chunk.h" />
+    <ClInclude Include="src\base\sdk\hook\hooks\LevelHook.h" />
+    <ClInclude Include="src\base\features\api\chunk\ChunkSharedFlag.h" />
+    <ClInclude Include="src\base\sdk\hook\hooks\ClientPacketListenerHook.h" />
+    <ClInclude Include="src\base\features\api\chunk\ChunkScanner.h" />
     <ClInclude Include="src\base\sdk\hook\hooks\BedRendererHook.h" />
     <ClInclude Include="ext\gl2d\gl2d.h" />
     <ClInclude Include="ext\gl2d\gl2dParticleSystem.h" />
@@ -628,6 +644,7 @@
     <ClInclude Include="src\base\sdk\hook\AbstractHook.h" />
     <ClInclude Include="src\base\sdk\hook\HookManager.h" />
     <ClInclude Include="src\base\render\api\FixedPipelineEmulator.h" />
+    <ClInclude Include="src\base\sdk\hook\HookUtils.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\item\EntityItem.h" />
     <ClInclude Include="src\base\features\modules\visual\ItemESP.h" />
     <ClInclude Include="src\base\features\modules\player\AutoTool.h" />
@@ -656,6 +673,7 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\ChatFormatting.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Camera.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\KeyMapping.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\multiplayer\ClientPacketListener.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Options.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BlockEntityRenderDispatcher.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BlockEntityRenderer.h" />
@@ -700,9 +718,18 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\LocalPlayer.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\MultiBufferSource.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\commands\arguments\EntityAnchorArgument$Anchor.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\DefaultedRegistry.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\NonNullList.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\Registry.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\SectionPos.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\chat\Component.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BedRenderer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundForgetLevelChunkPacket.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundLevelChunkPacketData.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundLevelChunkWithLightPacket.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundLightUpdatePacketData.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundSectionBlocksUpdatePacket.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\resources\ResourceLocation.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\BlockItem.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\item\ItemEntity.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\player\Inventory.h" />
@@ -724,6 +751,9 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\entity\BlockEntity.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\state\BlockBehaviour$BlockStateBase.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\state\BlockState.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\ChunkPos.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\chunk\ChunkAccess.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\chunk\LevelChunk.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\Level.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\BlockHitResult.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\EntityHitResult.h" />
@@ -731,6 +761,7 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\Vec2.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\Vec3.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\Vec3i.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\com\mojang\blaze3d\platform\Window.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\com\mojang\blaze3d\vertex\PoseStack$Pose.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\com\mojang\blaze3d\vertex\PoseStack.h" />
@@ -857,6 +888,8 @@
     <ClInclude Include="src\base\cleaner\UnloadedModuleCleaner.h" />
     <ClInclude Include="src\utils\Wstr.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\World.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\Vec3.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\Vec3i.h" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="src\base\jvm\hotspot\utility\getter.asm">

@@ -22,7 +22,6 @@ public:
 	GameSettings getSettings();
 
 private:
-	Minecraft() = default;
 };
 
 END_WRAP

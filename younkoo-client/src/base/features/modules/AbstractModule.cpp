@@ -26,19 +26,19 @@ Category AbstractModule::getCategory() {
 }
 
 void AbstractModule::toggle() {
-	this->i_toggle = !this->i_toggle;
 	this->onToggled();
 }
 
 #include <base/render/gui/GUI.h>
 void AbstractModule::onToggled() {
 	NanoGui::updateModule(this);
-	if (this->i_toggle) {
+	if (!this->i_toggle) {
 		this->onEnable();
 	}
 	else {
 		this->onDisable();
 	}
+	this->i_toggle = !this->i_toggle;
 }
 
 bool AbstractModule::getToggle() {

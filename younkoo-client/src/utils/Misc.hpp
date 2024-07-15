@@ -6,7 +6,7 @@
 namespace Utils {
 	namespace Misc {
 		template<typename T>
-		static std::string arrayToString(const T* arr, size_t size) {
+		inline std::string arrayToString(const T* arr, size_t size) {
 			std::ostringstream oss;
 			oss << "[";
 			for (size_t i = 0; i < size; ++i) {
@@ -20,7 +20,7 @@ namespace Utils {
 		}
 
 		template<typename T>
-		static std::string arrayToString(const std::vector<T>& arr) {
+		inline std::string arrayToString(const std::vector<T>& arr) {
 			std::ostringstream oss;
 			oss << "[";
 			for (size_t i = 0; i < arr.size(); ++i) {

@@ -6,7 +6,7 @@
 
 BEGIN_1_18_1
 
-BEGIN_KLASS_DEF(BlockPos, return SRGParser::get().getObfuscatedClassName("net/minecraft/core/BlockPos"))
+BEGIN_KLASS_DEF_EX(BlockPos, return SRGParser::get().getObfuscatedClassName("net/minecraft/core/BlockPos"), Vec3)
 
 JNI::Field<jint, JNI::STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedFieldName(SRGParser::get().getObfuscatedClassName("net/minecraft/core/BlockPos"), "PACKED_X_LENGTH")
@@ -59,6 +59,10 @@ JNI::Method<jint, JNI::STATIC, DECLARE_NAME(
 JNI::Method<jint, JNI::STATIC, DECLARE_NAME(
 	return SRGParser::get().getObfuscatedMethodName("net/minecraft/core/BlockPos", "getZ", "(J)I").first
 ), jlong> getZ{ *this };
+
+JNI::Method<BlockPos, JNI::NOT_STATIC, DECLARE_NAME(
+	return SRGParser::get().getObfuscatedMethodName("net/minecraft/core/BlockPos", "immutable", "()Lnet/minecraft/core/BlockPos;").first
+)> immutable{ *this };
 
 JNI::ConstructorMethod<jdouble, jdouble, jdouble> consturctor1{ *this };
 static inline BlockPos create(jdouble x, jdouble y, jdouble z) {
