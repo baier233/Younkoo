@@ -226,9 +226,59 @@ static void createWindow(int xPos, const std::string& title, Category category) 
 		scrollPanel->setFixedSize(Vector2i(width, height));
 		};
 	layoutLambdas.push_back(std::make_pair(std::make_pair(size.x(), size.y()), doLayout));
+
 }
+#include "../config/ConfigManager.h"
+static void createSettingsWindow(int xPos) {
+	auto win = new Window(NanoGui::screen, "Settings");
+	win->setPosition(Vector2i(xPos, 10));
+	win->setLayout(new GroupLayout());
 
+	// 添加 VScrollPanel
+	auto scrollPanel = new VScrollPanel(win);
 
+	auto panel = new Widget(scrollPanel);
+	panel->setLayout(new GroupLayout());
+	auto Savebutton = new Button(panel, "SaveConfig");
+	Savebutton->setCallback([] {
+		//TODO:Set your own name
+		ConfigManager::get().SaveConfig("config.json");
+		});
+	auto Detachbutton = new Button(panel, "Detach");
+	Detachbutton->setCallback([] {
+		Younkoo::get().shouldShutDown = true;
+		});
+	auto Loadbutton = new Button(panel, "LoadConfig");
+	Loadbutton->setCallback([] {
+		//TODO:Choose the config you need
+		ConfigManager::get().LoadConfig("config.json");
+		});
+	win->performLayout(NanoGui::screen->nvgContext());
+
+	Vector2i size = win->preferredSize(NanoGui::screen->nvgContext());
+
+	std::function<void(int, int)> doLayout = [win, scrollPanel](int width, int height) {
+
+		auto [winWidth, winHeight] = Renderer::get().renderContext.winSize;
+		//std::cout << "height : " << width << " " << winHeight << std::endl;
+		//std::cout << "width :" << height << " " << winWidth << std::endl;
+		if (width < 250)
+		{
+			width = 250;
+		}
+		if (height < 100)
+		{
+			height = 100;
+		}
+		if (height > winHeight * 0.85)
+		{
+			height = winHeight * 0.85;
+		}
+		scrollPanel->setFixedSize(Vector2i(width, height));
+		};
+	layoutLambdas.push_back(std::make_pair(std::make_pair(size.x(), size.y()), doLayout));
+
+}
 void NanoGui::layOut()
 {
 	for (auto& [oWinSize, doLayout] : layoutLambdas)
@@ -271,7 +321,7 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 		}
 		xPos += 200;
 	}
-
+	createSettingsWindow(xPos);
 	layOut();
 
 	screen->setVisible(true);
