@@ -166,6 +166,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\config\ConfigManager.cpp" />
     <ClCompile Include="src\base\features\api\InventoryUtils.cpp" />
     <ClCompile Include="src\base\features\modules\visual\BlockESP.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\chunk\Chunk.cpp" />
@@ -342,6 +343,8 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClCompile>
+    <ClInclude Include="ext\json.hpp" />
+    <ClInclude Include="src\base\config\ConfigManager.h" />
     <ClInclude Include="src\base\features\api\InventoryUtils.h" />
     <ClInclude Include="src\base\features\modules\visual\BlockESP.h" />
     <ClInclude Include="src\base\features\api\AbstractBlockLocationTracker.h" />
