@@ -396,6 +396,9 @@
     <ClCompile Include="src\base\sdk\hook\hooks\BedRendererHook.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\base\config\ConfigManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Main.hpp">
@@ -1962,6 +1965,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BlockEntityRenderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base\config\ConfigManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\json.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
