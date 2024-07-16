@@ -32,6 +32,7 @@ protected:
 
 	DEFINE_BOOL_VALUE(inInventoryValue, "Inventory", "Still effective when inventory screen is open.", false);
 	DEFINE_BOOL_VALUE(blockOnlyValue, "Right Block Only", "Only do right click when current item is Block.", false);
+	DEFINE_BOOL_VALUE(ignoreBowValue, "Right Ignore Bow", "Skip when current item is Bow.", true);
 
 	std::shared_ptr<ModeValue>clickModeValue = std::make_shared<ModeValue>("Mode", "Click Mode.", std::vector<int>{ BOTH, LEFTONLY, RIGHTONLY }, std::vector<std::string>{ "Both", "Left Only", "Right Only" }, BOTH);
 

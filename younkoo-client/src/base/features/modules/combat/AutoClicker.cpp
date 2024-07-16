@@ -6,6 +6,7 @@
 #include <optional>
 #include <random>
 #include <wrapper/net/minecraft/item/ItemBlock.h>
+#include <wrapper/net/minecraft/item/ItemBow.h>
 
 #include <base/render/gui/input/InputApi.h>
 namespace Left {
@@ -40,6 +41,7 @@ AutoClicker::AutoClicker() :AbstractModule(xorstr_("AutoClicker"), Category::COM
 	this->addValue(BoolType, miningValue);
 	this->addValue(BoolType, inInventoryValue);
 	this->addValue(BoolType, blockOnlyValue);
+	this->addValue(BoolType, ignoreBowValue);
 
 	this->addValue(ListType, clickModeValue);
 }
@@ -153,9 +155,11 @@ void AutoClicker::onUpdate()
 			auto offitemStack = mc.getPlayer().getOffhandItemStack();
 			if (offitemStack.isNULL()) return;
 			auto offItem = offitemStack.getItem();
-			if (mainItem.getObject() == NULL) return;
+			if (offItem.getObject() == NULL) return;
 
 			if (blockOnlyValue->getValue() && !(JNI::get_env()->IsInstanceOf(mainItem.getObject(), Wrapper::ItemBlock::klass()) || JNI::get_env()->IsInstanceOf(offItem.getObject(), Wrapper::ItemBlock::klass()))) return;
+
+			if (ignoreBowValue->getValue() && (JNI::get_env()->IsInstanceOf(mainItem.getObject(), Wrapper::ItemBow::klass()) || JNI::get_env()->IsInstanceOf(offItem.getObject(), Wrapper::ItemBow::klass()))) return;
 
 			POINT pos_cursor;
 

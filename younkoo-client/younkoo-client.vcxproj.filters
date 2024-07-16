@@ -138,6 +138,7 @@
     <ClCompile Include="src\base\render\gui\api\VirtualKey.cpp" />
     <ClCompile Include="src\base\features\api\JammingApi.cpp" />
     <ClCompile Include="src\base\render\gui\input\InputApi.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\item\ItemBow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\sdk\hook\hooks\PlayerHook.h" />
@@ -707,6 +708,8 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\gui\screens\ChatScreen.h" />
     <ClInclude Include="src\base\features\api\JammingApi.h" />
     <ClInclude Include="src\base\render\gui\input\InputApi.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\BowItem.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\item\ItemBow.h" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="src\base\jvm\hotspot\utility\getter.asm" />

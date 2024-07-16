@@ -166,6 +166,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\item\ItemBow.cpp" />
     <ClCompile Include="src\base\features\api\JammingApi.cpp" />
     <ClCompile Include="src\base\protocol\packer.cpp" />
     <ClCompile Include="src\base\protocol\verify.cpp" />
@@ -307,6 +308,7 @@
     <ClCompile Include="src\base\render\gui\api\VirtualKey.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\item\ItemBow.h" />
     <ClInclude Include="src\base\features\api\JammingApi.h" />
     <ClInclude Include="src\base\protocol\packer.h" />
     <ClInclude Include="src\base\protocol\verify.h" />
@@ -762,6 +764,7 @@
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\BlockPos.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\InteractionHand.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\ArmorItem.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\BowItem.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\DyeableLeatherItem.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\DyeColor.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\Item.h" />
