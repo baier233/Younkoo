@@ -1,11 +1,13 @@
 ﻿#include "PlayerHook.h"
 #include <format>
+#include <base/Younkoo.hpp>
+#include <base/event/Events.h>
 #include <wrapper/versions/1_18_1/net/minecraft/world/entity/player/Player.h>
 void PlayerHook::hook(const HookManagerData& container)
 {
 	if (SRGParser::get().GetVersion() != Versions::FORGE_1_18_1)
 		return;
-	std::cout << "Processing hook for Level " << std::endl;
+	std::cout << "Processing hook for Player " << std::endl;
 
 	auto& methods_being_hooked = container.methods_being_hooked;
 	auto& methods_dont_compile = container.methods_dont_compile;
@@ -30,7 +32,8 @@ void PlayerHook::hook(const HookManagerData& container)
 	auto bytecodes = const_method->get_bytecode();
 	const size_t bytecodes_length = bytecodes.size();
 	auto* holder_klass = static_cast<java_hotspot::instance_klass*>(constants_pool->get_pool_holder());
-	std::list<BytecodeInfo> method_block;
+	std::vector<BytecodeInfo> method_block;
+	klasses_dont_compile.push_back(holder_klass);
 
 	{
 		int bytecodes_index = 0;
@@ -47,12 +50,14 @@ void PlayerHook::hook(const HookManagerData& container)
 
 			const auto& name = java_runtime::bytecode_names[bytecode];
 			std::cout << "(" << bytecodes_index << ")  " << name << " {";
+			std::cout.flush();
 			auto length = opcodes.get_length();
 
 			for (int i = 0; i < length - 1; ++i) {
 				int operand = static_cast<int>(bytecodes[bytecodes_index + i]);
 				current_bytecode.operands.push_back(operand);
 				std::cout << (i == 0 ? "" : " , ") << operand;
+				std::cout.flush();
 			}
 			method_block.push_back(current_bytecode);
 			std::cout << "}" << std::endl;
@@ -60,7 +65,7 @@ void PlayerHook::hook(const HookManagerData& container)
 			});
 	}
 
-	auto& bc_info = method_block.front();
+	auto& bc_info = method_block.back();
 	auto hook_index = bc_info.index;
 	auto* info = jvm_internal::breakpoint_info::create(method, hook_index);
 	auto bytecode = static_cast<java_runtime::bytecodes>(bc_info.opcode);
@@ -69,7 +74,6 @@ void PlayerHook::hook(const HookManagerData& container)
 	holder_klass->set_breakpoints(info);
 
 	(void)JNI::get_env()->PopLocalFrame(nullptr);
-	std::cout << std::format("setting return hook for :{}", bc_info.index) << std::endl;
 	jvm_break_points::set_breakpoint_with_original_code(method, hook_index, static_cast<std::uint8_t>(bytecode), [mid](break_point_info* bp) -> void
 		{
 			static std::once_flag flag{};
@@ -77,7 +81,7 @@ void PlayerHook::hook(const HookManagerData& container)
 				{
 					const auto c_m = bp->method->get_const_method();
 					const auto entries = c_m->get_local_variable_entries();
-					std::cout << "Handling setBlock Hook" << std::endl;
+					std::cout << "Handling Player.attack Hook" << std::endl;
 					for (auto& entry : entries)
 					{
 						std::cout << std::format("entry : {}\nstart_location: {}\nlength: {}\nsignature: {}\ngeneric_signature: {}\nslot: {}",
@@ -88,9 +92,11 @@ void PlayerHook::hook(const HookManagerData& container)
 			JNI::set_thread_env(bp->java_thread->get_jni_environment());
 			auto o_state = bp->java_thread->get_thread_state();
 			bp->java_thread->set_thread_state(JavaThreadState::_thread_in_native);
-
-			std::cout << "OnAttack" << std::endl;
-
+			auto entity_obj = (jobject)bp->get_parameter(1);
+			V1_18_1::Entity entity(entity_obj, true);
+			Wrapper::Entity wrapEntitiy(entity);
+			Younkoo::get().EventBus->fire_event(EventAttack{ wrapEntitiy });
+			entity.clear_ref();
 			bp->java_thread->set_thread_state(o_state);
 			//std::cout << "OnRendering BED" << std::endl;
 

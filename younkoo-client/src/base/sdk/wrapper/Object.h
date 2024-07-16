@@ -13,6 +13,7 @@ public:
 	bool operator==(const Object& other_Object);
 	Object operator=(const Object& other_Object);
 	bool isEqualTo(const Object& other_Object);
+	bool instanceOf(jclass klass);
 	bool isNULL();
 	jclass getClass();
 	jobject getObject();

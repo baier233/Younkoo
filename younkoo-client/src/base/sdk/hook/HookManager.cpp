@@ -175,7 +175,7 @@ void HookManager::setup()
 	//hooks.push_back(std::make_shared<ClientPacketListenerHook>());
 	//hooks.push_back(std::make_shared<LevelHook>());
 	//hooks.push_back(std::make_shared<BedRendererHook>());
-	hooks.push_back(std::make_shared<PlayerHook>());
+	//hooks.push_back(std::make_shared<PlayerHook>());
 
 
 }

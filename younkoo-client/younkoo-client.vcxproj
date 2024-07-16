@@ -166,8 +166,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\features\api\JammingApi.cpp" />
     <ClCompile Include="src\base\protocol\packer.cpp" />
     <ClCompile Include="src\base\protocol\verify.cpp" />
+    <ClCompile Include="src\base\render\gui\input\InputApi.cpp" />
     <ClCompile Include="src\base\sdk\hook\hooks\PlayerHook.cpp" />
     <ClCompile Include="src\base\features\modules\combat\Jamming.cpp" />
     <ClCompile Include="src\base\config\ConfigManager.cpp" />
@@ -305,8 +307,10 @@
     <ClCompile Include="src\base\render\gui\api\VirtualKey.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\base\features\api\JammingApi.h" />
     <ClInclude Include="src\base\protocol\packer.h" />
     <ClInclude Include="src\base\protocol\verify.h" />
+    <ClInclude Include="src\base\render\gui\input\InputApi.h" />
     <ClInclude Include="src\base\sdk\hook\hooks\PlayerHook.h" />
     <ClInclude Include="src\base\features\modules\combat\Jamming.h" />
     <ClInclude Include="src\base\jvm\jni\types\Array.hpp">

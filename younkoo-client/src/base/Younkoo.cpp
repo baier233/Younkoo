@@ -247,6 +247,7 @@ bool Younkoo::setup()
 				shouldShutDown = true;
 				break;
 			}
+
 			if (!common.inChatScreen)	ModuleManager::get().ProcessKeyEvent(event.keycode);
 
 			YounkooIO::keyEvents.pop();

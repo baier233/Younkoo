@@ -13,4 +13,3 @@ namespace WndProcHook {
 	inline HWND GL_HWND;
 	inline std::atomic<bool> RESIZED = false;
 }
-	

@@ -51,6 +51,7 @@ constexpr auto CALLBACK_PRESS = 1;
 #include <stdio.h>
 #include <time.h>
 
+
 inline double glfwGetTime() {
 	return (double)clock() / CLOCKS_PER_SEC;
 }
@@ -66,11 +67,9 @@ struct YounkooIOContext {
 	bool IsDragging = false;
 	std::vector<char>InputQueueCharacters;
 };
-
 class YounkooInput : public YounkooIOContext {
 public:
 	bool IsMousePressed(const unsigned int button, const bool repeat = true) {
-
 		if (MouseDown[button])
 		{
 			if (!MouseDownAready[button])

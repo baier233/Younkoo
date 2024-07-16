@@ -136,6 +136,8 @@
     <ClCompile Include="src\base\protocol\verify.cpp" />
     <ClCompile Include="src\base\protocol\packer.cpp" />
     <ClCompile Include="src\base\render\gui\api\VirtualKey.cpp" />
+    <ClCompile Include="src\base\features\api\JammingApi.cpp" />
+    <ClCompile Include="src\base\render\gui\input\InputApi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\sdk\hook\hooks\PlayerHook.h" />
@@ -703,6 +705,8 @@
     <ClInclude Include="src\base\protocol\packer.h" />
     <ClInclude Include="src\base\render\gui\api\VirtualKey.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\gui\screens\ChatScreen.h" />
+    <ClInclude Include="src\base\features\api\JammingApi.h" />
+    <ClInclude Include="src\base\render\gui\input\InputApi.h" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="src\base\jvm\hotspot\utility\getter.asm" />

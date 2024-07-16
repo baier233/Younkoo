@@ -206,7 +206,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 
-	return CallWindowProc(WndProcHook::GL_HANDLE, hWnd, message, wParam, lParam);;
+	return CallWindowProcW(WndProcHook::GL_HANDLE, hWnd, message, wParam, lParam);;
 }
 
 #include "../gui/input/IOEvents.h"
@@ -234,15 +234,17 @@ static WNDPROC SetCallbacks(HWND hWnd)
 
 	YounkooMouseButtonCallback = [](HWND window, int button, int action, int mods) {
 		// 鼠标按钮回调
-		//std::cout << "Button :" << button << std::endl;
+		//std::cout << "Button :" << button << " action :" << action << std::endl;
+
+
+		if (action == CALLBACK_PRESS) context.MouseDown[button] = true;
+		if (action == CALLBACK_RELEASE) context.MouseDown[button] = false;
 
 		if (YounkooIO::IOEvents.IOEventsMouseButtonCallback)
 		{
 			return YounkooIO::IOEvents.IOEventsMouseButtonCallback(window, button, action, mods);
 		}
 		return false;
-		/*if (action == CALLBACK_PRESS) context.MouseDown[button] = true;
-		if (action == CALLBACK_RELEASE) context.MouseDown[button] = false;*/
 		};
 
 	YounkooKeyCallback = [](HWND window, int key, int scancode, int action, int mods) {

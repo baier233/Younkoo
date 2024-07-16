@@ -7,7 +7,7 @@
 #include <random>
 #include <wrapper/net/minecraft/item/ItemBlock.h>
 
-
+#include <base/render/gui/input/InputApi.h>
 namespace Left {
 
 	long lastClickTime = 0;
@@ -60,6 +60,7 @@ void AutoClicker::onDisable()
 
 }
 static bool blockState = false;
+using namespace InputApi;
 void AutoClicker::onUpdate()
 {
 	ToggleCheck;
@@ -89,9 +90,7 @@ void AutoClicker::onUpdate()
 		long milli = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 		if (Left::lastClickTime == 0) Left::lastClickTime = milli;
 		if ((milli - Left::lastClickTime) < (1000 / Left::nextCps)) break;
-
-		if (!GetAsyncKeyState(VK_LBUTTON) && 1) break;
-
+		if (!(context.IsMousePressed(CALLBACK_MOUSE_BUTTON_1))) break;
 		auto mouseOver = mc.getMouseOver();
 
 		POINT pos_cursor;
@@ -110,7 +109,7 @@ void AutoClicker::onUpdate()
 			//std::cout << "Break" << std::endl;
 			if (!blockState)
 			{
-				PostMessageA(handleWindow, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+				SendMessageNoEvent(handleWindow, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
 				updateCps();
 				blockState = true;
 			}
@@ -118,12 +117,12 @@ void AutoClicker::onUpdate()
 		}
 		blockState = false;
 		//CommonData::getInstance()->isCombat = true;
-		PostMessageA(handleWindow, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
-		PostMessageA(handleWindow, WM_LBUTTONUP, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+		SendMessageNoEvent(handleWindow, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+		SendMessageNoEvent(handleWindow, WM_LBUTTONUP, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
 
 		if (blockHitValue->getValue() == true && Left::count == blockHitChanceValue->getValue()) {
-			PostMessageA(handleWindow, WM_RBUTTONDOWN, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
-			PostMessageA(handleWindow, WM_RBUTTONUP, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+			SendMessageNoEvent(handleWindow, WM_RBUTTONDOWN, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+			SendMessageNoEvent(handleWindow, WM_RBUTTONUP, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
 			Left::count = 0;
 		}
 
@@ -144,7 +143,7 @@ void AutoClicker::onUpdate()
 
 
 
-		if (GetAsyncKeyState(VK_RBUTTON) && 1) {
+		if (context.IsMousePressed(CALLBACK_MOUSE_BUTTON_2)) {
 
 			auto itemStack = mc.getPlayer().getInventory().getCurrentItem();
 			if (itemStack.isNULL()) return;
@@ -161,8 +160,8 @@ void AutoClicker::onUpdate()
 			POINT pos_cursor;
 
 			GetCursorPos(&pos_cursor);
-			PostMessageA(handleWindow, WM_RBUTTONDOWN, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
-			PostMessageA(handleWindow, WM_RBUTTONUP, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+			SendMessageNoEvent(handleWindow, WM_RBUTTONDOWN, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+			SendMessageNoEvent(handleWindow, WM_RBUTTONUP, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
 
 			Right::lastClickTime = milli;
 

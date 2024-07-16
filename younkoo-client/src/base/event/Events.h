@@ -47,3 +47,9 @@ public:
 	Wrapper::BlockPos& pos;
 	Wrapper::BlockState& state;
 };
+#include <wrapper/net/minecraft/entity/Entity.h>
+
+class EventAttack {
+public:
+	Wrapper::Entity& entity;
+};

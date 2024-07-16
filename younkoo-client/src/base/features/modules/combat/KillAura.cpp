@@ -5,6 +5,7 @@
 
 #include <base/features/modules/ModuleManager.h>
 
+#include <base/render/gui/input/InputApi.h>
 #include <base/features/modules/common/CommonData.h>
 #include <base/features/modules/player/Team.h>
 #include <random>
@@ -18,7 +19,7 @@ static double distance(double x, double y) {
 static double distance(double x1, double y1, double z1, double x2, double y2, double z2) {
 	return distance(y1 - y2, distance(x1 - x2, z1 - z2));
 }
-
+using namespace InputApi;
 KillAura::KillAura() :AbstractModule(xorstr_("KillAura"), Category::COMBAT, 'R')
 {
 
@@ -196,8 +197,8 @@ void KillAura::onUpdate()
 	if (this->killauraMode->getValue() == Legit) {
 		POINT pos_cursor;
 		GetCursorPos(&pos_cursor);
-		SendMessage(renderer.renderContext.HandleWindow, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
-		SendMessage(renderer.renderContext.HandleWindow, WM_LBUTTONUP, 0, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+		SendMessageNoEvent(renderer.renderContext.HandleWindow, WM_LBUTTONDOWN, MK_LBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+		SendMessageNoEvent(renderer.renderContext.HandleWindow, WM_LBUTTONUP, 0, MAKELPARAM(pos_cursor.x, pos_cursor.y));
 	}
 	//else if (this->killauraMode->getValue() == Normal) {
 	//	//thePlayer.swingItem();
@@ -208,8 +209,8 @@ void KillAura::onUpdate()
 		POINT pos_cursor;
 		GetCursorPos(&pos_cursor);
 		std::cout << target.getHealth() << std::endl;
-		SendMessage(renderer.renderContext.HandleWindow, WM_RBUTTONDOWN, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
-		SendMessage(renderer.renderContext.HandleWindow, WM_RBUTTONUP, 0, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+		SendMessageNoEvent(renderer.renderContext.HandleWindow, WM_RBUTTONDOWN, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+		SendMessageNoEvent(renderer.renderContext.HandleWindow, WM_RBUTTONUP, 0, MAKELPARAM(pos_cursor.x, pos_cursor.y));
 		/*if (isMove())
 			thePlayer.set_speed(0.155);*/
 	}
@@ -217,7 +218,7 @@ void KillAura::onUpdate()
 		POINT pos_cursor;
 		GetCursorPos(&pos_cursor);
 
-		SendMessage(renderer.renderContext.HandleWindow, WM_RBUTTONDOWN, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+		SendMessageNoEvent(renderer.renderContext.HandleWindow, WM_RBUTTONDOWN, MK_RBUTTON, MAKELPARAM(pos_cursor.x, pos_cursor.y));
 
 	}
 
