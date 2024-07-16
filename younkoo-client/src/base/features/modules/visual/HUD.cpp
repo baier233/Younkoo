@@ -171,7 +171,7 @@ void HUD::onRender(const EventRender2D& e)
 	static std::wstring watermark(L"Younkoo Client");
 	auto bounds = nvgTextBoundsW(e.vg, watermark, NanoVGHelper::fontHarmony, 20);
 	//nvgTextW(e.vg, watermark, x2 - bounds.first / static_cast<float>(2), y, NanoVGHelper::fontHarmony, 30, nvgRGBA(255, 255, 255, 255));
-	
+
 	NanoVGHelper::drawRoundedRect(e.vg, x, text_y, bounds.first + 10, bounds.second + 10, NanoVGHelper::rgbaToColor(0, 0, 0, 128), 5.0f);
 	NanoVGHelper::nvgTextW(e.vg, watermark, x + 5, text_y + 5, NanoVGHelper::fontHarmony, 20, NanoVGHelper::colorToRGB(-1));
 

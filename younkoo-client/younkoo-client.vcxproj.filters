@@ -136,6 +136,13 @@
     <ClCompile Include="src\base\protocol\verify.cpp" />
     <ClCompile Include="src\base\protocol\packer.cpp" />
     <ClCompile Include="src\base\render\gui\api\VirtualKey.cpp" />
+    <ClCompile Include="ext\imgui\imgui.cpp" />
+    <ClCompile Include="ext\imgui\imgui_draw.cpp" />
+    <ClCompile Include="ext\imgui\imgui_freetype.cpp" />
+    <ClCompile Include="ext\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="ext\imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="ext\imgui\imgui_tables.cpp" />
+    <ClCompile Include="ext\imgui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\sdk\hook\hooks\PlayerHook.h" />
@@ -703,6 +710,16 @@
     <ClInclude Include="src\base\protocol\packer.h" />
     <ClInclude Include="src\base\render\gui\api\VirtualKey.h" />
     <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\gui\screens\ChatScreen.h" />
+    <ClInclude Include="ext\imgui\imconfig.h" />
+    <ClInclude Include="ext\imgui\imgui.h" />
+    <ClInclude Include="ext\imgui\imgui_freetype.h" />
+    <ClInclude Include="ext\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="ext\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="ext\imgui\imgui_impl_win32.h" />
+    <ClInclude Include="ext\imgui\imgui_internal.h" />
+    <ClInclude Include="ext\imgui\imstb_rectpack.h" />
+    <ClInclude Include="ext\imgui\imstb_textedit.h" />
+    <ClInclude Include="ext\imgui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="src\base\jvm\hotspot\utility\getter.asm" />
