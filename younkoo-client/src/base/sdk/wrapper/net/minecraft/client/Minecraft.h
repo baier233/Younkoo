@@ -15,6 +15,7 @@ public:
 	static Minecraft getMinecraft();
 	static Minecraft static_obj();
 	bool isInGuiState();
+	bool isInChatGui();
 	World getWorld();
 	EntityPlayerSP getPlayer();
 	MovingObjectPosition getMouseOver();

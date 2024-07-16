@@ -702,6 +702,7 @@
     <ClInclude Include="src\base\protocol\verify.h" />
     <ClInclude Include="src\base\protocol\packer.h" />
     <ClInclude Include="src\base\render\gui\api\VirtualKey.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\gui\screens\ChatScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="src\base\jvm\hotspot\utility\getter.asm" />

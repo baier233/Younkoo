@@ -47,6 +47,7 @@ CallBackwindowsetfoucs YounkooWindowFocusCallback;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	static bool skip = false;
 	switch (message)
 	{
 	case WM_MOUSEMOVE:
@@ -86,7 +87,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			int key = static_cast<int>(wParam);
 			int scancode = (lParam >> 16) & 0x1FF;
 			int action = CALLBACK_PRESS;
-			if (YounkooKeyCallback(hWnd, key, scancode, action, getKeyMods()))return 1;
+			if (YounkooKeyCallback(hWnd, key, scancode, action, getKeyMods())) return 1;
 		}
 		break;
 	case WM_KEYUP:
@@ -96,7 +97,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			int key = static_cast<int>(wParam);
 			int scancode = (lParam >> 16) & 0x1FF;
 			int action = CALLBACK_RELEASE;
-			if (YounkooKeyCallback(hWnd, key, scancode, action, getKeyMods()))return 1;
+			if (YounkooKeyCallback(hWnd, key, scancode, action, getKeyMods())) return 1;
 		}
 		break;
 	case WM_CHAR:
@@ -251,7 +252,7 @@ static WNDPROC SetCallbacks(HWND hWnd)
 			auto result = YounkooIO::IOEvents.IOEventsKeyCallback(window, key, scancode, action, mods);
 			if (result)
 			{
-				return !result;
+				return result;
 			}
 		}
 

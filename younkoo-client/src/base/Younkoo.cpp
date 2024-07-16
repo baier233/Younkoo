@@ -233,7 +233,7 @@ bool Younkoo::setup()
 
 	std::cout << "Setting Up" << std::endl;
 
-	(void)CommonData::get();
+	auto& common = CommonData::get();
 
 	//ChunkScanner::setup();
 
@@ -247,7 +247,7 @@ bool Younkoo::setup()
 				shouldShutDown = true;
 				break;
 			}
-			ModuleManager::get().ProcessKeyEvent(event.keycode);
+			if (!common.inChatScreen)	ModuleManager::get().ProcessKeyEvent(event.keycode);
 
 			YounkooIO::keyEvents.pop();
 		}

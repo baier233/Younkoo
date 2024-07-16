@@ -1,6 +1,7 @@
 ﻿#include "Minecraft.h"
 
 #include "wrapper/versions/1_18_1/net/minecraft/client/MInecraft.h"
+#include "wrapper/versions/1_18_1/net/minecraft/client/gui/screens/ChatScreen.h"
 #include <memory>
 
 Wrapper::Minecraft Wrapper::Minecraft::getMinecraft()
@@ -33,6 +34,19 @@ bool Wrapper::Minecraft::isInGuiState()
 	}
 
 	assert("unimplemented version");
+	return false;
+}
+
+bool Wrapper::Minecraft::isInChatGui()
+{
+	if (SRGParser::get().GetVersion() == Versions::FORGE_1_18_1)
+	{
+
+		V1_18_1::Minecraft mc = this->getObject();
+		auto currentScreen = mc.screen.get().object_instance;
+		static auto chatScreenKlass = V1_18_1::ChatScreen::static_obj().init();
+		return !JNI::get_env()->IsSameObject(currentScreen, NULL) && JNI::get_env()->IsInstanceOf(currentScreen, chatScreenKlass);
+	}
 	return false;
 }
 

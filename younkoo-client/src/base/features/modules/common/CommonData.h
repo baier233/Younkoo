@@ -25,6 +25,9 @@ public:
 	float eyeHeight;
 	float fov;
 
+	bool inChatScreen;
+
+
 	std::array<int, 4>viewport;
 
 

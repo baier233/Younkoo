@@ -36,6 +36,8 @@ void CommonData::onUpdate()
 	if (player.isSneaking())
 		ySubtractValue -= .175f;
 
+	inChatScreen = mc.isInChatGui();
+
 	this->eyeHeight = player.getEyeHeight();
 	this->renderPos = /*player.getPosition(renderPartialTicks) -*/ cameraPos /*+ Math::Vector3D{ 0, ySubtractValue - eyeHeight, 0 }*/;
 
