@@ -110,6 +110,7 @@ void NanoGui::updateValues() {
 		}
 	}
 }
+#include <optional>
 
 namespace NanoGui {
 	nanogui::ref<nanogui::Screen> screen = nullptr;
@@ -126,6 +127,15 @@ public:
 		Younkoo::get().EventBus->fire_event(e);
 	}
 };
+#include "api/VirtualKey.h"
+std::optional < std::pair<AbstractModule*, Button*>> currentBindingButton = std::nullopt;
+static bool binding = false;
+
+static auto updateCurrentButton() {
+	auto display = (binding ? "Scanning..." : "Click to Bind :" + VirtualKey::toString(currentBindingButton->first->getKey()));
+	currentBindingButton->second->setCaption(display);
+
+}
 static void createWindow(int xPos, const std::string& title, Category category) {
 	auto win = new Window(NanoGui::screen, title);
 	win->setPosition(Vector2i(xPos, 10));
@@ -154,6 +164,15 @@ static void createWindow(int xPos, const std::string& title, Category category) 
 				mod->toggle();
 				button->setCaption(mod->getToggle() ? "Disable" : "Toggle");
 				});
+
+			auto keyName = "Click to Bind :" + VirtualKey::toString(mod->getKey());
+			auto keyButton = new Button(contentPanel, keyName);
+			keyButton->setCallback([mod, keyButton] {
+				binding = true;
+				currentBindingButton = std::make_optional(std::make_pair(mod, keyButton));
+				updateCurrentButton();
+				});
+
 
 			toggleButtons[mod] = button;
 
@@ -416,6 +435,19 @@ void NanoGui::Init(void* hwnd, void* hdc, void* vg)
 
 	YounkooIO::IOEvents.SetKeyCallback(
 		[](HWND w, int key, int scancode, int action, int mods) {
+			if (binding && currentBindingButton != std::nullopt && action == CALLBACK_PRESS)
+			{
+
+				if (key == VK_ESCAPE)
+				{
+					key = 0;
+				}
+				currentBindingButton->first->setKeyCode(key);
+				binding = false;
+				updateCurrentButton();
+				currentBindingButton = std::nullopt;
+				return true;
+			}
 			if (NanoGui::available)
 				return screen->keyCallbackEvent(key, scancode, action, mods);
 			return false;

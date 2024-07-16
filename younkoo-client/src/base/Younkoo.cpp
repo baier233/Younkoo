@@ -175,9 +175,10 @@ static void My_ExitProcess(UINT code) {
 	MessageBox(0, L"On ExitProcess 2", 0, 0);
 	ExitProcessHook.GetOrignalFunc()(code);
 }
-//#define PUBLISH
-
+#ifdef PULISH
 #include "protocol/verify.h"
+#endif // PULISH
+
 bool Younkoo::setup()
 {
 
@@ -279,7 +280,9 @@ bool Younkoo::shutdown()
 
 	auto flag = Renderer::get().Shutdown() && JVM::get().shutdown();
 	if (!flag) return false;
+#ifndef PULISH
 	FreeLibraryAndExitThread(Main::current_module, 0);
 	Utils::CloseConsole_();
+#endif // PULISH
 	return true;
 }

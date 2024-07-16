@@ -302,6 +302,7 @@
     <ClCompile Include="src\utils\Wstr.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\World.cpp" />
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\Vec3i.cpp" />
+    <ClCompile Include="src\base\render\gui\api\VirtualKey.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base\protocol\packer.h" />
@@ -904,6 +905,7 @@
     <ClInclude Include="src\utils\Wstr.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\World.h" />
     <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\Vec3i.h" />
+    <ClInclude Include="src\base\render\gui\api\VirtualKey.h" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="src\base\jvm\hotspot\utility\getter.asm">

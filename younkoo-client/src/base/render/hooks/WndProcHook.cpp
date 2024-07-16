@@ -245,6 +245,16 @@ static WNDPROC SetCallbacks(HWND hWnd)
 		};
 
 	YounkooKeyCallback = [](HWND window, int key, int scancode, int action, int mods) {
+
+		if (YounkooIO::IOEvents.IOEventsKeyCallback)
+		{
+			auto result = YounkooIO::IOEvents.IOEventsKeyCallback(window, key, scancode, action, mods);
+			if (result)
+			{
+				return !result;
+			}
+		}
+
 		const bool is_key_down = action == CALLBACK_PRESS || action != CALLBACK_RELEASE;
 		if (is_key_down) YounkooIO::keyEvents.push(YounkooIO::KeyEvent(window, key, action));
 
@@ -267,10 +277,7 @@ static WNDPROC SetCallbacks(HWND hWnd)
 			if (IsVkDown(VK_RMENU) == is_key_down) { context.KeysDown[VK_RMENU] = is_key_down; }
 		}
 
-		if (YounkooIO::IOEvents.IOEventsKeyCallback)
-		{
-			return YounkooIO::IOEvents.IOEventsKeyCallback(window, key, scancode, action, mods);
-		}
+
 		return false;
 
 		};

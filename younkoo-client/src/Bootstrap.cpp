@@ -26,8 +26,9 @@ BOOL Main::ProcessAttach(HMODULE hDll)
 {
 	Thread::s_nTlsIndent = TlsAlloc();
 	Thread::s_nTlsThread = TlsAlloc();
-
+#ifndef PULISH
 	Utils::CreateConsole_();
+#endif // PULISH
 
 	current_module = hDll;
 

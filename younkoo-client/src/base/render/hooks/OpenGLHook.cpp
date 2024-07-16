@@ -135,7 +135,7 @@ bool OpenGLHook::Detour_wglSwapBuffers(_In_ HDC hdc) {
 
 
 
-	if (context.IsKeyPressed(VK_INSERT, false))
+	if (context.IsKeyPressed(VK_RSHIFT, false))
 	{
 		showMenu = !showMenu;
 		NanoGui::available = !NanoGui::available;

@@ -53,6 +53,10 @@ namespace JNI {
 		}
 		void set(const field_type& new_value)
 		{
+			if (!id)
+			{
+				init();
+			}
 			if (!id || !owner_klass || (!is_static && !object_instance)) return;
 			if constexpr (!is_jni_primitive_type<field_type>)
 			{
