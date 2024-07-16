@@ -22,7 +22,6 @@ public:
 	GameSettings getSettings();
 	void setLeftClickCounter(int value);
 	void setRightClickDelayTimer(int value);
-
 private:
 };
 

@@ -96,6 +96,9 @@ void Wrapper::Minecraft::setLeftClickCounter(int value) {
 	{
 		V1_18_1::Minecraft mc = this->getObject();
 		mc.missTime.set(value);
+		//FIX ME start
+		mc.missTime.get();
+		//FIX ME end
 	}
 	assert("unimplemented version");
 }
@@ -105,6 +108,9 @@ void Wrapper::Minecraft::setRightClickDelayTimer(int value) {
 	{
 		V1_18_1::Minecraft mc = this->getObject();
 		mc.rightClickDelay.set(value);
+		//FIX ME start
+		mc.rightClickDelay.get();
+		//FIX ME end
 	}
 	assert("unimplemented version");
 }
