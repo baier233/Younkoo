@@ -137,7 +137,9 @@ std::string SRGParser::getObfuscatedClassName(const std::string& originalClassNa
 #endif
 	if (version == Versions::MCP_1_8_9 or version == Versions::MCP_1_12_2 or version == Versions::MCP_1_18_1 or version == Versions::LUNAR_1_8_9 or version == Versions::LUNAR_1_12_2)return originalClassName;
 	if (classMappings.find(originalClassName) != classMappings.end()) {
+#ifdef LOG
 		std::cout << "WrapperClass:" << originalClassName << " Obfuscator:" << classMappings[originalClassName] << std::endl;
+#endif
 		return classMappings[originalClassName];
 	}
 	return originalClassName;
