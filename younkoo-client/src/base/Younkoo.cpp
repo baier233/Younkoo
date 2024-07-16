@@ -1,5 +1,5 @@
 ﻿#include "Younkoo.hpp"
-#include <iostream>
+#include <iostream>	
 #include "features/modules/ModuleManager.h"
 #include "jvm/JVM.hpp"
 
@@ -175,11 +175,17 @@ static void My_ExitProcess(UINT code) {
 	MessageBox(0, L"On ExitProcess 2", 0, 0);
 	ExitProcessHook.GetOrignalFunc()(code);
 }
+//#define PUBLISH
+
+#include "protocol/verify.h"
 bool Younkoo::setup()
 {
 
 	auto flag = JVM::get().setup();
 	std::cout << "JVM Loaded" << std::endl;
+#ifdef PUBLISH
+	flag &= Verfiy::init();
+#endif // PUBLISH
 
 	ModuleManager::get().LoadModules();
 	std::cout << "Module Loaded" << std::endl;
@@ -274,5 +280,6 @@ bool Younkoo::shutdown()
 	auto flag = Renderer::get().Shutdown() && JVM::get().shutdown();
 	if (!flag) return false;
 	FreeLibraryAndExitThread(Main::current_module, 0);
+	Utils::CloseConsole_();
 	return true;
 }

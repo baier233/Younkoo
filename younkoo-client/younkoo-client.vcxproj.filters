@@ -1,2508 +1,849 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="源文件">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="src\base\sdk\hook\hooks\PlayerHook.cpp" />
+    <ClCompile Include="src\base\features\modules\combat\Jamming.cpp" />
+    <ClCompile Include="src\base\config\ConfigManager.cpp" />
+    <ClCompile Include="src\base\features\api\InventoryUtils.cpp" />
+    <ClCompile Include="src\base\features\modules\visual\BlockESP.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\chunk\Chunk.cpp" />
+    <ClCompile Include="src\base\sdk\hook\hooks\LevelHook.cpp" />
+    <ClCompile Include="src\base\sdk\hook\hooks\ClientPacketListenerHook.cpp" />
+    <ClCompile Include="src\base\features\api\chunk\ChunkScanner.cpp" />
+    <ClCompile Include="src\base\features\modules\player\HitDelayFix.cpp" />
+    <ClCompile Include="src\base\sdk\hook\hooks\BedRendererHook.cpp" />
+    <ClCompile Include="ext\gl2d\gl2d.cpp" />
+    <ClCompile Include="ext\gl2d\gl2dParticleSystem.cpp" />
+    <ClCompile Include="ext\glm\detail\glm.cpp" />
+    <ClCompile Include="src\base\sdk\hook\HookManager.cpp" />
+    <ClCompile Include="src\base\render\api\FixedPipelineEmulator.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\item\EntityItem.cpp" />
+    <ClCompile Include="src\base\features\modules\visual\ItemESP.cpp" />
+    <ClCompile Include="src\base\features\modules\player\AutoTool.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\item\ItemBlock.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\item\Item.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\item\ItemStack.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\player\InventoryPlayer.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\BlockPos.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\block\Block.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\block\state\BlockState.cpp" />
+    <ClCompile Include="ext\StackWalk\StackWalker.cpp" />
+    <ClCompile Include="src\base\features\modules\player\Eagle.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\settings\GameSettings.cpp" />
+    <ClCompile Include="src\base\features\modules\common\CommonData.cpp" />
+    <ClCompile Include="src\base\features\modules\visual\NameTag.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\local_variable_table.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\compile_task.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\break\break_point_info.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\break\jvm_break_points.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\array.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\bytecode.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\const_pool.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\field_info.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\java_thread.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\instance_klass.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\c_method.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\classes\symbol.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\utility\jvm_internal.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\utility\jvm_static.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\utility\vm_helper.cpp" />
+    <ClCompile Include="src\base\jvm\hotspot\java_hook.cpp" />
+    <ClCompile Include="src\base\sdk\hook\hooks\RenderSystemHook.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\EntityLivingBase.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\player\EntityPlayer.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\Entity.cpp" />
+    <ClCompile Include="src\base\features\modules\combat\TriggerBot.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\MovementInput.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\MovingObjectPosition.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\Object.cpp" />
+    <ClCompile Include="src\base\render\nano\wrapper\gl2.cpp" />
+    <ClCompile Include="src\base\render\nano\wrapper\gl3.cpp" />
+    <ClCompile Include="src\base\render\nano\font\NanoVGFontRenderer.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\AABB.h" />
+    <ClCompile Include="src\utils\animation\simple\SimpleAnimation.cpp" />
+    <ClCompile Include="src\base\render\gui\api\ScrollComponent.cpp" />
+    <ClCompile Include="src\base\render\gui\clickgui\component\impl\settings\impl\BooleanValueComponent.cpp" />
+    <ClCompile Include="src\base\render\gui\clickgui\component\impl\ModuleComponent.cpp" />
+    <ClCompile Include="src\base\render\gui\clickgui\component\Component.cpp" />
+    <ClCompile Include="src\base\render\gui\clickgui\component\impl\PanelComponent.cpp" />
+    <ClCompile Include="src\base\render\gui\clickgui\NewClickGui.cpp" />
+    <ClCompile Include="src\base\features\modules\combat\AimAssist.cpp" />
+    <ClCompile Include="src\base\features\modules\player\AntiBot.cpp" />
+    <ClCompile Include="src\base\features\modules\visual\ESP.cpp" />
+    <ClCompile Include="src\base\features\modules\player\FastPlace.cpp" />
+    <ClCompile Include="src\base\features\modules\combat\KillAura.cpp" />
+    <ClCompile Include="src\base\render\gui\GUI.cpp" />
+    <ClCompile Include="src\base\features\modules\combat\AutoClicker.cpp" />
+    <ClCompile Include="src\base\features\modules\visual\HUD.cpp" />
+    <ClCompile Include="src\base\render\gui\input\IOEvents.cpp" />
+    <ClCompile Include="src\base\render\gui\input\Context.cpp" />
+    <ClCompile Include="ext\nanovg\nanovg.c" />
+    <ClCompile Include="src\base\features\modules\AbstractModule.cpp" />
+    <ClCompile Include="src\base\features\modules\ModuleManager.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\Button.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\CheckBox.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\ColorPicker.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\ColorWheel.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\ComboBox.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\Common.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\GLCanvas.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\GLUtils.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\Graph.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\ImagePanel.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\ImageView.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\Label.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\Layout.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\MessageDialog.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\Popup.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\PopupButton.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\ProgressBar.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\Screen.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\serializer.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\Slider.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\StackedWidget.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\TabHeader.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\TabWidget.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\TextBox.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\Theme.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\VScrollPanel.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\Widget.cpp" />
+    <ClCompile Include="src\base\render\gui\nanogui\Window.cpp" />
+    <ClCompile Include="src\base\render\nano\NanovgHelper.cpp" />
+    <ClCompile Include="src\base\render\Renderer.cpp" />
+    <ClCompile Include="src\base\render\hooks\OpenGLHook.cpp" />
+    <ClCompile Include="src\base\jvm\jni\Wrapper.hpp" />
+    <ClCompile Include="src\base\jvm\JVM.cpp" />
+    <ClCompile Include="src\base\sdk\SDK.hpp" />
+    <ClCompile Include="src\Bootstrap.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\base\Younkoo.cpp" />
+    <ClCompile Include="src\utils\Misc.cpp" />
+    <ClCompile Include="src\utils\Pattern.cpp" />
+    <ClCompile Include="src\utils\Singleton.hpp" />
+    <ClCompile Include="src\utils\Structs.hpp" />
+    <ClCompile Include="src\base\render\hooks\WndProcHook.cpp" />
+    <ClCompile Include="src\base\sdk\mapper\SRGParser.cpp" />
+    <ClCompile Include="src\base\features\modules\combat\Velocity.cpp" />
+    <ClCompile Include="src\base\features\modules\player\Team.cpp" />
+    <ClCompile Include="src\base\render\gui\clickgui\component\impl\settings\ValueComponent.cpp" />
+    <ClCompile Include="src\base\cleaner\UnloadedModuleCleaner.cpp" />
+    <ClCompile Include="src\utils\types\details\WorldToScreen.cpp" />
+    <ClCompile Include="src\utils\Wstr.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\World.cpp" />
+    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\Vec3i.cpp" />
+    <ClCompile Include="src\base\protocol\verify.cpp" />
+    <ClCompile Include="src\base\protocol\packer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Bootstrap.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\Younkoo.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utils\Singleton.hpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utils\Structs.hpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utils\Misc.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\JVM.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\jni\Wrapper.hpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\SDK.hpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\jni\types\ObjectWrapper.hpp">
-      <Filter>头文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\jni\types\Array.hpp">
-      <Filter>头文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\jni\types\Env.hpp">
-      <Filter>头文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\jni\types\Field.hpp">
-      <Filter>头文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\jni\types\Klass.hpp">
-      <Filter>头文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\jni\types\Method.hpp">
-      <Filter>头文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\jni\types\Misc.hpp">
-      <Filter>头文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\hooks\OpenGLHook.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\Renderer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ext\nanovg\nanovg.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\hooks\WndProcHook.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\nano\NanovgHelper.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\ModuleManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\AbstractModule.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\input\Context.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\input\IOEvents.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\mapper\SRGParser.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\visual\HUD.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\Button.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\CheckBox.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\ColorPicker.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\ColorWheel.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\ComboBox.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\Common.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\GLCanvas.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\GLUtils.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\Graph.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\ImagePanel.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\ImageView.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\Label.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\Layout.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\MessageDialog.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\Popup.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\PopupButton.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\ProgressBar.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\Screen.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\Slider.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\StackedWidget.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\TabHeader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\TabWidget.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\TextBox.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\Theme.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\VScrollPanel.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\Widget.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\Window.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\nanogui\serializer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\combat\AutoClicker.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\GUI.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\combat\Velocity.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\combat\KillAura.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\player\FastPlace.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\player\Team.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\player\AntiBot.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\visual\ESP.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\combat\AimAssist.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\clickgui\component\Component.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\clickgui\component\impl\PanelComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\clickgui\NewClickGui.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\clickgui\component\impl\ModuleComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\clickgui\component\impl\settings\ValueComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\clickgui\component\impl\settings\impl\BooleanValueComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\gui\api\ScrollComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utils\animation\simple\SimpleAnimation.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\nano\font\NanoVGFontRenderer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utils\Pattern.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\cleaner\UnloadedModuleCleaner.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utils\Wstr.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\nano\wrapper\gl2.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\nano\wrapper\gl3.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\MovingObjectPosition.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\Object.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\combat\TriggerBot.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\World.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\Entity.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\player\EntityPlayer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\EntityLivingBase.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\classes\array.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\classes\bytecode.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\classes\const_pool.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\classes\field_info.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\classes\java_thread.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\classes\instance_klass.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\classes\c_method.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\classes\symbol.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\utility\jvm_internal.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\utility\jvm_static.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\utility\vm_helper.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\java_hook.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\break\break_point_info.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\break\jvm_break_points.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\classes\compile_task.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\jvm\hotspot\classes\local_variable_table.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utils\types\details\WorldToScreen.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\hook\hooks\RenderSystemHook.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\visual\NameTag.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ext\StackWalk\StackWalker.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\common\CommonData.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\client\settings\GameSettings.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\player\Eagle.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\block\Block.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\block\state\BlockState.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\BlockPos.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\player\InventoryPlayer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\item\ItemStack.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\item\Item.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\player\AutoTool.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\visual\ItemESP.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ext\glm\detail\glm.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\entity\item\EntityItem.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ext\gl2d\gl2d.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ext\gl2d\gl2dParticleSystem.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\render\api\FixedPipelineEmulator.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\AABB.h">
-      <Filter>头文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\item\ItemBlock.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\hook\HookManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\hook\hooks\BedRendererHook.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\api\chunk\ChunkScanner.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\hook\hooks\ClientPacketListenerHook.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\hook\hooks\LevelHook.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\world\chunk\Chunk.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\visual\BlockESP.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\api\InventoryUtils.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\Vec3.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\Vec3i.cpp">
-    <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\MovementInput.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\base\features\modules\player\HitDelayFix.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
+    <ClInclude Include="src\base\sdk\hook\hooks\PlayerHook.h" />
+    <ClInclude Include="src\base\features\modules\combat\Jamming.h" />
+    <ClInclude Include="src\base\jvm\jni\types\Array.hpp" />
+    <ClInclude Include="src\base\jvm\jni\types\Field.hpp" />
+    <ClInclude Include="src\base\jvm\jni\types\Env.hpp" />
+    <ClInclude Include="src\base\jvm\jni\types\Klass.hpp" />
+    <ClInclude Include="src\base\jvm\jni\types\Method.hpp" />
+    <ClInclude Include="src\base\jvm\jni\types\Misc.hpp" />
+    <ClInclude Include="src\base\jvm\jni\types\ObjectWrapper.hpp" />
+    <ClInclude Include="ext\json.hpp" />
+    <ClInclude Include="src\base\config\ConfigManager.h" />
+    <ClInclude Include="src\base\features\api\InventoryUtils.h" />
+    <ClInclude Include="src\base\features\modules\visual\BlockESP.h" />
+    <ClInclude Include="src\base\features\api\AbstractBlockLocationTracker.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\chunk\Chunk.h" />
+    <ClInclude Include="src\base\sdk\hook\hooks\LevelHook.h" />
+    <ClInclude Include="src\base\features\api\chunk\ChunkSharedFlag.h" />
+    <ClInclude Include="src\base\sdk\hook\hooks\ClientPacketListenerHook.h" />
+    <ClInclude Include="src\base\features\api\chunk\ChunkScanner.h" />
+    <ClInclude Include="src\base\features\modules\player\HitDelayFix.h" />
+    <ClInclude Include="src\base\sdk\hook\hooks\BedRendererHook.h" />
+    <ClInclude Include="ext\gl2d\gl2d.h" />
+    <ClInclude Include="ext\gl2d\gl2dParticleSystem.h" />
+    <ClInclude Include="ext\glm\common.hpp" />
+    <ClInclude Include="ext\glm\detail\compute_common.hpp" />
+    <ClInclude Include="ext\glm\detail\compute_vector_relational.hpp" />
+    <ClInclude Include="ext\glm\detail\qualifier.hpp" />
+    <ClInclude Include="ext\glm\detail\setup.hpp" />
+    <ClInclude Include="ext\glm\detail\type_float.hpp" />
+    <ClInclude Include="ext\glm\detail\type_half.hpp" />
+    <ClInclude Include="ext\glm\detail\type_mat2x2.hpp" />
+    <ClInclude Include="ext\glm\detail\type_mat2x3.hpp" />
+    <ClInclude Include="ext\glm\detail\type_mat2x4.hpp" />
+    <ClInclude Include="ext\glm\detail\type_mat3x2.hpp" />
+    <ClInclude Include="ext\glm\detail\type_mat3x3.hpp" />
+    <ClInclude Include="ext\glm\detail\type_mat3x4.hpp" />
+    <ClInclude Include="ext\glm\detail\type_mat4x2.hpp" />
+    <ClInclude Include="ext\glm\detail\type_mat4x3.hpp" />
+    <ClInclude Include="ext\glm\detail\type_mat4x4.hpp" />
+    <ClInclude Include="ext\glm\detail\type_quat.hpp" />
+    <ClInclude Include="ext\glm\detail\type_vec1.hpp" />
+    <ClInclude Include="ext\glm\detail\type_vec2.hpp" />
+    <ClInclude Include="ext\glm\detail\type_vec3.hpp" />
+    <ClInclude Include="ext\glm\detail\type_vec4.hpp" />
+    <ClInclude Include="ext\glm\detail\_features.hpp" />
+    <ClInclude Include="ext\glm\detail\_fixes.hpp" />
+    <ClInclude Include="ext\glm\detail\_noise.hpp" />
+    <ClInclude Include="ext\glm\detail\_swizzle.hpp" />
+    <ClInclude Include="ext\glm\detail\_swizzle_func.hpp" />
+    <ClInclude Include="ext\glm\detail\_vectorize.hpp" />
+    <ClInclude Include="ext\glm\exponential.hpp" />
+    <ClInclude Include="ext\glm\ext.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_clip_space.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_common.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double2x2.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double2x2_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double2x3.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double2x3_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double2x4.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double2x4_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double3x2.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double3x2_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double3x3.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double3x3_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double3x4.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double3x4_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double4x2.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double4x2_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double4x3.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double4x3_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double4x4.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_double4x4_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float2x2.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float2x2_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float2x3.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float2x3_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float2x4.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float2x4_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float3x2.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float3x2_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float3x3.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float3x3_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float3x4.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float3x4_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float4x2.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float4x2_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float4x3.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float4x3_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float4x4.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_float4x4_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int2x2.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int2x2_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int2x3.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int2x3_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int2x4.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int2x4_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int3x2.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int3x2_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int3x3.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int3x3_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int3x4.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int3x4_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int4x2.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int4x2_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int4x3.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int4x3_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int4x4.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_int4x4_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_integer.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_projection.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_relational.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_transform.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint2x2.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint2x2_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint2x3.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint2x3_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint2x4.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint2x4_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint3x2.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint3x2_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint3x3.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint3x3_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint3x4.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint3x4_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint4x2.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint4x2_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint4x3.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint4x3_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint4x4.hpp" />
+    <ClInclude Include="ext\glm\ext\matrix_uint4x4_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\quaternion_common.hpp" />
+    <ClInclude Include="ext\glm\ext\quaternion_double.hpp" />
+    <ClInclude Include="ext\glm\ext\quaternion_double_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\quaternion_exponential.hpp" />
+    <ClInclude Include="ext\glm\ext\quaternion_float.hpp" />
+    <ClInclude Include="ext\glm\ext\quaternion_float_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\quaternion_geometric.hpp" />
+    <ClInclude Include="ext\glm\ext\quaternion_relational.hpp" />
+    <ClInclude Include="ext\glm\ext\quaternion_transform.hpp" />
+    <ClInclude Include="ext\glm\ext\quaternion_trigonometric.hpp" />
+    <ClInclude Include="ext\glm\ext\scalar_common.hpp" />
+    <ClInclude Include="ext\glm\ext\scalar_constants.hpp" />
+    <ClInclude Include="ext\glm\ext\scalar_integer.hpp" />
+    <ClInclude Include="ext\glm\ext\scalar_int_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\scalar_packing.hpp" />
+    <ClInclude Include="ext\glm\ext\scalar_reciprocal.hpp" />
+    <ClInclude Include="ext\glm\ext\scalar_relational.hpp" />
+    <ClInclude Include="ext\glm\ext\scalar_uint_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\scalar_ulp.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_bool1.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_bool1_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_bool2.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_bool2_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_bool3.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_bool3_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_bool4.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_bool4_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_common.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_double1.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_double1_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_double2.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_double2_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_double3.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_double3_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_double4.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_double4_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_float1.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_float1_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_float2.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_float2_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_float3.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_float3_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_float4.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_float4_precision.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_int1.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_int1_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_int2.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_int2_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_int3.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_int3_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_int4.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_int4_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_integer.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_packing.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_reciprocal.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_relational.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_uint1.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_uint1_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_uint2.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_uint2_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_uint3.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_uint3_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_uint4.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_uint4_sized.hpp" />
+    <ClInclude Include="ext\glm\ext\vector_ulp.hpp" />
+    <ClInclude Include="ext\glm\ext\_matrix_vectorize.hpp" />
+    <ClInclude Include="ext\glm\fwd.hpp" />
+    <ClInclude Include="ext\glm\geometric.hpp" />
+    <ClInclude Include="ext\glm\glm.hpp" />
+    <ClInclude Include="ext\glm\gtc\bitfield.hpp" />
+    <ClInclude Include="ext\glm\gtc\color_space.hpp" />
+    <ClInclude Include="ext\glm\gtc\constants.hpp" />
+    <ClInclude Include="ext\glm\gtc\epsilon.hpp" />
+    <ClInclude Include="ext\glm\gtc\integer.hpp" />
+    <ClInclude Include="ext\glm\gtc\matrix_access.hpp" />
+    <ClInclude Include="ext\glm\gtc\matrix_integer.hpp" />
+    <ClInclude Include="ext\glm\gtc\matrix_inverse.hpp" />
+    <ClInclude Include="ext\glm\gtc\matrix_transform.hpp" />
+    <ClInclude Include="ext\glm\gtc\noise.hpp" />
+    <ClInclude Include="ext\glm\gtc\packing.hpp" />
+    <ClInclude Include="ext\glm\gtc\quaternion.hpp" />
+    <ClInclude Include="ext\glm\gtc\random.hpp" />
+    <ClInclude Include="ext\glm\gtc\reciprocal.hpp" />
+    <ClInclude Include="ext\glm\gtc\round.hpp" />
+    <ClInclude Include="ext\glm\gtc\type_aligned.hpp" />
+    <ClInclude Include="ext\glm\gtc\type_precision.hpp" />
+    <ClInclude Include="ext\glm\gtc\type_ptr.hpp" />
+    <ClInclude Include="ext\glm\gtc\ulp.hpp" />
+    <ClInclude Include="ext\glm\gtc\vec1.hpp" />
+    <ClInclude Include="ext\glm\gtx\associated_min_max.hpp" />
+    <ClInclude Include="ext\glm\gtx\bit.hpp" />
+    <ClInclude Include="ext\glm\gtx\closest_point.hpp" />
+    <ClInclude Include="ext\glm\gtx\color_encoding.hpp" />
+    <ClInclude Include="ext\glm\gtx\color_space.hpp" />
+    <ClInclude Include="ext\glm\gtx\color_space_YCoCg.hpp" />
+    <ClInclude Include="ext\glm\gtx\common.hpp" />
+    <ClInclude Include="ext\glm\gtx\compatibility.hpp" />
+    <ClInclude Include="ext\glm\gtx\component_wise.hpp" />
+    <ClInclude Include="ext\glm\gtx\dual_quaternion.hpp" />
+    <ClInclude Include="ext\glm\gtx\easing.hpp" />
+    <ClInclude Include="ext\glm\gtx\euler_angles.hpp" />
+    <ClInclude Include="ext\glm\gtx\extend.hpp" />
+    <ClInclude Include="ext\glm\gtx\extended_min_max.hpp" />
+    <ClInclude Include="ext\glm\gtx\exterior_product.hpp" />
+    <ClInclude Include="ext\glm\gtx\fast_exponential.hpp" />
+    <ClInclude Include="ext\glm\gtx\fast_square_root.hpp" />
+    <ClInclude Include="ext\glm\gtx\fast_trigonometry.hpp" />
+    <ClInclude Include="ext\glm\gtx\functions.hpp" />
+    <ClInclude Include="ext\glm\gtx\gradient_paint.hpp" />
+    <ClInclude Include="ext\glm\gtx\handed_coordinate_space.hpp" />
+    <ClInclude Include="ext\glm\gtx\hash.hpp" />
+    <ClInclude Include="ext\glm\gtx\integer.hpp" />
+    <ClInclude Include="ext\glm\gtx\intersect.hpp" />
+    <ClInclude Include="ext\glm\gtx\io.hpp" />
+    <ClInclude Include="ext\glm\gtx\log_base.hpp" />
+    <ClInclude Include="ext\glm\gtx\matrix_cross_product.hpp" />
+    <ClInclude Include="ext\glm\gtx\matrix_decompose.hpp" />
+    <ClInclude Include="ext\glm\gtx\matrix_factorisation.hpp" />
+    <ClInclude Include="ext\glm\gtx\matrix_interpolation.hpp" />
+    <ClInclude Include="ext\glm\gtx\matrix_major_storage.hpp" />
+    <ClInclude Include="ext\glm\gtx\matrix_operation.hpp" />
+    <ClInclude Include="ext\glm\gtx\matrix_query.hpp" />
+    <ClInclude Include="ext\glm\gtx\matrix_transform_2d.hpp" />
+    <ClInclude Include="ext\glm\gtx\mixed_product.hpp" />
+    <ClInclude Include="ext\glm\gtx\norm.hpp" />
+    <ClInclude Include="ext\glm\gtx\normal.hpp" />
+    <ClInclude Include="ext\glm\gtx\normalize_dot.hpp" />
+    <ClInclude Include="ext\glm\gtx\number_precision.hpp" />
+    <ClInclude Include="ext\glm\gtx\optimum_pow.hpp" />
+    <ClInclude Include="ext\glm\gtx\orthonormalize.hpp" />
+    <ClInclude Include="ext\glm\gtx\pca.hpp" />
+    <ClInclude Include="ext\glm\gtx\perpendicular.hpp" />
+    <ClInclude Include="ext\glm\gtx\polar_coordinates.hpp" />
+    <ClInclude Include="ext\glm\gtx\projection.hpp" />
+    <ClInclude Include="ext\glm\gtx\quaternion.hpp" />
+    <ClInclude Include="ext\glm\gtx\range.hpp" />
+    <ClInclude Include="ext\glm\gtx\raw_data.hpp" />
+    <ClInclude Include="ext\glm\gtx\rotate_normalized_axis.hpp" />
+    <ClInclude Include="ext\glm\gtx\rotate_vector.hpp" />
+    <ClInclude Include="ext\glm\gtx\scalar_multiplication.hpp" />
+    <ClInclude Include="ext\glm\gtx\scalar_relational.hpp" />
+    <ClInclude Include="ext\glm\gtx\spline.hpp" />
+    <ClInclude Include="ext\glm\gtx\std_based_type.hpp" />
+    <ClInclude Include="ext\glm\gtx\string_cast.hpp" />
+    <ClInclude Include="ext\glm\gtx\texture.hpp" />
+    <ClInclude Include="ext\glm\gtx\transform.hpp" />
+    <ClInclude Include="ext\glm\gtx\transform2.hpp" />
+    <ClInclude Include="ext\glm\gtx\type_aligned.hpp" />
+    <ClInclude Include="ext\glm\gtx\type_trait.hpp" />
+    <ClInclude Include="ext\glm\gtx\vector_angle.hpp" />
+    <ClInclude Include="ext\glm\gtx\vector_query.hpp" />
+    <ClInclude Include="ext\glm\gtx\vec_swizzle.hpp" />
+    <ClInclude Include="ext\glm\gtx\wrap.hpp" />
+    <ClInclude Include="ext\glm\integer.hpp" />
+    <ClInclude Include="ext\glm\mat2x2.hpp" />
+    <ClInclude Include="ext\glm\mat2x3.hpp" />
+    <ClInclude Include="ext\glm\mat2x4.hpp" />
+    <ClInclude Include="ext\glm\mat3x2.hpp" />
+    <ClInclude Include="ext\glm\mat3x3.hpp" />
+    <ClInclude Include="ext\glm\mat3x4.hpp" />
+    <ClInclude Include="ext\glm\mat4x2.hpp" />
+    <ClInclude Include="ext\glm\mat4x3.hpp" />
+    <ClInclude Include="ext\glm\mat4x4.hpp" />
+    <ClInclude Include="ext\glm\matrix.hpp" />
+    <ClInclude Include="ext\glm\packing.hpp" />
+    <ClInclude Include="ext\glm\simd\common.h" />
+    <ClInclude Include="ext\glm\simd\exponential.h" />
+    <ClInclude Include="ext\glm\simd\geometric.h" />
+    <ClInclude Include="ext\glm\simd\integer.h" />
+    <ClInclude Include="ext\glm\simd\matrix.h" />
+    <ClInclude Include="ext\glm\simd\neon.h" />
+    <ClInclude Include="ext\glm\simd\packing.h" />
+    <ClInclude Include="ext\glm\simd\platform.h" />
+    <ClInclude Include="ext\glm\simd\trigonometric.h" />
+    <ClInclude Include="ext\glm\simd\vector_relational.h" />
+    <ClInclude Include="ext\glm\trigonometric.hpp" />
+    <ClInclude Include="ext\glm\vec2.hpp" />
+    <ClInclude Include="ext\glm\vec3.hpp" />
+    <ClInclude Include="ext\glm\vec4.hpp" />
+    <ClInclude Include="ext\glm\vector_relational.hpp" />
+    <ClInclude Include="ext\nanovg\fontstash.h" />
+    <ClInclude Include="ext\nanovg\stb_image.h" />
+    <ClInclude Include="ext\nanovg\stb_truetype.h" />
+    <ClInclude Include="src\base\sdk\hook\AbstractHook.h" />
+    <ClInclude Include="src\base\sdk\hook\HookManager.h" />
+    <ClInclude Include="src\base\render\api\FixedPipelineEmulator.h" />
+    <ClInclude Include="src\base\sdk\hook\HookUtils.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\item\EntityItem.h" />
+    <ClInclude Include="src\base\features\modules\visual\ItemESP.h" />
+    <ClInclude Include="src\base\features\modules\player\AutoTool.h" />
+    <ClInclude Include="src\base\render\resources\fonts\clickgui-icon.h" />
+    <ClInclude Include="src\base\render\resources\fonts\roboto.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\item\ItemBlock.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\item\Item.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\item\ItemStack.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\player\InventoryPlayer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\BlockPos.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\block\Block.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\block\state\BlockState.h" />
+    <ClInclude Include="ext\StackWalk\StackWalker.h" />
+    <ClInclude Include="ext\xorstr.hpp" />
+    <ClInclude Include="src\base\features\modules\player\Eagle.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\settings\GameSettings.h" />
+    <ClInclude Include="src\base\features\modules\common\CommonData.h" />
+    <ClInclude Include="src\base\features\modules\visual\NameTag.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\local_variable_table.h" />
+    <ClInclude Include="src\base\GitInfo.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\compile_task.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\MovementInput.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\platform\Window.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack$Pose.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\math\Matrix4f.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\ChatFormatting.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Camera.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\KeyMapping.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\multiplayer\ClientPacketListener.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Options.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\Input.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BlockEntityRenderDispatcher.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BlockEntityRenderer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\GameRenderer.h" />
+    <ClInclude Include="src\base\jvm\hotspot\break\break_point_info.h" />
+    <ClInclude Include="src\base\jvm\hotspot\break\byte_code_info.h" />
+    <ClInclude Include="src\base\jvm\hotspot\break\jvm_break_points.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\array.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\bytecode.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\const_pool.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\field_info.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\java_thread.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\instance_klass.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\c_method.h" />
+    <ClInclude Include="src\base\jvm\hotspot\classes\symbol.h" />
+    <ClInclude Include="src\base\jvm\hotspot\include_header.h" />
+    <ClInclude Include="src\base\jvm\hotspot\magic_enum.hpp" />
+    <ClInclude Include="src\base\jvm\hotspot\utility\jvm_internal.h" />
+    <ClInclude Include="src\base\jvm\hotspot\utility\jvm_static.h" />
+    <ClInclude Include="src\base\jvm\hotspot\utility\memory_utility.h" />
+    <ClInclude Include="src\base\jvm\hotspot\utility\vm_helper.h" />
+    <ClInclude Include="src\base\jvm\hotspot\java_hook.h" />
+    <ClInclude Include="src\base\sdk\hook\hooks\RenderSystemHook.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\EntityLivingBase.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\player\EntityPlayer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\Entity.h" />
+    <ClInclude Include="src\base\features\modules\combat\TriggerBot.h" />
+    <ClInclude Include="src\base\sdk\jdk\Classes.h" />
+    <ClInclude Include="src\base\sdk\mapper\resources\maps\forge1201.h" />
+    <ClInclude Include="src\base\sdk\wrapper\java\lang\String.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\MovingObjectPosition.h" />
+    <ClInclude Include="src\base\sdk\wrapper\Object.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\gui\screens\Screen.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\MInecraft.h" />
+    <ClInclude Include="src\base\render\nano\wrapper\gl2.h" />
+    <ClInclude Include="src\base\render\nano\wrapper\gl3.h" />
+    <ClInclude Include="src\base\features\modules\combat\AutoClicker.h" />
+    <ClInclude Include="src\base\render\nano\font\NanoVGFontRenderer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\multiplayer\ClientLevel.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\AbstractClientPlayer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\LocalPlayer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\MultiBufferSource.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\commands\arguments\EntityAnchorArgument$Anchor.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\DefaultedRegistry.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\NonNullList.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\Registry.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\SectionPos.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\chat\Component.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BedRenderer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundForgetLevelChunkPacket.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundLevelChunkPacketData.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundLevelChunkWithLightPacket.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundLightUpdatePacketData.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundSectionBlocksUpdatePacket.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\resources\ResourceLocation.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\BlockItem.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\item\ItemEntity.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\player\Inventory.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\player\Player.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\Entity.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\LivingEntity.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\BlockPos.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\InteractionHand.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\ArmorItem.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\DyeableLeatherItem.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\DyeColor.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\Item.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\ItemStack.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\Rarity.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\Block.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\entity\BedBlockEntity.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\entity\BlockEntity.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\state\BlockBehaviour$BlockStateBase.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\state\BlockState.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\ChunkPos.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\chunk\ChunkAccess.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\chunk\LevelChunk.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\Level.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\BlockHitResult.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\EntityHitResult.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult$Type.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\Vec2.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\Vec3.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\Vec3i.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\com\mojang\blaze3d\platform\Window.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\com\mojang\blaze3d\vertex\PoseStack$Pose.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\com\mojang\blaze3d\vertex\PoseStack.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\client\Minecraft.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\client\multiplayer\ClientLevel.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\client\player\AbstractClientPlayer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\client\player\LocalPlayer.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\commands\arguments\EntityAnchorArgument$Anchor.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\core\BlockPos.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\core\NonNullList.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\network\chat\Component.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\resources\ResourceLocation.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\entity\Entity.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\entity\LivingEntity.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\entity\player\Inventory.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\entity\player\Player.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\InteractionHand.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\item\ArmorItem.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\item\DyeableLeatherItem.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\item\Item.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\item\ItemStack.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\level\block\Block.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\level\block\state\BlockBehaviour$BlockStateBase.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\level\block\state\BlockState.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\level\Level.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\phys\Vec2.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\phys\Vec3.h" />
+    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\org\joml\Matrix4f.h" />
+    <ClInclude Include="src\utils\animation\simple\SimpleAnimation.h" />
+    <ClInclude Include="src\base\render\gui\api\ScrollComponent.h" />
+    <ClInclude Include="src\base\render\gui\clickgui\component\impl\settings\impl\BooleanValueComponent.h" />
+    <ClInclude Include="src\base\render\gui\clickgui\component\impl\ModuleComponent.h" />
+    <ClInclude Include="src\base\render\gui\clickgui\component\Component.hpp" />
+    <ClInclude Include="src\base\render\gui\clickgui\component\impl\PanelComponent.h" />
+    <ClInclude Include="src\base\render\gui\clickgui\NewClickGui.h" />
+    <ClInclude Include="src\base\features\modules\combat\AimAssist.h" />
+    <ClInclude Include="src\base\features\modules\player\AntiBot.h" />
+    <ClInclude Include="src\base\features\modules\visual\ESP.h" />
+    <ClInclude Include="src\base\features\modules\player\FastPlace.h" />
+    <ClInclude Include="src\base\features\modules\combat\KillAura.h" />
+    <ClInclude Include="src\base\render\gui\GUI.h" />
+    <ClInclude Include="src\base\features\modules\fight\AutoClicker.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.h" />
+    <ClInclude Include="src\base\event\Events.h" />
+    <ClInclude Include="src\base\event\EventBus.hpp" />
+    <ClInclude Include="src\base\render\gui\nanogui\Button.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\CheckBox.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\ColorPicker.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\ColorWheel.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\ComboBox.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\Common.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\Entypo.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\FormHelper.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\GLCanvas.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\GLUtils.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\Graph.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\ImagePanel.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\ImageView.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\Label.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\Layout.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\MessageDialog.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\Object.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\OpenGL.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\Popup.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\PopupButton.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\ProgressBar.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\Screen.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\serializer\core.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\serializer\opengl.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\serializer\sparse.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\Slider.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\StackedWidget.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\TabHeader.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\TabWidget.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\TextBox.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\Theme.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\ToolButton.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\VScrollPanel.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\Widget.h" />
+    <ClInclude Include="src\base\render\gui\nanogui\Window.h" />
+    <ClInclude Include="src\base\render\resources\fonts\entypo.h" />
+    <ClInclude Include="src\base\render\resources\fonts\harmony_sc_bold.h" />
+    <ClInclude Include="src\utils\animation\Animation.hpp" />
+    <ClInclude Include="src\utils\animation\Easing.hpp" />
+    <ClInclude Include="src\utils\function_traits.hpp" />
+    <ClInclude Include="src\base\features\modules\ModuleManager.h" />
+    <ClInclude Include="src\base\features\modules\visual\HUD.h" />
+    <ClInclude Include="src\base\render\gui\input\IOEvents.h" />
+    <ClInclude Include="src\base\render\gui\input\Context.hpp" />
+    <ClInclude Include="ext\lazy_importer.hpp" />
+    <ClInclude Include="ext\nanovg\nanovg.h" />
+    <ClInclude Include="ext\nanovg\nanovg_gl.h" />
+    <ClInclude Include="ext\nanovg\nanovg_gl_utils.h" />
+    <ClInclude Include="ext\titan_hook.h" />
+    <ClInclude Include="src\base\features\modules\AbstractModule.h" />
+    <ClInclude Include="src\base\features\modules\ModuleManager.hpp" />
+    <ClInclude Include="src\base\features\values\Value.h" />
+    <ClInclude Include="src\base\render\nano\NanovgHelper.hpp" />
+    <ClInclude Include="src\base\render\Renderer.hpp" />
+    <ClInclude Include="src\base\render\hooks\OpenGLHook.hpp" />
+    <ClInclude Include="src\base\jvm\JVM.hpp" />
+    <ClInclude Include="src\base\render\resources\fonts\harmony_sc_light.h" />
+    <ClInclude Include="src\base\render\resources\fonts\harmony_sc_regular.h" />
+    <ClInclude Include="src\base\sdk\Mapper\resources\maps\forge112.h" />
+    <ClInclude Include="src\base\sdk\Mapper\resources\maps\forge1181.h" />
+    <ClInclude Include="src\base\sdk\Mapper\resources\maps\vanilla112.h" />
+    <ClInclude Include="src\base\sdk\Mapper\resources\maps\vanilla189.h" />
+    <ClInclude Include="src\base\sdk\mapper\resources\maps\forge189.h" />
+    <ClInclude Include="src\Main.hpp" />
+    <ClInclude Include="src\base\Younkoo.hpp" />
+    <ClInclude Include="src\utils\Math.h" />
+    <ClInclude Include="src\utils\Misc.hpp" />
+    <ClInclude Include="src\base\render\hooks\WndProcHook.hpp" />
+    <ClInclude Include="src\utils\Pattern.h" />
+    <ClInclude Include="src\utils\render.h" />
+    <ClInclude Include="src\utils\strutils.h" />
+    <ClInclude Include="src\utils\TimerUtil.hpp" />
+    <ClInclude Include="src\utils\types\Maths.hpp" />
+    <ClInclude Include="src\base\sdk\mapper\SRGParser.h" />
+    <ClInclude Include="src\utils\Wnd.h" />
+    <ClInclude Include="src\base\features\modules\combat\Velocity.h" />
+    <ClInclude Include="src\base\features\modules\player\Team.h" />
+    <ClInclude Include="src\base\render\gui\clickgui\component\impl\settings\ValueComponent.h" />
+    <ClInclude Include="src\base\cleaner\UnloadedModuleCleaner.h" />
+    <ClInclude Include="src\utils\Wstr.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\World.h" />
+    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\Vec3i.h" />
+    <ClInclude Include="src\base\protocol\verify.h" />
+    <ClInclude Include="src\base\protocol\packer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Main.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\Younkoo.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\Misc.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\JVM.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\hooks\OpenGLHook.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\nanovg\nanovg.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\nanovg\nanovg_gl.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\nanovg\nanovg_gl_utils.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\titan_hook.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\Renderer.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\lazy_importer.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\nanovg\fontstash.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\nanovg\stb_image.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\nanovg\stb_truetype.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\hooks\WndProcHook.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\nano\NanovgHelper.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\ModuleManager.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\AbstractModule.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\values\Value.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\input\Context.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\types\Maths.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\resources\fonts\harmony_sc_light.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\resources\fonts\harmony_sc_regular.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\mapper\resources\maps\forge189.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\mapper\resources\maps\forge1181.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\mapper\resources\maps\vanilla189.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\mapper\SRGParser.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\Mapper\resources\maps\forge112.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\Mapper\resources\maps\vanilla112.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\visual\HUD.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\ModuleManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\event\EventBus.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\event\Events.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\function_traits.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\serializer\core.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\serializer\opengl.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\serializer\sparse.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\Button.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\CheckBox.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\ColorPicker.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\ColorWheel.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\ComboBox.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\Common.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\Entypo.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\FormHelper.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\GLCanvas.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\GLUtils.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\Graph.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\ImagePanel.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\ImageView.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\Label.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\Layout.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\MessageDialog.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\Object.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\OpenGL.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\Popup.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\PopupButton.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\ProgressBar.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\Screen.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\Slider.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\StackedWidget.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\TabHeader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\TabWidget.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\TextBox.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\Theme.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\ToolButton.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\VScrollPanel.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\Widget.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\nanogui\Window.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\resources\fonts\harmony_sc_bold.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\resources\fonts\entypo.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\Minecraft.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\GUI.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\Wnd.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\combat\Velocity.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\combat\KillAura.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\player\FastPlace.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\player\Team.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\player\AntiBot.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\visual\ESP.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\combat\AimAssist.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\clickgui\component\Component.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\clickgui\component\impl\PanelComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\clickgui\NewClickGui.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\fight\AutoClicker.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\animation\Animation.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\animation\Easing.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\TimerUtil.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\clickgui\component\impl\ModuleComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\clickgui\component\impl\settings\ValueComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\clickgui\component\impl\settings\impl\BooleanValueComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\Math.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\gui\api\ScrollComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\animation\simple\SimpleAnimation.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\nano\font\NanoVGFontRenderer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\Pattern.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\cleaner\UnloadedModuleCleaner.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\combat\AutoClicker.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\Wstr.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\nano\wrapper\gl2.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\nano\wrapper\gl3.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\MInecraft.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\gui\screens\Screen.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\Vec3.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\HitResult$Type.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\MovingObjectPosition.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\Object.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\combat\TriggerBot.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\mapper\resources\maps\forge1201.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\multiplayer\ClientLevel.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\jdk\Classes.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\LocalPlayer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\LivingEntity.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\AbstractClientPlayer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\player\Player.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\World.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\Entity.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\player\EntityPlayer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\EntityLivingBase.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\entity\EntityPlayerSP.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\InteractionHand.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\java\lang\String.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\BlockPos.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\classes\array.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\classes\bytecode.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\classes\const_pool.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\classes\field_info.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\classes\java_thread.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\classes\instance_klass.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\classes\c_method.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\classes\symbol.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\utility\jvm_internal.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\utility\jvm_static.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\utility\memory_utility.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\utility\vm_helper.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\include_header.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\magic_enum.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\java_hook.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\break\break_point_info.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\break\byte_code_info.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\break\jvm_break_points.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\GameRenderer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\classes\compile_task.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\GitInfo.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\jvm\hotspot\classes\local_variable_table.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\math\Matrix4f.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\xorstr.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\vertex\PoseStack$Pose.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Camera.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\com\mojang\blaze3d\platform\Window.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\hook\hooks\RenderSystemHook.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\chat\Component.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\Entity.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\visual\NameTag.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\StackWalk\StackWalker.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\Vec2.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\common\CommonData.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\Options.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\client\settings\GameSettings.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\commands\arguments\EntityAnchorArgument$Anchor.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\player\Eagle.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\Level.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\state\BlockState.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\state\BlockBehaviour$BlockStateBase.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\Block.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\block\Block.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\block\state\BlockState.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\BlockPos.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\KeyMapping.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\player\Inventory.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\NonNullList.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\player\InventoryPlayer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\item\ItemStack.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\ArmorItem.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\DyeableLeatherItem.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\ItemStack.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\Item.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\item\Item.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\EntityHitResult.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\player\AutoTool.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\phys\BlockHitResult.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\strutils.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\com\mojang\blaze3d\platform\Window.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\com\mojang\blaze3d\vertex\PoseStack$Pose.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\com\mojang\blaze3d\vertex\PoseStack.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\org\joml\Matrix4f.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\client\Minecraft.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\client\player\AbstractClientPlayer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\client\player\LocalPlayer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\resources\ResourceLocation.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\client\multiplayer\ClientLevel.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\phys\Vec3.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\phys\Vec2.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\core\BlockPos.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\core\NonNullList.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\InteractionHand.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\level\Level.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\level\block\Block.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\level\block\state\BlockBehaviour$BlockStateBase.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\level\block\state\BlockState.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\entity\Entity.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\entity\LivingEntity.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\entity\player\Inventory.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\entity\player\Player.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\item\ArmorItem.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\item\DyeableLeatherItem.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\item\Item.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\world\item\ItemStack.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\commands\arguments\EntityAnchorArgument$Anchor.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_20_1\net\minecraft\network\chat\Component.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\resources\fonts\clickgui-icon.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\resources\fonts\roboto.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\visual\ItemESP.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\common.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\compute_common.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\compute_vector_relational.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\qualifier.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\setup.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\type_float.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\type_half.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\type_mat2x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\type_mat2x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\type_mat2x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\type_mat3x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\type_mat3x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\type_mat3x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\type_mat4x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\type_mat4x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\type_mat4x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\type_quat.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\type_vec1.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\type_vec2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\type_vec3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\type_vec4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\_features.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\_fixes.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\_noise.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\_swizzle.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\_swizzle_func.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\detail\_vectorize.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\exponential.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_clip_space.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_common.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double2x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double2x2_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double2x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double2x3_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double2x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double2x4_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double3x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double3x2_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double3x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double3x3_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double3x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double3x4_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double4x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double4x2_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double4x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double4x3_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double4x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_double4x4_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float2x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float2x2_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float2x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float2x3_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float2x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float2x4_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float3x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float3x2_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float3x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float3x3_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float3x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float3x4_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float4x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float4x2_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float4x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float4x3_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float4x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_float4x4_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int2x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int2x2_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int2x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int2x3_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int2x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int2x4_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int3x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int3x2_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int3x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int3x3_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int3x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int3x4_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int4x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int4x2_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int4x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int4x3_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int4x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_int4x4_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_integer.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_projection.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_relational.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_transform.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint2x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint2x2_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint2x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint2x3_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint2x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint2x4_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint3x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint3x2_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint3x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint3x3_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint3x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint3x4_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint4x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint4x2_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint4x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint4x3_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint4x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\matrix_uint4x4_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\quaternion_common.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\quaternion_double.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\quaternion_double_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\quaternion_exponential.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\quaternion_float.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\quaternion_float_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\quaternion_geometric.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\quaternion_relational.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\quaternion_transform.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\quaternion_trigonometric.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\scalar_common.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\scalar_constants.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\scalar_integer.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\scalar_int_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\scalar_packing.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\scalar_reciprocal.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\scalar_relational.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\scalar_uint_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\scalar_ulp.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_bool1.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_bool1_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_bool2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_bool2_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_bool3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_bool3_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_bool4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_bool4_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_common.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_double1.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_double1_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_double2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_double2_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_double3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_double3_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_double4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_double4_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_float1.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_float1_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_float2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_float2_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_float3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_float3_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_float4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_float4_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_int1.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_int1_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_int2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_int2_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_int3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_int3_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_int4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_int4_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_integer.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_packing.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_reciprocal.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_relational.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_uint1.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_uint1_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_uint2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_uint2_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_uint3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_uint3_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_uint4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_uint4_sized.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\vector_ulp.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\ext\_matrix_vectorize.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\fwd.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\geometric.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\glm.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\bitfield.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\color_space.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\constants.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\epsilon.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\integer.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\matrix_access.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\matrix_integer.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\matrix_inverse.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\matrix_transform.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\noise.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\packing.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\quaternion.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\random.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\reciprocal.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\round.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\type_aligned.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\type_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\type_ptr.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\ulp.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtc\vec1.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\associated_min_max.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\bit.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\closest_point.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\color_encoding.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\color_space.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\color_space_YCoCg.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\common.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\compatibility.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\component_wise.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\dual_quaternion.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\easing.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\euler_angles.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\extend.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\extended_min_max.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\exterior_product.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\fast_exponential.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\fast_square_root.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\fast_trigonometry.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\functions.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\gradient_paint.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\handed_coordinate_space.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\hash.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\integer.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\intersect.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\io.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\log_base.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\matrix_cross_product.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\matrix_decompose.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\matrix_factorisation.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\matrix_interpolation.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\matrix_major_storage.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\matrix_operation.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\matrix_query.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\matrix_transform_2d.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\mixed_product.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\norm.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\normal.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\normalize_dot.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\number_precision.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\optimum_pow.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\orthonormalize.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\pca.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\perpendicular.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\polar_coordinates.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\projection.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\quaternion.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\range.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\raw_data.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\rotate_normalized_axis.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\rotate_vector.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\scalar_multiplication.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\scalar_relational.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\spline.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\std_based_type.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\string_cast.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\texture.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\transform.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\transform2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\type_aligned.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\type_trait.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\vector_angle.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\vector_query.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\vec_swizzle.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\gtx\wrap.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\integer.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\mat2x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\mat2x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\mat2x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\mat3x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\mat3x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\mat3x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\mat4x2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\mat4x3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\mat4x4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\matrix.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\packing.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\simd\common.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\simd\exponential.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\simd\geometric.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\simd\integer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\simd\matrix.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\simd\neon.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\simd\packing.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\simd\platform.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\simd\trigonometric.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\simd\vector_relational.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\trigonometric.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\vec2.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\vec3.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\vec4.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\glm\vector_relational.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\entity\item\EntityItem.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\entity\item\ItemEntity.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\gl2d\gl2d.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\gl2d\gl2dParticleSystem.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\render\api\FixedPipelineEmulator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\render.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\Rarity.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\ChatFormatting.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\BlockItem.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\item\ItemBlock.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\hook\HookManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\hook\AbstractHook.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\hook\hooks\BedRendererHook.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BedRenderer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\entity\BedBlockEntity.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\item\DyeColor.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\MultiBufferSource.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BlockEntityRenderDispatcher.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\block\entity\BlockEntity.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\renderer\blockentity\BlockEntityRenderer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\api\chunk\ChunkScanner.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\hook\hooks\ClientPacketListenerHook.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\multiplayer\ClientPacketListener.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundLevelChunkWithLightPacket.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundLightUpdatePacketData.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundLevelChunkPacketData.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundSectionBlocksUpdatePacket.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\SectionPos.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\ChunkPos.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\network\protocol\game\ClientboundForgetLevelChunkPacket.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\hook\HookUtils.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\api\chunk\ChunkSharedFlag.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\hook\hooks\LevelHook.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\chunk\LevelChunk.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\world\chunk\Chunk.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\world\level\chunk\ChunkAccess.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\api\AbstractBlockLocationTracker.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\visual\BlockESP.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\DefaultedRegistry.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\resources\ResourceLocation.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\api\InventoryUtils.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\Registry.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\Vec3.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\Vec3i.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\core\Vec3i.h">
-    <ClInclude Include="src\base\sdk\wrapper\versions\1_18_1\net\minecraft\client\player\Input.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\sdk\wrapper\net\minecraft\util\MovementInput.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\base\features\modules\player\HitDelayFix.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
+    <MASM Include="src\base\jvm\hotspot\utility\getter.asm" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\base\render\gui\input\IOEvents.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="ext\glm\detail\func_common.inl" />
+    <None Include="ext\glm\detail\func_common_simd.inl" />
+    <None Include="ext\glm\detail\func_exponential.inl" />
+    <None Include="ext\glm\detail\func_exponential_simd.inl" />
+    <None Include="ext\glm\detail\func_geometric.inl" />
+    <None Include="ext\glm\detail\func_geometric_simd.inl" />
+    <None Include="ext\glm\detail\func_integer.inl" />
+    <None Include="ext\glm\detail\func_integer_simd.inl" />
+    <None Include="ext\glm\detail\func_matrix.inl" />
+    <None Include="ext\glm\detail\func_matrix_simd.inl" />
+    <None Include="ext\glm\detail\func_packing.inl" />
+    <None Include="ext\glm\detail\func_packing_simd.inl" />
+    <None Include="ext\glm\detail\func_trigonometric.inl" />
+    <None Include="ext\glm\detail\func_trigonometric_simd.inl" />
+    <None Include="ext\glm\detail\func_vector_relational.inl" />
+    <None Include="ext\glm\detail\func_vector_relational_simd.inl" />
+    <None Include="ext\glm\detail\type_half.inl" />
+    <None Include="ext\glm\detail\type_mat2x2.inl" />
+    <None Include="ext\glm\detail\type_mat2x3.inl" />
+    <None Include="ext\glm\detail\type_mat2x4.inl" />
+    <None Include="ext\glm\detail\type_mat3x2.inl" />
+    <None Include="ext\glm\detail\type_mat3x3.inl" />
+    <None Include="ext\glm\detail\type_mat3x4.inl" />
+    <None Include="ext\glm\detail\type_mat4x2.inl" />
+    <None Include="ext\glm\detail\type_mat4x3.inl" />
+    <None Include="ext\glm\detail\type_mat4x4.inl" />
+    <None Include="ext\glm\detail\type_mat4x4_simd.inl" />
+    <None Include="ext\glm\detail\type_quat.inl" />
+    <None Include="ext\glm\detail\type_quat_simd.inl" />
+    <None Include="ext\glm\detail\type_vec1.inl" />
+    <None Include="ext\glm\detail\type_vec2.inl" />
+    <None Include="ext\glm\detail\type_vec3.inl" />
+    <None Include="ext\glm\detail\type_vec4.inl" />
+    <None Include="ext\glm\detail\type_vec4_simd.inl" />
+    <None Include="ext\glm\ext\matrix_clip_space.inl" />
+    <None Include="ext\glm\ext\matrix_common.inl" />
+    <None Include="ext\glm\ext\matrix_integer.inl" />
+    <None Include="ext\glm\ext\matrix_projection.inl" />
+    <None Include="ext\glm\ext\matrix_relational.inl" />
+    <None Include="ext\glm\ext\matrix_transform.inl" />
+    <None Include="ext\glm\ext\quaternion_common.inl" />
+    <None Include="ext\glm\ext\quaternion_common_simd.inl" />
+    <None Include="ext\glm\ext\quaternion_exponential.inl" />
+    <None Include="ext\glm\ext\quaternion_geometric.inl" />
+    <None Include="ext\glm\ext\quaternion_relational.inl" />
+    <None Include="ext\glm\ext\quaternion_transform.inl" />
+    <None Include="ext\glm\ext\quaternion_trigonometric.inl" />
+    <None Include="ext\glm\ext\scalar_common.inl" />
+    <None Include="ext\glm\ext\scalar_constants.inl" />
+    <None Include="ext\glm\ext\scalar_integer.inl" />
+    <None Include="ext\glm\ext\scalar_packing.inl" />
+    <None Include="ext\glm\ext\scalar_reciprocal.inl" />
+    <None Include="ext\glm\ext\scalar_relational.inl" />
+    <None Include="ext\glm\ext\scalar_ulp.inl" />
+    <None Include="ext\glm\ext\vector_common.inl" />
+    <None Include="ext\glm\ext\vector_integer.inl" />
+    <None Include="ext\glm\ext\vector_packing.inl" />
+    <None Include="ext\glm\ext\vector_reciprocal.inl" />
+    <None Include="ext\glm\ext\vector_relational.inl" />
+    <None Include="ext\glm\ext\vector_ulp.inl" />
+    <None Include="ext\glm\gtc\bitfield.inl" />
+    <None Include="ext\glm\gtc\color_space.inl" />
+    <None Include="ext\glm\gtc\constants.inl" />
+    <None Include="ext\glm\gtc\epsilon.inl" />
+    <None Include="ext\glm\gtc\integer.inl" />
+    <None Include="ext\glm\gtc\matrix_access.inl" />
+    <None Include="ext\glm\gtc\matrix_inverse.inl" />
+    <None Include="ext\glm\gtc\matrix_transform.inl" />
+    <None Include="ext\glm\gtc\noise.inl" />
+    <None Include="ext\glm\gtc\packing.inl" />
+    <None Include="ext\glm\gtc\quaternion.inl" />
+    <None Include="ext\glm\gtc\quaternion_simd.inl" />
+    <None Include="ext\glm\gtc\random.inl" />
+    <None Include="ext\glm\gtc\round.inl" />
+    <None Include="ext\glm\gtc\type_precision.inl" />
+    <None Include="ext\glm\gtc\type_ptr.inl" />
+    <None Include="ext\glm\gtc\ulp.inl" />
+    <None Include="ext\glm\gtx\associated_min_max.inl" />
+    <None Include="ext\glm\gtx\bit.inl" />
+    <None Include="ext\glm\gtx\closest_point.inl" />
+    <None Include="ext\glm\gtx\color_encoding.inl" />
+    <None Include="ext\glm\gtx\color_space.inl" />
+    <None Include="ext\glm\gtx\color_space_YCoCg.inl" />
+    <None Include="ext\glm\gtx\common.inl" />
+    <None Include="ext\glm\gtx\compatibility.inl" />
+    <None Include="ext\glm\gtx\component_wise.inl" />
+    <None Include="ext\glm\gtx\dual_quaternion.inl" />
+    <None Include="ext\glm\gtx\easing.inl" />
+    <None Include="ext\glm\gtx\euler_angles.inl" />
+    <None Include="ext\glm\gtx\extend.inl" />
+    <None Include="ext\glm\gtx\extended_min_max.inl" />
+    <None Include="ext\glm\gtx\exterior_product.inl" />
+    <None Include="ext\glm\gtx\fast_exponential.inl" />
+    <None Include="ext\glm\gtx\fast_square_root.inl" />
+    <None Include="ext\glm\gtx\fast_trigonometry.inl" />
+    <None Include="ext\glm\gtx\float_notmalize.inl" />
+    <None Include="ext\glm\gtx\functions.inl" />
+    <None Include="ext\glm\gtx\gradient_paint.inl" />
+    <None Include="ext\glm\gtx\handed_coordinate_space.inl" />
+    <None Include="ext\glm\gtx\hash.inl" />
+    <None Include="ext\glm\gtx\integer.inl" />
+    <None Include="ext\glm\gtx\intersect.inl" />
+    <None Include="ext\glm\gtx\io.inl" />
+    <None Include="ext\glm\gtx\log_base.inl" />
+    <None Include="ext\glm\gtx\matrix_cross_product.inl" />
+    <None Include="ext\glm\gtx\matrix_decompose.inl" />
+    <None Include="ext\glm\gtx\matrix_factorisation.inl" />
+    <None Include="ext\glm\gtx\matrix_interpolation.inl" />
+    <None Include="ext\glm\gtx\matrix_major_storage.inl" />
+    <None Include="ext\glm\gtx\matrix_operation.inl" />
+    <None Include="ext\glm\gtx\matrix_query.inl" />
+    <None Include="ext\glm\gtx\matrix_transform_2d.inl" />
+    <None Include="ext\glm\gtx\mixed_product.inl" />
+    <None Include="ext\glm\gtx\norm.inl" />
+    <None Include="ext\glm\gtx\normal.inl" />
+    <None Include="ext\glm\gtx\normalize_dot.inl" />
+    <None Include="ext\glm\gtx\number_precision.inl" />
+    <None Include="ext\glm\gtx\optimum_pow.inl" />
+    <None Include="ext\glm\gtx\orthonormalize.inl" />
+    <None Include="ext\glm\gtx\pca.inl" />
+    <None Include="ext\glm\gtx\perpendicular.inl" />
+    <None Include="ext\glm\gtx\polar_coordinates.inl" />
+    <None Include="ext\glm\gtx\projection.inl" />
+    <None Include="ext\glm\gtx\quaternion.inl" />
+    <None Include="ext\glm\gtx\raw_data.inl" />
+    <None Include="ext\glm\gtx\rotate_normalized_axis.inl" />
+    <None Include="ext\glm\gtx\rotate_vector.inl" />
+    <None Include="ext\glm\gtx\scalar_relational.inl" />
+    <None Include="ext\glm\gtx\spline.inl" />
+    <None Include="ext\glm\gtx\std_based_type.inl" />
+    <None Include="ext\glm\gtx\string_cast.inl" />
+    <None Include="ext\glm\gtx\texture.inl" />
+    <None Include="ext\glm\gtx\transform.inl" />
+    <None Include="ext\glm\gtx\transform2.inl" />
+    <None Include="ext\glm\gtx\type_aligned.inl" />
+    <None Include="ext\glm\gtx\type_trait.inl" />
+    <None Include="ext\glm\gtx\vector_angle.inl" />
+    <None Include="ext\glm\gtx\vector_query.inl" />
+    <None Include="ext\glm\gtx\wrap.inl" />
     <None Include="src\base\sdk\mapper\resources\maps\forge1201.srg" />
-    <None Include="ext\glm\detail\func_common.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\func_common_simd.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\func_exponential.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\func_exponential_simd.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\func_geometric.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\func_geometric_simd.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\func_integer.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\func_integer_simd.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\func_matrix.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\func_matrix_simd.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\func_packing.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\func_packing_simd.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\func_trigonometric.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\func_trigonometric_simd.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\func_vector_relational.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\func_vector_relational_simd.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_half.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_mat2x2.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_mat2x3.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_mat2x4.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_mat3x2.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_mat3x3.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_mat3x4.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_mat4x2.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_mat4x3.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_mat4x4.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_mat4x4_simd.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_quat.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_quat_simd.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_vec1.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_vec2.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_vec3.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_vec4.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\detail\type_vec4_simd.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\matrix_clip_space.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\matrix_common.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\matrix_integer.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\matrix_projection.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\matrix_relational.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\matrix_transform.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\quaternion_common.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\quaternion_common_simd.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\quaternion_exponential.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\quaternion_geometric.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\quaternion_relational.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\quaternion_transform.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\quaternion_trigonometric.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\scalar_common.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\scalar_constants.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\scalar_integer.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\scalar_packing.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\scalar_reciprocal.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\scalar_relational.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\scalar_ulp.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\vector_common.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\vector_integer.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\vector_packing.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\vector_reciprocal.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\vector_relational.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\ext\vector_ulp.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtc\bitfield.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtc\color_space.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtc\constants.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtc\epsilon.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtc\integer.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtc\matrix_access.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtc\matrix_inverse.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtc\matrix_transform.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtc\noise.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtc\packing.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtc\quaternion.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtc\quaternion_simd.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtc\random.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtc\round.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtc\type_precision.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtc\type_ptr.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtc\ulp.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\associated_min_max.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\bit.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\closest_point.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\color_encoding.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\color_space.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\color_space_YCoCg.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\common.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\compatibility.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\component_wise.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\dual_quaternion.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\easing.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\euler_angles.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\extend.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\extended_min_max.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\exterior_product.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\fast_exponential.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\fast_square_root.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\fast_trigonometry.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\float_notmalize.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\functions.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\gradient_paint.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\handed_coordinate_space.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\hash.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\integer.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\intersect.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\io.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\log_base.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\matrix_cross_product.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\matrix_decompose.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\matrix_factorisation.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\matrix_interpolation.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\matrix_major_storage.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\matrix_operation.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\matrix_query.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\matrix_transform_2d.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\mixed_product.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\norm.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\normal.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\normalize_dot.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\number_precision.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\optimum_pow.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\orthonormalize.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\pca.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\perpendicular.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\polar_coordinates.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\projection.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\quaternion.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\raw_data.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\rotate_normalized_axis.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\rotate_vector.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\scalar_relational.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\spline.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\std_based_type.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\string_cast.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\texture.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\transform.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\transform2.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\type_aligned.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\type_trait.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\vector_angle.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\vector_query.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="ext\glm\gtx\wrap.inl">
-      <Filter>头文件</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <MASM Include="src\base\jvm\hotspot\utility\getter.asm">
-      <Filter>源文件</Filter>
-    </MASM>
   </ItemGroup>
 </Project>
