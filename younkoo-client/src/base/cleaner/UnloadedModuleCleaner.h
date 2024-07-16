@@ -63,7 +63,6 @@ namespace UnloadedModuleCleaner
 		// this pattern is only for win11
 		auto pLdrpRecordUnloadEvent = CUtil_Pattern::Find((uintptr_t)ntdll, "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 41 54 41 55 41 56 41 57 48 83 EC 30 8B 05 ? ? ? ?");
 		if (!pLdrpRecordUnloadEvent) return;
-		std::cout << (void*)pLdrpRecordUnloadEvent << std::endl;
 		{
 
 			ScopedVirtualProtect vp((PVOID)pLdrpRecordUnloadEvent, 0x1, PAGE_EXECUTE_READWRITE);

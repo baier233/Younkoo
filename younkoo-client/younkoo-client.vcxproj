@@ -136,7 +136,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>OpenGl32.lib;jvm.lib;glew32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>;ws2_32.lib;OpenGl32.lib;jvm.lib;glew32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>powershell -ExecutionPolicy Bypass -Command "&amp; { $(ProjectDir)scripts\update_git_info.ps1 $(ProjectDir) }"</Command>
@@ -162,10 +162,12 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>OpenGl32.lib;jvm.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>;ws2_32.lib;OpenGl32.lib;jvm.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\base\protocol\packer.cpp" />
+    <ClCompile Include="src\base\protocol\verify.cpp" />
     <ClCompile Include="src\base\sdk\hook\hooks\PlayerHook.cpp" />
     <ClCompile Include="src\base\features\modules\combat\Jamming.cpp" />
     <ClCompile Include="src\base\config\ConfigManager.cpp" />
@@ -302,6 +304,8 @@
     <ClCompile Include="src\base\sdk\wrapper\net\minecraft\util\Vec3i.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\base\protocol\packer.h" />
+    <ClInclude Include="src\base\protocol\verify.h" />
     <ClInclude Include="src\base\sdk\hook\hooks\PlayerHook.h" />
     <ClInclude Include="src\base\features\modules\combat\Jamming.h" />
     <ClInclude Include="src\base\jvm\jni\types\Array.hpp">
